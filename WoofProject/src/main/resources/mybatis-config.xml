@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- mapUnderscoreToCamelCase 프로퍼티 값을 true 로 지정 -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+	<!-- TypeAlias 로 맵핑 파일에서 반복적으로 사용될 패키지의 이름을 정의한다. -->
+	<typeAliases>
+		<package name="com.woof.domain" />
+	</typeAliases>
+</configuration>
