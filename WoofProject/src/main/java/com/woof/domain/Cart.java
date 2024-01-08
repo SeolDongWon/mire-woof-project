@@ -9,4 +9,15 @@ import lombok.ToString;
 @ToString
 public class Cart {
 
+	private int cartNo;
+	private String username;
+	private int itemNo;
+	private String itemName;
+	private int quantity;
+	private int price;
+	private String itemSize;
+	private String itemMainPic;
+	private String checkStatus;
+	
+	private int newQuantity;
 }
