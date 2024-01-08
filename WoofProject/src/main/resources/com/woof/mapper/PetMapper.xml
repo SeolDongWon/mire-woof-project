@@ -1,3 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woof.mapper.PetMapper"></mapper>
+<mapper namespace="com.woof.mapper.PetMapper">
+
+	<select id="getPet"  resultType="com.woof.domain.Pet">
+		SELECT * FROM pet WHERE petNO = #{petNo}
+	</select>
+
+	<select id="getPetList" resultType="com.woof.domain.Pet">
+		SELECT * FROM pet ORDER BY petNo
+	</select>
+
+	<insert id="insertPet">
+		"INSERT INTO pet (petNo, petName, age, petType, gender, petDesc, petRegDate,
+		petState, petMainPic, petSubPic)
+		VALUES (petNo_seq.nextVal, #{username}, #{age}, #{petType}, #{gender},
+		#{petDesc}, SYSDATE, #{petState}, #{petMainPic}, #{petSubPic})"
+	</insert>
+
+	<update id="modifyPet">
+		"UPDATE pet SET petName=#{petName}, age=#{age}, petType=#{petType},
+		gender=#{gender}, petDesc=#{petDesc}, petModDate=SYSDATE,
+		petState=#{petState}, petMainPic=#{petMainPic}, petSubPic=#{petSubPic}
+		WHERE petNo = #{petNo}"
+	</update>
+
+	<delete id="deletePet">
+		DELETE FROM pet WHERE petNo=#{petNo}
+	</delete>
+
+	<select id="searchPetType" resultType="com.woof.domain.Pet">
+		SELECT * FROM pet WHERE petType=#{searchType} ORDER BY petNo
+	</select>
+
+</mapper>
