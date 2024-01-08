@@ -26,14 +26,17 @@ public class PetServiceImpl implements PetService {
 
 	@Override
 	public void insertPet(Pet pet)  throws Exception{
+		mapper.insertPet(pet);
 	}
 
 	@Override
 	public void modifyPet(Pet pet)  throws Exception{
+		mapper.modifyPet(pet);
 	}
 
 	@Override
 	public void deletePet(Pet pet)  throws Exception{
+		mapper.insertPet(pet);
 	}
 
 	@Override

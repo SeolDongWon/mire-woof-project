@@ -5,6 +5,9 @@ import java.util.List;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,15 +31,22 @@ public class PetController {
 	}
 
 	@RequestMapping(value="/getPetList")
-	public String getPetList(Pet pet)  throws Exception{
-//		service.getPetList(pet);
+	public String getPetList(Pet pet,Model model)  throws Exception{
+		List<Pet> petList = service.getPetList(pet);
+		model.addAttribute("petList", petList);
 		return "/pet/petList";
 	}
 
-	@RequestMapping(value="/insertPet", method = RequestMethod.POST)
+	@GetMapping(value="/insertPet")
+	public String insertPetForm(Pet pet)  throws Exception{
+		return "/admin/pets/insertPet";
+	}
+	@PostMapping(value="/insertPet")
 	public String insertPet(Pet pet)  throws Exception{
+		log.info("insertPet start");
+		log.info("pet:"+pet.toString());
 		service.insertPet(pet);
-		return "/insertPet";
+		return "/pet/petList";
 	}
 
 	@RequestMapping(value="/modifyPet", method = RequestMethod.POST)

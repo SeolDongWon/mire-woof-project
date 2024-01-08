@@ -35,7 +35,11 @@
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
 		<section>
+		<a href="/pet/insertPet">/pet/insertPet</a>
 		팻 리스트
+		<c:forEach var="pet" items="${petList}">
+		${pet.petName}
+		</c:forEach>
 		</section>
 	</main>
 <!-- Footer Area -->
