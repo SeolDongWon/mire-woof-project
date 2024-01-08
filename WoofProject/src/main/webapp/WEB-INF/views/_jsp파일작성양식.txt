@@ -1,0 +1,51 @@
+1. form.jsp 파일을 복사
+
+2. 복사한 파일의 이름을 자신이 만들 페이지 이름으로 변경
+
+3. css와 script 사용시 경로
+
+	<!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
+	<%-- <%@ include file="" %> --%>
+	<!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
+	<%-- <%@ include file="" %> --%>
+
+	위의 include 부분의 주석을 풀고 경로 설정
+	
+4. 아래에서 자신이 만드는 페이지에 해당하는 서브메뉴를 들고간다
+	<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
+	<menu class="m-0 p-0">
+		<ul class="nav nav-underline nav-justified justify-content-around border-bottom">
+          <li class="navMenu nav-item"><a href="" class="nav-link text-black">시설소개</a></li>
+          <li class="navMenu nav-item"><a href="" class="nav-link text-black">오시는 길</a></li>
+          <li class="navMenu nav-item"><a href="" class="nav-link text-black">공지사항</a></li>
+        </ul> -->
+			<!-- <ul class="nav nav-underline nav-justified justify-content-around border-bottom">
+          <li class="nav-item"><a href="" class="nav-link text-black">입양견 목록</a></li>
+          <li class="nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
+        </ul>
+        <ul class="nav nav-underline nav-justified justify-content-around border-bottom">
+          <li class="nav-item"><a href="" class="nav-link text-black">상품목록</a></li>
+        </ul>
+        <ul class="nav nav-underline nav-justified justify-content-around border-bottom">
+          <li class="nav-item"><a href="" class="nav-link text-black">자주묻는 질문</a></li>
+          <li class="nav-item"><a href="" class="nav-link text-black">문의사항</a></li>
+        </ul>
+        <ul class="nav nav-underline nav-justified justify-content-around border-bottom">
+          <li class="nav-item"><a href="" class="nav-link text-black">내정보</a></li>
+          <li class="nav-item"><a href="" class="nav-link text-black">장바구니</a></li>
+          <li class="nav-item"><a href="" class="nav-link text-black">구매내역</a></li>
+        </ul>
+	</menu>
+	
+5. 메인 컨텐츠는 content area 주석 아래에 작성한다
+<!-- ================================================Content Area======================================================== -->
+
+
+
+
+
+
+
+
+
+

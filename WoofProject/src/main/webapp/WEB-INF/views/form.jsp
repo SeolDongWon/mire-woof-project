@@ -8,29 +8,36 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Image Shop</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
+<title>mire woof</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- css common Area 헤더 푸터에 쓸 css 경로-->
+<%@ include file="/WEB-INF/views/common/style.jsp"%>
+<!-- script common Area 헤더 푸터에 쓸 script 경로-->
+<%@ include file="/WEB-INF/views/common/script.jsp"%>
+<!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
+<%-- <%@ include file="" %> --%>
+<!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
+<%-- <%@ include file="" %> --%>
 </head>
 <body>
-	<!-- Header Area -->
+<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<!-- Menu Area -->
+<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/menu.jsp"%>
-
-
-	<!-- Content Area -->
-	<div align="center">
-	
-		<h1>
-			<!-- 메시지 프로퍼티 파일로부터 메시지 내용을 읽어온다. -->
-			<spring:message code="common.homeWelcome" />
-		</h1>
-		<P>${serverTime}</P>
-		
-	</div>
-	<!-- Footer Area -->
+<!-- subMenu Area -->
+	<main>
+<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
+<!-- ================================================Content Area======================================================== -->
+		<section>
+		</section>
+	</main>
+<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-
 </body>
 </html>
