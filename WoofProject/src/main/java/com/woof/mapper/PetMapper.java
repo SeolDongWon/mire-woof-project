@@ -22,4 +22,9 @@ public interface PetMapper {
 
 	// 키워드에 해당하는 팻 리스트 불러오기
 	public <List> Pet searchPetType(Pet pet) throws Exception;
+
+	public String petMainPic(Integer petId) throws Exception;
+
+	public String petSubPic(Integer petId) throws Exception;
+
 }

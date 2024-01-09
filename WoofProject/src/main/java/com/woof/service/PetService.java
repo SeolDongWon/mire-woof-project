@@ -17,4 +17,9 @@ public interface PetService {
 	public void deletePet(Pet pet) throws Exception;
 	// 키워드에 해당하는 팻 리스트 불러오기
 	public <List> Pet searchPetType(Pet pet) throws Exception;
+	
+	// 사진
+	public String petMainPic(Integer petId) throws Exception;
+
+	public String petSubPic(Integer petId) throws Exception;
 }

@@ -43,5 +43,16 @@ public class PetServiceImpl implements PetService {
 	public <List> Pet searchPetType(Pet pet)  throws Exception{
 		return mapper.searchPetType(pet);
 	}
+	
+	
+	@Override
+	public String petMainPic(Integer petId) throws Exception {
+		return mapper.petMainPic(petId);
+	}
+
+	@Override
+	public String petSubPic(Integer petId) throws Exception {
+		return mapper.petSubPic(petId);
+	}
 
 }

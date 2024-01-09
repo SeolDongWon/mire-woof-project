@@ -33,17 +33,38 @@
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
 	<menu id="subMenu" class="m-0 p-0">
-		<ul class="nav nav-underline nav-justified justify-content-around border-bottom">
-			<li class="menu nav-item"><a href="" class="nav-link text-black">입양견 목록</a></li>
+		<ul
+			class="nav nav-underline nav-justified justify-content-around border-bottom">
+			<li class="menu nav-item"><a href="" class="nav-link text-black">입양견
+					목록</a></li>
 			<li class="menu nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
 		</ul>
 	</menu>
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
 		<section>
-			<a href="/pet/insertPet">/pet/insertPet</a> 팻 리스트
+			<div class="card" style="width: 18rem;">
+				<img src="/resource/image/pet/puppy.png" class="card-img-top" alt="...">
+				<div class="card-body" align="center">
+					<h5 class="card-title">펫 정보</h5>
+					<hr>
+					<a href="/pet/insertPet">${pet.petName}/${pet.petAge}/${pet.petType}</a>
+				</div>
+			</div>
+
 			<c:forEach var="pet" items="${petList}">
-		${pet.petName}
+							${pet.petNo}
+							${pet.username}
+							${pet.petName}
+							${pet.petAge}
+							${pet.petType}
+							${pet.petGender}
+							${pet.petDesc}
+							${pet.petRegDate}
+							${pet.petModDate}
+							${pet.adoptDate}
+							${pet.petStatus}
+							
 		</c:forEach>
 		</section>
 	</main>

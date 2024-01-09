@@ -46,25 +46,46 @@
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 	<menu id="subMenu" class="m-0 p-0">
-		<ul class="nav nav-underline nav-justified justify-content-around border-bottom">
-    		<li class="menu nav-item"><a href="" class="nav-link text-black">입양견 목록</a></li>
-     		<li class="menu nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
-    	</ul>
+		<ul
+			class="nav nav-underline nav-justified justify-content-around border-bottom">
+			<li class="menu nav-item"><a href="" class="nav-link text-black">입양견
+					목록</a></li>
+			<li class="menu nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
+		</ul>
 	</menu>
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
 		<section>
-			팻작성 
+			팻작성
 			<form:form modelAttribute="pet" action="insertPet">
-				이름<form:input path="petName" /><br>
-				나이<form:input path="petAge" /><br>
-				품중<form:input path="petType" /><br>
-				성별<form:input path="petGender" /><br>
-				설명<form:input path="petDesc" /><br>
-				상태<form:input path="petStatus" /><br>
-				메인사진<form:input path="petMainPic" /><br>
-				사진<form:input path="petSubPic" /><br>
-
+				반려견번호<form:input path="petNo" />
+				<br>
+				유저아이디<form:input path="username" />
+				<br>
+				이름<form:input path="petName" />
+				<br>
+				나이<form:input path="petAge" />
+				<br>
+				품종<form:input path="petType" />
+				<br>
+				성별<form:input path="petGender" />
+				<br>
+				설명<form:input path="petDesc" />
+				<br>
+				등록일<form:input path="petRegDate" />
+				<br>
+				수정날짜<form:input path="petModDate" />
+				<br>
+				입양일<form:input path="adoptDate" />
+				<br>
+				입양유무<form:input path="petStatus" />
+				<br>
+				 메인사진<input type="file" name="pictures" path="petMainPic" />
+				<br>
+				사진<input type="file" name="pictures" path="petSubPic" />
+				<br>
+				<a href="#">상품 편집</a>
+				<a href="#">상품 제거</a>
 			</form:form>
 			<div>
 				<button type="submit" id="btnRegister">Register</button>
