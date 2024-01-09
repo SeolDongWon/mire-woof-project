@@ -26,7 +26,7 @@
         </ul>
       </div> -->
       <div class="text-center mb-3">
-        <a href="woofMain.html">
+        <a href="/">
           <img src="/resource/image/header/mirewoof.jpg" alt="적당한 로고 / 클릭하면 메인화면으로" style="height: 100px;" id="top">
         </a>
       </div>

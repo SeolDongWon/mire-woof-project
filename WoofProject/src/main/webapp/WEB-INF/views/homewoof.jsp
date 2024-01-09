@@ -28,6 +28,12 @@
 	<%@ include file="/WEB-INF/views/common/menu.jsp" %> 
 <!-- subMenu Area -->
 	<main>
+	<form action="/item/itemList" method="get">
+		<button type="submit">Item list</button>
+	</form>
+	<form action="/item/admin/insertItem" method="get">
+		<button type="submit">Insert item</button>
+	</form>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
       <section class="pt-2">

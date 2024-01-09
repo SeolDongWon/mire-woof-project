@@ -16,6 +16,10 @@ public interface ItemService {
 	
 	public void deleteItem(Item item) throws Exception;
 	
+	public String getItemMainPic(Integer itemId) throws Exception;
+	
+	public String getItemSubPic(Integer itemId) throws Exception;
+	
 	public List<Item> searchItemType(Item item) throws Exception;
 	
 	public List<Item> searchItemKeyword(Item item) throws Exception;

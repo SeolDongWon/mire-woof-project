@@ -41,10 +41,20 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
+	public String getItemMainPic(Integer itemId) throws Exception {
+		return mapper.getItemMainPic(itemId);
+	}
+
+	@Override
+	public String getItemSubPic(Integer itemId) throws Exception {
+		return mapper.getItemSubPic(itemId);
+	}
+	
+	@Override
 	public List<Item> searchItemType(Item item) throws Exception {
 		return mapper.searchItemType(item);
 	}
-
+	
 	@Override
 	public List<Item> searchItemKeyword(Item item) throws Exception {
 		return mapper.searchItemKeyword(item);

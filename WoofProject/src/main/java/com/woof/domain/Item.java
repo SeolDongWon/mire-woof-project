@@ -1,6 +1,9 @@
 package com.woof.domain;
 
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +18,6 @@ public class Item {
 	private String itemName;
 	private int price;
 	private int stock;
-	private String itemSize;
 	private String itemType;
 	private Date itemRegDate;
 	private String itemMainPic;
@@ -24,4 +26,6 @@ public class Item {
 	
 	private String searchItemType;
 	private String searchKeyword;
+	
+	private List<MultipartFile> pictures;
 }

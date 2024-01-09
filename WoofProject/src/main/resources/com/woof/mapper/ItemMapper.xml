@@ -8,16 +8,22 @@
 		SELECT * FROM item ORDER BY itemRegDate DESC
 	</select>
 	<insert id="insertItem">
-		INSERT INTO item (itemNo, itemName, price, stock, size, itemRegDate, itemMainPic, itemSubPic, itemDesc) VALUES 
-		(itemNo_seq.nextVal, #{itemName}, #{price}, #{stock}, #{size}, SYSDATE, #{itemMainPic}, #{itemSubPic}, #{itemDesc})
+		INSERT INTO item (itemNo, itemName, price, stock, itemType, itemRegDate, itemMainPic, itemSubPic, itemDesc) VALUES 
+		(itemNo_seq.nextVal, #{itemName}, #{price}, #{stock}, #{itemType}, SYSDATE, #{itemMainPic}, #{itemSubPic}, #{itemDesc})
 	</insert>
 	<update id="modifyItem">
-		UPDATE item SET itemName=#{itemName}, price=#{price}, stock=#{stock}, size=#{size}, itemType=#{itemType}, 
+		UPDATE item SET itemName=#{itemName}, price=#{price}, stock=#{stock}, itemType=#{itemType}, 
 		itemMainPic=#{itemMainPic}, itemSubPic=#{itemSubPic}, itemDesc=#{itemDesc} WHERE itemNo=#{itemNo}
 	</update>
 	<delete id="deleteItem">
 		DELETE FROM item WHERE itemNo=#{itemNo}
 	</delete>
+	<select id="getItemMainPic" resultType="String">
+		SELECT itemMainPic FROM item WHERE itemNo = #{itemNo}
+	</select>
+	<select id="getItemSubPic" resultType="String">
+		SELECT itemSubPic FROM item WHERE itemNo = #{itemNo}
+	</select>
 	<select id="searchItemType" resultType="Item">
 		SELECT * FROM item WHERE itemType=#{searchType} ORDER BY itemNo
 	</select>
