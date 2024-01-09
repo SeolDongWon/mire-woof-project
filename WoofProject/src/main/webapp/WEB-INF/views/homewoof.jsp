@@ -74,8 +74,7 @@
                   <div class="h-75 overflow-hidden rounded ">
                     <img src="/resource/image/mainPage/cat1.jpg" alt="" class="w-100">
                   </div>
-                  <div class="h-25 overflow-hidden p-1"
-                    style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:4;">
+                  <div class="h-25 overflow-hidden p-1" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:4;">
                     입양후기 작성 내용
                   </div>
                 </a>

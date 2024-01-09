@@ -5,8 +5,8 @@
       <!-- 로그인에 따라 출력이 달라짐 -->
       <div class="d-flex justify-content-end">
         <ul class="nav nav-underline  justify-content-around">
-          <li class="nav-item"><a href="#" class="nav-link text-black">로그인</a></li>
-          <li class="nav-item"><a href="#" class="nav-link text-black">회원가입</a></li>
+          <li class="nav-item"><a href="/account/loginForm" class="nav-link text-black">로그인</a></li>
+          <li class="nav-item"><a href="/account/createAccountForm" class="nav-link text-black">회원가입</a></li>
         </ul>
       </div>
       <!-- <div class="d-flex justify-content-end">
@@ -26,7 +26,7 @@
         </ul>
       </div> -->
       <div class="text-center mb-3">
-        <a href="woofMain.html">
+        <a href="/">
           <img src="/resource/image/header/mirewoof.jpg" alt="적당한 로고 / 클릭하면 메인화면으로" style="height: 100px;" id="top">
         </a>
       </div>

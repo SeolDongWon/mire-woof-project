@@ -11,8 +11,7 @@
 	</select>
 	<!-- 계정 등록 -->
 	<insert id="registerAccount">
-		INSERT INTO account VALUES #{username}, #{password}, #{name}, #{tel},
-		#{address}, 'active', SYSDATE
+		INSERT INTO account VALUES (#{username}, #{password}, #{name}, #{tel}, #{address}, 'active', SYSDATE)
 	</insert>
 	<!-- 정보 수정 -->
 	<update id="modifyAccount">
