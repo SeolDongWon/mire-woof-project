@@ -19,6 +19,8 @@ public interface PetService {
 	public <List> Pet searchPetType(Pet pet) throws Exception;
 	
 	// 사진
+	public List<Pet> list() throws Exception;
+	
 	public String petMainPic(Integer petId) throws Exception;
 
 	public String petSubPic(Integer petId) throws Exception;

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.woof.domain.Pet;
 import com.woof.service.PetService;
@@ -35,8 +36,7 @@ import lombok.extern.java.Log;
 public class PetController {
 	@Autowired
 	private PetService service;
-	@Value("${upload.path}")
-	private String uploadPath;
+	
 	
 	@RequestMapping(value="/getPet")
 	public String getPet(Pet pet)  throws Exception{
@@ -80,6 +80,53 @@ public class PetController {
 		service.searchPetType(pet);
 		return "/searchPetType";
 	}
+	
+//----------------------------사진 업로드----------------------------------
+	
+	@Value("${upload.path}")
+	private String uploadPath;
+	
+	@RequestMapping(value = "/petList", method = RequestMethod.GET)
+	public void list(Model model) throws Exception{
+		List<Pet> petList = this.service.list();
+		model.addAttribute("petList", petList);
+	}
+	
+	@RequestMapping(value = "/insertPet", method = RequestMethod.GET)
+	public String registerForm(Model model) {
+		model.addAttribute(new Pet());
+		return "pet/insertPet";
+	}
+	
+	@RequestMapping(value = "/insertPet", method = RequestMethod.POST)
+	public String register(Pet pet , Model model)throws Exception{
+		List<MultipartFile> pictures = pet.getPictures();
+		
+		for(int i = 0; i < pictures.size(); i++) {
+			MultipartFile file = pictures.get(i);
+			
+			log.info("originalName: " + file.getOriginalFilename());
+			log.info("size: " + file.getSize());
+			log.info("contentType: " + file.getContentType());
+			
+			String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
+			
+			if(i==0) {
+				pet.setPetMainPic(savedName);
+			}else if(i == 1) {
+				pet.setPetSubPic(savedName);
+			}
+		}
+		this.service.insertPet(pet);
+		model.addAttribute("사진", "등록이 완료되었습니다.");
+		return "pet/petList";
+	}
+	
+	
+	
+	
+	
+	
 	
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
 		UUID uid = UUID.randomUUID();

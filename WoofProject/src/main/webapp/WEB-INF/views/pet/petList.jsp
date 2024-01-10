@@ -44,11 +44,11 @@
 		<!-- ================================================Content Area======================================================== -->
 		<section>
 			<div class="card" style="width: 18rem;">
-				<img src="/resource/image/pet/puppy.png" class="card-img-top" alt="...">
+				<a href="/pet/insertPet"><img src="/resource/image/pet/puppy.png" class="card-img-top" alt="..."></a>
 				<div class="card-body" align="center">
 					<h5 class="card-title">펫 정보</h5>
 					<hr>
-					<a href="/pet/insertPet">${pet.petName}/${pet.petAge}/${pet.petType}</a>
+					<a href="/pet/insertPet">이름:${pet.petName}/나이:${pet.petAge}/품종:${pet.petType}</a>
 				</div>
 			</div>
 
@@ -61,8 +61,6 @@
 							${pet.petGender}
 							${pet.petDesc}
 							${pet.petRegDate}
-							${pet.petModDate}
-							${pet.adoptDate}
 							${pet.petStatus}
 							
 		</c:forEach>
