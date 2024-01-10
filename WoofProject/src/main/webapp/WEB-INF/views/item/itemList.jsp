@@ -34,13 +34,15 @@
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-		<table class="table">
-		<tr>
-			<th align="center" width="70">Item name</th>
-			<th align="center" width="70">Price</th>
-			<th align="center" width="70">Category</th>
-			<th align="center" width="70">Picture</th>
-		</tr>
+	<table class="table">
+		<thead class="t-head">
+			<tr>
+				<th class="align-middle text-center">Item name</th>
+				<th class="align-middle text-center">Price</th>
+				<th class="align-middle text-center">Category</th>
+				<th class="align-middle text-center">Main picture</th>
+			</tr>
+		</thead>
 		<c:choose>
 			<c:when test="${empty itemList}">
 				<tr>
@@ -50,25 +52,16 @@
 			<c:otherwise>
 				<c:forEach items="${itemList}" var="item">
 					<tr>
-						<td align="center">${item.itemName}</td>
-						<td align="center">${item.price}</td>
-						<td align="center">${item.itemType}</td>
-						<td align="center"><img src="getItemMainPic?itemNo=${item.itemNo}" width="300" height="300"></td>
+						<td class="align-middle text-center">${item.itemName}</td>
+						<td class="align-middle text-center">${item.price}</td>
+						<td class="align-middle text-center">${item.itemType}</td>
+						<td class="align-middle text-center"><img src="getItemMainPic?itemNo=${item.itemNo}" width="175" height="175"></td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 	</table>
-	
-	<!-- unused variables
-	<input type="hidden" value="${itemList.itemNo}" name="itemNo"/>  
-	<input type="hidden" value="${itemList.stock}" name="stock"/>  
-	<input type="hidden" value="${itemList.size}" name="size"/>  
-	<input type="hidden" value="${itemList.itemRegDate}" name="itemRegDate"/>  
-	<td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${itemList.itemRegDate}" /></td>
-	<input type="hidden" value="${itemList.itemSubPic}" name="itemSubPic"/>  
-	<input type="hidden" value="${itemList.itemDesc}" name="itemDesc"/>  
-	-->
+
 	
 	</main>
 <!-- Footer Area -->

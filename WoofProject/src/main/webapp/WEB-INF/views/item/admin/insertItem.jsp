@@ -62,7 +62,9 @@
 				</tr>
 				<tr>
 					<td>Item category</td>
-					<td><form:input path="itemType" /></td>
+					<td>
+						
+					</td>
 				</tr>
 				<tr>
 					<td>Main photo</td>

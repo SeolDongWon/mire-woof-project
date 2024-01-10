@@ -60,7 +60,7 @@ public class ItemController {
 		model.addAttribute(new Item());
 	}
 	
-	@PostMapping("/insertItem")
+	@PostMapping("/admin/insertItem")
 	public String insertItem(Item item) throws Exception {
 		log.info("/admin/insertItem POST");
 		List<MultipartFile> pictures = item.getPictures();
@@ -77,7 +77,7 @@ public class ItemController {
 			}
 		}
 		itemService.insertItem(item);
-		return "item/itemList";
+		return "redirect:/item/itemList";
 	}
 	
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
