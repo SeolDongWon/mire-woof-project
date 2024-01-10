@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woof.mapper.NoticeMapper"></mapper>
+<mapper namespace="com.woof.mapper.NoticeMapper">
+
+<insert id="insertNotice">
+	insert into notice(noticeNo,noticeTitle,noticeDesc) 
+	values(noticeNo_seq.nextval,#{noticeTitle},#{noticeDesc})
+</insert>
+	
+<select id="getNoticeList" resultType="com.woof.domain.Notice">
+	select * from notice order by noticeno desc
+</select>
+
+<select id="getNotice" resultType="com.woof.domain.Notice">
+	select * from notice where noticeNo = #{noticeNo}
+</select>
+
+
+</mapper>
