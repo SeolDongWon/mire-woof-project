@@ -43,27 +43,18 @@
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
 		<section>
+			<c:forEach var="pet" items="${petList}">
 			<div class="card" style="width: 18rem;">
-				<a href="/pet/insertPet"><img src="/resource/image/pet/puppy.png" class="card-img-top" alt="..."></a>
-				<div class="card-body" align="center">
+				<a href="getPet?petNo=${pet.petNo}"><img
+					src="/resource/image/pet/puppy.png" class="card-img-top" alt="..." ></a>
+				<div class="card-body" align="center" >
 					<h5 class="card-title">펫 정보</h5>
 					<hr>
-					<a href="/pet/insertPet">이름:${pet.petName}/나이:${pet.petAge}/품종:${pet.petType}</a>
+					<a href="/pet/pet">이름:${pet.petName}/나이:${pet.petAge}/품종:${pet.petType}</a>
 				</div>
 			</div>
+			</c:forEach>
 
-			<c:forEach var="pet" items="${petList}">
-							${pet.petNo}
-							${pet.username}
-							${pet.petName}
-							${pet.petAge}
-							${pet.petType}
-							${pet.petGender}
-							${pet.petDesc}
-							${pet.petRegDate}
-							${pet.petStatus}
-							
-		</c:forEach>
 		</section>
 	</main>
 	<!-- Footer Area -->

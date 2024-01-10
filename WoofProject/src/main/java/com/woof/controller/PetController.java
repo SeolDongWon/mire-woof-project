@@ -37,16 +37,22 @@ public class PetController {
 	@Autowired
 	private PetService service;
 	
+	@Value("${upload.path}")
+	private String uploadPath;
 	
-	@RequestMapping(value="/getPet")
-	public String getPet(Pet pet)  throws Exception{
-		service.getPet(pet) ;
-		return "/getPet";
+	@GetMapping(value="/getPet")
+	public String getPet(Pet pet,Model model)  throws Exception{
+		log.info("pet: " + pet.toString());
+		Pet pet_ = service.getPet(pet);
+		//jsp 로 넘기고
+		model.addAttribute("pet", pet_);
+		log.info("pet: " + pet_.toString());
+		return "pet/pet";
 	}
 
 	@RequestMapping(value="/getPetList")
 	public String getPetList(Pet pet,Model model)  throws Exception{
-		List<Pet> petList = service.getPetList(pet);
+		List<Pet> petList = service.getPetList();
 		model.addAttribute("petList", petList);
 		return "/pet/petList";
 	}
@@ -55,22 +61,101 @@ public class PetController {
 	public String insertPetForm(Pet pet)  throws Exception{
 		return "/admin/pets/insertPet";
 	}
-	@PostMapping(value="/insertPet")
-	public String insertPet(Pet pet)  throws Exception{
-		log.info("insertPet start");
-		log.info("pet:"+pet.toString());
-		service.insertPet(pet);
-		return "/pet/petList";
+	
+	
+	@PostMapping("/getPet")
+	public void getPetList(Pet pet) throws Exception{
+		log.info("/getPet GET");
+		service.getPet(pet);
+	}
+	
+	@GetMapping("/petList")
+	public void getPetList(Model model) throws Exception{
+			log.info("/petList GET");
+			List<Pet> petList = service.getPetList();
+			model.addAttribute("petList", petList);
+	}
+	
+	@GetMapping("/pet/insertPet")
+	public void insertPet(Model model) throws Exception{
+		log.info("/insertPet GET");
+		model.addAttribute(new Pet());
 	}
 
-	@RequestMapping(value="/modifyPet", method = RequestMethod.POST)
-	public String modifyPet(Pet pet)  throws Exception{
-		service.modifyPet(pet);
-		return "/modifyPet";
+	
+	@PostMapping("/insertPet")
+	public String insertPet(Pet pet) throws Exception{
+		log.info("/insertPet POST");
+		List<MultipartFile> pictures = pet.getPictures();
+		for(int i = 0 ; i < pictures.size() ; i++) {
+			MultipartFile file = pictures.get(i);
+			log.info("originalName" + file.getOriginalFilename());
+			log.info("size:" + file.getSize());
+			log.info("contentType:" + file.getContentType());
+			String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
+			if(i == 0) {
+				pet.setPetMainPic(savedName);
+			}else if(i == 1) {
+				pet.setPetSubPic(savedName);
+			}
+		}
+		service.insertPet(pet);
+		return "redirect:/pet/petList";
 	}
+	
+	
+	private String uploadFile(String originalName, byte[] fileData) throws Exception {
+		log.info("UploadFile()");
+		UUID uid = UUID.randomUUID();
+		String savedName = uid.toString() + "_" + originalName;
+		File target = new File(uploadPath, savedName);
+		FileCopyUtils.copy(fileData, target);
+		return savedName;
+	}
+	
+	@GetMapping("/modifyPet")
+	public String modifyPet(Pet pet , Model model) throws Exception{
+		log.info("/modifyPet GET");
+		Pet petModify = service.getPet(pet);
+		model.addAttribute(petModify);
+		return "pet/modifyPet";
+	}
+	
+	public void modifyPet(Pet pet)throws Exception{
+		log.info("/modifyPet POST");
+		List<MultipartFile> pictures = pet.getPictures();
+		for(int i = 0; i < pictures.size(); i++) {
+			MultipartFile file = pictures.get(i);
+			if(file != null && file.getSize() > 0) {
+				String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
+				if(i == 0) {
+					pet.setPetMainPic(savedName);
+				}else if(i == 1) {
+					pet.setPetSubPic(savedName);
+				}
+			}
+		}
+		service.modifyPet(pet);
+	}
+	
+	
+//	@PostMapping(value="/insertPet")
+//	public String insertPet(Pet pet)  throws Exception{
+//		log.info("insertPet start");
+//		log.info("pet:"+pet.toString());
+//		service.insertPet(pet);
+//		return "/pet/petList";
+//	}
+
+//	@RequestMapping(value="/modifyPet", method = RequestMethod.POST)
+//	public String modifyPet(Pet pet)  throws Exception{
+//		service.modifyPet(pet);
+//		return "/modifyPet";
+//	}
 
 	@RequestMapping(value="/deletePet", method = RequestMethod.POST)
 	public String deletePet(Pet pet)  throws Exception{
+		log.info("/deletePet POST");
 		service.deletePet(pet);
 		return "/deletePet";
 	}
@@ -82,68 +167,16 @@ public class PetController {
 	}
 	
 //----------------------------사진 업로드----------------------------------
-	
-	@Value("${upload.path}")
-	private String uploadPath;
-	
-	@RequestMapping(value = "/petList", method = RequestMethod.GET)
-	public void list(Model model) throws Exception{
-		List<Pet> petList = this.service.list();
-		model.addAttribute("petList", petList);
-	}
-	
-	@RequestMapping(value = "/insertPet", method = RequestMethod.GET)
-	public String registerForm(Model model) {
-		model.addAttribute(new Pet());
-		return "pet/insertPet";
-	}
-	
-	@RequestMapping(value = "/insertPet", method = RequestMethod.POST)
-	public String register(Pet pet , Model model)throws Exception{
-		List<MultipartFile> pictures = pet.getPictures();
-		
-		for(int i = 0; i < pictures.size(); i++) {
-			MultipartFile file = pictures.get(i);
-			
-			log.info("originalName: " + file.getOriginalFilename());
-			log.info("size: " + file.getSize());
-			log.info("contentType: " + file.getContentType());
-			
-			String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
-			
-			if(i==0) {
-				pet.setPetMainPic(savedName);
-			}else if(i == 1) {
-				pet.setPetSubPic(savedName);
-			}
-		}
-		this.service.insertPet(pet);
-		model.addAttribute("사진", "등록이 완료되었습니다.");
-		return "pet/petList";
-	}
-	
-	
-	
-	
-	
-	
-	
-	private String uploadFile(String originalName, byte[] fileData) throws Exception {
-		UUID uid = UUID.randomUUID();
-		String savedName = uid.toString() + "_" + originalName;
-		File target = new File(uploadPath, savedName);
-		FileCopyUtils.copy(fileData, target);
-		return savedName;
-	}
+
 	
 	
 	@ResponseBody
-	@RequestMapping("/display")
-	public ResponseEntity<byte[]> displayFile(Integer petId) throws Exception {
+	@GetMapping("/getPetMainPic")
+	public ResponseEntity<byte[]> getPetMainPic(Integer petNo) throws Exception {
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
-		String fileName = service.petMainPic(petId);
-		log.info("FILE NAME: " + fileName);
+		String fileName = service.getPetMainPic(petNo);
+		log.info(fileName);
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mType = getMediaType(formatName);
@@ -163,12 +196,12 @@ public class PetController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/display2")
-	public ResponseEntity<byte[]> displayFile2(Integer petId) throws Exception {
+	@GetMapping("/getPetSubPic")
+	public ResponseEntity<byte[]> getPetSubPic(Integer petNo) throws Exception {
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
-		String fileName = service.petSubPic(petId);
-		log.info("FILE NAME: " + fileName);
+		String fileName = service.getPetSubPic(petNo);
+	
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mType = getMediaType(formatName);
@@ -189,6 +222,7 @@ public class PetController {
 	
 	
 	private MediaType getMediaType(String formatName) {
+		log.info("getMediaType()");
 		if (formatName != null) {
 			if (formatName.equals("JPG")) {
 				return MediaType.IMAGE_JPEG;

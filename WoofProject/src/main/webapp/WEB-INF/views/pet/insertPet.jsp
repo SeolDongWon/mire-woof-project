@@ -74,11 +74,14 @@
 				<br>
 				<a href="#">상품 편집</a>
 				<a href="#">상품 제거</a>
+			
 			</form:form>
 			<div>
 				<button type="submit" id="btnRegister">Register</button>
 				<button type="submit" id="btnList">List</button>
 			</div>
+			
+			
 			<a href="/pet/getPetList">/pet/getPetList</a>
 
 		</section>

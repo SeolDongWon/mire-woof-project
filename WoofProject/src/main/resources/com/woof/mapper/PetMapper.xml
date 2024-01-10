@@ -34,5 +34,12 @@
 	<select id="searchPetType" resultType="com.woof.domain.Pet">
 		SELECT * FROM pet WHERE petType=#{searchType} ORDER BY petNo
 	</select>
+	
+	<select id="getPetMainPic" resultType="String">
+        SELECT petMainPic FROM pet WHERE petNo = #{petNo}
+    </select>
+    <select id="getPetSubPic" resultType="String">
+        SELECT petSubPic FROM pet WHERE petNo = #{petNo}
+    </select>
 
 </mapper>

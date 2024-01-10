@@ -9,7 +9,7 @@ public interface PetMapper {
 	public Pet getPet(Pet pet) throws Exception;
 
 	// 팻 리스트 불러오기
-	public List<Pet> getPetList(Pet pet) throws Exception;
+	public List<Pet> getPetList() throws Exception;
 
 	// 팻 추가
 	public void insertPet(Pet pet) throws Exception;
@@ -23,8 +23,9 @@ public interface PetMapper {
 	// 키워드에 해당하는 팻 리스트 불러오기
 	public <List> Pet searchPetType(Pet pet) throws Exception;
 
-	public String petMainPic(Integer petId) throws Exception;
+	public String getPetMainPic(Integer petNo) throws Exception;
 
-	public String petSubPic(Integer petId) throws Exception;
+	public String getPetSubPic(Integer petNo) throws Exception;
+
 
 }
