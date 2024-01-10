@@ -20,13 +20,13 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.woof.domain.Item;
 import com.woof.service.ItemService;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.java.Log;
 
 @Log
@@ -42,9 +42,11 @@ public class ItemController {
 	private String uploadPath;
 	
 	@GetMapping("/getItem")
-	public void getItem(Item item) throws Exception {
+	public String getItem(@RequestParam("itemNo") int itemNo, Model model) throws Exception {
 		log.info("/getItem GET");
-		itemService.getItem(item);
+		Item item = itemService.getItem(itemNo);
+		model.addAttribute("item", item);
+		return "item/item";
 	}
 	
 	@GetMapping("/itemList")
@@ -92,7 +94,7 @@ public class ItemController {
 	@GetMapping("/modifyItem")
 	public String modifyItemGet(Item item, Model model) throws Exception {
 		log.info("/modifyItem GET");
-		Item itemToModify = itemService.getItem(item);
+		Item itemToModify = itemService.getItem(item.getItemNo());
 		model.addAttribute(itemToModify);
 		return "item/admin/modifyItem";
 	}
@@ -122,7 +124,7 @@ public class ItemController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("/getItemMainPic")
+	@GetMapping("/getItemMainPic")
 	public ResponseEntity<byte[]> getItemMainPic(Integer itemNo) throws Exception {
 		log.info("/getItemMainPic GET");
 		InputStream inputStream = null;
@@ -148,11 +150,11 @@ public class ItemController {
 
 	@ResponseBody
 	@GetMapping("/getItemSubPic")
-	public ResponseEntity<byte[]> getItemSubPic(Integer itemId) throws Exception {
-		log.info("/getItemSubPic GET");
+	public ResponseEntity<byte[]> getItemSubPic(Integer itemNo) throws Exception {
+		log.info("/getItemSubPic GET itemId: " + itemNo);
 		InputStream inputStream = null;
 		ResponseEntity<byte[]> responseEntity = null;
-		String fileName = itemService.getItemSubPic(itemId);
+		String fileName = itemService.getItemSubPic(itemNo);
 		try {
 			String formattedName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mediaType = getMediaType(formattedName);

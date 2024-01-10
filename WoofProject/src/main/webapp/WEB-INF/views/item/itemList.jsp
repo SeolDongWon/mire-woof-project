@@ -55,7 +55,9 @@
 						<td class="align-middle text-center">${item.itemName}</td>
 						<td class="align-middle text-center">${item.price}</td>
 						<td class="align-middle text-center">${item.itemType}</td>
-						<td class="align-middle text-center"><img src="getItemMainPic?itemNo=${item.itemNo}" width="175" height="175"></td>
+						<td class="align-middle text-center">
+							<a href="getItem?itemNo=${item.itemNo}"><img src="getItemMainPic?itemNo=${item.itemNo}" width="175" height="175"></a>
+						</td>
 					</tr>
 				</c:forEach>
 			</c:otherwise>

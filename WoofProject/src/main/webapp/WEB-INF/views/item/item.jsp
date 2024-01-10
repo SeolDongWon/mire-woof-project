@@ -34,8 +34,42 @@
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-		<section>
-		</section>
+	<div class="d-flex flex-col align-items-center">
+		<div class="d-flex justify-content-center align-items-center">
+			<div class="m-3">
+				<img src="getItemMainPic?itemNo=${item.itemNo}" width="400" height="400">
+			</div>
+			<div class="m-3 border rounded p-2">
+				<table class="table" style="width:700px">
+					<tr>
+						<td>Item Name</td>
+						<td>${item.itemName}</td>
+					</tr>
+					<tr>
+						<td>Item type</td>
+						<td>${item.itemType}</td>
+					</tr>
+					<tr>
+						<td>Price</td>
+						<td>${item.price}</td>
+					</tr>
+					<tr>
+						<td>Item Register Date</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.itemRegDate}" /></td>
+					</tr>
+					<tr>
+						<td>Item Description</td>
+						<td>${item.itemDesc}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div> <hr>
+	<div class="container-lg d-flex align-items-center">
+		<div class="m-3 mx-auto">
+			<img src="getItemSubPic?itemNo=${item.itemNo}" width="1000" height="3000">
+		</div>
+	</div>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

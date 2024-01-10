@@ -6,7 +6,7 @@ import com.woof.domain.Item;
 
 public interface ItemMapper {
 	
-	public Item getItem(Item item) throws Exception;
+	public Item getItem(int itemNo) throws Exception;
 
 	public List<Item> getItemList() throws Exception;
 	

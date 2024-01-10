@@ -2,11 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woof.mapper.CartMapper">
 	<insert id="addToCart">
-		INSERT INTO cart (cartNo, username, itemNo, quantity, itemName, price, size, itemMainPic, status) 
-		VALUES (cartNo_seq.nextVal, #{username}, #{itemNo}, #{quantity}, #{itemName}, #{price}, #{size}, #{itemMainPic}, 'checked')
+		INSERT INTO cart (cartNo, username, itemNo, quantity, itemName, price, itemMainPic, checkStatus) 
+		VALUES (cartNo_seq.nextVal, #{username}, #{itemNo}, #{quantity}, #{itemName}, #{price}, #{itemMainPic}, 'checked')
 	</insert>
 	<select id="getCart" resultType="Cart">
-		SELECT * FROM cart WHERE username=#{username} ORDER BY cartNo DESC
+		<!-- SELECT * FROM cart WHERE username=#{username} ORDER BY cartNo DESC -->
+		SELECT * FROM cart
 	</select>
 	<select id="getOrder" resultType="Cart">
 		SELECT * FROM cart WHERE username=#{username} AND status='checked' ORDER BY cartNo DESC

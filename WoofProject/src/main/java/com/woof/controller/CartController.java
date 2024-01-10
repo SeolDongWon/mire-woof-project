@@ -5,13 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.woof.domain.Cart;
 import com.woof.service.CartService;
 
+import lombok.extern.java.Log;
+
+@Log
 @Controller
-@RequestMapping("/cart")
+@RequestMapping("/account/myCart")
 public class CartController {
 
 	@Autowired
@@ -22,10 +26,14 @@ public class CartController {
 		cartService.addToCart(null);
 	}
 	
-	@RequestMapping("/getCart")
-	public void getCart(Cart cart, Model model) throws Exception {
+	@GetMapping("/myCart")
+	public String getCart(Cart cart, Model model) throws Exception {
+		log.info("myCart");
+		// for test
 		List<Cart> cartList = cartService.getCart(cart);
+		log.info("cartList: " + cartList.toString());
 		model.addAttribute("cartList", cartList);
+		return "account/myCart/myCart";
 	}
 		
 	@RequestMapping("/getOrder")

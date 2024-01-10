@@ -16,8 +16,8 @@ public class ItemServiceImpl implements ItemService {
 	private ItemMapper mapper;
 
 	@Override
-	public Item getItem(Item item) throws Exception {
-		return mapper.getItem(item);
+	public Item getItem(int itemNo) throws Exception {
+		return mapper.getItem(itemNo);
 	}
 
 	@Override
