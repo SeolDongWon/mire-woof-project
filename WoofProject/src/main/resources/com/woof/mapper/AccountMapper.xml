@@ -1,30 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woof.mapper.AccountMapper">
+
+	<select id="read" resultType="Account">
+		SELECT 
+		acc.username, password, name, tel, address, state, regDate, auth
+		FROM
+		account acc LEFT OUTER JOIN account_auth auth
+		ON acc.username = auth.username
+		WHERE acc.username = #{username}
+	</select>
 	<!-- 내정보 -->
 	<select id="getAccount" resultType="Account">
-		SELECT * FROM account WHERE username = #{username}
+		SELECT * FROM account WHERE
+		username = #{username}
 	</select>
 	<!-- Account들의 모든정보 리스트 -->
 	<select id="getAccountList" resultType="Account">
-		SELECT * FROM account ORDER BY regDate DESC
+		SELECT * FROM account
+		ORDER BY regDate DESC
 	</select>
 	<!-- 계정 등록 -->
 	<insert id="registerAccount">
-		INSERT INTO account VALUES (#{username}, #{password}, #{name}, #{tel}, #{address}, 'active', SYSDATE)
+		INSERT INTO account VALUES (#{username}, #{password},
+		#{name}, #{tel}, #{address}, 'active', SYSDATE)
 	</insert>
 	<!-- 정보 수정 -->
 	<update id="modifyAccount">
-		UPDATE account SET username = #{username}, password=#{password}, name=#{name},
+		UPDATE account SET username = #{username},
+		password=#{password}, name=#{name},
 		tel=#{tel}, address=#{address}
 		WHERE username=#{previousUsername}
 	</update>
 	<!-- 계정 탈퇴 -->
 	<update id="deleteAccount">
-		UPDATE account SET state='deactivated' WHERE username = #{username}
+		UPDATE account SET state='deactivated' WHERE username
+		= #{username}
 	</update>
 	<!-- admin이 개인계정을 찾기 -->
 	<select id="searcheAccount" resultType="Account">
-		SELECT * FROM account WHERE username LIKE '%' || #{searchKeyword} || '%'
+		SELECT * FROM account
+		WHERE username LIKE '%' || #{searchKeyword} || '%'
 	</select>
 </mapper>

@@ -5,7 +5,7 @@
       <!-- 로그인에 따라 출력이 달라짐 -->
       <div class="d-flex justify-content-end">
         <ul class="nav nav-underline  justify-content-around">
-          <li class="nav-item"><a href="/account/loginForm" class="nav-link text-black">로그인</a></li>
+          <li class="nav-item"><a href="/account/regis" class="nav-link text-black">로그인</a></li>
           <li class="nav-item"><a href="/account/createAccountForm" class="nav-link text-black">회원가입</a></li>
         </ul>
       </div>

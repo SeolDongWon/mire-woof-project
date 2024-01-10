@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,36 +27,47 @@
 <%-- <%@ include file="" %> --%>
 </head>
 <body>
-<!-- Header Area -->
+	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<!-- Menu Area -->
+	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/menu.jsp"%>
-<!-- subMenu Area -->
+	<!-- subMenu Area -->
 	<main>
-<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
+		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 
 
-<h1>로그인</h1>
-	 <form method="post" action="/account/login">
-		<div>
-			<input type="text" name="username" value="">
-		</div>
-		<div>
-			<input type="password" name="password" value="">
-		</div>
-		<div>
-			<input type="submit">
-		</div>
-		
-	</form> 
+		<h1>로그인</h1>
+		<h2>
+			<c:out value="${error}" />
+		</h2>
+		<h2>
+			<c:out value="${logout}" />
+		</h2>
+
+		<form method="post" action="/account/login">
+			<div>
+				<input type="text" name="username" value="">
+			</div>
+			<div>
+				<input type="password" name="password" value="">
+			</div>
+			<!-- 로그인 상태유지 체크박스 -->
+			<div>
+				<input type="checkbox" name="remember-me"> 로그인 상태유지
+			</div>
+			<div>
+				<input type="submit">
+			</div>
+			<sec:csrfInput />
+		</form>
 
 
 
 
 
-	
+
 	</main>
-<!-- Footer Area -->
+	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

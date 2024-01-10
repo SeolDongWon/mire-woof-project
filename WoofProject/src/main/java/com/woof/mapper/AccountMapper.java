@@ -5,6 +5,8 @@ import java.util.List;
 import com.woof.domain.Account;
 
 public interface AccountMapper {
+	// 로그인
+	public Account read(String username) throws Exception;
 	// 내정보
 	public Account getAccount(Account username) throws Exception;
 	// Account들의 모든정보 리스트
