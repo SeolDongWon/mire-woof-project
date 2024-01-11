@@ -10,7 +10,7 @@ public interface CartService {
 	
 	public List<Cart> getCart(Cart cart) throws Exception;
 	
-	public List<Cart> getOrder(Cart cart) throws Exception;
+	public List<Cart> getOrder(List<String> selectedItems/* , username */) throws Exception;
 	
 	public void changeCheckStatus(Cart cart) throws Exception;
 	

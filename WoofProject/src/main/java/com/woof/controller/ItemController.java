@@ -68,9 +68,6 @@ public class ItemController {
 		List<MultipartFile> pictures = item.getPictures();
 		for(int i = 0; i < pictures.size(); i++) {
 			MultipartFile file = pictures.get(i);
-			log.info("originalName: " + file.getOriginalFilename());
-			log.info("size: " + file.getSize());
-			log.info("contentType: " + file.getContentType());
 				String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 				if(i == 0) {
 					item.setItemMainPic(savedName);
@@ -174,7 +171,6 @@ public class ItemController {
 	}
 	
 	private MediaType getMediaType(String formatName) {
-		log.info("getMediaType()");
 		if (formatName != null) {
 			if (formatName.equals("JPG")) {
 				return MediaType.IMAGE_JPEG;

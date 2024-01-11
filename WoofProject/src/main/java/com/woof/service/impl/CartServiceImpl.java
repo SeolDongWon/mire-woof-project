@@ -26,8 +26,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<Cart> getOrder(Cart cart) throws Exception {
-		return mapper.getOrder(cart);
+	public List<Cart> getOrder(List<String> selectedItems /* , username */) throws Exception {
+		return mapper.getOrder(selectedItems /* , username */);
 	}
 
 	@Override

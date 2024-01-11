@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.woof.domain.Cart;
 import com.woof.service.CartService;
@@ -28,7 +30,7 @@ public class CartController {
 	
 	@GetMapping("/myCart")
 	public String getCart(Cart cart, Model model) throws Exception {
-		log.info("myCart");
+		log.info("/myCart GET");
 		// for test
 		List<Cart> cartList = cartService.getCart(cart);
 		log.info("cartList: " + cartList.toString());
@@ -36,12 +38,16 @@ public class CartController {
 		return "account/myCart/myCart";
 	}
 		
-	@RequestMapping("/getOrder")
-	public void getOrder(Cart cart, Model model) throws Exception {
-		List<Cart> cartList = cartService.getOrder(cart);
+	@PostMapping("/getOrder")
+	public String getOrder(@RequestParam("selectedItems") List<String>selectedItems, Cart cart, Model model) throws Exception {
+		log.info("/getOrder POST selectedItems: " + selectedItems.toString());
+//		String username = cart.getUsername();
+		List<Cart> cartList = cartService.getOrder(selectedItems/*, username*/);
 		model.addAttribute("cartList", cartList);
+		log.info("/getOrder cartList: " + cartList);
+		return "account/myCart/myOrder";
 	}
-	
+
 	@RequestMapping("/changeCheckStatus")
 	public void changeCheckStatus(Cart cart) throws Exception {
 		cartService.changeCheckStatus(cart);

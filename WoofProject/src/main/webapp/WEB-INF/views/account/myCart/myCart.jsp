@@ -40,15 +40,32 @@
 					console.log("Error", error);
 				}
 			});
-		)};
-		$("#btnRemoveSelected").on("click", function() {
-			
 		});
-		$('#btnCheckout').on("click", (function() {
-			
+		$("#btnRemoveSelected").on("click", function() {
+		
 		});
 	});
 </script>
+<script>
+	function sendChecked() {
+		var selectedItems = [];
+		$("input[name='checkStatus']:checked").each(function(){
+			selectedItems.push($(this).val());
+		});
+		
+		if(selectedItems.length > 0) {
+			console.log("selectedItems length: " + selectedItems.length);
+			
+			var flatItems = [].concat.apply([], selectedItems);
+			$("#selectedItemsInput").val(flatItems);
+			
+			document.getElementById("cartForm").submit();
+		} else {
+			alert("Please select at least one item to check out");
+		}
+	};
+</script>
+
 <%-- <%@ include file="" %> --%>
 </head>
 <body>
@@ -60,7 +77,7 @@
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-	<form action="" id="cartForm">
+	<form id="cartForm" action="getOrder" method="post">
 		<table class="table">
 			<thead class="t-head">
 				<tr>
@@ -82,7 +99,7 @@
 					<c:forEach items="${cartList}" var="cart">
 						<tr>
 							<td class="align-middle text-center">
-								<input type="checkbox" name="checkStatus" value=${cart.itemNo}"/>
+								<input type="checkbox" name="checkStatus" value="${cart.itemNo}"/>
 							</td>
 							<td class="align-middle text-center">
 								<a href="${pageContext.request.contextPath}/item/getItem?itemNo=${cart.itemNo}">
@@ -94,7 +111,7 @@
 							<td class="align-middle text-center">${cart.price}</td>
 							<td class="align-middle text-center">
 								<a href="removeFromCart?username=${cart.username}&itemNo=${cart.itemNo}" class="text-decoration-none">
-									<i class="fa-sharp fa-regular fa-rectangle-xmark"></i>
+									<i class="fa-sharp fa-regular fa-rectangle-xmark text-danger"></i>
 								</a>
 							</td>
 						</tr>
@@ -102,10 +119,13 @@
 				</c:otherwise>
 			</c:choose>
 		</table>
+		
+		<input type="hidden" id="selectedItemsInput" name="selectedItems" value="">
+		
 		<div class="d-flex flex-row justify-content-end align-items-center">
 			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnRemoveAll">Remove all items</button>
 			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnRemoveSelected">Remove selected items</button>
-			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnCheckout">Check out</button>
+			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnCheckout" type="submit" onclick="sendChecked()">Check out</button>
 		</div>
 	</form>	
 	

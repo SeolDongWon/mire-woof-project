@@ -17,6 +17,6 @@ public class Cart {
 	private int price;
 	private String itemMainPic;
 	private String checkStatus;
-	
+
 	private int newQuantity;
 }
