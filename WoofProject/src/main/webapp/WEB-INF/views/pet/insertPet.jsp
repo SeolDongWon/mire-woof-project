@@ -54,9 +54,10 @@
 	</menu>
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
+		<div align="center">
 		<section>
 			팻작성
-			<form:form modelAttribute="pet" action="insertPet">
+			<form:form modelAttribute="pet" action="insertPet" method="post" enctype="multipart/form-data">
 				<br>
 				이름<form:input path="petName" />
 				<br>
@@ -66,15 +67,12 @@
 				<br>
 				성별<form:input path="petGender" />
 				<br>
-				설명<form:input path="petDesc" />
+				소개<form:input path="petDesc" />
 				<br>
-				 메인사진<input type="file" name="pictures" path="petMainPic" />
+				메인사진<input type="file" name="pictures" path="petMainPic" />
 				<br>
 				사진<input type="file" name="pictures" path="petSubPic" />
 				<br>
-				<a href="#">상품 편집</a>
-				<a href="#">상품 제거</a>
-			
 			</form:form>
 			<div>
 				<button type="submit" id="btnRegister">Register</button>
@@ -82,9 +80,10 @@
 			</div>
 			
 			
-			<a href="/pet/getPetList">/pet/getPetList</a>
+			<a href="/pet/getPetList">리스트</a>
 
 		</section>
+		</div>
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

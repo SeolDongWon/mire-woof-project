@@ -59,7 +59,7 @@ public class PetController {
 
 	@GetMapping(value="/insertPet")
 	public String insertPetForm(Pet pet)  throws Exception{
-		return "/admin/pets/insertPet";
+		return "/pet/insertPet";
 	}
 	
 	
@@ -78,7 +78,7 @@ public class PetController {
 	
 	@GetMapping("/pet/insertPet")
 	public void insertPet(Model model) throws Exception{
-		log.info("/insertPet GET");
+		log.info("/pet/insertPet GET");
 		model.addAttribute(new Pet());
 	}
 
@@ -99,6 +99,7 @@ public class PetController {
 				pet.setPetSubPic(savedName);
 			}
 		}
+		log.info(pet.toString());
 		service.insertPet(pet);
 		return "redirect:/pet/petList";
 	}
@@ -116,12 +117,13 @@ public class PetController {
 	@GetMapping("/modifyPet")
 	public String modifyPet(Pet pet , Model model) throws Exception{
 		log.info("/modifyPet GET");
-		Pet petModify = service.getPet(pet);
+		Pet petModify = this.service.getPet(pet);
 		model.addAttribute(petModify);
 		return "pet/modifyPet";
 	}
 	
-	public void modifyPet(Pet pet)throws Exception{
+	@PostMapping("/modifyPet")
+	public String modify(Pet pet, Model model)throws Exception{
 		log.info("/modifyPet POST");
 		List<MultipartFile> pictures = pet.getPictures();
 		for(int i = 0; i < pictures.size(); i++) {
@@ -135,7 +137,9 @@ public class PetController {
 				}
 			}
 		}
-		service.modifyPet(pet);
+		this.service.modifyPet(pet);
+		model.addAttribute("수정이 완료되었습니다.");
+		return "redirect:/pet/petList";
 	}
 	
 	

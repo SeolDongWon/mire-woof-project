@@ -42,15 +42,17 @@
 	</menu>
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
+		<a href="insertPet">새로등록</a><br>
+		<a href="modifyPet">수정</a>
 		<section>
 			<c:forEach var="pet" items="${petList}">
 			<div class="card" style="width: 18rem;">
 				<a href="getPet?petNo=${pet.petNo}"><img
-					src="/resource/image/pet/puppy.png" class="card-img-top" alt="..." ></a>
-				<div class="card-body" align="center" >
+					src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top" alt="..." ></a>
+				<div class="card-body" align="center">
 					<h5 class="card-title">펫 정보</h5>
 					<hr>
-					<a href="/pet/pet">이름:${pet.petName}/나이:${pet.petAge}/품종:${pet.petType}</a>
+					<a href="getPet?petNo=${pet.petNo}">이름:${pet.petName}/나이:${pet.petAge}/견종:${pet.petType}</a>
 				</div>
 			</div>
 			</c:forEach>

@@ -11,13 +11,12 @@
 	</select>
 
 	<insert id="insertPet">
-		INSERT INTO pet (petNo, petName, petAge, petType, petGender, petDesc)
+		<!-- INSERT INTO pet (petNo, petName, petAge, petType, petGender, petDesc)
 		VALUES (petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender},
-		#{petDesc})
-		<!-- INSERT INTO pet (petNo, petName, petAge, petType, petGender, petDesc, petRegDate,
-		petStatus, petMainPic, petSubPic)
+		#{petDesc}) -->
+		 INSERT INTO pet (petNo, petName, petAge, petType, petGender, petDesc, petRegDate, petMainPic, petSubPic)
 		VALUES (petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender},
-		#{petDesc}, SYSDATE, #{petStatus}, #{petMainPic}, #{petSubPic}) -->
+		#{petDesc}, SYSDATE, #{petMainPic}, #{petSubPic})
 	</insert>
 
 	<update id="modifyPet">

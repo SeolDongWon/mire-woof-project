@@ -25,7 +25,7 @@ public class Pet {
 	private Date adoptDate;
 	private String petStatus;
 	
-	private List<MultipartFile> pictures;
+	private List<MultipartFile>pictures;
 	//경로
 	private String petMainPic;
 	private String petSubPic;
