@@ -2,7 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woof.mapper.AccountMapper">
 
-	<select id="read" resultType="Account">
+<resultMap type="Account" id="accontMap">
+		<id property="username" column="username" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="tel" column="tel" />
+		<result property="address" column="address" />
+		<result property="state" column="state" />
+		<result property="regDate" column="regDate" />
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+	
+	<resultMap type="accountAuth" id="authMap">
+		<result property="username" column="username" />
+		<result property="auth" column="auth" />
+	</resultMap>
+
+	<select id="read" resultMap="accontMap">
 		SELECT 
 		acc.username, password, name, tel, address, state, regDate, auth
 		FROM
@@ -20,11 +38,31 @@
 		SELECT * FROM account
 		ORDER BY regDate DESC
 	</select>
-	<!-- 계정 등록 -->
+	<!-- 계정 등록 처리 -->
 	<insert id="registerAccount">
-		INSERT INTO account VALUES (#{username}, #{password},
-		#{name}, #{tel}, #{address}, 'active', SYSDATE)
+		INSERT INTO account 
+		(username,password,name,tel,address)
+		VALUES 
+		(
+		#{username}, 
+		#{password},
+		#{name}, 
+		#{tel}, 
+		#{address}
+		)
 	</insert>
+	<!-- 권한생성 -->
+	<insert id="registerAccountAuth">
+		INSERT INTO account_auth(
+		username,
+		auth
+		) VALUES (
+		#{username},
+		#{auth}
+		)
+	</insert>
+	
+	
 	<!-- 정보 수정 -->
 	<update id="modifyAccount">
 		UPDATE account SET username = #{username},

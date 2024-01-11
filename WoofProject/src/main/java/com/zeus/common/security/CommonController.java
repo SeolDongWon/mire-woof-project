@@ -1,4 +1,4 @@
-package com.woof.common.security;
+package com.zeus.common.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -12,8 +12,10 @@ import lombok.extern.java.Log;
 public class CommonController {
 
 	@RequestMapping("/accessError")
-	public void accessError(Authentication auth, Model madel) {
-		log.info("...accessError... : "+auth);
-		madel.addAttribute("Error","회원 이상만 볼 수 있는 사이트 입니다.");
+	public void accessError(Authentication auth, Model model) {
+		log.info("accessError : "+auth);
+		model.addAttribute("msg", "이 사이트는 회원 이상만 볼 수 있어요");
 	}
+	
+
 }

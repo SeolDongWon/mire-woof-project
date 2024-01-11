@@ -4,11 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.woof.domain.Account;
+import com.woof.domain.AccountAuth;
 import com.woof.mapper.AccountMapper;
 import com.woof.service.AccountService;
 
+import lombok.extern.java.Log;
+
+@Log
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -29,10 +34,18 @@ public class AccountServiceImpl implements AccountService {
 		return mapper.getAccountList();
 	}
 
-	//계정 등록
+	//계정 등록 처리
+	@Transactional
 	@Override
 	public void registerAccount(Account account) throws Exception {
 		mapper.registerAccount(account);
+		// 회원 권한 생성
+		AccountAuth accountAuth = new AccountAuth();
+		accountAuth.setUsername(account.getUsername());
+		accountAuth.setAuth("ROLE_MEMBER");
+		log.info(accountAuth.toString());
+		mapper.registerAccountAuth(accountAuth);
+
 		
 	}
 

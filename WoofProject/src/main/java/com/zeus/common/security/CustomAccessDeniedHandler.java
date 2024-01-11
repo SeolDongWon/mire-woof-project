@@ -1,4 +1,4 @@
-package com.woof.common.security;
+package com.zeus.common.security;
 
 import java.io.IOException;
 
@@ -12,7 +12,6 @@ import lombok.extern.java.Log;
 
 @Log
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
-
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {

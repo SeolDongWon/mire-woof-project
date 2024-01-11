@@ -44,7 +44,7 @@
 			<c:out value="${logout}" />
 		</h2>
 
-		<form method="post" action="/account/login">
+		<form method="post" action="/login">
 			<div>
 				<input type="text" name="username" value="">
 			</div>

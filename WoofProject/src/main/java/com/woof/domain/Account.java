@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
@@ -16,15 +18,18 @@ import lombok.ToString;
 public class Account implements Serializable{
 	private static final long serialVersionUID = 582999266267533096L;
 	
+	@NotBlank
 	private String username;
+	@NotBlank
 	private String password;
+	@NotBlank
 	private String name;
 	private String tel;
 	private String address;
 	private String state;
 	@DateTimeFormat(pattern = "yy-MM-dd")
 	private Date regDate;
-	private String searchKeyword;
+	
 	
 	
 	// 1:N으로 연결한 테이블의 정보를 받아오는 멤버변수
