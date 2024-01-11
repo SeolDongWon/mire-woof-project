@@ -4,7 +4,7 @@
 
 <insert id="insertNotice">
 	INSERT INTO notice(noticeno,noticetitle,noticedesc) 
-	VALUES(noticeno_seq.NEXTVAL,#{noticetitle},#{noticedesc})
+	VALUES(noticeno_seq.NEXTVAL,#{noticeTitle},#{noticeDesc})
 </insert>
 	
 <select id="getNoticeList" resultType="com.woof.domain.Notice">

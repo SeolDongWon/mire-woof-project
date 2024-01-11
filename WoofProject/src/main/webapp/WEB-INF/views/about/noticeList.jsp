@@ -25,91 +25,71 @@
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
 <script type="text/javascript">
-	$(document).ready(function() {
-		//이벤트설정1
-		
-		$("#ajaxput").on("click",function(){
-			alert("ajaxput");
-			//input태그 객체를 가져온다
-			let searchCondition = $("#searchCondition");
-			let searchKeyword = $("#searchKeyword");
-			
-			//입력태그객체 value를 가져온다
-			let searchConditionVal = searchCondition.val();
-			let searchKeywordVal = searchKeyword.val();
-			
-			//전송할객체를 만든다
-			let NoticeSearch = {
-					searchCondition : searchConditionVal,
-					searchKeyword : searchKeywordVal,
-			};
-			
-		
-			
-			//비동기식 처리방식을 요청한다.
-				alert("ajaxStart");
-			$.ajax({
-				type : "put",
-				/* url : "/notice/getNoticeListAjaxPut"+"?"+"searchCondition"+searchConditionVal+"&"+"searchKeyword"+searchKeywordVal, */
-				url : "/notice/getNoticeListAjaxPut/"+searchKeywordVal,
-				data : JSON.stringify(NoticeSearch),
-				contentType : "application/json; charset=UTF-8",
-				success : function(result){
-					console.log("result : "+result);
-					if(result!=null){
-						alert(JSON.stringify(result));
-						alert("SUCCESS");
-					}
-					let notice = JSON.stringify(result);
-					console.log(notice.noticeList);
-					
-					let noticeList = "";
-					
-					for (var i = 0;;i++){
-						noticeList += '<tr style="font-size: 12px;">
-						noticeList += '<td class=" text-center p-1" style="width: 50px;">${notice.noticeNo}
-						noticeList += '</td>
-						noticeList += '<td class="text-truncate p-1">
-						noticeList += '<a	href="/notice/getNotice/${notice.noticeNo}"	class="list-group-item list-group-item-action border-0 text-truncate">
-									${notice.noticeTitle }</a></td>
-							<td class=" text-center p-1" style="width: 130px;">
-							<fmt:formatDate	value="${notice.noticeRegDate}" pattern="yyyy-MM-dd" /></td>
-						</tr>
-						
-						
-					}
-						
-					
-					
-					
-					
-					$("#noticeListSpan").html("noticeList");
-				}
-			});
-		});
-		
-		//이벤트설정2
-		$("#ajaxget").on("click",function(){
-			alert("ajaxget");
 
-		});
-		
-		
-		$("#putBtn").on("click",function(){
-			alert("SUCCESS");
-
-		});
-		
-		$("#getBtn").on("click",function(){
-			alert("SUCCESS");
-		});
-
-		//이벤트설정2
-		$("#putHeaderBtn").on("click", function() {
-			alert("SUCCESS");
-		});
-
+$(document).ready(function() {
+	
+	ajaxPutBtn();
+	
+	$("#putBtn").on("click",function() {
+		/* alert("putBtn"); */
+		ajaxPutBtn();
 	});
+	
+});
+
+function ajaxPutBtn(){
+	//전송할객체를 만든다
+	let noticeSearch = {
+		searchCondition : $("#searchCondition").val(),
+		searchKeyword : $("#searchKeyword").val(),
+	};
+		
+	
+		
+	//비동기식 처리방식을 요청한다.
+	$.ajax({
+		type : "put",
+		url : "/notice/getNoticeListAjaxPut",
+		data : JSON.stringify(noticeSearch),
+		contentType : "application/json; charset=UTF-8",
+		success : function(result){
+			if(result.length!=0){
+			/* alert("ajaxPutBtn"); */
+				console.log(result.length);
+			}else{
+				alert("검색결과 없음");
+			}
+			console.log(typeof result[0].noticeRegDate);
+			
+			let noticeList = "";
+			for (var i = 0;i<result.length;i++){
+				noticeList += '<tr style="font-size: 12px;">';
+				noticeList += '<td class=" text-center p-1" style="width: 50px;">';
+				noticeList += result[i].noticeNo+'</td>';
+				noticeList += '<td class="text-truncate p-1">';
+				noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
+				noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
+				noticeList += result[i].noticeTitle+'</a></td>';
+				
+				noticeList += '<td class=" text-center p-1" style="width: 130px;">'
+				noticeList += result[i].noticeRegDate+'</td>';
+				
+				noticeList += '</tr>';
+			}
+			$("#noticeListSpan").html(noticeList);
+			
+			if(noticeSearch.searchKeyword!=""){
+				let url ="?searchCondition="+noticeSearch.searchCondition+"&searchKeyword="+noticeSearch.searchKeyword;	
+				if(typeof (history.pushState) != "undefined") { 
+					history.pushState(null, null, url); 
+				}
+			}
+		}
+	});
+}
+	
+	
+	
 </script>
 </head>
 <body>
@@ -136,9 +116,9 @@
 		<div class="mt-3">
 			<p class="text-center fs-5 mt-3">NOTICE LIST</p>
 			
-			
-			<span id="noticeListSpan"></span>
-			
+
+			<!-- <table id="noticeListSpan"></table> -->
+
 			
 			<form:form modelAttribute="noticeSearch"
 				action="/notice/getNoticeList" method="get">
@@ -150,8 +130,8 @@
 				<form:button type="submit">일반검색</form:button>
 			</form:form>
 			<button id="ajaxput">ajaxput검색</button>
-			<button id="ajaxget">ajaxget검색</button>
-			<button id="putBtn">수정(put)</button>
+			<button id="ajaxgetPara">ajaxgetPara검색</button>
+			<button id="putBtn">putBtn</button>
 		<button id="getBtn">요청(get)</button>
 
 
@@ -163,7 +143,7 @@
 						<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
 					</tr>
 				</thead>
-				<tbody>
+				<%-- <tbody>
 					<c:forEach var="notice" items="${noticeList}">
 						<tr style="font-size: 12px;">
 							<td class=" text-center p-1" style="width: 50px;">${notice.noticeNo}
@@ -176,6 +156,9 @@
 									value="${notice.noticeRegDate}" pattern="yyyy-MM-dd" /></td>
 						</tr>
 					</c:forEach>
+				</tbody> --%>
+				<tbody id="noticeListSpan">
+						
 				</tbody>
 			</table>
 

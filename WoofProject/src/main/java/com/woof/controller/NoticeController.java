@@ -1,6 +1,5 @@
 package com.woof.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.woof.domain.Notice;
 import com.woof.domain.NoticeSearch;
@@ -61,16 +61,16 @@ public class NoticeController {
 		log.info("5 getSearchKeyword : " + noticeSearch.getSearchKeyword());
 		// 검색정보 Null Check
 		switch (noticeSearch.getSearchCondition()) {
-			case "TITLE": {
-				noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
-				noticeSearch.setSearchKeywordDesc("");
-				break;
-			}
-			case "CONTENT": {
-				noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
-				noticeSearch.setSearchKeywordTitle("");
-				break;
-			}
+		case "TITLE": {
+			noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
+			noticeSearch.setSearchKeywordDesc("");
+			break;
+		}
+		case "CONTENT": {
+			noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
+			noticeSearch.setSearchKeywordTitle("");
+			break;
+		}
 		}
 
 //		if (noticeSearch.getSearchCondition() == null) {
@@ -87,50 +87,86 @@ public class NoticeController {
 		model.addAttribute("noticeList", noticeList);
 		return "about/noticeList";
 	}
-	
-	@PutMapping(value="/getNoticeListAjaxPut/{searchKeywordVal}")
-	public ResponseEntity<List> getNoticeListAjaxPut(@PathVariable("searchKeywordVal") String searchKeywordVal,@RequestBody NoticeSearch noticeSearch) throws Exception {
-		log.info("getNoticeListAjaxPut");
-		log.info("getNoticeListPut : "+ searchKeywordVal +" "+ noticeSearch.toString());
-		
-		log.info("1 getSearchCondition : " + noticeSearch.getSearchCondition());
-		log.info("2 getSearchKeyword : " + noticeSearch.getSearchKeyword());
-		log.info("3 getSearchKeywordTitle : " + noticeSearch.getSearchKeywordTitle());
-		log.info("4 getSearchKeywordDesc : " + noticeSearch.getSearchKeywordDesc());
 
-		if (noticeSearch.getSearchCondition() == null) {
-			noticeSearch.setSearchCondition("TITLE");
-		}
+
+	@PutMapping(value = "/getNoticeListAjaxPut")
+	public ResponseEntity<List> getNoticeListAjaxPut(@RequestBody NoticeSearch noticeSearch) throws Exception {
+		log.info("getNoticeListAjaxPut");
+		log.info(noticeSearch.toString());
+
 		if (noticeSearch.getSearchKeyword() == null) {
 			noticeSearch.setSearchKeyword("");
 		}
 
-		log.info("5 getSearchKeyword : " + noticeSearch.getSearchKeyword());
 		// 검색정보 Null Check
 		switch (noticeSearch.getSearchCondition()) {
-			case "TITLE": {
-				noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
-				noticeSearch.setSearchKeywordDesc("");
-				break;
-			}
-			case "CONTENT": {
-				noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
-				noticeSearch.setSearchKeywordTitle("");
-				break;
-			}
+		case "TITLE": {
+			noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
+			noticeSearch.setSearchKeywordDesc("");
+			break;
 		}
-
-		log.info("6 getSearchCondition : " + noticeSearch.getSearchCondition());
-		log.info("7 getSearchKeywordTitle : " + noticeSearch.getSearchKeywordTitle());
-		log.info("8 getSearchKeywordDesc : " + noticeSearch.getSearchKeywordDesc());
+		case "CONTENT": {
+			noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
+			noticeSearch.setSearchKeywordTitle("");
+			break;
+		}
+		}
+		log.info(noticeSearch.toString());
 
 		List<Notice> noticeList = noticeService.getNoticeList(noticeSearch);
-		
-		ResponseEntity<List> entity = new ResponseEntity<List>(noticeList,HttpStatus.OK);
+		log.info("***noticeList:"+noticeList.get(0).toString());
+//		if(noticeList.get(0).getNoticeRegDate().getClass() != String.class) {
+		log.info("***noticeList:"+noticeList.get(0).getNoticeRegDate());
+//		if(noticeList.get(0).getNoticeRegDate()) {
+//		}
+		ResponseEntity<List> entity = new ResponseEntity<List>(noticeList, HttpStatus.OK);
+		log.info("***entity:"+entity.getBody().get(0));
 		log.info(entity.toString());
 		return entity;
 	}
 	
+//	@PutMapping(value="/getNoticeListAjaxPutPara")
+	@GetMapping("/getNoticeListAjaxPutPara")
+//	public String getNoticeListAjaxPutPara(
+			public ResponseEntity<List> getNoticeListAjaxPutPara(
+			@RequestParam ("searchCondition") 
+			String searchCondition,
+			@RequestParam ("searchKeyword") 
+			String searchKeyword,
+			NoticeSearch noticeSearch) throws Exception {
+		log.info("getNoticeListAjaxPutPara");
+		log.info(noticeSearch.toString());
+		log.info("searchCondition:"+searchCondition);
+		log.info("searchKeyword:"+searchKeyword);
+
+		if (noticeSearch.getSearchKeyword() == null) {
+			noticeSearch.setSearchKeyword("");
+		}
+
+		// 검색정보 Null Check
+		switch (noticeSearch.getSearchCondition()) {
+		case "TITLE": {
+			noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
+			noticeSearch.setSearchKeywordDesc("");
+			break;
+		}
+		case "CONTENT": {
+			noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
+			noticeSearch.setSearchKeywordTitle("");
+			break;
+		}
+		}
+		log.info(noticeSearch.toString());
+
+		List<Notice> noticeList = noticeService.getNoticeList(noticeSearch);
+		log.info("***noticeList:"+noticeList.get(0).toString());
+
+		ResponseEntity<List> entity = new ResponseEntity<List>(noticeList, HttpStatus.OK);
+		log.info(entity.toString());
+		return entity;
+//		return "para";
+	}
+
 //	@GetMapping(value="/board/{boardNo}")
 //	public ResponseEntity<Board> boardSelect(@PathVariable("boardNo") int boardNo) {
 //		log.info("boardSelect : "+ boardNo +" ");
@@ -144,8 +180,7 @@ public class NoticeController {
 //		ResponseEntity<Board> entity = new ResponseEntity<Board>(board,HttpStatus.OK);
 //		return entity;
 //	}
-	
-	
+
 	@RequestMapping("/insertNoticeForm")
 	public String insertNoticeForm(Notice notice) throws Exception {
 //		noticeService.insertNotice(notice);
@@ -158,11 +193,14 @@ public class NoticeController {
 
 		noticeService.insertNotice(notice);
 
-//		for(int i=0;i<10;i++) {
-//			notice.setNoticeTitle(notice.getNoticeTitle()+i);
-//			notice.setNoticeDesc(notice.getNoticeDesc()+i);
-//			noticeService.insertNotice(notice);
-//		}
+		// 샘플작성
+		String title = notice.getNoticeTitle();
+		String desc = notice.getNoticeDesc();
+		for (int i = 0; i < 30; i++) {
+			notice.setNoticeTitle(title + i);
+			notice.setNoticeDesc(desc + i);
+			noticeService.insertNotice(notice);
+		}
 
 		return "redirect:/notice/getNoticeList";
 	}
