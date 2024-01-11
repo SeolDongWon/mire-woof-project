@@ -1,15 +1,22 @@
 package com.woof.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.woof.domain.Notice;
+import com.woof.domain.NoticeSearch;
 import com.woof.service.NoticeService;
 
 import lombok.extern.java.Log;
@@ -18,17 +25,17 @@ import lombok.extern.java.Log;
 @Controller
 @RequestMapping("/notice")
 public class NoticeController {
-	
+
 	@Autowired
 	private NoticeService noticeService;
-	
-	
+
 	@RequestMapping("/getNotice/{noticeNo}")
-	public String getNotice(@PathVariable("noticeNo") int noticeNo, Notice dto,Model model) throws Exception {
+	public String getNotice(@PathVariable("noticeNo") int noticeNo, Notice dto, Model model) throws Exception {
 		dto.setNoticeNo(noticeNo);
-		Notice notice=noticeService.getNotice(dto);
+		noticeService.addNoticeViewCount(dto);
+		Notice notice = noticeService.getNotice(dto);
 		model.addAttribute("notice", notice);
-		return "/about/notice"; 
+		return "/about/notice";
 	}
 
 //	@RequestMapping(value = "/board/read/{boardNo}", method = RequestMethod.GET)
@@ -36,35 +43,139 @@ public class NoticeController {
 //		log.info("boardNo : " + boardNo);
 //		return "home";
 //	}
-	
-	@RequestMapping("/getNoticeList")
-	public String getNoticeList(Model model) throws Exception {
-		List<Notice> noticeList = noticeService.getNoticeList();
-		model.addAttribute("noticeList", noticeList);
-		return "about/noticeList"; 
-	}
 
+	@RequestMapping("/getNoticeList")
+	public String getNoticeList(Model model, NoticeSearch noticeSearch) throws Exception {
+		log.info("1 getSearchCondition : " + noticeSearch.getSearchCondition());
+		log.info("2 getSearchKeyword : " + noticeSearch.getSearchKeyword());
+		log.info("3 getSearchKeywordTitle : " + noticeSearch.getSearchKeywordTitle());
+		log.info("4 getSearchKeywordDesc : " + noticeSearch.getSearchKeywordDesc());
+
+		if (noticeSearch.getSearchCondition() == null) {
+			noticeSearch.setSearchCondition("TITLE");
+		}
+		if (noticeSearch.getSearchKeyword() == null) {
+			noticeSearch.setSearchKeyword("");
+		}
+
+		log.info("5 getSearchKeyword : " + noticeSearch.getSearchKeyword());
+		// 검색정보 Null Check
+		switch (noticeSearch.getSearchCondition()) {
+			case "TITLE": {
+				noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
+				noticeSearch.setSearchKeywordDesc("");
+				break;
+			}
+			case "CONTENT": {
+				noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
+				noticeSearch.setSearchKeywordTitle("");
+				break;
+			}
+		}
+
+//		if (noticeSearch.getSearchCondition() == null) {
+//			noticeSearch.setSearchCondition("TITLE");
+//		}
+//		if (noticeSearch.getSearchKeyword() == null) {
+//			noticeSearch.setSearchKeyword("");
+//		}
+		log.info("6 getSearchCondition : " + noticeSearch.getSearchCondition());
+		log.info("7 getSearchKeywordTitle : " + noticeSearch.getSearchKeywordTitle());
+		log.info("8 getSearchKeywordDesc : " + noticeSearch.getSearchKeywordDesc());
+
+		List<Notice> noticeList = noticeService.getNoticeList(noticeSearch);
+		model.addAttribute("noticeList", noticeList);
+		return "about/noticeList";
+	}
+	
+	@PutMapping(value="/getNoticeListAjaxPut/{searchKeywordVal}")
+	public ResponseEntity<List> getNoticeListAjaxPut(@PathVariable("searchKeywordVal") String searchKeywordVal,@RequestBody NoticeSearch noticeSearch) throws Exception {
+		log.info("getNoticeListAjaxPut");
+		log.info("getNoticeListPut : "+ searchKeywordVal +" "+ noticeSearch.toString());
+		
+		log.info("1 getSearchCondition : " + noticeSearch.getSearchCondition());
+		log.info("2 getSearchKeyword : " + noticeSearch.getSearchKeyword());
+		log.info("3 getSearchKeywordTitle : " + noticeSearch.getSearchKeywordTitle());
+		log.info("4 getSearchKeywordDesc : " + noticeSearch.getSearchKeywordDesc());
+
+		if (noticeSearch.getSearchCondition() == null) {
+			noticeSearch.setSearchCondition("TITLE");
+		}
+		if (noticeSearch.getSearchKeyword() == null) {
+			noticeSearch.setSearchKeyword("");
+		}
+
+		log.info("5 getSearchKeyword : " + noticeSearch.getSearchKeyword());
+		// 검색정보 Null Check
+		switch (noticeSearch.getSearchCondition()) {
+			case "TITLE": {
+				noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
+				noticeSearch.setSearchKeywordDesc("");
+				break;
+			}
+			case "CONTENT": {
+				noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
+				noticeSearch.setSearchKeywordTitle("");
+				break;
+			}
+		}
+
+		log.info("6 getSearchCondition : " + noticeSearch.getSearchCondition());
+		log.info("7 getSearchKeywordTitle : " + noticeSearch.getSearchKeywordTitle());
+		log.info("8 getSearchKeywordDesc : " + noticeSearch.getSearchKeywordDesc());
+
+		List<Notice> noticeList = noticeService.getNoticeList(noticeSearch);
+		
+		ResponseEntity<List> entity = new ResponseEntity<List>(noticeList,HttpStatus.OK);
+		log.info(entity.toString());
+		return entity;
+	}
+	
+//	@GetMapping(value="/board/{boardNo}")
+//	public ResponseEntity<Board> boardSelect(@PathVariable("boardNo") int boardNo) {
+//		log.info("boardSelect : "+ boardNo +" ");
+//		Board board = new Board();
+//		board.setBoardNo(20);
+//		board.setTitle("ajaxGetTest");
+//		board.setWriter("seol1");
+//		board.setContent("good");
+//		board.setRegDate(new Date());
+//		
+//		ResponseEntity<Board> entity = new ResponseEntity<Board>(board,HttpStatus.OK);
+//		return entity;
+//	}
+	
+	
 	@RequestMapping("/insertNoticeForm")
 	public String insertNoticeForm(Notice notice) throws Exception {
 //		noticeService.insertNotice(notice);
-		return "admin/notices/insertNotice"; 
+		return "admin/notices/insertNotice";
 	}
+
 	@PostMapping("/insertNotice")
 	public String insertNotice(Notice notice) throws Exception {
 		log.info("insertNotice");
+
 		noticeService.insertNotice(notice);
-		return "/about/noticeList"; 
+
+//		for(int i=0;i<10;i++) {
+//			notice.setNoticeTitle(notice.getNoticeTitle()+i);
+//			notice.setNoticeDesc(notice.getNoticeDesc()+i);
+//			noticeService.insertNotice(notice);
+//		}
+
+		return "redirect:/notice/getNoticeList";
 	}
 
 	@RequestMapping("/modifyNotice")
 	public String modifyNotice(Notice notice) throws Exception {
 		noticeService.modifyNotice(notice);
-		return "/about/noticeList"; 
+		return "/about/noticeList";
 	}
 
 	@RequestMapping("/deleteNotice")
 	public String deleteNotice(Notice notice) throws Exception {
 		noticeService.deleteNotice(notice);
-		return "/about/noticeList"; 
+		return "/about/noticeList";
 	}
 }

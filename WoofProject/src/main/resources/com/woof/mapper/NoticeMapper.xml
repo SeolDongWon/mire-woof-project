@@ -3,17 +3,27 @@
 <mapper namespace="com.woof.mapper.NoticeMapper">
 
 <insert id="insertNotice">
-	insert into notice(noticeNo,noticeTitle,noticeDesc) 
-	values(noticeNo_seq.nextval,#{noticeTitle},#{noticeDesc})
+	INSERT INTO notice(noticeno,noticetitle,noticedesc) 
+	VALUES(noticeno_seq.NEXTVAL,#{noticetitle},#{noticedesc})
 </insert>
 	
 <select id="getNoticeList" resultType="com.woof.domain.Notice">
-	select * from notice order by noticeno desc
+	<!-- select * from notice order by noticeno desc -->
+	SELECT * 
+	FROM notice 
+	WHERE noticetitle LIKE '%'||#{searchKeywordTitle}||'%' 
+	AND noticedesc LIKE '%'||#{searchKeywordDesc}||'%'
+	ORDER BY noticeno DESC
 </select>
 
 <select id="getNotice" resultType="com.woof.domain.Notice">
-	select * from notice where noticeNo = #{noticeNo}
+	SELECT * FROM notice WHERE noticeNo = #{noticeNo}
 </select>
 
+
+
+<update id="addNoticeViewCount">
+	UPDATE notice SET noticeviewcount=noticeviewcount+1 WHERE noticeno=#{noticeNo}
+</update>
 
 </mapper>

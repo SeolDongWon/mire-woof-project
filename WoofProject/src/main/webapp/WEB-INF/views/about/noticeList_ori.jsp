@@ -24,93 +24,18 @@
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
-<script type="text/javascript">
+<!-- <script>
 	$(document).ready(function() {
-		//이벤트설정1
-		
-		$("#ajaxput").on("click",function(){
-			alert("ajaxput");
-			//input태그 객체를 가져온다
-			let searchCondition = $("#searchCondition");
-			let searchKeyword = $("#searchKeyword");
-			
-			//입력태그객체 value를 가져온다
-			let searchConditionVal = searchCondition.val();
-			let searchKeywordVal = searchKeyword.val();
-			
-			//전송할객체를 만든다
-			let NoticeSearch = {
-					searchCondition : searchConditionVal,
-					searchKeyword : searchKeywordVal,
-			};
-			
-		
-			
-			//비동기식 처리방식을 요청한다.
-				alert("ajaxStart");
-			$.ajax({
-				type : "put",
-				/* url : "/notice/getNoticeListAjaxPut"+"?"+"searchCondition"+searchConditionVal+"&"+"searchKeyword"+searchKeywordVal, */
-				url : "/notice/getNoticeListAjaxPut/"+searchKeywordVal,
-				data : JSON.stringify(NoticeSearch),
-				contentType : "application/json; charset=UTF-8",
-				success : function(result){
-					console.log("result : "+result);
-					if(result!=null){
-						alert(JSON.stringify(result));
-						alert("SUCCESS");
-					}
-					let notice = JSON.stringify(result);
-					console.log(notice.noticeList);
-					
-					let noticeList = "";
-					
-					for (var i = 0;;i++){
-						noticeList += '<tr style="font-size: 12px;">
-						noticeList += '<td class=" text-center p-1" style="width: 50px;">${notice.noticeNo}
-						noticeList += '</td>
-						noticeList += '<td class="text-truncate p-1">
-						noticeList += '<a	href="/notice/getNotice/${notice.noticeNo}"	class="list-group-item list-group-item-action border-0 text-truncate">
-									${notice.noticeTitle }</a></td>
-							<td class=" text-center p-1" style="width: 130px;">
-							<fmt:formatDate	value="${notice.noticeRegDate}" pattern="yyyy-MM-dd" /></td>
-						</tr>
-						
-						
-					}
-						
-					
-					
-					
-					
-					$("#noticeListSpan").html("noticeList");
-				}
-			});
-		});
-		
-		//이벤트설정2
-		$("#ajaxget").on("click",function(){
-			alert("ajaxget");
 
-		});
-		
-		
-		$("#putBtn").on("click",function(){
-			alert("SUCCESS");
+		var formObj = $("#noticeSearch");
 
-		});
-		
-		$("#getBtn").on("click",function(){
-			alert("SUCCESS");
+		$("#btnModify").on("click", function() {
+			formObj.submit();
 		});
 
-		//이벤트설정2
-		$("#putHeaderBtn").on("click", function() {
-			alert("SUCCESS");
-		});
 
 	});
-</script>
+</script> -->
 </head>
 <body>
 	<!-- Header Area -->
@@ -135,26 +60,17 @@
 		<a href="/notice/insertNoticeForm">insertNoticeForm</a>
 		<div class="mt-3">
 			<p class="text-center fs-5 mt-3">NOTICE LIST</p>
-			
-			
-			<span id="noticeListSpan"></span>
-			
-			
-			<form:form modelAttribute="noticeSearch"
-				action="/notice/getNoticeList" method="get">
+			NOTICE
+			<form:form modelAttribute="noticeSearch" action="/notice/getNoticeList" method="get">
 				<form:select path="searchCondition">
 					<form:option value="TITLE" label="제목" />
 					<form:option value="CONTENT" label="내용" />
 				</form:select>
 				<form:input path="searchKeyword" />
-				<form:button type="submit">일반검색</form:button>
+				<form:button type="submit" >일반검색</form:button>
 			</form:form>
-			<button id="ajaxput">ajaxput검색</button>
-			<button id="ajaxget">ajaxget검색</button>
-			<button id="putBtn">수정(put)</button>
-		<button id="getBtn">요청(get)</button>
 
-
+			
 			<table class="table table-striped" style="table-layout: fixed;">
 				<thead>
 					<tr>

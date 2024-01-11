@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.woof.domain.Notice;
+import com.woof.domain.NoticeSearch;
 import com.woof.mapper.NoticeMapper;
 import com.woof.service.NoticeService;
 
@@ -21,8 +22,8 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<Notice> getNoticeList() throws Exception {
-		return mapper.getNoticeList();
+	public List<Notice> getNoticeList(NoticeSearch noticeSearch) throws Exception {
+		return mapper.getNoticeList(noticeSearch);
 	}
 
 	@Override
@@ -39,6 +40,11 @@ public class NoticeServiceImpl implements NoticeService {
 	public void deleteNotice(Notice notice) throws Exception {
 		mapper.deleteNotice(notice);
 		
+	}
+
+	@Override
+	public void addNoticeViewCount(Notice notice) throws Exception {
+		mapper.addNoticeViewCount(notice);
 	}
 
 }

@@ -48,6 +48,7 @@
 	noticeDesc : <p>${notice.noticeDesc}</p>
 	noticeRegDate : <p>${notice.noticeRegDate}</p>
 	noticeModDate : <p>${notice.noticeModDate}</p>
+	noticeviewcount : ${notice.noticeViewCount}
 	
 	
 	</main>

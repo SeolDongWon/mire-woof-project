@@ -27,9 +27,9 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		//이벤트설정1
-		
 		$("#ajaxput").on("click",function(){
-			alert("ajaxput");
+			alert("click");
+			
 			//input태그 객체를 가져온다
 			let searchCondition = $("#searchCondition");
 			let searchKeyword = $("#searchKeyword");
@@ -43,70 +43,57 @@
 					searchCondition : searchConditionVal,
 					searchKeyword : searchKeywordVal,
 			};
-			
-		
-			
+			alert("click");
 			//비동기식 처리방식을 요청한다.
-				alert("ajaxStart");
 			$.ajax({
 				type : "put",
 				/* url : "/notice/getNoticeListAjaxPut"+"?"+"searchCondition"+searchConditionVal+"&"+"searchKeyword"+searchKeywordVal, */
-				url : "/notice/getNoticeListAjaxPut/"+searchKeywordVal,
+				url : "/notice/getNoticeListAjaxPut"++searchKeywordVal,
 				data : JSON.stringify(NoticeSearch),
 				contentType : "application/json; charset=UTF-8",
 				success : function(result){
 					console.log("result : "+result);
-					if(result!=null){
-						alert(JSON.stringify(result));
+					if(result==="SUCCESS"){
 						alert("SUCCESS");
 					}
-					let notice = JSON.stringify(result);
-					console.log(notice.noticeList);
-					
-					let noticeList = "";
-					
-					for (var i = 0;;i++){
-						noticeList += '<tr style="font-size: 12px;">
-						noticeList += '<td class=" text-center p-1" style="width: 50px;">${notice.noticeNo}
-						noticeList += '</td>
-						noticeList += '<td class="text-truncate p-1">
-						noticeList += '<a	href="/notice/getNotice/${notice.noticeNo}"	class="list-group-item list-group-item-action border-0 text-truncate">
-									${notice.noticeTitle }</a></td>
-							<td class=" text-center p-1" style="width: 130px;">
-							<fmt:formatDate	value="${notice.noticeRegDate}" pattern="yyyy-MM-dd" /></td>
-						</tr>
-						
-						
-					}
-						
-					
-					
-					
-					
-					$("#noticeListSpan").html("noticeList");
 				}
 			});
 		});
 		
 		//이벤트설정2
 		$("#ajaxget").on("click",function(){
-			alert("ajaxget");
-
-		});
-		
-		
-		$("#putBtn").on("click",function(){
-			alert("SUCCESS");
-
-		});
-		
-		$("#getBtn").on("click",function(){
-			alert("SUCCESS");
+			//input태그 객체를 가져온다
+			let searchCondition = $("#searchCondition");
+			let searchKeyword = $("#searchKeyword");
+			//입력태그객체 value를 가져온다
+			let searchConditionVal = searchCondition.val();
+			let searchKeywordVal = searchKeyword.val();
+			
+			//전송할객체를 만든다
+			let NoticeSearch = {
+					searchCondition : searchConditionVal,
+					searchKeyword : searchKeywordVal,
+			};
+			
+			//비동기식 처리방식을 요청한다.
+			$.ajax({
+				type : "get",
+				url : "/notice/board/"+searchConditionVal+searchKeywordVal,
+				/* data : JSON.stringify(boardObject), */
+				headers : {"Accept" : "application/json"},
+				contentType : "application/json; charset=UTF-8",
+				success : function(result){
+					console.log("result : "+result);
+					if(result!=null){
+						/* alert("result"); */
+						alert(JSON.stringify(result));
+					}
+				}
+			});
 		});
 
 		//이벤트설정2
 		$("#putHeaderBtn").on("click", function() {
-			alert("SUCCESS");
 		});
 
 	});
@@ -135,11 +122,7 @@
 		<a href="/notice/insertNoticeForm">insertNoticeForm</a>
 		<div class="mt-3">
 			<p class="text-center fs-5 mt-3">NOTICE LIST</p>
-			
-			
-			<span id="noticeListSpan"></span>
-			
-			
+			NOTICE
 			<form:form modelAttribute="noticeSearch"
 				action="/notice/getNoticeList" method="get">
 				<form:select path="searchCondition">
@@ -151,8 +134,6 @@
 			</form:form>
 			<button id="ajaxput">ajaxput검색</button>
 			<button id="ajaxget">ajaxget검색</button>
-			<button id="putBtn">수정(put)</button>
-		<button id="getBtn">요청(get)</button>
 
 
 			<table class="table table-striped" style="table-layout: fixed;">
