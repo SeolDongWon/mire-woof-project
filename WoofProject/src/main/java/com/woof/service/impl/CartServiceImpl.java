@@ -30,19 +30,19 @@ public class CartServiceImpl implements CartService {
 		return mapper.getOrder(selectedItems /* , username */);
 	}
 
+//	@Override
+//	public void changeCheckStatus(Cart cart) throws Exception {
+//		mapper.changeCheckStatus(cart);
+//	}
+
 	@Override
-	public void changeCheckStatus(Cart cart) throws Exception {
-		mapper.changeCheckStatus(cart);
+	public void removeFromCart(String itemNo) throws Exception {
+		mapper.removeFromCart(itemNo);
 	}
 
 	@Override
-	public void removeFromCart(Cart cart) throws Exception {
-		mapper.removeFromCart(cart);
-	}
-
-	@Override
-	public void removeChecked(Cart cart) throws Exception {
-		mapper.removeChecked(cart);
+	public void removeChecked(List<String> selectedItems /*, username */) throws Exception {
+		mapper.removeChecked(selectedItems /*, username */);
 	}
 
 	@Override

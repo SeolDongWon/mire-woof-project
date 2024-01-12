@@ -17,15 +17,22 @@
     		</foreach>
 	    <!-- AND username = #{username} -->
 	</select>
+	<!-- 
 	<update id="changeCheckStatus">
 		UPDATE cart SET checkStatus = CASE WHEN checkStatus='checked' THEN 'unchecked' ELSE 'checked' END 
 		WHERE username=#{username} AND itemNo=#{itemNo}
 	</update>
+	-->
 	<delete id="removeFromCart">
-		DELETE FROM cart WHERE username=#{username} AND itemNo=#{itemNo}
+		<!-- DELETE FROM cart WHERE username=#{username} AND itemNo=#{selectedItems} -->
+		DELETE FROM cart WHERE itemNo=#{itemNo}
 	</delete>
 	<delete id="removeChecked">
-		DELETE FROM cart WHERE username=#{username} AND checkStatus='checked'
+		<!-- DELETE FROM cart WHERE username=#{username} AND checkStatus='checked'  -->
+		DELETE FROM cart WHERE itemNo IN
+			<foreach item="item" collection="selectedItems" open="(" separator="," close=")">
+				#{item}
+			</foreach>
 	</delete>
 	<update id="modifyQuantity">
 		UPDATE cart SET quantity=#{newQuantity} WHERE username=#{username} AND itemNo=#{itemNo}

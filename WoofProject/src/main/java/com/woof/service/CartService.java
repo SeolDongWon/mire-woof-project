@@ -12,11 +12,11 @@ public interface CartService {
 	
 	public List<Cart> getOrder(List<String> selectedItems/* , username */) throws Exception;
 	
-	public void changeCheckStatus(Cart cart) throws Exception;
+//	public void changeCheckStatus(Cart cart) throws Exception;
 	
-	public void removeFromCart(Cart cart) throws Exception;
+	public void removeFromCart(String itemNo) throws Exception;
 	
-	public void removeChecked(Cart cart) throws Exception;
+	public void removeChecked(List<String> selectedItems/*, username */) throws Exception;
 	
 	public void modifyQuantity(Cart cart) throws Exception;
 }

@@ -27,43 +27,79 @@
 	$(document).ready(function(){
 		$("#cartForm").submit(function(event) {
 			event.preventDefault();
-			var formData = $(this).serialize();
+			
+			var selectedItems = getSelectedItems();
+			console.log("selectedItems: ", selectedItems);
+			
+			if(selectedItems.length > 0) {
+				$("#selectedItemsInput").val(selectedItems);
+				
+				var action = $(event.originalEvent.submitter).attr('id') === 'btnCheckout' ? 'getOrder' : 'removeChecked';
+			
+				this.action = action;
+				console.log("action: ", action);
+				
+				if(action === 'removeChecked') {
+					$.ajax({
+					    type: "POST",
+					    url: "removeChecked",
+					    contentType: "application/json", 
+					    data: JSON.stringify(selectedItems),
+					    success: function (data) {
+					    	console.log("Items removed successfully")
+					        location.reload();
+					    },
+					    error: function (error) {
+					        console.log("Error removing items", error);
+					    }
+					});
+					
+				} else {
+				this.submit();
+				}
+			} else {
+				alert("Please select at least one item");
+			}
+			
+		});
+		
+		function getSelectedItems() {
+			var selectedItems = [];
+			$("input[name='checkStatus']:checked").each(function(){
+				selectedItems.push($(this).val());
+			});
+			return [].concat.apply([], selectedItems);
+		}
+		
+		$(".remove-from-cart-btn").on("click", function(event) {
+			/* var username = $(this).data("username"); username: username, */
+			event.preventDefault();
+			var itemNo = $(this).attr("data-itemNo");
+			
+			console.log("itemNo: ", itemNo)
 			$.ajax({
-				url: $(this).attr("action"),
-				type: $(this).attr("method"),
-				data: formData,
-				success: function(response) {
-					console.log("Success", response);
-					location.reload();
+				type: "POST",
+				url: "removeFromCart",
+				contentType: "application/json", 
+				data: JSON.stringify(itemNo),
+				success: function(data) {
+					var row = $("input[value='" + itemNo + "']").closest("tr");
+					row.remove();
+					console.log("Item removed successfully");
 				},
 				error: function(error) {
-					console.log("Error", error);
+					console.log("Error removing item", error);
 				}
 			});
 		});
-		$("#btnRemoveSelected").on("click", function() {
 		
+		$(".select-all-btn").on("click", function () {
+			var checked = !$(this).data("checked");
+			$(this).data("checked", checked);
+			$("input[name='checkStatus']").prop("checked", checked);
 		});
 	});
-</script>
-<script>
-	function sendChecked() {
-		var selectedItems = [];
-		$("input[name='checkStatus']:checked").each(function(){
-			selectedItems.push($(this).val());
-		});
-		
-		if(selectedItems.length > 0) {
-			console.log("selectedItems length: " + selectedItems.length);
-			
-			var flatItems = [].concat.apply([], selectedItems);
-			$("#selectedItemsInput").val(flatItems);
-			
-			document.getElementById("cartForm").submit();
-		} else {
-			alert("Please select at least one item to check out");
-		}
-	};
+	
 </script>
 
 <%-- <%@ include file="" %> --%>
@@ -77,11 +113,15 @@
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-	<form id="cartForm" action="getOrder" method="post">
+	<form id="cartForm" action="#" method="post">
 		<table class="table">
 			<thead class="t-head">
 				<tr>
-					<th></th>
+					<th class="align-middle text-center">
+						<button type="button" class="select-all-btn text-decoration-none border-0 bg-transparent">
+							<i class="fa-solid fa-check-double text-primary"></i>
+						</button>
+					</th>
 					<th class="align-middle text-center">Main picture</th>
 					<th class="align-middle text-center">Item name</th>
 					<th class="align-middle text-center">Quantity</th>
@@ -110,9 +150,9 @@
 							<td class="align-middle text-center">${cart.quantity}</td>
 							<td class="align-middle text-center">${cart.price}</td>
 							<td class="align-middle text-center">
-								<a href="removeFromCart?username=${cart.username}&itemNo=${cart.itemNo}" class="text-decoration-none">
+								<button type="button" class="remove-from-cart-btn text-decoration-none border-0 bg-transparent" data-username="${cart.username}" data-itemNo="${cart.itemNo}">
 									<i class="fa-sharp fa-regular fa-rectangle-xmark text-danger"></i>
-								</a>
+								</button>						
 							</td>
 						</tr>
 					</c:forEach>
@@ -123,9 +163,8 @@
 		<input type="hidden" id="selectedItemsInput" name="selectedItems" value="">
 		
 		<div class="d-flex flex-row justify-content-end align-items-center">
-			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnRemoveAll">Remove all items</button>
-			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnRemoveSelected">Remove selected items</button>
-			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnCheckout" type="submit" onclick="sendChecked()">Check out</button>
+			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnRemoveSelected" type="submit">Remove selected items</button>
+			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnCheckout" type="submit">Check out</button>
 		</div>
 	</form>	
 	
