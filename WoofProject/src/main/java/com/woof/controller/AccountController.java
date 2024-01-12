@@ -19,7 +19,7 @@ import lombok.extern.java.Log;
 @Log
 @Controller
 @RequestMapping("/account")
-@MapperScan(basePackages = "com.woof.mapper")
+//@MapperScan(basePackages = "com.woof.mapper")
 public class AccountController {
 
 	@Autowired
