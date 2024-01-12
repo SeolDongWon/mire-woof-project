@@ -22,15 +22,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 		log.info("Load User By username : " + username);
 		// userName은 사용자명이 아니라 사용자 아이디이다.
 
-		Account account = null;
-		try {
-			account = accountMapper.read(username);
-		} catch (Exception e) {
-			log.info("... class CustomUserDetailsService try/catch...");
-			e.printStackTrace();
-		}
-		log.info("queried by Account Mapper: " + account);
-
+		Account account = accountMapper.readByUsername(username);
+		log.info("queried by member mapper: " + account);
+		
 		return account == null ? null : new CustomAccount(account);
 	}
 

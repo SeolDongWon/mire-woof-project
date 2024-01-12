@@ -8,7 +8,7 @@
 		<div class="d-flex justify-content-end">
 			<ul class="nav nav-underline  justify-content-around">
 				<!-- 로그인을 하지 않은 경우 -->
-				<sec:authorize access="isAnonymous()">
+				<sec:authorize access="!isAuthenticated()">
 					<li class="nav-item"><a href="/account/login" class="nav-link text-black">로그인</a></li>
 					<li class="nav-item"><a href="/account/createAccount" class="nav-link text-black">회원가입</a></li>
 				</sec:authorize>
@@ -21,7 +21,7 @@
 		          	  <li class="nav-item"><a href="#" class="nav-link text-black">내정보</a></li>
 		         	  <li class="nav-item">
 		         	  <!-- <form action=".logout" method="post"> -->
-		         	  <a href="/logout" class="nav-link text-black">로그아웃</a>
+		         	  <a href="/account/logout" class="nav-link text-black">로그아웃</a>
 		         	  <!-- </form> -->
 		         	  </li>
 				</sec:authorize>

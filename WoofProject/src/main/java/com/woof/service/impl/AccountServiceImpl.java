@@ -68,5 +68,21 @@ public class AccountServiceImpl implements AccountService {
 	public Account searcheAccount(Account searchKeyword) throws Exception {
 		return mapper.searcheAccount(searchKeyword);
 	}
+	
+	// 최초 관리자를 생성한다.
+	@Transactional
+	@Override
+	public void setupAdmin(Account account) throws Exception {
+		mapper.registerAccount(account);
+		AccountAuth accountAuth = new AccountAuth();
+		accountAuth.setUsername(account.getUsername()); 
+		accountAuth.setAuth("ROLE_ADMIN");
+		mapper.registerAccountAuth(accountAuth);
+	}
+
+	@Override
+	public int countAll() throws Exception {
+		return mapper.countAll();
+	}
 
 }

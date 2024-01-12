@@ -11,8 +11,7 @@ public interface AccountMapper {
 	// 권한 생성
 	public void registerAccountAuth(AccountAuth accountAuth) throws Exception;
 	
-	// 로그인
-	public Account read(String username) throws Exception;
+	
 	// 내정보
 	public Account getAccount(Account username) throws Exception;
 	// Account들의 모든정보 리스트
@@ -23,4 +22,10 @@ public interface AccountMapper {
 	public void deleteAccount(Account username) throws Exception;
 	//admin이 개인계정을 찾기
 	public Account searcheAccount(Account searchKeyword) throws Exception;
+	// 회원 테이블의 데이터 건수 조회
+	public int countAll() throws Exception;
+	
+	//사용자 아이디를 가진 회원 정보를 조회
+	public Account readByUsername(String username);
+	
 }
