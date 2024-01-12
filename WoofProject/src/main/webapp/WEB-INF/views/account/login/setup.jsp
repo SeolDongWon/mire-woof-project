@@ -6,11 +6,14 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>mire woof</title>
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -18,6 +21,19 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		var formObj = $("#account");
+		$("#btnRegister").on("click", function() {
+			formObj.submit();
+		});
+		$("#btnHom").on("click", function() {
+			alert("btnHom");
+			self.location = "/account/login";
+		});
+	});
+</script>
+
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
@@ -37,13 +53,13 @@
 		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 
 
-		<form:form modelAttribute="account" action="createAccount">
-			<div class="container mt-3" style="width: 500px">
+		<div class="container mt-3" style="width: 500px">
+			<form:form modelAttribute="account" action="/account/setup">
 				<table class="table table-borderless">
 
 
 					<tr>
-						<td colspan='2'><h2>회원가입</h2></td>
+						<td colspan='2'><h2>관리자 가입</h2></td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
@@ -92,19 +108,27 @@
 							</div>
 						</th>
 					</tr>
-
-					<tr>
-						<td colspan='2'><form:button type="submit" id="btuCreate"
-								class="form-control" style="background: rgb(246, 220, 216)">회원가입</form:button>
-							<sec:authorize access="hasRole('ROLE_ADMIN')">
-								<form:button type="submit" id="btnList">
-										목록
-									</form:button>
-							</sec:authorize></td>
-					</tr>
 				</table>
-			</div>
-		</form:form>
+
+			</form:form>
+			<table>
+				<tr>
+					<td>
+						<div class="d-flex justify-content-around " style="width: 500px">
+							<button type="submit" id="btnRegister" class="form-control"
+								style="background: rgb(246, 220, 216); width: 150px;">회원가입</button>
+
+							<button type="submit" id="btnHom" class="form-control"
+								style="background: rgb(246, 220, 216); width: 150px;">목록</button>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+
+
+
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -3,7 +3,7 @@
 
   <hr>
 	
- <footer class="m-1">
+ <footer class="m-0">
       <div class="row">
         <div class="col-1">
         </div>

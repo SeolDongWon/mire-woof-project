@@ -12,6 +12,14 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+	let result = "${msg}";
+	if (result === "SUCCESS") {
+		alert("An account that already exists. Exit");
+	}
+</script>
+
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 	<%@ include file="/WEB-INF/views/common/style.jsp" %>
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
@@ -25,16 +33,12 @@
 <!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp" %> 
 <!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/menu.jsp" %> 
+	<%@ include file="/WEB-INF/views/common/mainMenu.jsp" %> 
 <!-- subMenu Area -->
-	<main>
-	<form action="/item/admin/insertItem" method="get">
-		<button type="submit">Insert item</button>
-	</form>
-	<a href="/account/myCart/myCart">myCart</a>
+	<main class="pt-2">
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-      <section class="pt-2">
+      <section>
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" style="height: 400px;">
           <div class="carousel-inner h-100 text-center">
             <!-- 회전목마 테이블을 만들어서 관리자가 맘대로 가능하게 -->
@@ -78,8 +82,7 @@
                   <div class="h-75 overflow-hidden rounded ">
                     <img src="/resource/image/mainPage/cat1.jpg" alt="" class="w-100">
                   </div>
-                  <div class="h-25 overflow-hidden p-1"
-                    style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:4;">
+                  <div class="h-25 overflow-hidden p-1" style="display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp:4;">
                     입양후기 작성 내용
                   </div>
                 </a>
