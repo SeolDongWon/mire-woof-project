@@ -61,6 +61,13 @@
 						<td>Item Description</td>
 						<td>${item.itemDesc}</td>
 					</tr>
+					<tr>
+						<td colspan="2" class="align-middle text-center">
+							<a href="" class="add-to-cart-btn btn btn-primary btn-outline-secondary text-white m-2">
+								Add to Cart
+							</a>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>
