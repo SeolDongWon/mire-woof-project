@@ -19,7 +19,6 @@ import lombok.extern.java.Log;
 @Log
 @Controller
 @RequestMapping("/pet")
-@MapperScan(basePackages = "com.woof.mapper")
 public class PetController {
 	@Autowired
 	private PetService service;

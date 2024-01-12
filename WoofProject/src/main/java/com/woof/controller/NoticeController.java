@@ -3,20 +3,19 @@ package com.woof.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.woof.domain.Notice;
-import com.woof.domain.NoticeSearch;
+import com.woof.domain.Search;
 import com.woof.service.NoticeService;
 
 import lombok.extern.java.Log;
@@ -28,9 +27,13 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Value("${kakaomap.appkey}")
+	private String kakaoMapAppkey;
 
 	@RequestMapping("/getNotice/{noticeNo}")
 	public String getNotice(@PathVariable("noticeNo") int noticeNo, Notice dto, Model model) throws Exception {
+		log.info("getNotice");
 		dto.setNoticeNo(noticeNo);
 		noticeService.addNoticeViewCount(dto);
 		Notice notice = noticeService.getNotice(dto);
@@ -45,145 +48,45 @@ public class NoticeController {
 //	}
 
 	@RequestMapping("/getNoticeList")
-	public String getNoticeList(Model model, NoticeSearch noticeSearch) throws Exception {
-		log.info("1 getSearchCondition : " + noticeSearch.getSearchCondition());
-		log.info("2 getSearchKeyword : " + noticeSearch.getSearchKeyword());
-		log.info("3 getSearchKeywordTitle : " + noticeSearch.getSearchKeywordTitle());
-		log.info("4 getSearchKeywordDesc : " + noticeSearch.getSearchKeywordDesc());
-
-		if (noticeSearch.getSearchCondition() == null) {
-			noticeSearch.setSearchCondition("TITLE");
-		}
-		if (noticeSearch.getSearchKeyword() == null) {
-			noticeSearch.setSearchKeyword("");
-		}
-
-		log.info("5 getSearchKeyword : " + noticeSearch.getSearchKeyword());
-		// 검색정보 Null Check
-		switch (noticeSearch.getSearchCondition()) {
-		case "TITLE": {
-			noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
-			noticeSearch.setSearchKeywordDesc("");
-			break;
-		}
-		case "CONTENT": {
-			noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
-			noticeSearch.setSearchKeywordTitle("");
-			break;
-		}
-		}
-
-//		if (noticeSearch.getSearchCondition() == null) {
-//			noticeSearch.setSearchCondition("TITLE");
-//		}
-//		if (noticeSearch.getSearchKeyword() == null) {
-//			noticeSearch.setSearchKeyword("");
-//		}
-		log.info("6 getSearchCondition : " + noticeSearch.getSearchCondition());
-		log.info("7 getSearchKeywordTitle : " + noticeSearch.getSearchKeywordTitle());
-		log.info("8 getSearchKeywordDesc : " + noticeSearch.getSearchKeywordDesc());
-
-		List<Notice> noticeList = noticeService.getNoticeList(noticeSearch);
-		model.addAttribute("noticeList", noticeList);
+	public String getNoticeList(Model model, Search search) throws Exception {
+		log.info("getNoticeList");
 		return "about/noticeList";
 	}
 
-
 	@PutMapping(value = "/getNoticeListAjaxPut")
-	public ResponseEntity<List> getNoticeListAjaxPut(@RequestBody NoticeSearch noticeSearch) throws Exception {
+	public ResponseEntity<List> getNoticeListAjaxPut(@RequestBody Search search) throws Exception {
 		log.info("getNoticeListAjaxPut");
-		log.info(noticeSearch.toString());
 
-		if (noticeSearch.getSearchKeyword() == null) {
-			noticeSearch.setSearchKeyword("");
+		if (search.getKeyword() == null) {
+			search.setKeyword("");
 		}
 
 		// 검색정보 Null Check
-		switch (noticeSearch.getSearchCondition()) {
+		switch (search.getCondition()) {
 		case "TITLE": {
-			noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
-			noticeSearch.setSearchKeywordDesc("");
+			search.setKeywordTitle(search.getKeyword());
+			search.setKeywordDesc("");
 			break;
 		}
 		case "CONTENT": {
-			noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
-			noticeSearch.setSearchKeywordTitle("");
+			search.setKeywordDesc(search.getKeyword());
+			search.setKeywordTitle("");
 			break;
 		}
 		}
-		log.info(noticeSearch.toString());
 
-		List<Notice> noticeList = noticeService.getNoticeList(noticeSearch);
-		log.info("***noticeList:"+noticeList.get(0).toString());
-//		if(noticeList.get(0).getNoticeRegDate().getClass() != String.class) {
-		log.info("***noticeList:"+noticeList.get(0).getNoticeRegDate());
-//		if(noticeList.get(0).getNoticeRegDate()) {
-//		}
-		ResponseEntity<List> entity = new ResponseEntity<List>(noticeList, HttpStatus.OK);
-		log.info("***entity:"+entity.getBody().get(0));
-		log.info(entity.toString());
+		List<Notice> noticeList = noticeService.getNoticeList(search);
+		ResponseEntity<List> entity = null;
+		if (noticeList.size() != 0) {
+			entity = new ResponseEntity<List>(noticeList, HttpStatus.OK);
+		}
 		return entity;
 	}
-	
-//	@PutMapping(value="/getNoticeListAjaxPutPara")
-	@GetMapping("/getNoticeListAjaxPutPara")
-//	public String getNoticeListAjaxPutPara(
-			public ResponseEntity<List> getNoticeListAjaxPutPara(
-			@RequestParam ("searchCondition") 
-			String searchCondition,
-			@RequestParam ("searchKeyword") 
-			String searchKeyword,
-			NoticeSearch noticeSearch) throws Exception {
-		log.info("getNoticeListAjaxPutPara");
-		log.info(noticeSearch.toString());
-		log.info("searchCondition:"+searchCondition);
-		log.info("searchKeyword:"+searchKeyword);
 
-		if (noticeSearch.getSearchKeyword() == null) {
-			noticeSearch.setSearchKeyword("");
-		}
 
-		// 검색정보 Null Check
-		switch (noticeSearch.getSearchCondition()) {
-		case "TITLE": {
-			noticeSearch.setSearchKeywordTitle(noticeSearch.getSearchKeyword());
-			noticeSearch.setSearchKeywordDesc("");
-			break;
-		}
-		case "CONTENT": {
-			noticeSearch.setSearchKeywordDesc(noticeSearch.getSearchKeyword());
-			noticeSearch.setSearchKeywordTitle("");
-			break;
-		}
-		}
-		log.info(noticeSearch.toString());
-
-		List<Notice> noticeList = noticeService.getNoticeList(noticeSearch);
-		log.info("***noticeList:"+noticeList.get(0).toString());
-
-		ResponseEntity<List> entity = new ResponseEntity<List>(noticeList, HttpStatus.OK);
-		log.info(entity.toString());
-		return entity;
-//		return "para";
-	}
-
-//	@GetMapping(value="/board/{boardNo}")
-//	public ResponseEntity<Board> boardSelect(@PathVariable("boardNo") int boardNo) {
-//		log.info("boardSelect : "+ boardNo +" ");
-//		Board board = new Board();
-//		board.setBoardNo(20);
-//		board.setTitle("ajaxGetTest");
-//		board.setWriter("seol1");
-//		board.setContent("good");
-//		board.setRegDate(new Date());
-//		
-//		ResponseEntity<Board> entity = new ResponseEntity<Board>(board,HttpStatus.OK);
-//		return entity;
-//	}
 
 	@RequestMapping("/insertNoticeForm")
 	public String insertNoticeForm(Notice notice) throws Exception {
-//		noticeService.insertNotice(notice);
 		return "admin/notices/insertNotice";
 	}
 
@@ -204,16 +107,46 @@ public class NoticeController {
 
 		return "redirect:/notice/getNoticeList";
 	}
-
-	@RequestMapping("/modifyNotice")
-	public String modifyNotice(Notice notice) throws Exception {
-		noticeService.modifyNotice(notice);
-		return "/about/noticeList";
+	
+	
+	@RequestMapping("/modifyNoticeForm/{noticeNo}")
+	public String modifyNoticeForm(@PathVariable("noticeNo") int noticeNo, Notice dto, Model model) throws Exception {
+		dto.setNoticeNo(noticeNo);
+		noticeService.addNoticeViewCount(dto);
+		Notice notice = noticeService.getNotice(dto);
+		model.addAttribute("notice", notice);
+		return "admin/notices/modifyNotice";
 	}
+	
+	@PostMapping("/modifyNotice")
+	public String modifyNotice(Notice notice) throws Exception {
+		log.info("modifyNotice");
+
+		noticeService.modifyNotice(notice);
+
+		return "redirect:/notice/getNoticeList";
+	}
+	
+	
 
 	@RequestMapping("/deleteNotice")
 	public String deleteNotice(Notice notice) throws Exception {
 		noticeService.deleteNotice(notice);
-		return "/about/noticeList";
+		return "redirect:/notice/getNoticeList";
 	}
+	
+	@RequestMapping("/getAbout")
+	public String getAbout(Model model, Search search) throws Exception {
+		log.info("getAbout");
+		return "about/about";
+	}
+	
+	@RequestMapping("/getLocation")
+	public String getLocation(Model model, Search search) throws Exception {
+		log.info("getAbout");
+		model.addAttribute("kakaoMapAppkey", kakaoMapAppkey);
+		return "about/location";
+	}
+	
+	
 }

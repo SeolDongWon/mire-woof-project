@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.woof.domain.Notice;
-import com.woof.domain.NoticeSearch;
+import com.woof.domain.Search;
 import com.woof.mapper.NoticeMapper;
 import com.woof.service.NoticeService;
 
@@ -22,10 +23,10 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<Notice> getNoticeList(NoticeSearch noticeSearch) throws Exception {
+	public List<Notice> getNoticeList(Search noticeSearch) throws Exception {
 		return mapper.getNoticeList(noticeSearch);
 	}
-
+	@Transactional
 	@Override
 	public void insertNotice(Notice notice) throws Exception {
 		mapper.insertNotice(notice);

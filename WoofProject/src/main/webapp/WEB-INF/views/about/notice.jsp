@@ -26,33 +26,68 @@
 <%-- <%@ include file="" %> --%>
 </head>
 <body>
-<!-- Header Area -->
+	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<!-- Menu Area -->
+	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
-<!-- subMenu Area -->
-<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
+	<!-- subMenu Area -->
+	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
 	<menu id="subMenu" class="m-0 p-0">
-		<ul class="nav nav-underline nav-justified justify-content-around border-bottom">
-          <li class="menu navMenu nav-item"><a href="" class="nav-link text-black">시설소개</a></li>
-          <li class="menu navMenu nav-item"><a href="" class="nav-link text-black">오시는 길</a></li>
-          <li class="menu navMenu nav-item"><a href="/notice/getNoticeList" class="nav-link text-black">공지사항</a></li>
-        </ul>
+		<ul
+			class="nav nav-underline nav-justified justify-content-around border-bottom">
+			<li class="menu navMenu nav-item"><a href=""
+				class="nav-link text-black">시설소개</a></li>
+			<li class="menu navMenu nav-item"><a href=""
+				class="nav-link text-black">오시는 길</a></li>
+			<li class="menu navMenu nav-item"><a
+				href="/notice/getNoticeList" class="nav-link text-black">공지사항</a></li>
+		</ul>
 	</menu>
-<main class="pt-2">
-<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-	<h1>NOTICE</h1>
-	
-	noticeNo : <p>${notice.noticeNo}</p>
-	noticeTitle : <p>${notice.noticeTitle}</p>
-	noticeDesc : <p>${notice.noticeDesc}</p>
-	noticeRegDate : <p>${notice.noticeRegDate}</p>
-	noticeModDate : <p>${notice.noticeModDate}</p>
-	noticeviewcount : ${notice.noticeViewCount}
-	
-	
+	<main class="pt-2">
+		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+		<h1>NOTICE</h1>
+		<table class="table border border-1" style="table-layout: fixed;">
+			<thead>
+				<tr>
+					<th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th>
+					<th class="bg-dark-subtle text-center" style="width: 100px;">제목</th>
+					<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
+					<th class="bg-dark-subtle text-center" style="width: 50px;">수정일</th>
+					<th class="bg-dark-subtle text-center" style="width: 50px;">조회수</th>
+				</tr>
+			</thead>
+			<tbody id="noticeListSpan">
+				<tr>
+					<td class=" text-center" style="width: 20px;">${notice.noticeNo}</td>
+					<td class=" text-center" style="width: 100px;">${notice.noticeTitle}</td>
+					<td class=" text-center" style="width: 50px;">${notice.noticeRegDate}</td>
+					<td class=" text-center" style="width: 50px;">${notice.noticeModDate}</td>
+					<td class=" text-center" style="width: 50px;">${notice.noticeViewCount}</td>
+				</tr>
+				<tr>
+					<td colspan="5" rowspan="5"><textarea
+							class="form-control-plaintext " rows="5" readonly="readonly">${notice.noticeDesc}</textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<button>
+			<a href="/notice/modifyNoticeForm/${notice.noticeNo}"
+				class="list-group-item list-group-item-action border-0 text-truncate">${notice.noticeNo}수정</a>
+		</button>
+
+
+		<form:form modelAttribute="notice" action="/notice/deleteNotice">
+			<form:input path="noticeNo" class="form-control" readonly="true" disabled="hidden"/>
+			<form:button>
+				<span>${notice.noticeNo}삭제</span>
+				<%-- <a href="/notice/deleteNotice/${notice.noticeNo}"
+				class="list-group-item list-group-item-action border-0 text-truncate">${notice.noticeNo}삭제</a> --%>
+			</form:button>
+		</form:form>
+
 	</main>
-<!-- Footer Area -->
+	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
