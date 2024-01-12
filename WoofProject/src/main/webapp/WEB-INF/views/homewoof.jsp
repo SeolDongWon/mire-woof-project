@@ -25,12 +25,12 @@
 <!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp" %> 
 <!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/menu.jsp" %> 
+	<%@ include file="/WEB-INF/views/common/mainMenu.jsp" %> 
 <!-- subMenu Area -->
-	<main>
+	<main class="pt-2">
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-      <section class="pt-2">
+      <section>
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" style="height: 400px;">
           <div class="carousel-inner h-100 text-center">
             <!-- 회전목마 테이블을 만들어서 관리자가 맘대로 가능하게 -->

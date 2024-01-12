@@ -30,13 +30,12 @@
 <!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/menu.jsp"%>
+	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
-	<main>
-<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-<!-- ================================================Content Area======================================================== -->
-		<section>
-		</section>
+<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
+	<main class="pt-2">
+<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

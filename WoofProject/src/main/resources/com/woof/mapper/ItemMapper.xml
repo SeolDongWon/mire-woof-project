@@ -1,3 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woof.mapper.ItemMapper"></mapper>
+<mapper namespace="com.woof.mapper.ItemMapper">
+	<select id="getItem" resultType="Item">
+		SELECT * FROM item WHERE itemNo= #{itemNo}
+	</select>
+	<select id="getItemList" resultType="Item">
+		SELECT * FROM item ORDER BY itemRegDate DESC
+	</select>
+	<insert id="insertItem">
+		INSERT INTO item (itemNo, itemName, price, stock, size, itemRegDate, itemMainPic, itemSubPic, itemDesc) VALUES 
+		(itemNo_seq.nextVal, #{itemName}, #{price}, #{stock}, #{size}, SYSDATE, #{itemMainPic}, #{itemSubPic}, #{itemDesc})
+	</insert>
+	<update id="modifyItem">
+		UPDATE item SET itemName=#{itemName}, price=#{price}, stock=#{stock}, size=#{size}, itemType=#{itemType}, 
+		itemMainPic=#{itemMainPic}, itemSubPic=#{itemSubPic}, itemDesc=#{itemDesc} WHERE itemNo=#{itemNo}
+	</update>
+	<delete id="deleteItem">
+		DELETE FROM item WHERE itemNo=#{itemNo}
+	</delete>
+	<select id="searchItemType" resultType="Item">
+		SELECT * FROM item WHERE itemType=#{searchType} ORDER BY itemNo
+	</select>
+	<select id="searchItemKeyword" resultType="Item">
+		SELECT * FROM item WHERE itemName LIKE '%' || #{searchKeyword} || '%' ORDER BY itemNo
+	</select>
+</mapper>

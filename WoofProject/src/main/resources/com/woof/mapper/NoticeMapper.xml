@@ -1,3 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woof.mapper.NoticeMapper"></mapper>
+<mapper namespace="com.woof.mapper.NoticeMapper">
+
+	<insert id="insertNotice">
+		INSERT INTO notice(noticeno,noticetitle,noticedesc)
+		VALUES(noticeno_seq.NEXTVAL,#{noticeTitle},#{noticeDesc})
+	</insert>
+
+	<select id="getNoticeList" resultType="com.woof.domain.Notice">
+		<!-- select * from notice order by noticeno desc -->
+		SELECT *
+		FROM notice
+		WHERE noticetitle LIKE '%'||#{keywordTitle}||'%'
+		AND noticedesc LIKE '%'||#{keywordDesc}||'%'
+		ORDER BY noticeno DESC
+	</select>
+
+	<select id="getNotice" resultType="com.woof.domain.Notice">
+		SELECT * FROM notice WHERE noticeNo = #{noticeNo}
+	</select>
+
+	<update id="addNoticeViewCount">
+		UPDATE notice SET noticeviewcount=noticeviewcount+1 WHERE
+		noticeno=#{noticeNo}
+	</update>
+
+	<update id="modifyNotice">
+		UPDATE notice 
+		SET noticetitle= #{noticeTitle},noticedesc=#{noticeDesc} 
+		WHERE	noticeno= #{noticeNo}
+	</update>
+	
+	<delete id="deleteNotice">
+		DELETE FROM notice WHERE noticeno= #{noticeNo}
+	
+	</delete>
+
+</mapper>
