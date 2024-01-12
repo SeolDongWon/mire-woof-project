@@ -40,27 +40,38 @@ public class SecurityConfig {
 		http.csrf().disable();
 
 		// 인가설정
-		http.authorizeHttpRequests().requestMatchers("/board/**").authenticated().requestMatchers("/manager/**")
-				.hasRole("MANAGER").requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().permitAll();
+//		http.authorizeHttpRequests().requestMatchers("/board/**").authenticated().requestMatchers("/manager/**")
+//				.hasRole("MANAGER").requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().permitAll();
 
 		// 가입한 회원이 인가받지 않은 페이지에 접근하면 403 에러메세지를 /accessError로 대체한다 로그를 남김
 		http.exceptionHandling().accessDeniedHandler(createAccessDeniedHandler());
 
 		// 로그인설정
-		http.formLogin().loginPage("/login").successHandler(createAuthenticationSuccessHandler());
-		;
-		// 로그아웃을 하면 자동 로그인에 사용하는 쿠키도 삭제해 주도록 한다.
-		http.logout().logoutUrl("/logout").invalidateHttpSession(true).deleteCookies("remember-me", "JSESSION_ID");
+		http.formLogin()
+		.loginPage("/login")
+		.successHandler(createAuthenticationSuccessHandler());
+		
+		// 로그아웃을 하면 자동 로그인에 사용하는 쿠키도 삭제한다
+		http.logout()
+		.logoutUrl("/account/logout")
+		.logoutSuccessUrl("/")
+		.invalidateHttpSession(true)
+		.deleteCookies("remember-me","JSESSION_ID");
+
+
+		
 		// 쿠키의 유효 시간을 지정한다(24시간).
-		http.rememberMe().key("zeus").tokenRepository(createJDBCRepository()).tokenValiditySeconds(60 * 60 * 24);
+		http.rememberMe().key("zeus")
+		.tokenRepository(createJDBCRepository())
+		.tokenValiditySeconds(60 * 60 * 24 * 30);
 
 		return http.build();
 	}
 
-	@Bean
-	public PasswordEncoder createPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
+	
+
+	
+
 
 	private PersistentTokenRepository createJDBCRepository() {
 		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
@@ -70,12 +81,16 @@ public class SecurityConfig {
 	
 	
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(createUserDetailsService()).passwordEncoder(createPasswordEncoder());
+		auth.userDetailsService(createUserDetailsService())
+		.passwordEncoder(createPasswordEncoder());
 		}
 	
+	@Bean
+	public PasswordEncoder createPasswordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 	
-	
-	// 스프링 시큐리티의 UserDetailsService를 구현한 클래스를 빈으로 등록한다. 
+	// 스프링 시큐리티의 UserDetailsService를 구현한 클래스를 빈으로 등록한다. [사용자정보 비교]
 		@Bean
 		public UserDetailsService createUserDetailsService() { 
 		return new CustomUserDetailsService();

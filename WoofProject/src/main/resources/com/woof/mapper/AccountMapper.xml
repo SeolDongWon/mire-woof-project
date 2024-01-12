@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woof.mapper.AccountMapper">
 
-<resultMap type="Account" id="accontMap">
+	<resultMap type="Account" id="accontMap">
 		<id property="username" column="username" />
 		<result property="username" column="username" />
 		<result property="password" column="password" />
@@ -14,19 +14,21 @@
 		<collection property="authList" resultMap="authMap">
 		</collection>
 	</resultMap>
-	
+
 	<resultMap type="accountAuth" id="authMap">
 		<result property="username" column="username" />
 		<result property="auth" column="auth" />
 	</resultMap>
 
-	<select id="read" resultMap="accontMap">
-		SELECT 
+	<select id="readByUsername" resultMap="accontMap">
+		SELECT
 		acc.username, password, name, tel, address, state, regDate, auth
 		FROM
-		account acc LEFT OUTER JOIN account_auth auth
+		account acc
+		LEFT OUTER JOIN account_auth auth
 		ON acc.username = auth.username
-		WHERE acc.username = #{username}
+		WHERE
+		acc.username = #{username}
 	</select>
 	<!-- 내정보 -->
 	<select id="getAccount" resultType="Account">
@@ -40,14 +42,14 @@
 	</select>
 	<!-- 계정 등록 처리 -->
 	<insert id="registerAccount">
-		INSERT INTO account 
+		INSERT INTO account
 		(username,password,name,tel,address)
-		VALUES 
+		VALUES
 		(
-		#{username}, 
+		#{username},
 		#{password},
-		#{name}, 
-		#{tel}, 
+		#{name},
+		#{tel},
 		#{address}
 		)
 	</insert>
@@ -61,8 +63,8 @@
 		#{auth}
 		)
 	</insert>
-	
-	
+
+
 	<!-- 정보 수정 -->
 	<update id="modifyAccount">
 		UPDATE account SET username = #{username},
@@ -79,5 +81,9 @@
 	<select id="searcheAccount" resultType="Account">
 		SELECT * FROM account
 		WHERE username LIKE '%' || #{searchKeyword} || '%'
+	</select>
+	<!-- 회원 테이블의 데이터 건수 조회 -->
+	<select id="countAll" resultType="int">
+		SELECT count(*) FROM account
 	</select>
 </mapper>

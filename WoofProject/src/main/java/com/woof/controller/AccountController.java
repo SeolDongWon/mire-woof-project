@@ -28,30 +28,32 @@ public class AccountController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	// 등록 페이지
+	// 계정 등록 페이지
 	@RequestMapping(value = "/createAccount", method = RequestMethod.GET)
 	public String createAccountForm(Account account, Model model) throws Exception {
 		log.info("createAccountForm");
 
 		return "account/login/createAccount";
 	}
-	// 등록 처리
+
+	// 계정 등록 처리
 	@RequestMapping(value = "/createAccount", method = RequestMethod.POST)
-	public String createAccount(@Validated Account account, Model model,BindingResult result,RedirectAttributes rttr) throws Exception {
+	public String createAccount(@Validated Account account, Model model, BindingResult result, RedirectAttributes rttr)
+			throws Exception {
 		log.info("createAccount : POST");
-		
+
 		// 비밀번호 암호화
 		String inputPassword = account.getPassword();
 		account.setPassword(passwordEncoder.encode(inputPassword));
 		log.info(account.toString());
 		service.registerAccount(account);
 		rttr.addFlashAttribute("username", account.getUsername());
-	
-		return "account/login/login";
+
+		return "account/login/loginForm";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String loginForm(String error, String logout,Model model) {
+	public String loginForm(String error, String logout, Model model) {
 		log.info("loginForm");
 		log.info("error: " + error);
 		log.info("logout: " + logout);
@@ -61,21 +63,46 @@ public class AccountController {
 		if (logout != null) {
 			model.addAttribute("logout", "로그아웃!!!");
 		}
-		return "account/login/login";
+		return "account/login/loginForm";
 	}
-	
+
+	// 로그아웃 페이지를 생성한다.
 	@RequestMapping("/logout")
 	public String logoutForm() {
-		log.info("logoutForm");
-		return "account/login/login";
-		}
-	
-	@RequestMapping("/register")
-	public void register() {
-		log.info("register : 로그인한 관리자만 가능");
+		return "account/login/loginForm";
 	}
-	
-	
+
+	// 최초 관리자를 생성하는 화면.
+	@RequestMapping(value = "/setup", method = RequestMethod.GET)
+	public String setupAdminForm(Account account, Model model) throws Exception {
+		log.info("****setupAdminForm : " + service.countAll());
+
+		// 회원 테이블 데이터 건수를 확인하여 최초 관리자 등록 페이지를 표시한다.
+		if (service.countAll() == 0) {
+			return "account/login/setup";
+		}
+		// 회원 테이블에 데이터가 존재하면 최초 관리자를 생성할 수 없으므로 실패 페이지로 이동한다.
+		model.addAttribute("msg", "SUCCESS");
+		return "homewoof";
+	}
+
+	// 회원 테이블에 데이터가 없으면 최초 관리자를 생성
+	@RequestMapping(value = "/setup", method = RequestMethod.POST)
+	public String setupAdmin(Account account, RedirectAttributes rttr, Model model) throws Exception {
+
+		// 회원 테이블 데이터 건수를 확인하여 빈 테이블이면 최초 관리자를 생성
+		if (service.countAll() == 0) {
+			String inputPassword = account.getPassword();
+			account.setPassword(passwordEncoder.encode(inputPassword));
+			service.setupAdmin(account);
+			rttr.addFlashAttribute("username", account.getUsername());
+			return "homewoof";
+		}
+		// 회원 테이블에 데이터가 존재하면 최초 관리자를 생성할 수 없으므로 실패 페이지로 이동
+		model.addAttribute("msg", "SUCCESS");
+		return "homewoof";
+	}
+
 }
 //
 //@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
