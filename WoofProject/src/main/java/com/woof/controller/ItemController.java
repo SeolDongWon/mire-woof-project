@@ -123,7 +123,6 @@ public class ItemController {
 	@ResponseBody
 	@GetMapping("/getItemMainPic")
 	public ResponseEntity<byte[]> getItemMainPic(Integer itemNo) throws Exception {
-		log.info("/getItemMainPic GET");
 		InputStream inputStream = null;
 		ResponseEntity<byte[]> responseEntity = null;
 		String fileName = itemService.getItemMainPic(itemNo);
@@ -148,7 +147,6 @@ public class ItemController {
 	@ResponseBody
 	@GetMapping("/getItemSubPic")
 	public ResponseEntity<byte[]> getItemSubPic(Integer itemNo) throws Exception {
-		log.info("/getItemSubPic GET itemId: " + itemNo);
 		InputStream inputStream = null;
 		ResponseEntity<byte[]> responseEntity = null;
 		String fileName = itemService.getItemSubPic(itemNo);

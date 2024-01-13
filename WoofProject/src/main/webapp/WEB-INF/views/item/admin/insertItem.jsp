@@ -44,14 +44,14 @@
 	        document.getElementById("itemName").focus();
 	        return;
 		}
-		if(document.getElementById("price").value <= "0") {
+		if(document.getElementById("itemPrice").value <= "0") {
 			alert("Please enter a price");
-	        document.getElementById("price").focus();
+	        document.getElementById("itemPrice").focus();
 	        return;
 		}
-		if(document.getElementById("stock").value <= "0") {
+		if(document.getElementById("itemStock").value <= "0") {
 			alert("Please enter the item stock");
-	        document.getElementById("stock").focus();
+	        document.getElementById("itemStock").focus();
 	        return;
 		}
 		if(document.getElementById("itemType").value == "") {
@@ -59,14 +59,14 @@
 	        document.getElementById("itemType").focus();
 	        return;
 		}
-		if(document.getElementById("mainPic").value == "") {
+		if(document.getElementById("itemMainPic").value == "") {
 			alert("Please select a main picture")
-	        document.getElementById("mainPic").focus();
+	        document.getElementById("itemMainPic").focus();
 	        return;
 		}
-		if(document.getElementById("subPic").value == "") {
+		if(document.getElementById("itemSubPic").value == "") {
 			alert("Please select a secondary picture")
-	        document.getElementById("subPic").focus();
+	        document.getElementById("itemSubPic").focus();
 	        return;
 		}
 		if(document.getElementById("itemDesc").value == "") {
@@ -82,7 +82,7 @@
 	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/menu.jsp"%>
+	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<main>
 		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
@@ -95,11 +95,11 @@
 				</tr>
 				<tr>
 					<td>Price</td>
-					<td><form:input path="price" name="price" id="price"/></td>
+					<td><form:input path="itemPrice" name="itemPrice" id="itemPrice"/></td>
 				</tr>
 				<tr>
 					<td>Stock</td>
-					<td><form:input path="stock" name="stock" id="stock"/></td>
+					<td><form:input path="itemStock" name="itemStock" id="itemStock"/></td>
 				</tr>
 				<tr>
 					<td>Item category</td>
@@ -115,11 +115,11 @@
 				</tr>
 				<tr>
 					<td>Main photo</td>
-					<td><input type="file" name="pictures" id="mainPic"/></td>
+					<td><input type="file" name="pictures" id="itemMainPic"/></td>
 				</tr>
 				<tr>
 					<td>Secondary photo</td>
-					<td><input type="file" name="pictures" id="subPic"/></td>
+					<td><input type="file" name="pictures" id="itemSubPic"/></td>
 				</tr>
 				<tr>
 					<td>Description</td>

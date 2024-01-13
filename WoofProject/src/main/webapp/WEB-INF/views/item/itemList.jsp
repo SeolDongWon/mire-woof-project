@@ -29,7 +29,7 @@
 <!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/menu.jsp"%>
+	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
@@ -53,7 +53,7 @@
 				<c:forEach items="${itemList}" var="item">
 					<tr>
 						<td class="align-middle text-center">${item.itemName}</td>
-						<td class="align-middle text-center">${item.price}</td>
+						<td class="align-middle text-center">${item.itemPrice}</td>
 						<td class="align-middle text-center">${item.itemType}</td>
 						<td class="align-middle text-center">
 							<a href="getItem?itemNo=${item.itemNo}"><img src="getItemMainPic?itemNo=${item.itemNo}" width="175" height="175"></a>
@@ -63,8 +63,10 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-
-	
+	<main>
+	<form action="/item/admin/insertItem" method="get">
+		<button type="submit">Insert item</button>
+	</form>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

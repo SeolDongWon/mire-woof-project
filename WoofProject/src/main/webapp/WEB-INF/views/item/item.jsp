@@ -29,54 +29,74 @@
 <!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/menu.jsp"%>
+	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-	<div class="d-flex flex-col align-items-center">
-		<div class="d-flex justify-content-center align-items-center">
-			<div class="m-3">
-				<img src="getItemMainPic?itemNo=${item.itemNo}" width="400" height="400">
+	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/account/myCart/addToCart">
+		<input type="hidden" name="username" value="${pageContext.request.userPrincipal.principal.account.name}"/>
+		<input type="hidden" name="itemNo" value="${item.itemNo}"/>
+		<input type="hidden" name="itemName" value="${item.itemName}"/>
+		<input type="hidden" name="itemType" value="${item.itemType}"/>
+		<input type="hidden" name="itemPrice" value="${item.itemPrice}"/>
+		<input type="hidden" name="itemMainPic" value="${item.itemMainPic}"/>
+		
+		<div class="d-flex flex-col align-items-center">
+			<div class="d-flex justify-content-center align-items-center">
+				<div class="m-3">
+					<img src="getItemMainPic?itemNo=${item.itemNo}" width="400" height="400">
+				</div>
+				<div class="m-3 border rounded p-2">
+					<table class="table" style="width:700px">
+						<tr>
+							<td>Item Name</td>
+							<td>${item.itemName}</td>
+						</tr>
+						<tr>
+							<td>Item type</td>
+							<td>${item.itemType}</td>
+						</tr>
+						<tr>
+							<td>Price</td>
+							<td>${item.itemPrice}</td>
+						</tr>
+						<tr>
+							<td>Item Register Date</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.itemRegDate}" /></td>
+						</tr>
+						<tr>
+							<td>Item Description</td>
+							<td>${item.itemDesc}</td>
+						</tr>
+						<tr>
+							<td>Select Quantity</td>
+							<td>
+							 <select id="itemQuantity" name="itemQuantity">
+			                    <c:forEach var="i" begin="1" end="10">
+			                        <option value="${i}">${i}</option>
+			                    </c:forEach>
+			                </select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" class="align-middle text-center">
+								<button type="submit" class="add-to-cart-btn btn btn-primary btn-outline-secondary text-white m-2">
+									Add to Cart
+								</button>
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
-			<div class="m-3 border rounded p-2">
-				<table class="table" style="width:700px">
-					<tr>
-						<td>Item Name</td>
-						<td>${item.itemName}</td>
-					</tr>
-					<tr>
-						<td>Item type</td>
-						<td>${item.itemType}</td>
-					</tr>
-					<tr>
-						<td>Price</td>
-						<td>${item.price}</td>
-					</tr>
-					<tr>
-						<td>Item Register Date</td>
-						<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.itemRegDate}" /></td>
-					</tr>
-					<tr>
-						<td>Item Description</td>
-						<td>${item.itemDesc}</td>
-					</tr>
-					<tr>
-						<td colspan="2" class="align-middle text-center">
-							<a href="" class="add-to-cart-btn btn btn-primary btn-outline-secondary text-white m-2">
-								Add to Cart
-							</a>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</div> <hr>
+		</div> 
+	</form:form><hr>
 	<div class="container-lg d-flex align-items-center">
 		<div class="m-3 mx-auto">
 			<img src="getItemSubPic?itemNo=${item.itemNo}" width="1000" height="3000">
 		</div>
 	</div>
+
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

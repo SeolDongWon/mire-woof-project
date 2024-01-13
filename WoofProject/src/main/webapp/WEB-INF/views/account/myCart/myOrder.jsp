@@ -23,22 +23,36 @@
 <!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
+<script>
+	$(document).ready(function() {
+	    var formObj = $("#cartForm");
+	    $("#btnReturnToCart").on("click", function() {
+            formObj.attr("action", "/account/myCart/myCart");
+            formObj.attr("method", "get");
+            formObj.submit();
+	    });
+
+	    $("#btnProceedCheckout").on("click", function() {
+	        self.location = "/item/itemList";
+	    });
+	});
+</script>
 <%-- <%@ include file="" %> --%>
 </head>
 <body>
 <!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/menu.jsp"%>
+	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
 	<form id="cartForm">
+		<input type="hidden" name="username" value="${pageContext.request.userPrincipal.principal.account.name}"/>
 		<table class="table">
 			<thead class="t-head">
 				<tr>
-					<th></th>
 					<th class="align-middle text-center">Main picture</th>
 					<th class="align-middle text-center">Item name</th>
 					<th class="align-middle text-center">Quantity</th>
@@ -56,16 +70,13 @@
 					<c:forEach items="${cartList}" var="cart">
 						<tr>
 							<td class="align-middle text-center">
-								<input type="checkbox" name="checkStatus" value="${cart.itemNo}"/>
-							</td>
-							<td class="align-middle text-center">
 								<a href="${pageContext.request.contextPath}/item/getItem?itemNo=${cart.itemNo}">
 									<img src="${pageContext.request.contextPath}/item/getItemMainPic?itemNo=${cart.itemNo}" width="150" height="150">
 								</a>
 							</td>
 							<td class="align-middle text-center">${cart.itemName}</td>
-							<td class="align-middle text-center">${cart.quantity}</td>
-							<td class="align-middle text-center">${cart.price}</td>
+							<td class="align-middle text-center">${cart.itemQuantity}</td>
+							<td class="align-middle text-center">${cart.itemPrice}</td>
 							<td class="align-middle text-center">
 								<a href="removeFromCart?username=${cart.username}&itemNo=${cart.itemNo}" class="text-decoration-none">
 									<i class="fa-sharp fa-regular fa-rectangle-xmark"></i>
@@ -76,13 +87,13 @@
 				</c:otherwise>
 			</c:choose>
 		</table>
-		<div class="d-flex flex-row justify-content-end align-items-center">
-			<a href="myCart" class="btn btn-light btn-outline-secondary text-dark m-2" >Return to my cart</a>
-			<button class="btn btn-success btn-outline-secondary text-light m-2" id="btnProceedCheckout"><b>Proceed checkout</b></button>
-		</div>
 	</form>	
-		<section>
-		</section>
+	<div class="d-flex flex-row justify-content-end align-items-center">
+		<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnReturnToCart">Return to my cart</button>
+		<button class="btn btn-success btn-outline-secondary text-light m-2" id="btnProceedCheckout"><b>Proceed checkout</b></button>
+	</div>
+	<section>
+	</section>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

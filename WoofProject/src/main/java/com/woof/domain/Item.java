@@ -16,8 +16,8 @@ public class Item {
 
 	private int itemNo;
 	private String itemName;
-	private int price;
-	private int stock;
+	private int itemPrice;
+	private int itemStock;
 	private String itemType;
 	private Date itemRegDate;
 	private String itemMainPic;

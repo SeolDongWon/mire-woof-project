@@ -26,7 +26,7 @@ public class Account implements Serializable{
 	private String name;
 	private String tel;
 	private String address;
-	private String state;
+	private String status;
 	@DateTimeFormat(pattern = "yy-MM-dd")
 	private Date regDate;
 	

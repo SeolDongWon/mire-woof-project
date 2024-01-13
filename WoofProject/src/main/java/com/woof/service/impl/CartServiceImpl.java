@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.woof.domain.Cart;
+import com.woof.domain.Item;
 import com.woof.mapper.CartMapper;
 import com.woof.service.CartService;
 
@@ -16,18 +17,18 @@ public class CartServiceImpl implements CartService {
 	private CartMapper mapper;
 	
 	@Override
-	public void addToCart(Cart cart) throws Exception {
-		mapper.addToCart(cart);
+	public void addToCart(Item item, String username, int itemQuantity) throws Exception {
+		mapper.addToCart(item, username, itemQuantity);
 	}
 
 	@Override
-	public List<Cart> getCart(Cart cart) throws Exception {
-		return mapper.getCart(cart);
+	public List<Cart> getCart(String username) throws Exception {
+		return mapper.getCart(username);
 	}
 
 	@Override
-	public List<Cart> getOrder(List<String> selectedItems /* , username */) throws Exception {
-		return mapper.getOrder(selectedItems /* , username */);
+	public List<Cart> getOrder(List<String> selectedItems, String username) throws Exception {
+		return mapper.getOrder(selectedItems, username);
 	}
 
 //	@Override
@@ -36,13 +37,13 @@ public class CartServiceImpl implements CartService {
 //	}
 
 	@Override
-	public void removeFromCart(String itemNo) throws Exception {
-		mapper.removeFromCart(itemNo);
+	public void removeFromCart(String itemNo, String username) throws Exception {
+		mapper.removeFromCart(itemNo, username);
 	}
 
 	@Override
-	public void removeChecked(List<String> selectedItems /*, username */) throws Exception {
-		mapper.removeChecked(selectedItems /*, username */);
+	public void removeChecked(List<String> selectedItems, String username) throws Exception {
+		mapper.removeChecked(selectedItems, username);
 	}
 
 	@Override

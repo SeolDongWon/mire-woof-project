@@ -29,7 +29,14 @@
 			event.preventDefault();
 			
 			var selectedItems = getSelectedItems();
+			var username = '${pageContext.request.userPrincipal.principal.account.name}';
 			console.log("selectedItems: ", selectedItems);
+			console.log("username: ", username);
+			
+			var requestData = {
+				selectedItems: selectedItems,
+			    username: username
+			};
 			
 			if(selectedItems.length > 0) {
 				$("#selectedItemsInput").val(selectedItems);
@@ -37,6 +44,7 @@
 				var action = $(event.originalEvent.submitter).attr('id') === 'btnCheckout' ? 'getOrder' : 'removeChecked';
 			
 				this.action = action;
+				
 				console.log("action: ", action);
 				
 				if(action === 'removeChecked') {
@@ -44,7 +52,7 @@
 					    type: "POST",
 					    url: "removeChecked",
 					    contentType: "application/json", 
-					    data: JSON.stringify(selectedItems),
+					    data: JSON.stringify(requestData),
 					    success: function (data) {
 					    	console.log("Items removed successfully")
 					        location.reload();
@@ -74,14 +82,22 @@
 		$(".remove-from-cart-btn").on("click", function(event) {
 			/* var username = $(this).data("username"); username: username, */
 			event.preventDefault();
-			var itemNo = $(this).attr("data-itemNo");
 			
+			var itemNo = $(this).attr("data-itemNo");
+			var username = '${pageContext.request.userPrincipal.principal.account.name}';
 			console.log("itemNo: ", itemNo)
+			console.log("username: ", username)
+			
+			var requestData = {
+				itemNo: itemNo,
+				username: username
+			};
+			
 			$.ajax({
 				type: "POST",
 				url: "removeFromCart",
 				contentType: "application/json", 
-				data: JSON.stringify(itemNo),
+				data: JSON.stringify(requestData),
 				success: function(data) {
 					var row = $("input[value='" + itemNo + "']").closest("tr");
 					row.remove();
@@ -98,6 +114,36 @@
 			$(this).data("checked", checked);
 			$("input[name='checkStatus']").prop("checked", checked);
 		});
+		
+		$(".decrease-quantity-btn").on("click", function() {
+			var itemNo = $(this).attr("data-itemNo");
+			var selectedElement = $('#quantity-' + itemNo);
+			var currentQuantity = parseInt(selectedElement.text());
+			console.log("currentQuantity: ", currentQuantity);
+			
+			if(currentQuantity > 1){ 
+				updateQuantity(itemNo, currentQuantity-1, selectedElement);
+			} else {
+				alert("Quantity cannot go below 1");
+			}
+		});
+		
+		$(".increase-quantity-btn").on("click", function() {
+			var itemNo = $(this).attr("data-itemNo");
+			var selectedElement = $('#quantity-' + itemNo);
+			var currentQuantity = parseInt(selectedElement.text());
+			console.log("currentQuantity: ", currentQuantity);
+			
+			if(currentQuantity < 10){ 
+				updateQuantity(itemNo, currentQuantity-1, selectedElement);
+			} else {
+				alert("Please contact us to order more than 10 items");
+			}
+		});
+		
+		function updateQuantity(itemNo, newQuantity, quantityElement) {
+			
+		};
 	});
 	
 </script>
@@ -108,12 +154,13 @@
 <!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 <!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/menu.jsp"%>
+	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
 	<form id="cartForm" action="#" method="post">
+		<input type="hidden" name="username" value="${pageContext.request.userPrincipal.principal.account.name}"/>
 		<table class="table">
 			<thead class="t-head">
 				<tr>
@@ -147,8 +194,16 @@
 								</a>
 							</td>
 							<td class="align-middle text-center">${cart.itemName}</td>
-							<td class="align-middle text-center">${cart.quantity}</td>
-							<td class="align-middle text-center">${cart.price}</td>
+							<td class="align-middle text-center">
+								<button type="button" class="decrease-quantity-btn text-decoration-none border-0 bg-transparent" data-itemNo="${cart.itemNo}">
+									<i class="fa-solid fa-caret-left text-primary"></i>
+								</button>
+								<span id="quantity-${cart.itemNo}"> ${cart.itemQuantity} </span>
+								<button type="button" class="increase-quantity-btn text-decoration-none border-0 bg-transparent" data-itemNo="${cart.itemNo}">
+									<i class="fa-solid fa-caret-right text-primary"></i>
+								</button>	
+							</td>
+							<td class="align-middle text-center">${cart.itemPrice}</td>
 							<td class="align-middle text-center">
 								<button type="button" class="remove-from-cart-btn text-decoration-none border-0 bg-transparent" data-username="${cart.username}" data-itemNo="${cart.itemNo}">
 									<i class="fa-sharp fa-regular fa-rectangle-xmark text-danger"></i>
