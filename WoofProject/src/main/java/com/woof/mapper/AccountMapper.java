@@ -13,13 +13,13 @@ public interface AccountMapper {
 	
 	
 	// 내정보
-	public Account getAccount(Account username) throws Exception;
+	public Account getAccount(Account account) throws Exception;
 	// Account들의 모든정보 리스트
 	public List<Account> getAccountList() throws Exception;
 	//정보 수정
 	public void modifyAccount(Account account) throws Exception;
 	//계정 탈퇴
-	public void deleteAccount(Account username) throws Exception;
+	public void deleteAccount(Account account) throws Exception;
 	//admin이 개인계정을 찾기
 	public Account searcheAccount(Account searchKeyword) throws Exception;
 	// 회원 테이블의 데이터 건수 조회

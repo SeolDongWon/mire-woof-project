@@ -27,6 +27,7 @@ public class AccountController {
 	// 스프링 시큐리티의 비밀번호 암호처리기
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	private String username;
 
 	// 계정 등록 페이지
 	@RequestMapping(value = "/createAccount", method = RequestMethod.GET)
@@ -49,9 +50,10 @@ public class AccountController {
 		service.registerAccount(account);
 		rttr.addFlashAttribute("username", account.getUsername());
 
-		return "account/login/loginForm";
+		return "redirect:/account/login";
+//		return "account/login/loginForm";
 	}
-
+	//로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(String error, String logout, Model model) {
 		log.info("loginForm");
@@ -72,6 +74,39 @@ public class AccountController {
 		return "account/login/loginForm";
 	}
 
+	//내정보
+	@RequestMapping(value = "/myAccount", method = RequestMethod.GET)
+	public void myAccountForm(Account account, Model model) throws Exception {
+		log.info("myAccountForm");
+		log.info(account.getUsername()+" : ===================username");
+		model.addAttribute(service.getAccount(account));
+	}
+	//내정보
+	@RequestMapping(value = "/myAccount", method = RequestMethod.POST)
+	public void myAccount(Account account, Model model) throws Exception {
+		log.info("myAccount : POST");
+		log.info(account.getUsername()+" : ===================username");
+		service.getAccount(username);
+		
+	}
+	//내정보 수정
+	@RequestMapping(value = "/midifyAccount", method = RequestMethod.GET)
+	public void modifyAccountForm(Account account, Model model) throws Exception {
+		log.info("midifyAccount : GET");
+		model.addAttribute(service.getAccount(username));
+	}
+	//내정보 수정
+	@RequestMapping(value = "/midifyAccount", method = RequestMethod.POST)
+	public String modifyAccount(Account account, RedirectAttributes rttr) throws Exception {
+		log.info("midifyAccount : POST");
+		service.modifyAccount(account);
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		return "redirect:/account/midifyAccount";
+	}
+
+	
+	
+	
 	// 최초 관리자를 생성하는 화면.
 	@RequestMapping(value = "/setup", method = RequestMethod.GET)
 	public String setupAdminForm(Account account, Model model) throws Exception {

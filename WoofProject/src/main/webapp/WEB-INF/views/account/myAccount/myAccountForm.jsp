@@ -19,18 +19,21 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	
-<script>
+	<script>
 	$(document).ready(function() {
-		let formObj = $("#account");
+		var formObj = $("#account");
 		$("#btnModify").on("click", function() {
-			formObj.submit();
+			let username = $("#username");
+			let usernameVal = username.Val();
+			self.location = "/account/midifyAccount?username=" + usernameVal;
 		});
-		let result = "${msg}";
-		if (result === "SUCCESS") {
-			alert("수정되었습니다.");
-		}
-		$("#btnList").on("click", function() {
-			self.location = "list";
+		$("#btnDelete").on("click", function() {
+			/* alert("btnModify"); */
+			self.location = "/account/deleteAccount";
+		});
+		$("#btnPwModify").on("click", function() {
+			/* alert("btnModify"); */
+			self.location = "/account/pwModifAccount";
 		});
 	});
 </script>
@@ -55,7 +58,7 @@
 
 
 		<div class="d-flex  justify-content-center">
-		<form:form modelAttribute="account" action="midifyAccount">
+		<form:form modelAttribute="account">
 		<form:hidden path="username"/>
 			<table>
 				<tr>
@@ -65,38 +68,28 @@
 				</tr>
 				<tr>
 					<th style="width: 250px;">아이디(username)</th>
-					<th>
-					<form:input path="username" class="form-control"
-									placeholder="username" />
+					<th><sec:authentication property="principal.account.username" />
 					</th>
 				</tr>
 				<tr>
 					<td>비밀번호(password)</td>
 					<td>
-						<form:input path="password" class="form-control"
-									placeholder="password" />
+						<button  type="submit" id="btnPwModify"  style="border: none;">수정</button>
 					</td>
 				</tr>
 				<tr>
 					<th style="width: 250px;">이름(name)</th>
 					<th>
-					<form:input path="name" class="form-control"
-									placeholder="name" />
+					<sec:authentication property="principal.account.name" />
 					</th>
 				</tr>
 				<tr>
 					<td>전화번호(tel)</td>
-					<td>
-					<form:input path="tel" class="form-control"
-									placeholder="tel" />
-					</td>
+					<td><sec:authentication property="principal.account.tel" /></td>
 				</tr>
 				<tr>
 					<td>주소(address)</td>
-					<td>
-					<form:input path="address" class="form-control"
-									placeholder="address" />
-					</td>
+					<td><sec:authentication property="principal.account.address" /></td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -107,6 +100,7 @@
 					</td>
 				</tr>
 			</table>
+			
 			</form:form>
 		</div>
 

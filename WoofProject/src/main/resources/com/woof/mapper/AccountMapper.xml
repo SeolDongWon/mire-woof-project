@@ -9,7 +9,7 @@
 		<result property="name" column="name" />
 		<result property="tel" column="tel" />
 		<result property="address" column="address" />
-		<result property="state" column="state" />
+		<result property="status" column="status" />
 		<result property="regDate" column="regDate" />
 		<collection property="authList" resultMap="authMap">
 		</collection>
@@ -22,7 +22,7 @@
 
 	<select id="readByUsername" resultMap="accontMap">
 		SELECT
-		acc.username, password, name, tel, address, state, regDate, auth
+		acc.username, password, name, tel, address, status, regDate, auth
 		FROM
 		account acc
 		LEFT OUTER JOIN account_auth auth
@@ -32,8 +32,14 @@
 	</select>
 	<!-- 내정보 -->
 	<select id="getAccount" resultType="Account">
-		SELECT * FROM account WHERE
-		username = #{username}
+			SELECT
+		acc.username, password, name, tel, address, status, regDate, auth
+		FROM
+		account acc
+		LEFT OUTER JOIN account_auth auth
+		ON acc.username = auth.username
+		WHERE
+		acc.username = #{username}
 	</select>
 	<!-- Account들의 모든정보 리스트 -->
 	<select id="getAccountList" resultType="Account">
@@ -74,7 +80,7 @@
 	</update>
 	<!-- 계정 탈퇴 -->
 	<update id="deleteAccount">
-		UPDATE account SET state='deactivated' WHERE username
+		UPDATE account SET status='deactivated' WHERE username
 		= #{username}
 	</update>
 	<!-- admin이 개인계정을 찾기 -->

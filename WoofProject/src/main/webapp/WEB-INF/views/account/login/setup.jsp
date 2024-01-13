@@ -23,7 +23,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
-		var formObj = $("#account");
+		let formObj = $("#account");
 		$("#btnRegister").on("click", function() {
 			formObj.submit();
 		});
@@ -119,7 +119,7 @@
 								style="background: rgb(246, 220, 216); width: 150px;">회원가입</button>
 
 							<button type="submit" id="btnHom" class="form-control"
-								style="background: rgb(246, 220, 216); width: 150px;">목록</button>
+								style="background: rgb(246, 220, 216); width: 150px;">메인페이지</button>
 						</div>
 					</td>
 				</tr>
