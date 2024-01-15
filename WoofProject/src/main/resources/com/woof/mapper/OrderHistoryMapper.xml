@@ -1,3 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woof.mapper.OrderHistoryMapper"></mapper>
+<mapper namespace="com.woof.mapper.OrderHistoryMapper">
+	<select id="getOrderHistory" resultType="OrderHistory">
+		SELECT * FROM orderHistory WHERE username=#{username} AND orderHistoryNo=#{orderHistoryNo}
+	</select>
+	<select id="getOrderHistoryList" resultType="OrderHistory">
+		SELECT * FROM orderHistory ORDER BY orderDate DESC
+	</select>
+	<insert id="addToOrderHistory">
+		INSERT INTO orderHistory VALUES (orderHistoryNo_seq.nextVal, #{username}, #{totalPrice}, #{address}, SYSDATE)
+	</insert>
+</mapper>

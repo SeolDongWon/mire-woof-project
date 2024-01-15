@@ -19,5 +19,8 @@ public interface CartMapper {
 	
 	public void removeChecked(List<String> selectedItems, String username) throws Exception;
 	
+	public void deleteDuplicateRows(String itemNo, String username);
+
 	public void modifyQuantity(Cart cart) throws Exception;
+	
 }

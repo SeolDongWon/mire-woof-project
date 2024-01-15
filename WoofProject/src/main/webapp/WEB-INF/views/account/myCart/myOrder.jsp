@@ -27,14 +27,15 @@
 	$(document).ready(function() {
 	    var formObj = $("#cartForm");
 	    $("#btnReturnToCart").on("click", function() {
-            formObj.attr("action", "/account/myCart/myCart");
+            formObj.attr("action", "/cart/myCart");
             formObj.attr("method", "get");
             formObj.submit();
 	    });
 
 	    $("#btnProceedCheckout").on("click", function() {
-	        self.location = "/item/itemList";
+	        
 	    });
+	    
 	});
 </script>
 <%-- <%@ include file="" %> --%>

@@ -19,5 +19,7 @@ public interface CartService {
 	
 	public void removeChecked(List<String> selectedItems, String username) throws Exception;
 	
+	public void deleteDuplicateRows(String itemNo, String username) throws Exception;
+	
 	public void modifyQuantity(Cart cart) throws Exception;
 }

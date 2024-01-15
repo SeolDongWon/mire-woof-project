@@ -47,6 +47,11 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
+	public void deleteDuplicateRows(String itemNo, String username) throws Exception {
+		mapper.deleteDuplicateRows(itemNo, username);
+	}
+	
+	@Override
 	public void modifyQuantity(Cart cart) throws Exception {
 		mapper.modifyQuantity(cart);
 	}

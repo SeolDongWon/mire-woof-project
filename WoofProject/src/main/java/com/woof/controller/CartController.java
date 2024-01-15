@@ -22,7 +22,7 @@ import lombok.extern.java.Log;
 
 @Log
 @Controller
-@RequestMapping("/account/myCart")
+@RequestMapping("/cart")
 public class CartController {
 
 	@Autowired
@@ -31,7 +31,9 @@ public class CartController {
 	@PostMapping("/addToCart")
 	public String addToCart(@ModelAttribute("item") Item item, @RequestParam("itemQuantity") int itemQuantity, @RequestParam("username") String username, Model model) throws Exception {
 		log.info("/addToCart POST: " + item + ", itemQuantity: " + itemQuantity + ", username: " + username);
+		String itemNo = String.valueOf(item.getItemNo()); 
 		cartService.addToCart(item, username, itemQuantity);
+		cartService.deleteDuplicateRows(itemNo, username);
 		return "redirect:/item/itemList";
 	}
 	
@@ -55,11 +57,11 @@ public class CartController {
 	}
 	
 	@PostMapping("/removeChecked")
-	public ResponseEntity<String> removeChecked(@RequestBody Map<String, Object> requestBody) throws Exception {
-		log.info("/removeChecked POST requestBody: " + requestBody.toString());
+	public ResponseEntity<String> removeChecked(@RequestBody Map<String, Object> requestData) throws Exception {
+		log.info("/removeChecked POST requestBody: " + requestData.toString());
 		
-		List<String> selectedItems = (List<String>) requestBody.get("selectedItems");
-		String username = (String) requestBody.get("username");
+		List<String> selectedItems = (List<String>) requestData.get("selectedItems");
+		String username = (String) requestData.get("username");
 		
 		log.info("/removeChecked POST selectedItems: " + selectedItems.toString() + ", username: " + username);
 		cartService.removeChecked(selectedItems, username);
@@ -67,11 +69,11 @@ public class CartController {
 	}
 
 	@PostMapping("/removeFromCart")
-	public ResponseEntity<String> removeFromCart(@RequestBody Map<String, Object> requestBody) throws Exception {
-		log.info("/removeFromCart POST requestBody: " + requestBody.toString());
+	public ResponseEntity<String> removeFromCart(@RequestBody Map<String, Object> requestData) throws Exception {
+		log.info("/removeFromCart POST requestBody: " + requestData.toString());
 		
-		String itemNo = (String) requestBody.get("itemNo");
-		String username = (String) requestBody.get("username");
+		String itemNo = (String) requestData.get("itemNo");
+		String username = (String) requestData.get("username");
 		
 		log.info("/removeFromCart POST itemNo: " + itemNo + ", username: " + username);
 		cartService.removeFromCart(itemNo, username);
@@ -83,8 +85,16 @@ public class CartController {
 //		cartService.changeCheckStatus(cart);
 //	}
 	
-	@RequestMapping("/modifyQuantity")
-	public void modifyQuantity(Cart cart) throws Exception {
+	@PostMapping("/modifyQuantity")
+	public ResponseEntity<String> modifyQuantity(@RequestBody Map<String, Object> requestData) throws Exception {
+		log.info("/modifyQuantity: requestData: " + requestData.toString());
+		
+		Cart cart = new Cart();
+		cart.setItemNo(Integer.parseInt(requestData.get("itemNo").toString()));
+		cart.setUsername(requestData.get("username").toString());
+		cart.setNewQuantity(Integer.parseInt(requestData.get("newQuantity").toString()));
 		cartService.modifyQuantity(cart);
+		
+		return ResponseEntity.ok("Quantity updated");
 	}
 }

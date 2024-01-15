@@ -19,7 +19,7 @@
 					  <sec:authentication property="principal.account.name" />님 환영합니다
 					  </a></li>
 		          	  <li class="nav-item"><a href="#" class="nav-link text-black">내정보</a></li>
-		          	  <li class="nav-item"><a href="/account/myCart/myCart?username=${pageContext.request.userPrincipal.principal.account.name}" class="nav-link text-black">장바구니</a></li>
+		          	  <li class="nav-item"><a href="/cart/myCart?username=${pageContext.request.userPrincipal.principal.account.name}" class="nav-link text-black">장바구니</a></li>
 		         	  <li class="nav-item">
 		         	  <!-- <form action=".logout" method="post"> -->
 		         	  <a href="/account/logout" class="nav-link text-black">로그아웃</a>

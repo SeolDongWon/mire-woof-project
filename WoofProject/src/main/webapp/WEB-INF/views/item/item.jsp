@@ -34,7 +34,7 @@
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/account/myCart/addToCart">
+	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/cart/addToCart">
 		<input type="hidden" name="username" value="${pageContext.request.userPrincipal.principal.account.name}"/>
 		<input type="hidden" name="itemNo" value="${item.itemNo}"/>
 		<input type="hidden" name="itemName" value="${item.itemName}"/>

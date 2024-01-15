@@ -122,7 +122,7 @@
 			console.log("currentQuantity: ", currentQuantity);
 			
 			if(currentQuantity > 1){ 
-				updateQuantity(itemNo, currentQuantity-1, selectedElement);
+				modifyQuantity(itemNo, currentQuantity-1, selectedElement);
 			} else {
 				alert("Quantity cannot go below 1");
 			}
@@ -135,15 +135,37 @@
 			console.log("currentQuantity: ", currentQuantity);
 			
 			if(currentQuantity < 10){ 
-				updateQuantity(itemNo, currentQuantity-1, selectedElement);
+				modifyQuantity(itemNo, currentQuantity+1, selectedElement);
 			} else {
 				alert("Please contact us to order more than 10 items");
 			}
 		});
 		
-		function updateQuantity(itemNo, newQuantity, quantityElement) {
+		function modifyQuantity(itemNo, newQuantity, selectedElement) {
+			var username = '${pageContext.request.userPrincipal.principal.account.name}';
 			
-		};
+			var requestData = {
+				itemNo: itemNo,
+				username: username,
+				newQuantity: newQuantity
+			};
+			console.log("requestData: ", requestData);
+
+			$.ajax({
+				type: "POST",
+				url: "modifyQuantity",
+				contentType: "application/json",
+				data: JSON.stringify(requestData),
+				
+				success: function(data) {
+					selectedElement.text(newQuantity);
+					console.log("Quantity updated");
+				},
+				error: function(error) {
+					console.log("Error updating quantity", error)	
+				}
+			});
+		}
 	});
 	
 </script>
