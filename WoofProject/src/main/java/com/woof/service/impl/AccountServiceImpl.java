@@ -4,11 +4,16 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.woof.domain.Account;
+import com.woof.domain.AccountAuth;
 import com.woof.mapper.AccountMapper;
 import com.woof.service.AccountService;
 
+import lombok.extern.java.Log;
+
+@Log
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -17,9 +22,9 @@ public class AccountServiceImpl implements AccountService {
 	
 	//내정보
 	@Override
-	public Account getAccount(Account username) throws Exception {
+	public Account getAccount(Account account) throws Exception {
 		
-		return mapper.getAccount(username);
+		return mapper.getAccount(account);
 	}
 
 	//Account들의 모든정보 리스트
@@ -29,10 +34,18 @@ public class AccountServiceImpl implements AccountService {
 		return mapper.getAccountList();
 	}
 
-	//계정 등록
+	//계정 등록 처리
+	@Transactional
 	@Override
 	public void registerAccount(Account account) throws Exception {
 		mapper.registerAccount(account);
+		// 회원 권한 생성
+		AccountAuth accountAuth = new AccountAuth();
+		accountAuth.setUsername(account.getUsername());
+		accountAuth.setAuth("ROLE_MEMBER");
+		log.info(accountAuth.toString());
+		mapper.registerAccountAuth(accountAuth);
+
 		
 	}
 
@@ -54,6 +67,22 @@ public class AccountServiceImpl implements AccountService {
 	@Override
 	public Account searcheAccount(Account searchKeyword) throws Exception {
 		return mapper.searcheAccount(searchKeyword);
+	}
+	
+	// 최초 관리자를 생성한다.
+	@Transactional
+	@Override
+	public void setupAdmin(Account account) throws Exception {
+		mapper.registerAccount(account);
+		AccountAuth accountAuth = new AccountAuth();
+		accountAuth.setUsername(account.getUsername()); 
+		accountAuth.setAuth("ROLE_ADMIN");
+		mapper.registerAccountAuth(accountAuth);
+	}
+
+	@Override
+	public int countAll() throws Exception {
+		return mapper.countAll();
 	}
 
 }

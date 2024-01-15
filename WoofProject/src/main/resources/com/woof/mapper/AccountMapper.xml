@@ -1,31 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woof.mapper.AccountMapper">
+
+	<resultMap type="Account" id="accontMap">
+		<id property="username" column="username" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="tel" column="tel" />
+		<result property="address" column="address" />
+		<result property="status" column="status" />
+		<result property="regDate" column="regDate" />
+		<collection property="authList" resultMap="authMap">
+		</collection>
+	</resultMap>
+
+	<resultMap type="accountAuth" id="authMap">
+		<result property="username" column="username" />
+		<result property="auth" column="auth" />
+	</resultMap>
+
+	<select id="readByUsername" resultMap="accontMap">
+		SELECT
+		acc.username, password, name, tel, address, status, regDate, auth
+		FROM
+		account acc
+		LEFT OUTER JOIN account_auth auth
+		ON acc.username = auth.username
+		WHERE
+		acc.username = #{username}
+	</select>
 	<!-- 내정보 -->
 	<select id="getAccount" resultType="Account">
-		SELECT * FROM account WHERE username = #{username}
+			SELECT
+		acc.username, password, name, tel, address, status, regDate, auth
+		FROM
+		account acc
+		LEFT OUTER JOIN account_auth auth
+		ON acc.username = auth.username
+		WHERE
+		acc.username = #{username}
 	</select>
 	<!-- Account들의 모든정보 리스트 -->
 	<select id="getAccountList" resultType="Account">
-		SELECT * FROM account ORDER BY regDate DESC
+		SELECT * FROM account
+		ORDER BY regDate DESC
 	</select>
-	<!-- 계정 등록 -->
+	<!-- 계정 등록 처리 -->
 	<insert id="registerAccount">
-		INSERT INTO account VALUES #{username}, #{password}, #{name}, #{tel},
-		#{address}, 'active', SYSDATE
+		INSERT INTO account
+		(username,password,name,tel,address)
+		VALUES
+		(
+		#{username},
+		#{password},
+		#{name},
+		#{tel},
+		#{address}
+		)
 	</insert>
+	<!-- 권한생성 -->
+	<insert id="registerAccountAuth">
+		INSERT INTO account_auth(
+		username,
+		auth
+		) VALUES (
+		#{username},
+		#{auth}
+		)
+	</insert>
+
+
 	<!-- 정보 수정 -->
 	<update id="modifyAccount">
-		UPDATE account SET username = #{username}, password=#{password}, name=#{name},
+		UPDATE account SET username = #{username},
+		password=#{password}, name=#{name},
 		tel=#{tel}, address=#{address}
 		WHERE username=#{previousUsername}
 	</update>
 	<!-- 계정 탈퇴 -->
 	<update id="deleteAccount">
-		UPDATE account SET state='deactivated' WHERE username = #{username}
+		UPDATE account SET status='deactivated' WHERE username
+		= #{username}
 	</update>
 	<!-- admin이 개인계정을 찾기 -->
 	<select id="searcheAccount" resultType="Account">
-		SELECT * FROM account WHERE username LIKE '%' || #{searchKeyword} || '%'
+		SELECT * FROM account
+		WHERE username LIKE '%' || #{searchKeyword} || '%'
+	</select>
+	<!-- 회원 테이블의 데이터 건수 조회 -->
+	<select id="countAll" resultType="int">
+		SELECT count(*) FROM account
 	</select>
 </mapper>

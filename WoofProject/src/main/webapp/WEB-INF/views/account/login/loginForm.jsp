@@ -27,17 +27,47 @@
 <%-- <%@ include file="" %> --%>
 </head>
 <body>
-<!-- Header Area -->
+	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<!-- Menu Area -->
+	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
-<!-- subMenu Area -->
-<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-	<main class="pt-2">
-<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+	<!-- subMenu Area -->
+	<main>
+		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
+
+
+		<h1>로그인</h1>
+		<h2>
+			<c:out value="${error}" />
+		</h2>
+		<h2>
+			<c:out value="${logout}" />
+		</h2>
+
+		<form method="post" action="/login">
+			<div>
+				<input type="text" name="username" value="">
+			</div>
+			<div>
+				<input type="password" name="password" value="">
+			</div>
+			<!-- 로그인 상태유지 체크박스 -->
+			<div>
+				<input type="checkbox" name="remember-me"> 로그인 상태유지
+			</div>
+			<div>
+				<input type="submit">
+			</div>
+			<sec:csrfInput />
+		</form>
+
+
+
+
+
 
 	</main>
-<!-- Footer Area -->
+	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
