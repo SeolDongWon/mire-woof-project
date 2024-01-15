@@ -19,5 +19,6 @@ public class Notice {
 	private Date noticeRegDate;
 	private Date noticeModDate;
 	private int noticeViewCount;
+	
 
 }

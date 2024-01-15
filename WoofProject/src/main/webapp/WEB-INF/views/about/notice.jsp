@@ -49,8 +49,10 @@
 				<tr>
 					<td class=" text-center" style="width: 20px;">${notice.noticeNo}</td>
 					<td class=" text-center" style="width: 100px;">${notice.noticeTitle}</td>
-					<td class=" text-center" style="width: 50px;">${notice.noticeRegDate}</td>
-					<td class=" text-center" style="width: 50px;">${notice.noticeModDate}</td>
+					<td class=" text-center" style="width: 50px;"><fmt:formatDate
+									pattern="yyyy-MM-dd HH:mm" value="${notice.noticeRegDate}" /></td>
+					<td class=" text-center" style="width: 50px;"><fmt:formatDate
+									pattern="yyyy-MM-dd HH:mm" value="${notice.noticeModDate}" /></td>
 					<td class=" text-center" style="width: 50px;">${notice.noticeViewCount}</td>
 				</tr>
 				<tr>
