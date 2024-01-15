@@ -31,18 +31,7 @@
 	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
-	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-	<menu id="subMenu" class="m-0 p-0">
-		<ul
-			class="nav nav-underline nav-justified justify-content-around border-bottom">
-			<li class="menu navMenu nav-item"><a href=""
-				class="nav-link text-black">시설소개</a></li>
-			<li class="menu navMenu nav-item"><a href=""
-				class="nav-link text-black">오시는 길</a></li>
-			<li class="menu navMenu nav-item"><a
-				href="/notice/getNoticeList" class="nav-link text-black">공지사항</a></li>
-		</ul>
-	</menu>
+
 	<main class="pt-2">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 		<h1>NOTICE</h1>

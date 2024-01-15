@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.woof.domain.Carousel;
 import com.woof.domain.Notice;
 import com.woof.domain.Search;
 import com.woof.service.NoticeService;
@@ -38,14 +39,8 @@ public class NoticeController {
 		noticeService.addNoticeViewCount(dto);
 		Notice notice = noticeService.getNotice(dto);
 		model.addAttribute("notice", notice);
-		return "/about/notice";
+		return "about/notice";
 	}
-
-//	@RequestMapping(value = "/board/read/{boardNo}", method = RequestMethod.GET)
-//	public String home(@PathVariable("boardNo") int boardNo) {
-//		log.info("boardNo : " + boardNo);
-//		return "home";
-//	}
 
 	@RequestMapping("/getNoticeList")
 	public String getNoticeList(Model model, Search search) throws Exception {
@@ -148,5 +143,8 @@ public class NoticeController {
 		return "about/location";
 	}
 	
-	
+	@RequestMapping("/insertCarouselForm")
+	public String insertCarouselForm(Carousel carousel) throws Exception {
+		return "admin/notices/insertCarousel";
+	}
 }

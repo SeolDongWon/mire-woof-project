@@ -25,62 +25,63 @@
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
 <script type="text/javascript">
-
-$(document).ready(function() {
-	ajaxPut();
-	
-	$("#ajaxPutBtn").on("click",function() {
-		/* alert("putBtn"); */
+	$(document).ready(function() {
 		ajaxPut();
-	});
-});
 
-function ajaxPut(){
-	let search = {
-		condition : $("#condition").val(),
-		keyword : $("#keyword").val(),
-	};
-		
-	$.ajax({
-		type : "put",
-		url : "/notice/getNoticeListAjaxPut",
-		data : JSON.stringify(search),
-		contentType : "application/json; charset=UTF-8",
-		
-		success : function(result){
-			console.log("result.length : "+result.length);
-			let noticeList = "";
-			
-			if(result.length!=0){
-				
-				for (var i = 0;i<result.length;i++){
-					noticeList += '<tr style="font-size: 12px;">';
-					noticeList += '<td class=" text-center p-1" style="width: 50px;">';
-					noticeList += result[i].noticeNo+'</td>';
-					noticeList += '<td class="text-truncate p-1">';
-					noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
-					noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
-					noticeList += result[i].noticeTitle+'</a></td>';
-					noticeList += '<td class=" text-center p-1" style="width: 130px;">'
-					noticeList += result[i].noticeRegDate+'</td>';
-					noticeList += '</tr>';
-				}
-			}else{
-				alert("검색결과 없음");
-			}
-			
-			$("#noticeListSpan").html(noticeList);
-			
-			if(search.keyword!=""){
-				let url ="?condition="+search.condition+"&keyword="+search.keyword;	
-				if(typeof (history.pushState) != "undefined") { 
-					history.pushState(null, null, url); 
-				}
-			}
-		}
+		$("#ajaxPutBtn").on("click", function() {
+			/* alert("putBtn"); */
+			ajaxPut();
+		});
 	});
-}
-	
+
+	function ajaxPut() {
+		let search = {
+			condition : $("#condition").val(),
+			keyword : $("#keyword").val(),
+		};
+
+		$
+				.ajax({
+					type : "put",
+					url : "/notice/getNoticeListAjaxPut",
+					data : JSON.stringify(search),
+					contentType : "application/json; charset=UTF-8",
+
+					success : function(result) {
+						console.log("result.length : " + result.length);
+						let noticeList = "";
+
+						if (result.length != 0) {
+
+							for (var i = 0; i < result.length; i++) {
+								noticeList += '<tr style="font-size: 12px;">';
+								noticeList += '<td class=" text-center p-1" style="width: 50px;">';
+								noticeList += result[i].noticeNo + '</td>';
+								noticeList += '<td class="text-truncate p-1">';
+								noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
+					noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
+								noticeList += result[i].noticeTitle
+										+ '</a></td>';
+								noticeList += '<td class=" text-center p-1" style="width: 130px;">'
+								noticeList += result[i].noticeRegDate + '</td>';
+								noticeList += '</tr>';
+							}
+						} else {
+							alert("검색결과 없음");
+						}
+
+						$("#noticeListSpan").html(noticeList);
+
+						if (search.keyword != "") {
+							let url = "?condition=" + search.condition
+									+ "&keyword=" + search.keyword;
+							if (typeof (history.pushState) != "undefined") {
+								history.pushState(null, null, url);
+							}
+						}
+					}
+				});
+	}
 </script>
 </head>
 <body>
@@ -89,20 +90,10 @@ function ajaxPut(){
 	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
-	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-	<menu id="subMenu" class="m-0 p-0">
-		<ul	class="nav nav-underline nav-justified justify-content-around border-bottom">
-			<li class="menu navMenu nav-item"><a href="/notice/getAbout"
-				class="nav-link text-black">시설소개</a></li>
-			<li class="menu navMenu nav-item"><a href="/notice/getLocation"
-				class="nav-link text-black">오시는 길</a></li>
-			<li class="menu navMenu nav-item"><a
-				href="/notice/getNoticeList" class="nav-link text-black">공지사항</a></li>
-		</ul>
-	</menu>
+	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
-		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 		<a href="/notice/insertNoticeForm">insertNoticeForm</a>
+		<a href="/notice/insertCarouselForm">insertCarouselForm</a>
 		<div class="mt-3">
 			<p class="text-center fs-5 mt-3">NOTICE LIST</p>
 
