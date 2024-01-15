@@ -28,7 +28,6 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp" %> 
 <!-- subMenu Area -->
 	<main class="pt-2">
-<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
       <section>
         <div id="myCarousel" class="carousel slide" data-bs-ride="carousel" style="height: 400px;">
