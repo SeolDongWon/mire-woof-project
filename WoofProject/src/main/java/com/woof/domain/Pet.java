@@ -1,5 +1,6 @@
 package com.woof.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,10 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class Pet {
+public class Pet implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
+	
 	private int petNo;
 	private String username;
 	private String petName;

@@ -69,6 +69,8 @@
 				<br>
 				소개<form:input path="petDesc" />
 				<br>
+				입양유무<form:input path="petStatus"/>
+				<br>
 				메인사진<input type="file" name="pictures" path="petMainPic" />
 				<br>
 				사진<input type="file" name="pictures" path="petSubPic" />

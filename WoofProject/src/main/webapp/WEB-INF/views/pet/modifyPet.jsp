@@ -45,18 +45,21 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-	<main class="pt-2">
+	<main class="pt-2" >
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+		<div align="center">
 		<h2>수정</h2>
 		<form:form modelAttribute="pet" action="modify"
 			enctype="multipart/form-data">
-			<form:hidden path="petName" />
+			<form:hidden path="petNo"/>
+			<%-- <form:hidden path="petName" />
 			<form:hidden path="petAge" />
 			<form:hidden path="petType" />
 			<form:hidden path="petGender" />
-			<form:hidden path="petDesc" />
-			<form:hidden path="getPetMainPic" />
-			<form:hidden path="getPetSubPic" />
+			<form:hidden path="petDesc" /> --%>
+			<%-- <form:hidden path="petModDate" /> --%>
+		    <%-- <form:hidden path="getPetMainPic" />
+			<form:hidden path="getPetSubPic" />  --%>
 			<table>
 				<tr>
 					<td>애칭</td>
@@ -83,7 +86,17 @@
 					<td><form:textarea path="petDesc" /></td>
 					<td><font color="red"><form:errors path="petDesc" /></font></td>
 				</tr>
+				 <tr>
+					<td>수정일</td>
+					<td><form:input path="petModDate" /></td>
+					<td><font color="red"><form:errors path="petModDate" /></font></td>
+				</tr> 
 				<tr>
+					<td>입양유무</td>
+					<td><form:input path="petStatus" /></td>
+					<td><font color="red"><form:errors path="petStatus" /></font></td>
+				</tr>
+				 <tr>
 					<td>메인사진</td>
 					<td><img src="getPetMainPic?petNo=${pet.petNo}" width="210"
 						height="240" /></td>
@@ -99,10 +112,11 @@
 				</tr>
 				<tr>
 					<td>서브사진</td>
-					<td><form:input path="petName" /></td>
-				</tr>
+					<td><input type="file" name="pictures" /></td>
+				</tr> 
 			</table>
 		</form:form>
+		</div>
 	</main>
 	<div>
 		<button type="submit" id="btnModify">Modify</button>

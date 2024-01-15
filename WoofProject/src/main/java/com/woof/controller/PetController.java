@@ -118,7 +118,9 @@ public class PetController {
 	public String modifyPet(Pet pet , Model model) throws Exception{
 		log.info("/modifyPet GET");
 		Pet petModify = this.service.getPet(pet);
+		log.info(petModify.toString());
 		model.addAttribute(petModify);
+		log.info("model add attribute ");
 		return "pet/modifyPet";
 	}
 	
@@ -143,26 +145,13 @@ public class PetController {
 	}
 	
 	
-//	@PostMapping(value="/insertPet")
-//	public String insertPet(Pet pet)  throws Exception{
-//		log.info("insertPet start");
-//		log.info("pet:"+pet.toString());
-//		service.insertPet(pet);
-//		return "/pet/petList";
-//	}
-
-//	@RequestMapping(value="/modifyPet", method = RequestMethod.POST)
-//	public String modifyPet(Pet pet)  throws Exception{
-//		service.modifyPet(pet);
-//		return "/modifyPet";
-//	}
-
-	@RequestMapping(value="/deletePet", method = RequestMethod.POST)
-	public String deletePet(Pet pet)  throws Exception{
-		log.info("/deletePet POST");
-		service.deletePet(pet);
-		return "/deletePet";
+	@GetMapping(value = "/deletePet")
+	public String deletePe(Pet pet, Model model) throws Exception{
+//		log.info("a " + pet.getPetNo());
+		this.service.deletePet(pet);
+		return "redirect:/pet/getPetList";
 	}
+	
 
 	@RequestMapping(value="/searchPetType")
 	public String searchPetType(Pet pet)  throws Exception{

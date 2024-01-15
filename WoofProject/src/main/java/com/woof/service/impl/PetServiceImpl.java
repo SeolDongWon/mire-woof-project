@@ -35,7 +35,7 @@ public class PetServiceImpl implements PetService {
 
 	@Override
 	public void deletePet(Pet pet)  throws Exception{
-		mapper.insertPet(pet);
+		mapper.deletePet(pet);
 	}
 
 	@Override

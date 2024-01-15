@@ -24,6 +24,7 @@
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
+
 </head>
 <body>
 	<!-- Header Area -->
@@ -43,9 +44,9 @@
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
 		<a href="insertPet">새로등록</a><br>
-		<a href="modifyPet">수정</a>
+		
 		<section>
-			<c:forEach var="pet" items="${petList}">
+			<c:forEach var="pet" items="${petList}" >
 			<div class="card" style="width: 18rem;">
 				<a href="getPet?petNo=${pet.petNo}"><img
 					src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top" alt="..." ></a>
@@ -54,10 +55,13 @@
 					<hr>
 					<a href="getPet?petNo=${pet.petNo}">이름:${pet.petName}/나이:${pet.petAge}/견종:${pet.petType}</a>
 				</div>
+			<a href="modifyPet?petNo=${pet.petNo}">수정</a>
+			<a href="deletePet?petNo=${pet.petNo}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
 			</div>
 			</c:forEach>
 
 		</section>
+	
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

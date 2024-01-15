@@ -2,28 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woof.mapper.PetMapper">
 
-	<select id="getPet"  resultType="com.woof.domain.Pet">
-		SELECT * FROM pet WHERE petNO = #{petNo}
+	<select id="getPet" resultType="com.woof.domain.Pet">
+		SELECT * FROM pet WHERE petNO =
+		#{petNo}
 	</select>
 
 	<select id="getPetList" resultType="com.woof.domain.Pet">
-		SELECT * FROM pet ORDER BY petNo
+		SELECT * FROM pet ORDER BY
+		petNo
 	</select>
 
 	<insert id="insertPet">
-		<!-- INSERT INTO pet (petNo, petName, petAge, petType, petGender, petDesc)
-		VALUES (petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender},
-		#{petDesc}) -->
-		 INSERT INTO pet (petNo, petName, petAge, petType, petGender, petDesc, petRegDate, petMainPic, petSubPic)
-		VALUES (petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender},
-		#{petDesc}, SYSDATE, #{petMainPic}, #{petSubPic})
+		<!-- INSERT INTO pet (petNo, petName, petAge, petType, petGender, petDesc) 
+			VALUES (petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender}, 
+			#{petDesc}) -->
+		INSERT INTO pet (petNo, petName, petAge, petType, petGender,
+		petDesc,petStatus, petRegDate, petMainPic, petSubPic)
+		VALUES
+		(petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender},
+		#{petDesc},#{petStatus}, SYSDATE, #{petMainPic}, #{petSubPic})
 	</insert>
 
 	<update id="modifyPet">
-		UPDATE pet SET petName=#{petName}, age=#{age}, petType=#{petType},
-		gender=#{gender}, petDesc=#{petDesc}, petModDate=SYSDATE,
-		petState=#{petState}, petMainPic=#{petMainPic}, petSubPic=#{petSubPic}
-		WHERE petNo = #{petNo}
+		UPDATE pet SET petName=#{petName}, petAge=#{petAge},
+		petType=#{petType},
+		petGender=#{petGender}, petDesc=#{petDesc},
+		petModDate=SYSDATE,
+		petStatus=#{petStatus}, petMainPic=#{petMainPic}, petSubPic=#{petSubPic}
+		WHERE petNo =
+		#{petNo}
 	</update>
 
 	<delete id="deletePet">
@@ -31,14 +38,15 @@
 	</delete>
 
 	<select id="searchPetType" resultType="com.woof.domain.Pet">
-		SELECT * FROM pet WHERE petType=#{searchType} ORDER BY petNo
+		SELECT * FROM pet WHERE
+		petType=#{searchType} ORDER BY petNo
 	</select>
-	
+
 	<select id="getPetMainPic" resultType="String">
-        SELECT petMainPic FROM pet WHERE petNo = #{petNo}
-    </select>
-    <select id="getPetSubPic" resultType="String">
-        SELECT petSubPic FROM pet WHERE petNo = #{petNo}
-    </select>
+		SELECT petMainPic FROM pet WHERE petNo = #{petNo}
+	</select>
+	<select id="getPetSubPic" resultType="String">
+		SELECT petSubPic FROM pet WHERE petNo = #{petNo}
+	</select>
 
 </mapper>
