@@ -38,8 +38,8 @@
 		<table class="table border border-1" style="table-layout: fixed;">
 			<thead>
 				<tr>
-					<th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th>
-					<th class="bg-dark-subtle text-center" style="width: 100px;">제목</th>
+					<th class="bg-dark-subtle text-center" style="width: 50px;">글번호</th>
+					<th class="bg-dark-subtle text-center" style="width: 200px;">제목</th>
 					<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
 					<th class="bg-dark-subtle text-center" style="width: 50px;">수정일</th>
 					<th class="bg-dark-subtle text-center" style="width: 50px;">조회수</th>

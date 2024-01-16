@@ -25,6 +25,7 @@
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
 <script type="text/javascript">
+	
 </script>
 </head>
 <body>
@@ -35,72 +36,67 @@
 	<!-- subMenu Area -->
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
-			<a href="/service/insertServiceForm">글쓰기</a>
+		<a href="/service/insertServiceForm">글쓰기</a>
 		<div class="mt-3 w-75 m-auto">
 			<h3 class="text-center">service LIST</h3>
 
 
-			<table class="table table-striped" style="table-layout: fixed;">
+			<table class="table" style="table-layout: fixed;">
 
 				<thead>
 					<tr>
 						<th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th>
+						<th class="bg-dark-subtle text-center" style="width: 20px;">작성자</th>
 						<th class="bg-dark-subtle text-center" style="width: 100px;">내용</th>
 						<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
+						<th class="bg-dark-subtle text-center" style="width: 50px;">답변</th>
 					</tr>
 				</thead>
 
 				<tbody id="serviceListSpan">
 					<c:forEach items="${serviceList}" var="service">
 						<tr>
-							<td align="center">${service.serviceNo}</td>
-							<!-- 게시글 상세보기할 때 페이징 요청 정보를 매개변수로 전달한다. -->
-							<td align="left">${service.serviceDesc}</td>
+						<form action="/service/responseServiceForm" method="post">
+						<input name="serviceNo" type="hidden" readonly="readonly" value="${service.serviceNo}">
+						<input name="username" type="hidden" readonly="readonly" value="${service.username}">
+						<input name="serviceDesc" type="hidden" readonly="readonly" value="${service.serviceDesc}">
+							<td name="serviceNo" align="center">${service.serviceNo}</td>
+							<td name="username" align="center">${service.username}</td>
+							<td name="serviceDesc" align="left" class="text-break">${service.serviceDesc}</td>
 							<td align="center"><fmt:formatDate
 									pattern="yyyy-MM-dd HH:mm" value="${service.regDate}" /></td>
+								<td><button>답변버튼</button></td>
 						</tr>
+						</form>
 						<c:if test="${null!=service.response}">
-						<tr>
-							<td align="right"><span>ㄴ</span></td>
-							<td align="left"><span> ${service.response}</span> </td>
-							<td align="center"><fmt:formatDate
-									pattern="yyyy-MM-dd HH:mm" value="${service.responseRegDate}" /></td>
-						</tr>
+							<tr>
+								<td class="bg-secondary-subtle" align="right"><span>ㄴ</span></td>
+								<td class="bg-secondary-subtle"  name="username" align="center">답변</td>
+								<td class="bg-secondary-subtle" align="left"><span>
+										${service.response}</span></td>
+								<td class="bg-secondary-subtle" align="center"><fmt:formatDate
+										pattern="yyyy-MM-dd HH:mm" value="${service.responseRegDate}" /></td>
+							</tr>
 						</c:if>
+						
 					</c:forEach>
 				</tbody>
 			</table>
-			
-			<div class="d-flex">
-				<form:form modelAttribute="pageRequest"
-					action="/service/getserviceList" method="get" class="m-auto">
-					<form:select path="condition">
-						<form:option value="TITLE" label="제목" />
-						<form:option value="CONTENT" label="내용" />
-					</form:select>
-					<form:input path="keyword" />
-					<form:button type="submit">일반검색</form:button>
-					<!-- 페이징 네비게이션 -->
-				</form:form>
-			</div>
-			
-			
-			
-			
+
 			<div class="d-flex">
 				<ul class="pagination m-auto">
 					<c:if test="${pagination.prev}">
 						<li class="page-item"><a class="page-link"
-							href="/service/getserviceList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Previous</a></li>
+							href="/service/getServiceList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Previous</a></li>
 					</c:if>
 					<c:forEach begin="${pagination.startPage }"
 						end="${pagination.endPage }" var="idx">
 						<li class="page-item"><a class="page-link"
-							href="/service/getserviceList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
+							href="/service/getServiceList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
 					</c:forEach>
 					<c:if test="${pagination.next && pagination.endPage > 0}">
 						<li class="page-item"><a class="page-link"
-							href="/service/getserviceList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
+							href="/service/getServiceList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
 					</c:if>
 				</ul>
 			</div>

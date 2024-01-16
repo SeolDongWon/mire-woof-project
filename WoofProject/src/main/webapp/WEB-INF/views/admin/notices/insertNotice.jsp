@@ -55,8 +55,8 @@
 				
 			</form:form>
 			<div>
-				<button type="submit" id="btnRegister">Register</button>
-				<button type="submit" id="btnList">List</button>
+				<button type="submit" id="btnRegister"class="btn btn-outline-secondary">Register</button>
+				<button type="submit" id="btnList"class="btn btn-outline-secondary">List</button>
 			</div>
 		</section>
 	</main>

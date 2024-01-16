@@ -53,6 +53,11 @@ public class ServiceServiceImpl implements ServiceService {
 		return 	Mapper.getServiceList(pageRequest);
 	}
 
+	@Override
+	public void responseService(Service service) throws Exception {
+		Mapper.responseService(service);
+	}
+
 	
 
 }

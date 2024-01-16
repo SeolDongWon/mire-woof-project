@@ -3,7 +3,8 @@ package com.woof.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,22 +30,42 @@ public class ServiceController {
 	@RequestMapping("/insertServiceForm")
 	public String insertServiceForm(Service service) throws Exception {
 		log.info("insertServiceForm");
+//		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		UserDetails userDetails = (UserDetails)principal;
+
+//		String username = principal.toString();
 		return "service/insertService";
 	}
 
 	@RequestMapping("/insertService")
 	public String insertService(Service service) throws Exception {
 		log.info("insertService");
+		log.info("service : "+ service.toString());
 
-//		serviceService.insertService(service);
-//
-//		// 샘플작성
-//		String desc = service.getServiceDesc();
-//		for (int i = 0; i < 30; i++) {
-//			service.setServiceDesc(desc + i);
-//			serviceService.insertService(service);
-//		}
+		serviceService.insertService(service);
 
+		// 샘플작성
+		String desc = service.getServiceDesc();
+		for (int i = 0; i < 30; i++) {
+			service.setServiceDesc(desc + i);
+			serviceService.insertService(service);
+		}
+
+		return "redirect:/service/getServiceList";
+	}
+	
+	@RequestMapping("/responseServiceForm")
+	public String responseServiceForm(Service service) throws Exception {
+		log.info("responseServiceForm");
+		log.info("responseServiceForm : "+service.toString());
+		return "service/responseService";
+	}
+	
+	@RequestMapping("/respnoseService")
+	public String respnoseService(Service service) throws Exception {
+		log.info("respnoseService");
+		log.info("respnoseService : "+service.toString());
+		serviceService.responseService(service);
 		return "redirect:/service/getServiceList";
 	}
 
@@ -99,13 +120,14 @@ public class ServiceController {
 			break;
 		}
 		}
+		
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(serviceService.countServiceList(pageRequest));
 		model.addAttribute("pagination", pagination);
 		List<Service> serviceList = serviceService.getServiceList(pageRequest);
 		
 		model.addAttribute("serviceList", serviceList);
-		log.info("serviceList : "+serviceList.toString());
+		/* log.info("serviceList : "+serviceList.toString()); */
 		return "service/serviceList";
 	}
 

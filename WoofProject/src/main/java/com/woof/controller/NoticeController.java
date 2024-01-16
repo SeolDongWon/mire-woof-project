@@ -44,26 +44,26 @@ public class NoticeController {
 	public String getNoticeList(Model model, PageRequest pageRequest,Pagination pagination) throws Exception {
 		log.info("getNoticeList");
 		
-		if (pageRequest.getCondition() == null) {
-			pageRequest.setCondition("TITLE");
-		}
+//		if (pageRequest.getCondition() == null) {
+//			pageRequest.setCondition("TITLE");
+//		}
 		if (pageRequest.getKeyword() == null) {
 			pageRequest.setKeyword("");
 		}
 
 		// 검색정보 Null Check
-		switch (pageRequest.getCondition()) {
-		case "TITLE": {
-			pageRequest.setKeywordTitle(pageRequest.getKeyword());
-			pageRequest.setKeywordDesc("");
-			break;
-		}
-		case "CONTENT": {
-			pageRequest.setKeywordDesc(pageRequest.getKeyword());
-			pageRequest.setKeywordTitle("");
-			break;
-		}
-		}
+//		switch (pageRequest.getCondition()) {
+//		case "TITLE": {
+//			pageRequest.setKeywordTitle(pageRequest.getKeyword());
+//			pageRequest.setKeywordDesc("");
+//			break;
+//		}
+//		case "CONTENT": {
+//			pageRequest.setKeywordDesc(pageRequest.getKeyword());
+//			pageRequest.setKeywordTitle("");
+//			break;
+//		}
+//		}
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(noticeService.countNoticeList(pageRequest));
 		model.addAttribute("pagination", pagination);

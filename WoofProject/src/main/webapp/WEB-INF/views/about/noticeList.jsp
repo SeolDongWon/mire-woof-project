@@ -159,7 +159,7 @@
 	<!-- subMenu Area -->
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
-			<a href="/notice/insertNoticeForm">글쓰기</a>
+			<a href="/notice/insertNoticeForm" class="btn btn-outline-secondary">글쓰기</a>
 		<div class="mt-3 w-75 m-auto">
 			<h3 class="text-center">NOTICE LIST</h3>
 
@@ -179,7 +179,7 @@
 						<tr>
 							<td align="center">${notice.noticeNo}</td>
 							<!-- 게시글 상세보기할 때 페이징 요청 정보를 매개변수로 전달한다. -->
-							<td align="left"><a class="text-decoration-none text-black"
+							<td align="left" class="text-break"><a class="text-decoration-none text-black"
 								href="/notice/getNotice?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
 							<td align="center"><fmt:formatDate
 									pattern="yyyy-MM-dd HH:mm" value="${notice.noticeRegDate}" /></td>
@@ -188,6 +188,7 @@
 				</tbody>
 
 			</table>
+			<!-- 페이징-->
 			<div class="d-flex">
 				<form:form modelAttribute="pageRequest"
 					action="/notice/getNoticeList" method="get" class="m-auto">
@@ -196,8 +197,7 @@
 						<form:option value="CONTENT" label="내용" />
 					</form:select>
 					<form:input path="keyword" />
-					<form:button type="submit">일반검색</form:button>
-					<!-- 페이징 네비게이션 -->
+					<form:button type="submit" class="btn btn-outline-secondary">일반검색</form:button>
 				</form:form>
 			</div>
 			<div class="d-flex">

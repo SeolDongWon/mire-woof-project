@@ -13,6 +13,8 @@ public interface ServiceService {
 	public void modifyService(Service service) throws Exception;
 
 	public void deleteService(Service service) throws Exception;
+	
+	public void responseService(Service service) throws Exception;
 
 	public void addServiceViewCount(Service service) throws Exception;
 
