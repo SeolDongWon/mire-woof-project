@@ -1,3 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woof.mapper.ReviewMapper"></mapper>
+<mapper namespace="com.woof.mapper.ReviewMapper">
+
+	 <select id="getReview" resultType="com.woof.domain.Review">
+		SELECT * FROM review WHERE reviewNO =
+		#{reviewNo}
+	</select> 
+	
+	<select id="getReviewList" resultType="com.woof.domain.Review">
+		SELECT * FROM review ORDER BY
+		reviewNo
+	</select>
+</mapper>
