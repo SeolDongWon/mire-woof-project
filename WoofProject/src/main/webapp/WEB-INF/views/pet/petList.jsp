@@ -36,32 +36,34 @@
 	<menu id="subMenu" class="m-0 p-0">
 		<ul
 			class="nav nav-underline nav-justified justify-content-around border-bottom">
-			<li class="menu nav-item"><a href="" class="nav-link text-black">입양견
+			<li class="menu nav-item"><a href="getPetList" class="nav-link text-black">입양견
 					목록</a></li>
-			<li class="menu nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
+			<li class="menu nav-item"><a href="/review/getReviewList" class="nav-link text-black">입양후기</a></li>
 		</ul>
 	</menu>
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
-		<a href="insertPet">새로등록</a><br>
-		
-		<section>
-			<c:forEach var="pet" items="${petList}" >
-			<div class="card" style="width: 18rem;">
-				<a href="getPet?petNo=${pet.petNo}"><img
-					src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top" alt="..." ></a>
-				<div class="card-body" align="center">
-					<h5 class="card-title">펫 정보</h5>
-					<hr>
-					<a href="getPet?petNo=${pet.petNo}">이름:${pet.petName}/나이:${pet.petAge}/견종:${pet.petType}</a>
+	
+			<a href="insertPet" style="float: right; text-decoration: none;">새로등록</a><br>
+	
+		<section style="display: flex; flex-wrap: wrap; gap: 6rem;">
+			<c:forEach var="pet" items="${petList}">
+				<div class="card" style="width: 21rem;" >
+					<a href="getPet?petNo=${pet.petNo}"><img
+						src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top"
+						alt="..."></a>
+					<div class="card-body" align="center">
+						<h5 class="card-title">펫 정보</h5>
+						<hr>
+						<a href="getPet?petNo=${pet.petNo}" style="text-decoration: none; color: black;">이름:${pet.petName}/나이:${pet.petAge}/견종:${pet.petType}</a>
+					</div>
+					<a href="modifyPet?petNo=${pet.petNo}">수정</a> 
+					<a href="deletePet?petNo=${pet.petNo}"onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
 				</div>
-			<a href="modifyPet?petNo=${pet.petNo}">수정</a>
-			<a href="deletePet?petNo=${pet.petNo}" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
-			</div>
 			</c:forEach>
 
 		</section>
-	
+
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

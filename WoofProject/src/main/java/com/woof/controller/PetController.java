@@ -42,11 +42,8 @@ public class PetController {
 	
 	@GetMapping(value="/getPet")
 	public String getPet(Pet pet,Model model)  throws Exception{
-		log.info("pet: " + pet.toString());
 		Pet pet_ = service.getPet(pet);
-		//jsp 로 넘기고
 		model.addAttribute("pet", pet_);
-		log.info("pet: " + pet_.toString());
 		return "pet/pet";
 	}
 

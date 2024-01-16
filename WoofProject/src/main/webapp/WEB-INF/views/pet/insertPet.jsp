@@ -46,45 +46,49 @@
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 	<menu id="subMenu" class="m-0 p-0">
-		<ul class="nav nav-underline nav-justified justify-content-around border-bottom">
-			<li class="menu nav-item"><a href="" class="nav-link text-black">입양견
-					목록</a></li>
+		<ul
+			class="nav nav-underline nav-justified justify-content-around border-bottom">
+			<li class="menu nav-item"><a href="getPetList"
+				class="nav-link text-black">입양견 목록</a></li>
 			<li class="menu nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
 		</ul>
 	</menu>
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
 		<div align="center">
-		<section>
-			팻작성
-			<form:form modelAttribute="pet" action="insertPet" method="post" enctype="multipart/form-data">
-				<br>
+			<section>
+				<h5>펫 등록</h5>
+				<div class="card" style="width: 20rem;">
+					<div class="card-body">
+						<p class="card-text">
+							<form:form modelAttribute="pet" action="insertPet" method="post"
+								enctype="multipart/form-data">
+								<br>
 				이름<form:input path="petName" />
-				<br>
+								<br>
 				나이<form:input path="petAge" />
-				<br>
+								<br>
 				품종<form:input path="petType" />
-				<br>
+								<br>
 				성별<form:input path="petGender" />
-				<br>
+								<br>
 				소개<form:input path="petDesc" />
-				<br>
-				입양유무<form:input path="petStatus"/>
-				<br>
+								<br>
+				입양유무<form:input path="petStatus" />
+								<br>
 				메인사진<input type="file" name="pictures" path="petMainPic" />
-				<br>
-				사진<input type="file" name="pictures" path="petSubPic" />
-				<br>
-			</form:form>
-			<div>
-				<button type="submit" id="btnRegister">Register</button>
-				<button type="submit" id="btnList">List</button>
-			</div>
-			
-			
-			<a href="/pet/getPetList">리스트</a>
-
-		</section>
+								<br>
+				서브사진<input type="file" name="pictures" path="petSubPic" />
+								<br>
+							</form:form>
+						</p>
+						<div>
+							<button type="submit" id="btnRegister">Register</button>
+							<button type="submit" id="btnList">List</button>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
 	</main>
 	<!-- Footer Area -->
