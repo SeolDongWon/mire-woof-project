@@ -26,7 +26,12 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 	}
 
 	@Override
-	public void addToOrderHistory(String username, OrderHistory orderHistory) throws Exception {
-		mapper.addToOrderHistory(username, orderHistory);
+	public void addToOrderHistory(OrderHistory orderHistory) throws Exception {
+		mapper.addToOrderHistory(orderHistory);
+	}
+	
+	@Override
+	public int getOrderHistoryNo() throws Exception {
+		return mapper.getOrderHistoryNo();
 	}
 }

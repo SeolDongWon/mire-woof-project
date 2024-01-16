@@ -80,7 +80,6 @@
 		}
 		
 		$(".remove-from-cart-btn").on("click", function(event) {
-			/* var username = $(this).data("username"); username: username, */
 			event.preventDefault();
 			
 			var itemNo = $(this).attr("data-itemNo");

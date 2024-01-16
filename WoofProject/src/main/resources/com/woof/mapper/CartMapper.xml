@@ -15,7 +15,7 @@
     		<foreach item="item" collection="selectedItems" open="(" separator="," close=")">
         		#{item}
     		</foreach>
-    		ORDER BY cartNo DESC
+    	ORDER BY cartNo DESC
 	</select>
 	
 	<!-- NOT USED

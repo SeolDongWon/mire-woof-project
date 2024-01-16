@@ -1,11 +1,24 @@
 package com.woof.controller;
 
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.woof.domain.Cart;
+import com.woof.domain.OrderHistory;
+import com.woof.domain.OrderItem;
+import com.woof.service.AccountService;
+import com.woof.service.CartService;
 import com.woof.service.OrderHistoryService;
+import com.woof.service.OrderItemService;
 
 import lombok.extern.java.Log;
 
@@ -17,20 +30,56 @@ public class OrderHistoryController {
 	@Autowired
 	private OrderHistoryService orderHistoryService;
 	
+	@Autowired
+	private AccountService accountService;
+	
+	@Autowired 
+	private OrderItemService orderItemService; 
+	
+	@Autowired
+	private CartService cartService; 
+	
 	@PostMapping("/getOrderHistory")
-	public void getOrderHistory() {
+	public void getOrderHistory() throws Exception {
 		log.info("/getOrderHistory POST");
 	}
 	
-	@PostMapping("/getOrderHistoryList")
-	public String getOrderHistoryList() {
-		log.info("/getOrderHistoryList POST");
-		return null;
+	@GetMapping("/getOrderHistoryList")
+	public String getOrderHistoryList(Model model, Principal principal) throws Exception {
+		log.info("/getOrderHistoryList GET");
+		String username = principal.getName();
+		List<OrderHistory> orderHistoryList = orderHistoryService.getOrderHistoryList(username);
+		log.info("/getOrderHistoryList GET orderHistoryList: " + orderHistoryList);
+		model.addAttribute("orderHistoryList", orderHistoryList);
+		return "account/myCart/myOrderHistoryList";
 	}
 	
-	@PostMapping("addToOrderHistory")
-	public String addToOrderHistory() {
-		log.info("addToOrderHistory POST");
-		return null;
+	@PostMapping("/addToOrderHistory")
+	public String addToOrderHistory(@RequestParam("itemNo") List<String> itemNoList, OrderHistory orderHistory) throws Exception {
+		log.info("/addToOrderHistory POST");
+		String username = orderHistory.getUsername();
+		String address = accountService.getAddress(username);
+		orderHistory.setAddress(address);
+		log.info("/addToOrderHistory POST orderHistory: " + orderHistory.toString() + ", itemNoList: " + itemNoList.toString());
+		
+		int orderHistoryNo = orderHistoryService.getOrderHistoryNo();
+		
+		List<OrderItem> orderItemList = new ArrayList<OrderItem>();
+		List<Cart> cartList = cartService.getOrder(itemNoList, username);
+		for(Cart cart : cartList) {
+			OrderItem orderItem = new OrderItem();
+			orderItem.setOrderHistoryNo(orderHistoryNo);
+			orderItem.setItemNo(cart.getItemNo());
+			orderItem.setItemName(cart.getItemName());
+			orderItem.setItemQuantity(cart.getItemQuantity());
+			orderItem.setItemPrice(cart.getItemPrice());
+			orderItem.setItemMainPic(cart.getItemMainPic());
+			orderItemList.add(orderItem);
+		}
+		
+		log.info("addToOrderHistory POST orderItemList: " + orderItemList.toString());
+		
+		orderItemService.addToOrderItem(orderItemList);
+		return "redirect:/orderHistory/getOrderHistoryList";
 	}
 }

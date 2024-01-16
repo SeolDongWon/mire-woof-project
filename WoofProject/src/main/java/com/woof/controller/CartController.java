@@ -51,11 +51,25 @@ public class CartController {
 	public String getOrder(@RequestParam("selectedItems") List<String> selectedItems, @RequestParam("username") String username, Cart cart, Model model) throws Exception {
 		log.info("/getOrder POST selectedItems: " + selectedItems.toString() + ", username: " + username);
 		List<Cart> cartList = cartService.getOrder(selectedItems, username);
+		int totalPrice = calculateTotalPrice(cartList);
+		
 		model.addAttribute("cartList", cartList);
 		log.info("/getOrder cartList: " + cartList);
+		model.addAttribute("totalPrice", totalPrice);
+		log.info("/getOrder totalPrice: " + totalPrice);
 		return "account/myCart/myOrder";
 	}
 	
+	private int calculateTotalPrice(List<Cart> cartList) {
+		int totalPrice = 0;
+		for(Cart cart : cartList) {
+			int itemQuantity = cart.getItemQuantity();
+			int itemPrice = cart.getItemPrice();
+			totalPrice += itemQuantity * itemPrice;
+		}
+		return totalPrice;
+	}
+
 	@PostMapping("/removeChecked")
 	public ResponseEntity<String> removeChecked(@RequestBody Map<String, Object> requestData) throws Exception {
 		log.info("/removeChecked POST requestBody: " + requestData.toString());

@@ -5,9 +5,13 @@
 		SELECT * FROM orderHistory WHERE username=#{username} AND orderHistoryNo=#{orderHistoryNo}
 	</select>
 	<select id="getOrderHistoryList" resultType="OrderHistory">
-		SELECT * FROM orderHistory ORDER BY orderDate DESC
+		SELECT * FROM orderHistory WHERE username=#{username} ORDER BY orderDate DESC
 	</select>
 	<insert id="addToOrderHistory">
-		INSERT INTO orderHistory VALUES (orderHistoryNo_seq.nextVal, #{username}, #{totalPrice}, #{address}, SYSDATE)
+        INSERT INTO orderHistory (orderHistoryNo, username, totalPrice, address, orderDate)
+        VALUES (orderHistoryNo_seq.nextVal, #{username}, #{totalPrice}, #{address}, SYSDATE)
 	</insert>
+	<select id="getOrderHistoryNo" resultType="int">	
+        SELECT MAX(orderHistoryNo) FROM orderHistory
+	</select>
 </mapper>

@@ -33,7 +33,19 @@
 	    });
 
 	    $("#btnProceedCheckout").on("click", function() {
-	        
+	    	if (${empty cartList}) {
+	    		alert("There are no items in your cart. Please add items before proceeding to checkout.");
+	    		return;
+	    	}
+            formObj.find("input[name='itemNo']").remove();
+
+            <c:forEach items="${cartList}" var="cart">
+                formObj.append("<input type='hidden' name='itemNo' value='" + ${cart.itemNo} + "'/>");
+            </c:forEach>
+            
+	    	formObj.attr("action", "/orderHistory/addToOrderHistory");
+            formObj.attr("method", "post");
+            formObj.submit();
 	    });
 	    
 	});
@@ -51,6 +63,7 @@
 <!-- ================================================Content Area======================================================== -->
 	<form id="cartForm">
 		<input type="hidden" name="username" value="${pageContext.request.userPrincipal.principal.account.name}"/>
+		<input type="hidden" name="totalPrice" value="${totalPrice}"/>
 		<table class="table">
 			<thead class="t-head">
 				<tr>
@@ -85,6 +98,11 @@
 							</td>
 						</tr>
 					</c:forEach>
+						<tr>
+							<td colspan="5" class="p-3 align-middle text-end pe-5">
+								<b>Total price:</b> ${totalPrice}
+							</td>
+						</tr>
 				</c:otherwise>
 			</c:choose>
 		</table>

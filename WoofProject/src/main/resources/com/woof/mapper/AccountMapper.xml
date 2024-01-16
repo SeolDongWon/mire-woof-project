@@ -78,12 +78,16 @@
 		= #{username}
 	</update>
 	<!-- admin이 개인계정을 찾기 -->
-	<select id="searcheAccount" resultType="Account">
+	<select id="searchAccount" resultType="Account">
 		SELECT * FROM account
 		WHERE username LIKE '%' || #{searchKeyword} || '%'
 	</select>
 	<!-- 회원 테이블의 데이터 건수 조회 -->
 	<select id="countAll" resultType="int">
 		SELECT count(*) FROM account
+	</select>
+	
+	<select id="getAddress" resultType="String">
+		SELECT address FROM account WHERE username=#{username}
 	</select>
 </mapper>

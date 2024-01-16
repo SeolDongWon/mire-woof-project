@@ -10,5 +10,7 @@ public interface OrderHistoryService {
 	
 	public List<OrderHistory> getOrderHistoryList(String username) throws Exception;
 	
-	public void addToOrderHistory(String username, OrderHistory orderHistory) throws Exception; 
+	public void addToOrderHistory(OrderHistory orderHistory) throws Exception; 
+	
+	public int getOrderHistoryNo() throws Exception;
 }

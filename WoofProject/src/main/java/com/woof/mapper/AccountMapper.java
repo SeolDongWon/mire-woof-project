@@ -21,11 +21,12 @@ public interface AccountMapper {
 	//계정 탈퇴
 	public void deleteAccount(Account username) throws Exception;
 	//admin이 개인계정을 찾기
-	public Account searcheAccount(Account searchKeyword) throws Exception;
+	public Account searchAccount(Account searchKeyword) throws Exception;
 	// 회원 테이블의 데이터 건수 조회
 	public int countAll() throws Exception;
 	
 	//사용자 아이디를 가진 회원 정보를 조회
 	public Account readByUsername(String username);
 	
+	public String getAddress(String username);
 }
