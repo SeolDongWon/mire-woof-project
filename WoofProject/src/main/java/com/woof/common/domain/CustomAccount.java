@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.User;
 
 import com.woof.domain.Account;
 
+import lombok.Data;
+
+@Data
 public class CustomAccount extends User {
 
 	private static final long serialVersionUID = 1L;

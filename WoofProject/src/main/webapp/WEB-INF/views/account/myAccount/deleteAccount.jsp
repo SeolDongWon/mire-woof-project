@@ -4,7 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,6 +18,8 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
@@ -27,17 +30,56 @@
 <%-- <%@ include file="" %> --%>
 </head>
 <body>
-<!-- Header Area -->
+	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<!-- Menu Area -->
+	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
-<!-- subMenu Area -->
-<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
+	<!-- subMenu Area -->
+	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
 	<main class="pt-2">
-<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 
+		
+		<div class="d-flex  justify-content-center">
+
+		<form action="/account/deleteAccount" method="post">
+			<div class="container mt-3" style="width: 500px">
+				<table class="table table-borderless">
+
+
+					<tr>
+						<td colspan='2'><h2>정보 삭제</h2></td>
+					</tr>
+					<tr>
+						<th>닉네임</th>
+						<th>
+							<div class="input-group mb-3">
+								<input name="username" class="form-control"
+									placeholder="Username" value=""/>
+							</div>
+						</th>
+					</tr>
+
+					<tr>
+						<td>비밀번호</td>
+						<th>
+							<div class="input-group mb-3">
+								<input name="password" class="form-control"
+									placeholder="password" value="" />
+							</div>
+						</th>
+					</tr>
+					
+					<tr>
+						<td colspan='2'>
+							<button type="submit" >삭제</button> 
+						</td>
+					</tr>
+				</table>
+			</div>
+		</form>
+		</div>
 	</main>
-<!-- Footer Area -->
+	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

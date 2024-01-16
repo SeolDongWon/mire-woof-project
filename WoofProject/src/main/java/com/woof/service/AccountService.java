@@ -13,7 +13,7 @@ public interface AccountService {
 	// 등록 처리
 	public void registerAccount(Account account) throws Exception;
 	//수정처리
-	public void modifyAccount(Account account) throws Exception;
+	public Account modifyAccount(Account account) throws Exception;
 	//삭제처리
 	public void deleteAccount(Account username) throws Exception;
 	

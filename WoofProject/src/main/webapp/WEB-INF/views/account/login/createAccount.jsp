@@ -94,8 +94,10 @@
 					</tr>
 
 					<tr>
-						<td colspan='2'><form:button type="submit" id="btuCreate"
+						<td colspan='2'>
+						<form:button type="submit" id="btuCreate"
 								class="form-control" style="background: rgb(246, 220, 216)">회원가입</form:button>
+								
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<form:button type="submit" id="btnList">
 										목록

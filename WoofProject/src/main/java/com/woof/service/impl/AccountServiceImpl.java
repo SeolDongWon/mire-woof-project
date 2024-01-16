@@ -50,10 +50,12 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	//내정보 수정
+	@Transactional
 	@Override
-	public void modifyAccount(Account account) throws Exception {
+	public Account modifyAccount(Account account) throws Exception {
 		
 		mapper.modifyAccount(account);
+		return account;
 	}
 
 	//계정 탈퇴

@@ -1,12 +1,12 @@
 package com.woof.controller;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.woof.domain.Account;
 import com.woof.service.AccountService;
 
+import jakarta.servlet.jsp.jstl.sql.Result;
 import lombok.extern.java.Log;
 
 @Log
@@ -47,13 +48,15 @@ public class AccountController {
 		String inputPassword = account.getPassword();
 		account.setPassword(passwordEncoder.encode(inputPassword));
 		log.info(account.toString());
+
 		service.registerAccount(account);
 		rttr.addFlashAttribute("username", account.getUsername());
 
 		return "redirect:/account/login";
 //		return "account/login/loginForm";
 	}
-	//로그인
+
+	// 로그인
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String loginForm(String error, String logout, Model model) {
 		log.info("loginForm");
@@ -74,39 +77,78 @@ public class AccountController {
 		return "account/login/loginForm";
 	}
 
-	//내정보
+	// 내정보
 	@RequestMapping(value = "/myAccount", method = RequestMethod.GET)
-	public void myAccountForm(Account account, Model model) throws Exception {
+	public String myAccountForm(Account account, Model model) throws Exception {
 		log.info("myAccountForm");
-		log.info(account.getUsername()+" : ===================username");
+		log.info("11111myAccount account : " + account.toString());
+	
 		model.addAttribute(service.getAccount(account));
+		log.info("2222myAccount account : " + account.toString());
+		return "account/myAccount/myAccountForm";
 	}
-	//내정보
-	@RequestMapping(value = "/myAccount", method = RequestMethod.POST)
-	public void myAccount(Account account, Model model) throws Exception {
-		log.info("myAccount : POST");
-		log.info(account.getUsername()+" : ===================username");
-		service.getAccount(username);
+	
+	// 내정보
+		@RequestMapping(value = "/myAccount", method = RequestMethod.POST)
+		public String myAccountFormpost(Account account, Model model) throws Exception {
+			log.info("myAccountForm post");
+			log.info("11111myAccount account : " + account.toString());
+			
+			model.addAttribute(service.getAccount(account));
+			log.info("2222myAccount account : " + account.toString());
+			return "account/myAccount/myAccountForm";
+		}
+
+	// 내정보 수정
+	@RequestMapping(value = "/modifyAccountForm", method = RequestMethod.POST)
+	public String modifyAccountForm(Account account, Model model) throws Exception {
+		log.info("modifyAccount : GET");
+		log.info("modifyAccountForm account : " + account.toString());
+		model.addAttribute(service.getAccount(account));
+		log.info("modifyAccountForm account : " + account.toString());
+		return "account/myAccount/modifyAccount";
+	}
+
+	// 내정보 수정
+	@RequestMapping(value = "/modifyAccount", method = RequestMethod.POST)
+	public String modifyAccount(@Validated Account account, Model model) throws Exception {
+		log.info("modifyAccount : POST");
+		// 비밀번호 암호화
+		String inputPassword = account.getPassword();
+		account.setPassword(passwordEncoder.encode(inputPassword));
 		
-	}
-	//내정보 수정
-	@RequestMapping(value = "/midifyAccount", method = RequestMethod.GET)
-	public void modifyAccountForm(Account account, Model model) throws Exception {
-		log.info("midifyAccount : GET");
-		model.addAttribute(service.getAccount(username));
-	}
-	//내정보 수정
-	@RequestMapping(value = "/midifyAccount", method = RequestMethod.POST)
-	public String modifyAccount(Account account, RedirectAttributes rttr) throws Exception {
-		log.info("midifyAccount : POST");
+		log.info("modifyAccount account : " + account.toString());
 		service.modifyAccount(account);
-		rttr.addFlashAttribute("msg", "SUCCESS");
-		return "redirect:/account/midifyAccount";
+		model.addAttribute(service.getAccount(account));
+		return "account/myAccount/myAccountForm";
 	}
 
 	
+	// 내정보 삭제
+		@RequestMapping(value = "/deleteAccountForm", method = RequestMethod.POST)
+		public String deleteAccountForm(Account account, Model model) throws Exception {
+			log.info("*** deleteAccountForm : POST");
+			model.addAttribute(service.getAccount(account));
+			return "account/myAccount/deleteAccount";
+		}
+		
+		
+		// 내정보 삭제
+		@RequestMapping(value = "/deleteAccount", method = RequestMethod.POST)
+		public String deleteAccount(Account account, Model model, RedirectAttributes rttr) throws Exception {
+			log.info("*** deleteAccount : POST");
+			
+			
+		
+			service.deleteAccount(account);
+			rttr.addFlashAttribute("magDelete", "DELETE");
+		
+			
+			return "homewoof";
+		}
 	
 	
+
 	// 최초 관리자를 생성하는 화면.
 	@RequestMapping(value = "/setup", method = RequestMethod.GET)
 	public String setupAdminForm(Account account, Model model) throws Exception {
@@ -139,42 +181,3 @@ public class AccountController {
 	}
 
 }
-//
-//@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
-//public String loginForm(Model model) {
-//	
-//	log.info("loginForm");
-//	return "account/login/login";
-//}
-//@RequestMapping(value = "/login", method = RequestMethod.POST)
-//public String login(Account account, Model model) {
-//	
-//	log.info("login");
-//	return "account/login/regis";
-//}
-//
-//
-//// 회원권한을 가진 사용자만 접근이 가능하다.
-////@PreAuthorize("hasRole('ROLE_MEMBER')")
-//@RequestMapping("/regis")
-//public String registerForm() {
-//log.info("registerForm : 로그인한 회원만 접근 가능");
-//return "account/login/regis";
-//}
-//
-//
-//@RequestMapping(value = "/createAccountForm", method = RequestMethod.GET)
-//public String createAccountForm(Account account, Model model) throws Exception {
-//	log.info("createAccountForm");
-//	
-//	return "account/login/createAccount";
-//}
-//
-//@RequestMapping(value = "/createAccount", method = RequestMethod.POST)
-//public String createAccount(Account account, Model model) throws Exception {
-//	service.registerAccount(account);
-//	
-//	log.info("createAccount");
-//	
-//	return "account/login/login";
-//}

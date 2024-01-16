@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.woof.common.domain.CustomAccount;
 import com.woof.domain.Account;
@@ -12,6 +13,7 @@ import com.woof.mapper.AccountMapper;
 import lombok.extern.java.Log;
 
 @Log
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired

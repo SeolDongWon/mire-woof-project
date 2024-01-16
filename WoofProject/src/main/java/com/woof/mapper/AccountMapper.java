@@ -10,6 +10,8 @@ public interface AccountMapper {
 	public void registerAccount(Account account) throws Exception;
 	// 권한 생성
 	public void registerAccountAuth(AccountAuth accountAuth) throws Exception;
+	//비밀번호 찿기 
+	public void pwCheck(Account account) throws Exception;
 	
 	
 	// 내정보

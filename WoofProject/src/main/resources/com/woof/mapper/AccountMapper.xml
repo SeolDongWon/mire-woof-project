@@ -22,7 +22,8 @@
 
 	<select id="readByUsername" resultMap="accontMap">
 		SELECT
-		acc.username, password, name, tel, address, status, regDate, auth
+		acc.username,
+		password, name, tel, address, status, regDate, auth
 		FROM
 		account acc
 		LEFT OUTER JOIN account_auth auth
@@ -31,9 +32,10 @@
 		acc.username = #{username}
 	</select>
 	<!-- 내정보 -->
-	<select id="getAccount" resultType="Account">
-			SELECT
-		acc.username, password, name, tel, address, status, regDate, auth
+	<select id="getAccount" parameterType="Account">
+		SELECT
+		acc.username,
+		password, name, tel, address, status, regDate, auth
 		FROM
 		account acc
 		LEFT OUTER JOIN account_auth auth
@@ -72,17 +74,28 @@
 
 
 	<!-- 정보 수정 -->
-	<update id="modifyAccount">
-		UPDATE account SET username = #{username},
-		password=#{password}, name=#{name},
-		tel=#{tel}, address=#{address}
-		WHERE username=#{previousUsername}
+	<update id="modifyAccount" parameterType="Account">
+		UPDATE account
+		SET password=#{password},
+		name=#{name},
+		tel=#{tel},
+		address=#{address}
+		WHERE
+		username=#{username}
 	</update>
+	<!-- 비밀번호 찿기 -->
+	<select id="pwCheck" resultType="Account">
+		select password from account where username = #{username}
+	</select>
+
 	<!-- 계정 탈퇴 -->
-	<update id="deleteAccount">
-		UPDATE account SET status='deactivated' WHERE username
-		= #{username}
+	<update id="deleteAccount" parameterType="Account">
+		UPDATE account SET
+		status='deactivated'
+		WHERE username = #{username} and password=#{password}
 	</update>
+
+
 	<!-- admin이 개인계정을 찾기 -->
 	<select id="searcheAccount" resultType="Account">
 		SELECT * FROM account

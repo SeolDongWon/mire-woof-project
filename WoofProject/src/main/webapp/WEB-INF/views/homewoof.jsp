@@ -18,6 +18,7 @@
 	if (result === "SUCCESS") {
 		alert("An account that already exists. Exit");
 	}
+	
 </script>
 
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
