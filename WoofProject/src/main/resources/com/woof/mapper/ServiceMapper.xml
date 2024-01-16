@@ -1,3 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woof.mapper.ServiceMapper"></mapper>
+<mapper namespace="com.woof.mapper.ServiceMapper">
+
+	<insert id="insertService">
+	
+	</insert>
+	
+	<update id="modifyService">
+	
+	</update>
+	
+	<update id="addServiceViewCount">
+	
+	</update>
+	
+	<delete id="deleteService">
+	
+	</delete>
+	
+	<select id="getService">
+	
+	</select>
+	
+	<select id="countServiceList">
+	SELECT count(serviceNo)
+	FROM service 
+	</select>
+	
+	<select id="getServiceList"   resultType="Service">
+	SELECT *
+	FROM service
+	
+	</select>
+
+</mapper>

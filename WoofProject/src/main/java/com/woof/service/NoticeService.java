@@ -9,12 +9,6 @@ public interface NoticeService {
 
 	public Notice getNotice(Notice notice) throws Exception;
 
-//	public List<Notice> getNoticeList(Search noticeSearch) throws Exception;
-	
-	public List<Notice> getNoticeList(PageRequest pageRequest) throws Exception;
-	
-	public List<Notice> getNoticePageList(PageRequest pageRequest) throws Exception;
-
 	public void insertNotice(Notice notice) throws Exception;
 
 	public void modifyNotice(Notice notice) throws Exception;
@@ -23,7 +17,7 @@ public interface NoticeService {
 
 	public void addNoticeViewCount(Notice notice) throws Exception;
 
-	// 게시글 전체 건수를 반환한다.
 	public int countNoticeList(PageRequest pageRequest) throws Exception;
 
+	public List<Notice> getNoticeList(PageRequest pageRequest) throws Exception;
 }

@@ -32,9 +32,9 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 
-	<main class="pt-2">
+	<main class="pt-2 w-75 m-auto">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-		<h1>NOTICE</h1>
+		<h3 class="text-center">NOTICE</h3>
 		<table class="table border border-1" style="table-layout: fixed;">
 			<thead>
 				<tr>
@@ -50,9 +50,9 @@
 					<td class=" text-center" style="width: 20px;">${notice.noticeNo}</td>
 					<td class=" text-center" style="width: 100px;">${notice.noticeTitle}</td>
 					<td class=" text-center" style="width: 50px;"><fmt:formatDate
-									pattern="yyyy-MM-dd HH:mm" value="${notice.noticeRegDate}" /></td>
+							pattern="yyyy-MM-dd HH:mm" value="${notice.noticeRegDate}" /></td>
 					<td class=" text-center" style="width: 50px;"><fmt:formatDate
-									pattern="yyyy-MM-dd HH:mm" value="${notice.noticeModDate}" /></td>
+							pattern="yyyy-MM-dd HH:mm" value="${notice.noticeModDate}" /></td>
 					<td class=" text-center" style="width: 50px;">${notice.noticeViewCount}</td>
 				</tr>
 				<tr>
@@ -62,21 +62,18 @@
 				</tr>
 			</tbody>
 		</table>
-		<button>
-			<a href="/notice/modifyNoticeForm/${notice.noticeNo}"
-				class="list-group-item list-group-item-action border-0 text-truncate">${notice.noticeNo}수정</a>
-		</button>
 
-
-		<form:form modelAttribute="notice" action="/notice/deleteNotice">
-			<form:input path="noticeNo" class="form-control" readonly="true" disabled="hidden"/>
-			<form:button>
-				<span>${notice.noticeNo}삭제</span>
-				<%-- <a href="/notice/deleteNotice/${notice.noticeNo}"
-				class="list-group-item list-group-item-action border-0 text-truncate">${notice.noticeNo}삭제</a> --%>
-			</form:button>
-		</form:form>
-
+			<button>
+				<a href="/notice/modifyNoticeForm/${notice.noticeNo}"
+					class="list-group-item list-group-item-action border-0 text-truncate">${notice.noticeNo}수정</a>
+			</button>
+			<form:form modelAttribute="notice" action="/notice/deleteNotice">
+				<form:input path="noticeNo" class="form-control" readonly="true"
+					type="hidden" />
+				<form:button>
+					<span>${notice.noticeNo}삭제</span>
+				</form:button>
+			</form:form>
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

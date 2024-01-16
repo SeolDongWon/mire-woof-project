@@ -32,8 +32,8 @@
 <!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
-	<main class="pt-2">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+	<main class="pt-2">
 
 	</main>
 <!-- Footer Area -->

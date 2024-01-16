@@ -5,14 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.MergedAnnotations.Search;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.woof.domain.Notice;
 import com.woof.domain.PageRequest;
@@ -38,7 +37,7 @@ public class NoticeController {
 		noticeService.addNoticeViewCount(notice);
 		Notice dto = noticeService.getNotice(notice);
 		model.addAttribute("notice", dto);
-		return "/about/notice";
+		return "about/notice";
 	}
 
 	@GetMapping("/getNoticeList")
@@ -152,12 +151,16 @@ public class NoticeController {
 //		}
 //		return entity;
 //	}
-
+	
+	//공지사항 작성화면
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/insertNoticeForm")
 	public String insertNoticeForm(Notice notice) throws Exception {
 		return "admin/notices/insertNotice";
 	}
-
+	
+	//공지사항 작성
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/insertNotice")
 	public String insertNotice(Notice notice) throws Exception {
 		log.info("insertNotice");
@@ -175,7 +178,9 @@ public class NoticeController {
 
 		return "redirect:/notice/getNoticeList";
 	}
-
+	
+	//공지사항 수정화면
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/modifyNoticeForm/{noticeNo}")
 	public String modifyNoticeForm(@PathVariable("noticeNo") int noticeNo, Notice dto, Model model) throws Exception {
 		dto.setNoticeNo(noticeNo);
@@ -184,7 +189,9 @@ public class NoticeController {
 		model.addAttribute("notice", notice);
 		return "admin/notices/modifyNotice";
 	}
-
+	
+	//공지사항 수정
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modifyNotice")
 	public String modifyNotice(Notice notice) throws Exception {
 		log.info("modifyNotice");
@@ -193,19 +200,23 @@ public class NoticeController {
 
 		return "redirect:/notice/getNoticeList";
 	}
-
+	
+	//공지사항 삭제
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/deleteNotice")
 	public String deleteNotice(Notice notice) throws Exception {
 		noticeService.deleteNotice(notice);
 		return "redirect:/notice/getNoticeList";
 	}
-
+	
+	//시설소개
 	@RequestMapping("/getAbout")
 	public String getAbout(Model model, Search search) throws Exception {
 		log.info("getAbout");
 		return "about/about";
 	}
-
+	
+	//오시는길
 	@RequestMapping("/getLocation")
 	public String getLocation(Model model, Search search) throws Exception {
 		log.info("getAbout");

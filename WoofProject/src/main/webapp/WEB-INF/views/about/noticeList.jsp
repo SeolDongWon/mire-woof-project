@@ -87,68 +87,68 @@
 	 }
 	 });
 	 } */
-	 /* 	$(document).ready(function() {
-	 ajaxPut();
+	/* 	$(document).ready(function() {
+	ajaxPut();
 
-	 $("#ajaxPutBtn").on("click", function() {
-	 alert("putBtn");
-	 ajaxPut();
-	 });
-	 });
+	$("#ajaxPutBtn").on("click", function() {
+	alert("putBtn");
+	ajaxPut();
+	});
+	});
 
-	 function ajaxPut() {
-	 let pageRequest = {
-	 condition : $("#condition").val(),
-	 keyword : $("#keyword").val(),
-	 sizePerPage : $("#sizePerPage").val(),
-	 page : $("#page").val()
+	function ajaxPut() {
+	let pageRequest = {
+	condition : $("#condition").val(),
+	keyword : $("#keyword").val(),
+	sizePerPage : $("#sizePerPage").val(),
+	page : $("#page").val()
 	
-	 };
+	};
 
-	 alert(pageRequest.condition+" "+pageRequest.keyword+" "+pageRequest.sizePerPage+" "+pageRequest.page);
+	alert(pageRequest.condition+" "+pageRequest.keyword+" "+pageRequest.sizePerPage+" "+pageRequest.page);
 	
-	 $.ajax({
-	 type : "put",
-	 url : "/notice/getNoticeListAjaxPut",
-	 data : JSON.stringify(pageRequest),
-	 contentType : "application/json; charset=UTF-8",
+	$.ajax({
+	type : "put",
+	url : "/notice/getNoticeListAjaxPut",
+	data : JSON.stringify(pageRequest),
+	contentType : "application/json; charset=UTF-8",
 
-	 success : function(result) {
-	 console.log("result.length : " + result.length);
-	 let noticeList = "";
+	success : function(result) {
+	console.log("result.length : " + result.length);
+	let noticeList = "";
 
-	 if (result.length != 0) {
+	if (result.length != 0) {
 
-	 for (var i = 0; i < result.length; i++) {
-	 noticeList += '<tr style="font-size: 12px;">';
-	 noticeList += '<td class=" text-center p-1" style="width: 50px;">';
-	 noticeList += result[i].noticeNo + '</td>';
-	 noticeList += '<td class="text-truncate p-1">';
-	 noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
+	for (var i = 0; i < result.length; i++) {
+	noticeList += '<tr style="font-size: 12px;">';
+	noticeList += '<td class=" text-center p-1" style="width: 50px;">';
+	noticeList += result[i].noticeNo + '</td>';
+	noticeList += '<td class="text-truncate p-1">';
+	noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
 					noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
-	 noticeList += result[i].noticeTitle
-	 + '</a></td>';
-	 noticeList += '<td class=" text-center p-1" style="width: 130px;">'
-	 noticeList += result[i].noticeRegDate + '</td>';
-	 noticeList += '</tr>';
+	noticeList += result[i].noticeTitle
+	+ '</a></td>';
+	noticeList += '<td class=" text-center p-1" style="width: 130px;">'
+	noticeList += result[i].noticeRegDate + '</td>';
+	noticeList += '</tr>';
 
-	 }
-	 } else {
-	 alert("검색결과 없음");
-	 }
+	}
+	} else {
+	alert("검색결과 없음");
+	}
 
-	 $("#noticeListSpan").html(noticeList);
+	$("#noticeListSpan").html(noticeList);
 
-	 if (pageRequest.keyword != "") {
-	 let url = "?condition=" + pageRequest.condition
-	 + "&keyword=" + pageRequest.keyword;
-	 if (typeof (history.pushState) != "undefined") {
-	 history.pushState(null, null, url);
-	 }
-	 }
-	 }
-	 });
-	 } */
+	if (pageRequest.keyword != "") {
+	let url = "?condition=" + pageRequest.condition
+	+ "&keyword=" + pageRequest.keyword;
+	if (typeof (history.pushState) != "undefined") {
+	history.pushState(null, null, url);
+	}
+	}
+	}
+	});
+	} */
 </script>
 </head>
 <body>
@@ -157,25 +157,12 @@
 	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
-<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
+			<a href="/notice/insertNoticeForm">글쓰기</a>
 		<div class="mt-3 w-75 m-auto">
-			<a href="/notice/insertNoticeForm">insertNoticeForm</a>
-			<div class="d-flex justify-content-between">
-				<h3>NOTICE LIST</h3>
-				<form:form modelAttribute="pageRequest"
-					action="/notice/getNoticeList" method="get">
-					<%-- <form:input path="sizePerPage" type="text"value="${pageRequest.sizePerPage}" />
-					<form:input path="page" type="text" value="${pageRequest.page}" />	 --%>
-					<form:select path="condition">
-						<form:option value="TITLE" label="제목" />
-						<form:option value="CONTENT" label="내용" />
-					</form:select>
-					<form:input path="keyword" />
-					<form:button type="submit">일반검색</form:button>
-					<!-- 페이징 네비게이션 -->
-				</form:form>
-			</div>
+			<h3 class="text-center">NOTICE LIST</h3>
+
 
 			<table class="table table-striped" style="table-layout: fixed;">
 
@@ -186,13 +173,13 @@
 						<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
 					</tr>
 				</thead>
-             
+
 				<tbody id="noticeListSpan">
 					<c:forEach items="${noticeList}" var="notice">
 						<tr>
 							<td align="center">${notice.noticeNo}</td>
 							<!-- 게시글 상세보기할 때 페이징 요청 정보를 매개변수로 전달한다. -->
-							<td align="left" ><a class="text-decoration-none text-black" 
+							<td align="left"><a class="text-decoration-none text-black"
 								href="/notice/getNotice?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
 							<td align="center"><fmt:formatDate
 									pattern="yyyy-MM-dd HH:mm" value="${notice.noticeRegDate}" /></td>
@@ -201,6 +188,18 @@
 				</tbody>
 
 			</table>
+			<div class="d-flex">
+				<form:form modelAttribute="pageRequest"
+					action="/notice/getNoticeList" method="get" class="m-auto">
+					<form:select path="condition">
+						<form:option value="TITLE" label="제목" />
+						<form:option value="CONTENT" label="내용" />
+					</form:select>
+					<form:input path="keyword" />
+					<form:button type="submit">일반검색</form:button>
+					<!-- 페이징 네비게이션 -->
+				</form:form>
+			</div>
 			<div class="d-flex">
 				<ul class="pagination m-auto">
 					<c:if test="${pagination.prev}">

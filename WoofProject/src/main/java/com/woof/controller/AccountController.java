@@ -86,14 +86,14 @@ public class AccountController {
 	public void myAccount(Account account, Model model) throws Exception {
 		log.info("myAccount : POST");
 		log.info(account.getUsername()+" : ===================username");
-		service.getAccount(username);
+		service.getAccount(account);
 		
 	}
 	//내정보 수정
 	@RequestMapping(value = "/midifyAccount", method = RequestMethod.GET)
 	public void modifyAccountForm(Account account, Model model) throws Exception {
 		log.info("midifyAccount : GET");
-		model.addAttribute(service.getAccount(username));
+		model.addAttribute(service.getAccount(account));
 	}
 	//내정보 수정
 	@RequestMapping(value = "/midifyAccount", method = RequestMethod.POST)

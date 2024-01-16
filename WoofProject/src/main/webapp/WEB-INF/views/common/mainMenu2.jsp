@@ -6,7 +6,7 @@
         <a href="" class="menu nav-link text-black fs-4 fw-light border-bottom" data-bs-toggle="dropdown" aria-expanded="false">회사소개</a>
         <menu class=" dropdown-menu w-100 m-0 p-0 border-0 " id="aboutMenu">
           <ul class=" nav nav-underline nav-justified justify-content-around border-bottom "
-            style="position:relative;top: -2px;">
+            style="position:relative;top: -1px;">
             <li class="menu navMenu nav-item"><a href="/notice/getAbout" class="nav-link text-black">시설소개</a></li>
             <li class="menu navMenu nav-item"><a href="/notice/getLocation" class="nav-link text-black">오시는 길</a></li>
             <li class="menu navMenu nav-item"><a href="/notice/getNoticeList" class="nav-link text-black">공지사항</a></li>
@@ -16,7 +16,7 @@
       <li class="navMenu nav-item rounded nav-underline ">
         <a href="" class="menu nav-link text-black fs-4 fw-light border-bottom" data-bs-toggle="dropdown" aria-expanded="false">분양</a>
         <menu class=" dropdown-menu w-100 m-0 p-0 border-0" id="petMenu"style="position:relative;top: -1px;">
-          <ul class=" nav nav-underline nav-justified justify-content-around border-bottom "style="position:relative;top: -2px;left: -225px;">
+          <ul class=" nav nav-underline nav-justified justify-content-around border-bottom "style="position:relative;top: -2px;left: -197px;">
             <li class="menu navMenu nav-item"><a href="" class="nav-link text-black">입양견 목록</a></li>
             <li class="menu navMenu nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
           </ul>
@@ -27,7 +27,7 @@
         <a href="" class="menu nav-link text-black fs-4 fw-light border-bottom" data-bs-toggle="dropdown" aria-expanded="false">상품</a>
         <menu class=" dropdown-menu w-100 m-0 p-0 border-0" id="itemMenu"
           style="position:relative;top: -2px;">
-          <ul class=" nav nav-underline nav-justified justify-content-around border-bottom "style="position:relative;top: -2px;left: -225px;"">
+          <ul class=" nav nav-underline nav-justified justify-content-around border-bottom "style="position:relative;top: -2px;left: 300px;"">
             <li class="menu navMenu nav-item"><a href="" class="nav-link text-black">상품목록</a></li>
           </ul>
         </menu>

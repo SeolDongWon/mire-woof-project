@@ -22,11 +22,6 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.getNotice(notice);
 	}
 
-//	@Override
-//	public List<Notice> getNoticeList(Search noticeSearch) throws Exception {
-//		return mapper.getNoticeList(noticeSearch);
-//	}
-
 	@Transactional
 	@Override
 	public void insertNotice(Notice notice) throws Exception {
@@ -49,14 +44,9 @@ public class NoticeServiceImpl implements NoticeService {
 		mapper.addNoticeViewCount(notice);
 	}
 
-	// 게시글 전체 건수를 반환한다.
 	@Override
 	public int countNoticeList(PageRequest pageRequest) throws Exception {
 		return mapper.countNoticeList(pageRequest);
-	}
-	
-	public List<Notice> getNoticePageList(PageRequest pageRequest) throws Exception{
-		return mapper.getNoticePageList(pageRequest);
 	}
 
 	@Override

@@ -15,23 +15,8 @@
 			(SELECT  ROWNUM AS rnum, noticeno, noticetitle, noticedesc, noticeregdate, noticemoddate, noticeviewcount
 			FROM (select * from notice WHERE noticetitle LIKE '%'||#{keywordTitle}||'%' AND noticedesc LIKE '%'||#{keywordDesc}||'%' order by noticeno desc) 
 			ORDER BY noticeno asc)
-		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY noticeno DESC
 		]]>
-	<!-- 	<![CDATA[
-		SELECT * 
-		FROM 
-			(SELECT noticeno, noticetitle, noticedesc, noticeregdate, noticemoddate, noticeviewcount, ROWNUM AS rnum 
-			FROM notice 
-			WHERE noticetitle LIKE '%'||#{keywordTitle}||'%'
-			AND noticedesc LIKE '%'||#{keywordDesc}||'%')
-		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
-		ORDER BY noticeno DESC, noticeregdate DESC;
-		]]> -->
-		<!-- SELECT *
-		FROM notice
-		WHERE noticetitle LIKE '%'||#{keywordTitle}||'%'
-		AND noticedesc LIKE '%'||#{keywordDesc}||'%'
-		ORDER BY noticeno DESC -->
 	</select>
 	<select id="countNoticeList" resultType="int">
 		SELECT count(noticeNo)
@@ -72,7 +57,7 @@
 	WHERE noticeNo > 0
 	]]>
 	</select>
-	<!-- 게시글 목록 페이지 -->
+<!-- 	 게시글 목록 페이지
 	<select id="getNoticePageList" resultType="Notice">
 		<![CDATA[
 		SELECT * 
@@ -80,6 +65,6 @@
 		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 		ORDER BY noticeno DESC, noticeregdate DESC;
 		]]>
-	</select>
+	</select> -->
 
 </mapper>
