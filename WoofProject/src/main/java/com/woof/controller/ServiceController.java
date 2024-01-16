@@ -3,15 +3,12 @@ package com.woof.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.woof.domain.Notice;
 import com.woof.domain.PageRequest;
 import com.woof.domain.Pagination;
 import com.woof.domain.Service;
@@ -70,35 +67,35 @@ public class ServiceController {
 	}
 
 	// 공지사항 수정화면
-	@RequestMapping("/modifyNoticeForm/{noticeNo}")
-	public String modifyNoticeForm(@PathVariable("noticeNo") int noticeNo, Notice dto, Model model) throws Exception {
-		dto.setNoticeNo(noticeNo);
-		noticeService.addNoticeViewCount(dto);
-		Notice notice = noticeService.getNotice(dto);
-		model.addAttribute("notice", notice);
-		return "admin/notices/modifyNotice";
+	@RequestMapping("/modifyServiceForm/{ServiceNo}")
+	public String modifyServiceForm(@PathVariable("ServiceNo") int ServiceNo, Service dto, Model model) throws Exception {
+		dto.setServiceNo(ServiceNo);
+		serviceService.addServiceViewCount(dto);
+		Service Service = serviceService.getService(dto);
+		model.addAttribute("Service", Service);
+		return "admin/Services/modifyService";
 	}
 
 	// 공지사항 수정
-	@PostMapping("/modifyNotice")
-	public String modifyNotice(Notice notice) throws Exception {
-		log.info("modifyNotice");
+	@PostMapping("/modifyService")
+	public String modifyService(Service Service) throws Exception {
+		log.info("modifyService");
 
-		noticeService.modifyNotice(notice);
+		serviceService.modifyService(Service);
 
-		return "redirect:/notice/getNoticeList";
+		return "redirect:/Service/getServiceList";
 	}
 
 	// 공지사항 삭제
-	@RequestMapping("/deleteNotice")
-	public String deleteNotice(Notice notice) throws Exception {
-		noticeService.deleteNotice(notice);
-		return "redirect:/notice/getNoticeList";
+	@RequestMapping("/deleteService")
+	public String deleteService(Service Service) throws Exception {
+		serviceService.deleteService(Service);
+		return "redirect:/Service/getServiceList";
 	}
 
 	@RequestMapping("/getServiceList")
 	public String getServiceList(Model model, PageRequest pageRequest, Pagination pagination) throws Exception {
-		log.info("getNoticeList");
+		log.info("getServiceList");
 
 		if (pageRequest.getCondition() == null) {
 			pageRequest.setCondition("TITLE");

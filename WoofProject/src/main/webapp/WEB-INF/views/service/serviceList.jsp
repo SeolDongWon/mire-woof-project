@@ -55,18 +55,20 @@
 
 				<tbody id="serviceListSpan">
 					<c:forEach items="${serviceList}" var="service">
-						<tr>
-						<form action="/service/responseServiceForm" method="post">
 						<input name="serviceNo" type="hidden" readonly="readonly" value="${service.serviceNo}">
 						<input name="username" type="hidden" readonly="readonly" value="${service.username}">
 						<input name="serviceDesc" type="hidden" readonly="readonly" value="${service.serviceDesc}">
+						<form action="/service/responseServiceForm" method="post">
+							<tr>
 							<td name="serviceNo" align="center">${service.serviceNo}</td>
 							<td name="username" align="center">${service.username}</td>
 							<td name="serviceDesc" align="left" class="text-break">${service.serviceDesc}</td>
 							<td align="center"><fmt:formatDate
-									pattern="yyyy-MM-dd HH:mm" value="${service.regDate}" /></td>
-								<td><button>답변버튼</button></td>
-						</tr>
+									pattern="yyyy-MM-dd HH:mm" value="${service.serviceRegDate}" /></td>
+							<td><button>답변1</button>
+									<a href="/service/responseServiceForm?serviceNo="${service.serviceNo}>답변2</a>
+							</td>
+							</tr>
 						</form>
 						<c:if test="${null!=service.response}">
 							<tr>
@@ -78,28 +80,31 @@
 										pattern="yyyy-MM-dd HH:mm" value="${service.responseRegDate}" /></td>
 							</tr>
 						</c:if>
-						
 					</c:forEach>
 				</tbody>
+				
 			</table>
-
+			
 			<div class="d-flex">
 				<ul class="pagination m-auto">
 					<c:if test="${pagination.prev}">
 						<li class="page-item"><a class="page-link"
 							href="/service/getServiceList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Previous</a></li>
 					</c:if>
+					
 					<c:forEach begin="${pagination.startPage }"
 						end="${pagination.endPage }" var="idx">
 						<li class="page-item"><a class="page-link"
 							href="/service/getServiceList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
 					</c:forEach>
+					
 					<c:if test="${pagination.next && pagination.endPage > 0}">
 						<li class="page-item"><a class="page-link"
 							href="/service/getServiceList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
 					</c:if>
 				</ul>
 			</div>
+			
 		</div>
 	</main>
 	<!-- Footer Area -->

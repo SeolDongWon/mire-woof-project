@@ -3,19 +3,15 @@
 <mapper namespace="com.woof.mapper.ServiceMapper">
 
 	<insert id="insertService">
-	insert into service (serviceNo, userName, itemNo, petNo, serviceDesc)
-		values(serviceno_seq.nextval, #{username}, #{itemNo} ,#{petNo} , #{serviceDesc})
+		INSERT INTO SERVICE (serviceNo, username, itemNo, petNo, serviceDesc)
+		VALUES(serviceno_seq.nextval, #{username}, #{itemNo} ,#{petNo} , #{serviceDesc})
 	</insert>
 	
 	<update id="responseService">
-	update service set response=#{response}, responseregdate=sysdate where serviceno=#{serviceNo}
+		UPDATE SERVICE SET response=#{response}, responseRegDate=sysdate WHERE serviceNo=#{serviceNo}
 	</update>
 	
 	<update id="modifyService">
-	
-	</update>
-	
-	<update id="addServiceViewCount">
 	
 	</update>
 	
@@ -28,17 +24,14 @@
 	</select>
 	
 	<select id="countServiceList">
-	SELECT count(serviceNo)
-	FROM service 
+		SELECT count(serviceNo)
+		FROM service 
 	</select>
 	
 	<select id="getServiceList"   resultType="Service">
-	<!-- SELECT *
-	FROM service
-	ORDER BY regdate DESC -->
-	SELECT * 
+		SELECT * 
 		FROM
-			(SELECT  ROWNUM AS rnum, serviceNo, username, itemNo, petNo, serviceDesc, response, regDate,responseRegDate
+			(SELECT  ROWNUM AS rnum, serviceNo, username, itemNo, petNo, serviceDesc, response, serviceRegDate,responseRegDate
 			FROM (select * from service WHERE serviceDesc LIKE '%'||#{keyword}||'%' order by serviceNo desc) 
 			ORDER BY serviceNo asc)
 		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY serviceNo DESC

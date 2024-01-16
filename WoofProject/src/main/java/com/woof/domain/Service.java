@@ -16,8 +16,7 @@ public class Service {
 	private int petNo;
 	private String serviceDesc;
 	private String response;
-	private int step;
-	private Date regDate;
+	private Date serviceRegDate;
 	private Date responseRegDate;
 	
 }
