@@ -82,6 +82,12 @@ public class OrderHistoryController {
 		log.info("/addToOrderHistory POST orderItemList: " + orderItemList.toString());
 		
 		orderItemService.addToOrderItem(orderItemList);
+		
+		List<String> selectedItems = new ArrayList<String>();
+		for(OrderItem item : orderItemList) {
+			selectedItems.add(String.valueOf(item.getItemNo()));
+		}
+		cartService.removeChecked(selectedItems, username);
 		return "redirect:/orderHistory/getOrderHistoryList";
 	}
 }
