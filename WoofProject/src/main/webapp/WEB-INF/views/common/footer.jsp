@@ -19,16 +19,16 @@
           <div class="col-3">
             <p class="fs-6 mb-2" id="bottom">회사소개</p>
             <ul class="navbar-nav fs-6 fw-light">
-              <li class="nav-item"><a href="" class="nav-link link-secondary p-1">시설소개</a></li>
-              <li class="nav-item"><a href="" class="nav-link link-secondary p-1">오시는길</a></li>
-              <li class="nav-item"><a href="" class="nav-link link-secondary p-1">공지사항</a></li>
+              <li class="nav-item"><a href="/notice/getAbout" class="nav-link link-secondary p-1">시설소개</a></li>
+              <li class="nav-item"><a href="/notice/getLocation" class="nav-link link-secondary p-1">오시는길</a></li>
+              <li class="nav-item"><a href="/notice/getNoticeList" class="nav-link link-secondary p-1">공지사항</a></li>
             </ul>
           </div>
           <div class="col-3">
             <p class="fs-6 mb-2">분양</p>
             <ul class="navbar-nav fs-6 fw-light">
-              <li class="nav-item"><a href="" class="nav-link link-secondary p-1">입양견 목록</a></li>
-              <li class="nav-item"><a href="" class="nav-link link-secondary p-1">입양후기</a></li>
+              <li class="nav-item"><a href="/pet/getPetList" class="nav-link link-secondary p-1">입양견 목록</a></li>
+              <li class="nav-item"><a href="/review/getReviewList" class="nav-link link-secondary p-1">입양후기</a></li>
             </ul>
           </div>
           <div class="col-3">
@@ -40,8 +40,8 @@
           <div class="col-3">
             <p class="fs-6 mb-2">고객센터</p>
             <ul class="navbar-nav fs-6 fw-light">
-              <li class="nav-item"><a href="" class="nav-link link-secondary p-1">자주묻는 질문</a></li>
-              <li class="nav-item"><a href="" class="nav-link link-secondary p-1">문의사항</a></li>
+              <li class="nav-item"><a href="/service/getFAQList" class="nav-link link-secondary p-1">자주묻는 질문</a></li>
+              <li class="nav-item"><a href="/service/getServiceList" class="nav-link link-secondary p-1">문의사항</a></li>
             </ul>
           </div>
         </div>

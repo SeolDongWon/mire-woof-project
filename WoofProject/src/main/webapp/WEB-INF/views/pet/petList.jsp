@@ -33,14 +33,14 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-	<menu id="subMenu" class="m-0 p-0">
+	<!-- <menu id="subMenu" class="m-0 p-0">
 		<ul
 			class="nav nav-underline nav-justified justify-content-around border-bottom">
 			<li class="menu nav-item"><a href="getPetList" class="nav-link text-black">입양견
 					목록</a></li>
 			<li class="menu nav-item"><a href="/review/getReviewList" class="nav-link text-black">입양후기</a></li>
 		</ul>
-	</menu>
+	</menu> -->
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
 	

@@ -20,9 +20,9 @@
 			<nav class="dropdown-menu">
 				<ul class="nav nav-justified "style="left: -300px;">
 					<li class="navMenu nav-item">
-					<a href=""class="nav-link text-black">입양견 목록</a></li>
+					<a href="/pet/getPetList"class="nav-link text-black">입양견 목록</a></li>
 					<li class="navMenu nav-item">
-					<a href=""class="nav-link text-black">입양후기</a></li>
+					<a href="/review/getReviewList"class="nav-link text-black">입양후기</a></li>
 				</ul>
 			</nav></li>
 
@@ -31,7 +31,7 @@
 			<nav class="dropdown-menu">
 				<ul class=" nav nav-justified "style="left: -600px;">
 					<li class="navMenu nav-item">
-					<a href=""class="nav-link text-black">상품목록</a></li>
+					<a href="/item/getList"class="nav-link text-black">상품목록</a></li>
 				</ul>
 			</nav></li>
 

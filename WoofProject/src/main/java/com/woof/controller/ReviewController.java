@@ -32,7 +32,6 @@ import lombok.extern.java.Log;
 @Log
 @Controller
 @RequestMapping("/review")
-@MapperScan(basePackages = "com.woof.mapper")
 public class ReviewController {
 
 	@Autowired
@@ -60,7 +59,7 @@ public class ReviewController {
 		List<Review> reviewList = service.getReviewList();
 		model.addAttribute("reviewList", reviewList);
 		log.info(reviewList.toString());
-		return "/pet/petReviewList";
+		return "pet/petReviewList";
 	}
 	
 	//화면에서 누르고 pet/insertPetReview 이동

@@ -36,7 +36,7 @@
 					</a></li>
 					<li class="nav-item "><a href="#" class="nav-link text-black">공지관리</a></li>
 					<li class="nav-item "><a href="#" class="nav-link text-black">입양관리</a></li>
-					<li class="nav-item "><a href="#" class="nav-link text-black">제품관리</a></li>
+					<li class="nav-item "><a href="/item/admin/modifyItem" class="nav-link text-black">제품관리</a></li>
 					<li class="nav-item "><a href="#" class="nav-link text-black">유저관리</a></li>
 					<li class="nav-item "><a href="/account/logout"
 						class="nav-link text-black">로그아웃</a></li>

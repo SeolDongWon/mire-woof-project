@@ -56,7 +56,7 @@ public class PetController {
 	public String getPetList(Pet pet,Model model)  throws Exception{
 		List<Pet> petList = service.getPetList();
 		model.addAttribute("petList", petList);
-		return "/pet/petList";
+		return "pet/petList";
 	}
 
 	@GetMapping("/petList")
@@ -68,7 +68,7 @@ public class PetController {
 	
 	@GetMapping(value="/insertPet")
 	public String insertPetForm(Pet pet)  throws Exception{
-		return "/pet/insertPet";
+		return "pet/insertPet";
 	}
 	
 	
@@ -151,7 +151,7 @@ public class PetController {
 	@RequestMapping(value="/searchPetType")
 	public String searchPetType(Pet pet)  throws Exception{
 		service.searchPetType(pet);
-		return "/searchPetType";
+		return "searchPetType";
 	}
 	
 //----------------------------사진 업로드----------------------------------

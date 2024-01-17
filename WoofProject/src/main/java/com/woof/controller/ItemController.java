@@ -32,7 +32,6 @@ import lombok.extern.java.Log;
 @Log
 @Controller
 @RequestMapping("/item")
-@MapperScan(basePackages = "com.woof.mapper")
 public class ItemController {
 
 	@Autowired
