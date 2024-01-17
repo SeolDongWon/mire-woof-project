@@ -8,4 +8,5 @@ public interface OrderItemMapper {
 
 	public void addToOrderItem(List<OrderItem> orderItem) throws Exception;
 	
+	public List<OrderItem> getOrderItemList(int orderHistoryNo) throws Exception;
 }

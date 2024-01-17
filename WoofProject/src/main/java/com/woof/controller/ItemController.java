@@ -51,8 +51,8 @@ public class ItemController {
 	
 	@GetMapping("/itemList")
 	public void getItemList(Model model) throws Exception {
-		log.info("/itemList GET");
 		List<Item> itemList = itemService.getItemList();
+		log.info("/itemList GET: " + itemList.toString());
 		model.addAttribute("itemList", itemList);
 	}
 	
@@ -89,16 +89,16 @@ public class ItemController {
 	}
 	
 	@GetMapping("/modifyItem")
-	public String modifyItemGet(Item item, Model model) throws Exception {
-		log.info("/modifyItem GET");
-		Item itemToModify = itemService.getItem(item.getItemNo());
-		model.addAttribute(itemToModify);
+	public String modifyItemGet(Model model) throws Exception {
+		List<Item> itemList = itemService.getItemList();
+		model.addAttribute(itemList);
+		log.info("/modifyItem GET itemList: " + itemList.toString());
 		return "item/admin/modifyItem";
 	}
-	// NEED ITEMNO
+	
 	@PostMapping("/modifyItem")
-	public void modifyItem(Item item) throws Exception {
-		log.info("/modifyItem POST");
+	public String modifyItem(Item item) throws Exception {
+		log.info("/modifyItem POST item: " + item.toString());
 		List<MultipartFile> pictures = item.getPictures();
 		for (int i = 0; i < pictures.size(); i++) {
 			MultipartFile file = pictures.get(i);
@@ -111,13 +111,16 @@ public class ItemController {
 				}
 			}
 		}
+		log.info("/modifyItem POST item: " + item.toString());
 		itemService.modifyItem(item);
+		return "redirect:/item/itemList";
 	}
 	// NEED ITEMNO
-	@PostMapping("/deleteItem")
-	public void deleteItem(Item item) throws Exception {
-		log.info("/deleteItem POST");
-		itemService.deleteItem(item);
+	@GetMapping("/toggleItemStatus")
+	public String toggleItemStatus(@RequestParam("itemNo") int itemNo) throws Exception {
+		log.info("/toggleItemStatus GET");
+		itemService.toggleItemStatus(itemNo);
+		return "redirect:/item/itemList";
 	}
 	
 	@ResponseBody
@@ -182,4 +185,14 @@ public class ItemController {
 		}
 		return null;
 	}
+	
+	@GetMapping("/getModifyItemForm")
+	public String getModifyItemForm(@RequestParam("itemNo") String itemNo, Model model) throws Exception {
+		log.info("/getModifyItemForm GET itemNo: " + itemNo);
+		int itemNo_ = Integer.parseInt(itemNo);
+		Item item = itemService.getItem(itemNo_);
+		model.addAttribute(item);
+		return "item/admin/modifyItemForm";
+	}
+	
 }

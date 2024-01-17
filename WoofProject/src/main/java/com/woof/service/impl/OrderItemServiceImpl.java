@@ -20,4 +20,9 @@ public class OrderItemServiceImpl implements OrderItemService {
 		mapper.addToOrderItem(orderItem);		
 	}
 
+	@Override
+	public List<OrderItem> getOrderItemList(int orderHistoryNo) throws Exception {
+		return mapper.getOrderItemList(orderHistoryNo);
+	}
+
 }

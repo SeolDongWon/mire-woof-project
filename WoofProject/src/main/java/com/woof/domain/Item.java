@@ -23,6 +23,7 @@ public class Item {
 	private String itemMainPic;
 	private String itemSubPic;
 	private String itemDesc;
+	private String itemStatus;
 	
 	private String searchItemType;
 	private String searchKeyword;

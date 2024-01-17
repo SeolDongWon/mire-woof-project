@@ -27,7 +27,7 @@
     $(document).ready(function() {
         var formObj = $("#item");
         $("#btnInsertItem").on("click", function() {
-        	if(checkEmpty()){
+        	if(checkValues()){
 	            formObj.attr("action", "/item/admin/insertItem");
 	            formObj.attr("method", "post");
 	            formObj.submit();
@@ -38,7 +38,7 @@
         });
     });
     
-	function checkEmpty() {
+	function checkValues() {
 		if(document.getElementById("itemName").value == "") {
 	        alert("Please enter an item name");
 	        document.getElementById("itemName").focus();
@@ -91,20 +91,20 @@
 			<table class="table mx-auto table-striped">
 				<tr>
 					<td>Item name</td>
-					<td><form:input path="itemName" name="itemName" id="itemName"/></td>
+					<td><form:input class="form-control" path="itemName" name="itemName" id="itemName"/></td>
 				</tr>
 				<tr>
 					<td>Price</td>
-					<td><form:input path="itemPrice" name="itemPrice" id="itemPrice"/></td>
+					<td><form:input class="form-control" path="itemPrice" name="itemPrice" id="itemPrice"/></td>
 				</tr>
 				<tr>
 					<td>Stock</td>
-					<td><form:input path="itemStock" name="itemStock" id="itemStock"/></td>
+					<td><form:input class="form-control" path="itemStock" name="itemStock" id="itemStock"/></td>
 				</tr>
 				<tr>
 					<td>Item category</td>
 					<td>
-						<select name="itemType" id="itemType">
+						<select class="form-control" name="itemType" id="itemType">
 							<option value="">Select item category</option>
 							<option value="toy">Toy</option>
 							<option value="food">Food</option>
@@ -123,7 +123,16 @@
 				</tr>
 				<tr>
 					<td>Description</td>
-					<td><form:textarea path="itemDesc" name="itemDesc" id="itemDesc"/></td>
+					<td><form:textarea class="form-control" rows="10" path="itemDesc" name="itemDesc" id="itemDesc"/></td>
+				</tr>
+				<tr>
+					<td>Item status</td>
+					<td>
+						<select class="form-control" name="itemStatus" id="itemStatus">
+							<option value="OPEN">Open</option>
+							<option value="CLOSED">Closed</option>
+						</select>
+					</td>
 				</tr>
 			</table>
 		</form:form>

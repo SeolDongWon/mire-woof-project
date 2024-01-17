@@ -14,7 +14,7 @@ public interface ItemMapper {
 	
 	public void modifyItem(Item item) throws Exception;
 	
-	public void deleteItem(Item item) throws Exception;
+	public void toggleItemStatus(int itemNo) throws Exception;
 	
 	public String getItemMainPic(Integer itemId) throws Exception;
 	

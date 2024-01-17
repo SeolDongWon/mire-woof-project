@@ -36,8 +36,8 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public void deleteItem(Item item) throws Exception {
-		mapper.deleteItem(item);
+	public void toggleItemStatus(int itemNo) throws Exception {
+		mapper.toggleItemStatus(itemNo);
 	}
 
 	@Override

@@ -62,6 +62,8 @@ public class OrderHistoryController {
 		orderHistory.setAddress(address);
 		log.info("/addToOrderHistory POST orderHistory: " + orderHistory.toString() + ", itemNoList: " + itemNoList.toString());
 		
+		orderHistoryService.addToOrderHistory(orderHistory);
+		
 		int orderHistoryNo = orderHistoryService.getOrderHistoryNo();
 		
 		List<OrderItem> orderItemList = new ArrayList<OrderItem>();
@@ -77,7 +79,7 @@ public class OrderHistoryController {
 			orderItemList.add(orderItem);
 		}
 		
-		log.info("addToOrderHistory POST orderItemList: " + orderItemList.toString());
+		log.info("/addToOrderHistory POST orderItemList: " + orderItemList.toString());
 		
 		orderItemService.addToOrderItem(orderItemList);
 		return "redirect:/orderHistory/getOrderHistoryList";

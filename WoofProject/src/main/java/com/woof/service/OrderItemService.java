@@ -7,4 +7,6 @@ import com.woof.domain.OrderItem;
 public interface OrderItemService {
 
 	public void addToOrderItem(List<OrderItem> orderItem) throws Exception;
+	
+	public List<OrderItem> getOrderItemList(int orderHistoryNo) throws Exception;
 }

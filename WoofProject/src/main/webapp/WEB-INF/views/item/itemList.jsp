@@ -51,22 +51,27 @@
 			</c:when>
 			<c:otherwise>
 				<c:forEach items="${itemList}" var="item">
-					<tr>
-						<td class="align-middle text-center">${item.itemName}</td>
-						<td class="align-middle text-center">${item.itemPrice}</td>
-						<td class="align-middle text-center">${item.itemType}</td>
-						<td class="align-middle text-center">
-							<a href="getItem?itemNo=${item.itemNo}"><img src="getItemMainPic?itemNo=${item.itemNo}" width="175" height="175"></a>
-						</td>
-					</tr>
+					<c:if test="${not empty item.itemStatus and item.itemStatus ne 'CLOSED'}">
+						<tr>
+							<td class="align-middle text-center">${item.itemName}</td>
+							<td class="align-middle text-center">${item.itemPrice}</td>
+							<td class="align-middle text-center">${item.itemType}</td>
+							<td class="align-middle text-center">
+								<a href="getItem?itemNo=${item.itemNo}"><img src="getItemMainPic?itemNo=${item.itemNo}" width="175" height="175"></a>
+							</td>
+						</tr>
+					</c:if>
 				</c:forEach>
 			</c:otherwise>
 		</c:choose>
 	</table>
 	<main>
+	
 	<form action="/item/admin/insertItem" method="get">
 		<button type="submit">Insert item</button>
 	</form>
+	
+	<p><a href="modifyItem" class="btn btn-light">Modify item</a></p>	
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

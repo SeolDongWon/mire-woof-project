@@ -31,41 +31,55 @@
 <!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
-	<main>
+	<main class="container-sm mt-4">
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-	<table class="table">
-		<thead class="t-head">
-			<tr>
-				<td colspan="5" class="align-middle text-center p-3"><h5><b>Order History</b></h5></td>
-			</tr>
-		</thead>
-		<c:choose>
-			<c:when test="${empty orderHistoryList}">
-				<tr>
-					<td colspan="5" style="text-align:center">You have not made any orders</td>
-				<tr>
-			</c:when>
-			<c:otherwise>
-				<c:forEach items="${orderHistoryList}" var="orderHistory">
-					<tr>
-						<td colspan="5">
-							<div class="d-flex justify-content-between">
-								<div class="align-middle text-start ps-3">
-									<b><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${orderHistory.orderDate}" /></b>
-								</div>
-								<div class="align-middle text-end pe-3">
-									<a href="" class="text-decoration-none"><b>Order details</b></a>
-								</div>
-							</div>
-							<div class="ps-4">Total price: ${orderHistory.totalPrice}</div>
-							<div class="ps-4">Delivery address: ${orderHistory.address}</div>
-						</td>
-					</tr>
-				</c:forEach>
-			</c:otherwise>
-		</c:choose>
-	</table>
+		 <div class="table-responsive">
+            <table class="table table-sm table-smaller">
+                <thead class="t-head">
+                    <tr>
+                        <td class="align-middle text-center p-3">
+                            <h5><b>My Order History</b></h5>
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+		 <div class="col">
+            <c:choose>
+                <c:when test="${empty orderHistoryList}">
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <p class="card-text">You have not made any orders</p>
+                            </div>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <c:forEach items="${orderHistoryList}" var="orderHistory">
+                        <div class="col m-3">
+                            <div class="card">
+                                <div class="card-body">
+                                	<div class="row">
+	                                    <div class="col">
+		                                    <h5 class="card-title">
+		                                        <fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${orderHistory.orderDate}" />
+		                                    </h5>
+	                                    </div>
+	                                    <div class="col text-end">
+                                    		<a href="/orderItem/getOrderItemList?orderHistoryNo=${orderHistory.orderHistoryNo}" class="btn btn-sm btn-light text-dark m-2"><b>Order details</b></a>
+                                    	</div>
+                                    </div>
+                                    <p class="card-text">Total price: ${orderHistory.totalPrice}</p>
+                                    <p class="card-text">Delivery address: ${orderHistory.address}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </c:otherwise>
+            </c:choose>
+        </div>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
