@@ -47,6 +47,12 @@ public class PetController {
 		return "pet/pet";
 	}
 
+	@PostMapping("/getPet")
+	public void getPetList(Pet pet) throws Exception{
+		log.info("/getPet POST");
+		service.getPet(pet);
+	}
+	
 	@RequestMapping(value="/getPetList")
 	public String getPetList(Pet pet,Model model)  throws Exception{
 		List<Pet> petList = service.getPetList();
@@ -54,24 +60,18 @@ public class PetController {
 		return "/pet/petList";
 	}
 
+	@GetMapping("/petList")
+	public void getPetList(Model model) throws Exception{
+		log.info("/petList GET");
+		List<Pet> petList = service.getPetList();
+		model.addAttribute("petList", petList);
+	}
+	
 	@GetMapping(value="/insertPet")
 	public String insertPetForm(Pet pet)  throws Exception{
 		return "/pet/insertPet";
 	}
 	
-	
-	@PostMapping("/getPet")
-	public void getPetList(Pet pet) throws Exception{
-		log.info("/getPet GET");
-		service.getPet(pet);
-	}
-	
-	@GetMapping("/petList")
-	public void getPetList(Model model) throws Exception{
-			log.info("/petList GET");
-			List<Pet> petList = service.getPetList();
-			model.addAttribute("petList", petList);
-	}
 	
 	@GetMapping("/pet/insertPet")
 	public void insertPet(Model model) throws Exception{
@@ -143,8 +143,7 @@ public class PetController {
 	
 	
 	@GetMapping(value = "/deletePet")
-	public String deletePe(Pet pet, Model model) throws Exception{
-//		log.info("a " + pet.getPetNo());
+	public String deletePet(Pet pet, Model model) throws Exception{
 		this.service.deletePet(pet);
 		return "redirect:/pet/getPetList";
 	}

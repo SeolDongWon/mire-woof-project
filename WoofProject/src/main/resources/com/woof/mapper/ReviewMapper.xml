@@ -11,4 +11,10 @@
 		SELECT * FROM review ORDER BY
 		reviewNo
 	</select>
+	
+	<insert id="insertPetReview">
+		INSERT INTO review (reviewNo,userName,itemNo,petNo,reviewTitle,reviewDesc,reviewRegDate,reviewPic)
+		VALUES
+		(reviewNo_seq.nextVal, #{userName},#{itemNo},#{petNo},#{reviewTitle},#{reviewDesc},SYSDATE,#{reviewPic})
+	</insert>
 </mapper>

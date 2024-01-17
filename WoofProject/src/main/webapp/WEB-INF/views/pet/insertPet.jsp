@@ -50,7 +50,7 @@
 			class="nav nav-underline nav-justified justify-content-around border-bottom">
 			<li class="menu nav-item"><a href="getPetList"
 				class="nav-link text-black">입양견 목록</a></li>
-			<li class="menu nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
+			<li class="menu nav-item"><a href="/review/getReviewList" class="nav-link text-black">입양후기</a></li>
 		</ul>
 	</menu>
 	<main class="pt-2">
@@ -58,7 +58,7 @@
 		<div align="center">
 			<section>
 				<h5>펫 등록</h5>
-				<div class="card" style="width: 20rem;">
+				<div class="card" style="width: 26rem;">
 					<div class="card-body">
 						<p class="card-text">
 							<form:form modelAttribute="pet" action="insertPet" method="post"
@@ -76,9 +76,10 @@
 								<br>
 				입양유무<form:input path="petStatus" />
 								<br>
-				메인사진<input type="file" name="pictures" path="petMainPic" />
 								<br>
-				서브사진<input type="file" name="pictures" path="petSubPic" />
+				메인사진 <input type="file" name="pictures" path="petMainPic" />
+								<br>
+				서브사진 <input type="file" name="pictures" path="petSubPic" />
 								<br>
 							</form:form>
 						</p>

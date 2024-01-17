@@ -16,7 +16,7 @@
 		<!-- INSERT INTO pet (petNo, petName, petAge, petType, petGender, petDesc) 
 			VALUES (petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender}, 
 			#{petDesc}) -->
-		INSERT INTO pet (petNo, petName, petAge, petType, petGender,
+		INSERT INTO pet (petNo, <!-- userName -->petName, petAge, petType, petGender,
 		petDesc,petStatus, petRegDate, petMainPic, petSubPic)
 		VALUES
 		(petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender},
