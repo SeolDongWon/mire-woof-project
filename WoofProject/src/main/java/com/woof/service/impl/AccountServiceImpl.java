@@ -22,9 +22,9 @@ public class AccountServiceImpl implements AccountService {
 	
 	//내정보
 	@Override
-	public Account getAccount(Account username) throws Exception {
+	public Account getAccount(Account account) throws Exception {
 		
-		return mapper.getAccount(username);
+		return mapper.getAccount(account);
 	}
 
 	//Account들의 모든정보 리스트

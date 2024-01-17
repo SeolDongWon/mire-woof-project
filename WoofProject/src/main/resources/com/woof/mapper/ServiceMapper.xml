@@ -1,3 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woof.mapper.ServiceMapper"></mapper>
+<mapper namespace="com.woof.mapper.ServiceMapper">
+
+	<insert id="insertService">
+		INSERT INTO SERVICE (serviceNo, username, itemNo, petNo, serviceDesc)
+		VALUES(serviceno_seq.nextval, #{username}, #{itemNo} ,#{petNo} , #{serviceDesc})
+	</insert>
+	
+	<update id="responseService">
+		UPDATE SERVICE SET response=#{response}, responseRegDate=sysdate WHERE serviceNo=#{serviceNo}
+	</update>
+	
+	<update id="modifyService">
+	
+	</update>
+	
+	<delete id="deleteService">
+		DELETE FROM service
+		WHERE serviceNo = #{serviceNo}
+	</delete>
+	
+	<select id="countServiceList">
+		SELECT count(serviceNo)
+		FROM service 
+	</select>
+	
+	<select id="getService"  resultType="Service">
+		SELECT * 
+		FROM service
+		WHERE serviceNo = #{serviceNo}
+	</select>
+	
+	<select id="getServiceList"   resultType="Service">
+		SELECT * 
+		FROM
+			(SELECT  ROWNUM AS rnum, serviceNo, username, itemNo, petNo, serviceDesc, response, serviceRegDate,responseRegDate
+			FROM (select * from service WHERE serviceDesc LIKE '%'||#{keyword}||'%' order by serviceNo desc) 
+			ORDER BY serviceNo asc)
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY serviceNo DESC
+	</select>
+	
+	
+
+</mapper>

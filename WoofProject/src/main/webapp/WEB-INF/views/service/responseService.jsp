@@ -4,7 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,18 +26,43 @@
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
+<script>
+	$("#btnRegister").on("click", function() {
+		formObj.submit();
+	});
+</script>
 </head>
 <body>
-<!-- Header Area -->
+	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<!-- Menu Area -->
+	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
-<!-- subMenu Area -->
-<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+	<!-- subMenu Area -->
 	<main class="pt-2">
+		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+		<div class="mt-3 w-75 m-auto">
+			<h4>Response service</h4>
+			<form:form modelAttribute="service" action="/service/respnoseService"
+				method="post">
+				serviceNo : <form:input path="serviceNo" class="form-control"
+					readonly="true" />
+				username : <form:input path="username" class="form-control"
+					readonly="true" />
 
+				<%--  <form:input path="itemNo" class="form-control"/>	<br> 
+				 <form:input path="petNo" class="form-control" />	<br> --%>
+				serviceDesc : <form:textarea path="serviceDesc" class="form-control"
+					rows="5" readonly="true" />
+			
+				response : <form:textarea path="response" class="form-control"
+					rows="5" />
+
+				<button type="submit" id="btnRegister">Register</button>
+			</form:form>
+			<a href="/service/getServiceList"><button>List</button></a>
+		</div>
 	</main>
-<!-- Footer Area -->
+	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

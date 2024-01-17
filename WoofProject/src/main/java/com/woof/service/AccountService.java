@@ -6,15 +6,15 @@ import com.woof.domain.Account;
 
 
 public interface AccountService {
-	
+	//상세페이지
 	public Account getAccount(Account account) throws Exception;
-	
+	//목록페이지(admin)
 	public List<Account> getAccountList() throws Exception;
 	// 등록 처리
 	public void registerAccount(Account account) throws Exception;
-	
+	//수정처리
 	public void modifyAccount(Account account) throws Exception;
-	
+	//삭제처리
 	public void deleteAccount(Account username) throws Exception;
 	
 	public Account searchAccount(Account searchKeyword) throws Exception;

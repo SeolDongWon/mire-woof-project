@@ -21,10 +21,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		log.info("Load User By username : " + username);
 		// userName은 사용자명이 아니라 사용자 아이디이다.
-
 		Account account = accountMapper.readByUsername(username);
 		log.info("queried by member mapper: " + account);
-		
+
 		return account == null ? null : new CustomAccount(account);
 	}
 

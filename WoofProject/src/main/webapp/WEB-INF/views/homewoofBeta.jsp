@@ -268,28 +268,12 @@
             <div class="mt-3">
               <p class="text-center fs-5 mt-3">공지사항</p>
               <ul class="list-group list-group-flush">
-                <!-- 공지사항 테이블에서 4개 뽑아오기 -->
-                <li class="list-group-item border-0 p-0 m-0">
-                  <a href="#" class="list-group-item list-group-item-action border-0 text-truncate">
-                    여기는 공지사항 제목이 들어갈 자리입니다 공지사항 제목을 list로 받아서 c:foreach로 나열합니다 </a>
+              <c:forEach items="${noticeList}" var="notice">
+              <li class="list-group-item border-0 p-0 m-0">
+                  <a href="/notice/getNotice?noticeNo=${notice.noticeNo}"" class="list-group-item list-group-item-action border-0 text-truncate">
+                    ${notice.noticeTitle} </a>
                 </li>
-                <li class="list-group-item border-0 p-0 m-0">
-                  <a href="#" class="list-group-item list-group-item-action border-0 text-truncate">
-                    제목을 list로 받아서 c:foreach로 나열합니다 제목의 길이가 칸을 넘어가면</a>
-                </li>
-                <li class="list-group-item border-0 p-0 m-0">
-                  <a href="#" class="list-group-item list-group-item-action border-0 text-truncate">
-                    칸을 넘어가면 보이는것과 같이 말줄임표 '...'로 생략합니다</a>
-                </li>
-                <li class="list-group-item border-0 p-0 m-0">
-                  <a href="#" class="list-group-item list-group-item-action border-0 text-truncate">
-                    각 제목은 해당 공지사항으로 링크가 달려있어서 클릭하면 이동합니다</a>
-                </li>
-                <li class="list-group-item border-0 p-0 m-0">
-                  <a href="#" class="list-group-item list-group-item-action border-0 text-truncate">
-                    클릭하면 이동합니다</a>
-                </li>
-
+              </c:forEach>
               </ul>
             </div>
           </div>
