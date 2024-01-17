@@ -23,7 +23,7 @@ public interface AccountMapper {
 	//계정 탈퇴
 	public void deleteAccount(Account account) throws Exception;
 	//admin이 개인계정을 찾기
-	public Account searcheAccount(Account searchKeyword) throws Exception;
+	public Account searchAccount(Account searchKeyword) throws Exception;
 	// 회원 테이블의 데이터 건수 조회
 	public int countAll() throws Exception;
 	

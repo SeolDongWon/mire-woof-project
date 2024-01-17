@@ -9,6 +9,10 @@
 		<result property="name" column="name" />
 		<result property="tel" column="tel" />
 		<result property="address" column="address" />
+		<result property="address" column="address1" />
+		<result property="address" column="address2" />
+		<result property="address" column="address3" />
+		<result property="address" column="address4" />
 		<result property="status" column="status" />
 		<result property="regDate" column="regDate" />
 		<collection property="authList" resultMap="authMap">
@@ -23,19 +27,19 @@
 	<select id="readByUsername" resultMap="accontMap">
 		SELECT
 		acc.username,
-		password, name, tel, address, status, regDate, auth
+		password, name, tel, address,address1,address2,address3,address4, status, regDate, auth
 		FROM
 		account acc
 		LEFT OUTER JOIN account_auth auth
 		ON acc.username = auth.username
 		WHERE
-		acc.username = #{username}
+		acc.username = #{username} and acc.status = 'active'
 	</select>
 	<!-- 내정보 -->
 	<select id="getAccount" parameterType="Account">
 		SELECT
 		acc.username,
-		password, name, tel, address, status, regDate, auth
+		password, name, tel, address,address1,address2,address3,address4, status, regDate, auth
 		FROM
 		account acc
 		LEFT OUTER JOIN account_auth auth
@@ -51,14 +55,18 @@
 	<!-- 계정 등록 처리 -->
 	<insert id="registerAccount">
 		INSERT INTO account
-		(username,password,name,tel,address)
+		(username,password,name,tel,address,address1,address2,address3,address4)
 		VALUES
 		(
 		#{username},
 		#{password},
 		#{name},
 		#{tel},
-		#{address}
+		#{address},
+		#{address1},
+		#{address2},
+		#{address3},
+		#{address4}
 		)
 	</insert>
 	<!-- 권한생성 -->
@@ -83,21 +91,18 @@
 		WHERE
 		username=#{username}
 	</update>
-	<!-- 비밀번호 찿기 -->
-	<select id="pwCheck" resultType="Account">
-		select password from account where username = #{username}
-	</select>
+
 
 	<!-- 계정 탈퇴 -->
 	<update id="deleteAccount" parameterType="Account">
 		UPDATE account SET
 		status='deactivated'
-		WHERE username = #{username} and password=#{password}
+		WHERE username = #{username}
 	</update>
 
 
 	<!-- admin이 개인계정을 찾기 -->
-	<select id="searcheAccount" resultType="Account">
+	<select id="searchAccount" resultType="Account">
 		SELECT * FROM account
 		WHERE username LIKE '%' || #{searchKeyword} || '%'
 	</select>

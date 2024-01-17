@@ -22,10 +22,18 @@ public class Account implements Serializable{
 	private String username;
 	@NotBlank
 	private String password;
+	
+	
 	@NotBlank
 	private String name;
 	private String tel;
+	
 	private String address;
+	private String address1;
+	private String address2;
+	private String address3;
+	private String address4;
+	
 	private String status;
 	@DateTimeFormat(pattern = "yy-MM-dd")
 	private Date regDate;

@@ -38,56 +38,56 @@
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
 	<main class="pt-2">
 
-
 		<div class="d-flex  justify-content-center">
+			<div class="container mt-3" style="width: 750px;">
+				<table class="table table-borderless">
+					<tr>
+						<td colspan="2">
+							<h2 class="mb-5">내정보</h2>
+						</td>
+					</tr>
+					<tr>
+						<th style="width: ">아이디</th>
+						<th >
+					<input name="username" class="form-control" value="${account.username}" readonly="readonly"/>
+						</tr>
+					<tr>
+						<td>비밀번호</td>
+						<td></td>
+					</tr>
+					<tr>
+						<th style="width: 250px;">이름</th>
+						<th>
+						<input name="name" class="form-control" value="${account.name}" readonly="readonly"/>
+						</th>
+					</tr>
+					<tr>
+						<td>전화번호</td>
+						<td>
+						<input name="address" class="form-control" " value="${account.tel}" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td>주소</td>
+						<td>
+							<input class="form-control" name="address1" value="${account.address1}" readonly="readonly"/>
+					        <input class="form-control" name="address2" value="${account.address2}" readonly="readonly"/>
+					        <input class="form-control" name="address3" value="${account.address3}" readonly="readonly"/>
+					        <input class="form-control" name="address4" value="${account.address4}" readonly="readonly"/>
+						</td>
+					</tr>
 
-
-			<table>
-				<tr>
-					<td colspan="2">
-						<h2>내정보</h2>
-					</td>
-				</tr>
-				<tr>
-					<th style="width: 250px;">아이디(username)</th>
-					<th>${account.username}
-				</tr>
-				<tr>
-					<td>비밀번호(password)</td>
-					<td></td>
-				</tr>
-				<tr>
-					<th style="width: 250px;">이름(name)</th>
-					<th>${account.name}</th>
-				</tr>
-				<tr>
-					<td>전화번호(tel)</td>
-					<td>${account.tel}</td>
-				</tr>
-				<tr>
-					<td>주소(address)</td>
-					<td>${account.address}</td>
-				</tr>
-
-			</table>
-
+				</table>
+			</div>
 		</div>
+
 		<div class="d-flex  justify-content-center">
-			<table>
+			<table style="width: 270px;">
 				<tr>
 					<td colspan="2">
-						<div class="d-flex  justify-content-center">
-							<form action="/account/modifyAccountForm" method="post">
-								<input type="hidden" name="username" value="${account.username}"
-									readonly="readonly">
-								<button>수정</button>
-							</form>
-							<form action="/account/deleteAccountForm" method="post">
-							<input type="hidden" name="username" value="${account.username}"
-									readonly="readonly">
-							<button>삭제</button>
-								
-								</form>
+						<div class="d-flex  justify-content-around">
+							<a href="/account/modifyAccountForm" class="nav-link text-black"  >수정</a>
+							<a href="/account/deleteAccountForm" class="nav-link text-black">삭제</a>
 						</div>
 					</td>
 				</tr>

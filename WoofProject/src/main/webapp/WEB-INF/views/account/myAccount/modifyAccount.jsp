@@ -19,6 +19,11 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<!-- 내집 주소링크 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- Script -->
+<%@ include file="/WEB-INF/views/common/accountScript.jsp"%>
+
 
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
@@ -54,7 +59,7 @@
 						<th>
 							<div class="input-group mb-3">
 								<input name="username" class="form-control"
-									placeholder="Username" value="${account.username}"/>
+									placeholder="Username" value="${account.username}" readonly="readonly"/>
 							</div>
 						</th>
 					</tr>
@@ -88,20 +93,24 @@
 					<tr>
 						<td>주 소</td>
 						<th>
-							<div class="input-group mb-3">
-								<input name="address" class="form-control" placeholder="address" value="${account.address}" />
-							</div>
+							<div class="d-flex  justify-content-center">
+								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address" value="${account.address1}">
+					            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="border: none; background-color: rgb(255, 255, 255);">
+					        </div>
+					           <input type="text" size="45px" id="sample6_address" placeholder="주소" class="form-control" name="address2" value="${account.address2}">
+					           <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control" name="address3" value="${account.address3}">
+					           <input type="text" id="sample6_extraAddress" placeholder="참고항목" class="form-control" name="address4" value="${account.address4}">
 						</th>
 					</tr>
 
 					<tr>
 						<td colspan='2'>
-							<button type="submit" style="border: none; margin-right: 50px;">내정보
-								수정</button> <sec:authorize access="hasRole('ROLE_ADMIN')">
-								<form:button type="submit" id="btnList">
-										목록
-									</form:button>
+						<div class="d-flex  justify-content-end   ">
+							<button type="submit" style="border: none; margin-right: 50px;">내정보 수정</button> 
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<form:button type="submit" id="btnList">목록</form:button>
 							</sec:authorize>
+							</div>
 						</td>
 					</tr>
 				</table>

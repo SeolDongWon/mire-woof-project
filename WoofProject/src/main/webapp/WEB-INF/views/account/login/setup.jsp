@@ -25,6 +25,7 @@
 	$(document).ready(function() {
 		let formObj = $("#account");
 		$("#btnRegister").on("click", function() {
+			alert("test");
 			formObj.submit();
 		});
 		$("#btnHom").on("click", function() {
@@ -33,6 +34,13 @@
 		});
 	});
 </script>
+
+
+<!-- 내집 주소링크 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- Script -->
+<%@ include file="/WEB-INF/views/common/accountScript.jsp"%>
+
 
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
@@ -47,28 +55,23 @@
 	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
+	<%-- <%@ include file="/WEB-INF/views/common/mainMenu.jsp"%> --%>
 	<!-- subMenu Area -->
 	<main>
-		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-
-
-		<div class="container mt-3" style="width: 500px">
-			<form:form modelAttribute="account" action="/account/setup">
-				<table class="table table-borderless">
-
-
+	
+	
+	
+	<form  action="/account/setup" method="post" name="joinform" onsubmit="doSubmit(); return false;">
+			<div class="container mt-3" style="width: 750px;">
+				<table class="table table-borderless" style="margin-top: 100px;">
 					<tr>
 						<td colspan='2'><h2>관리자 가입</h2></td>
 					</tr>
 					<tr>
-						<th>닉네임</th>
+						<th style="width: 150px">아이디</th>
 						<th>
 							<div class="input-group mb-3">
-								<form:input path="username" class="form-control"
-									placeholder="Username" />
-								<!-- <input type="text" name="Username" class="form-control"
-										placeholder="Username"> -->
+								<input type="text" name="username" id="username" class="form-control" placeholder="5~13자리 영,숫자,특수문자( _ )만 입력"  onblur="idCheck()">
 							</div>
 						</th>
 					</tr>
@@ -77,8 +80,7 @@
 						<td>비밀번호</td>
 						<th>
 							<div class="input-group mb-3">
-								<form:input path="password" class="form-control"
-									placeholder="password" />
+								<input type="password" name="password" id="password" class="form-control" placeholder="5~13자리 영문,숫자, 특수문자만 가능"  onblur="pwCheck()">
 
 							</div>
 						</th>
@@ -87,7 +89,7 @@
 						<td>이 름</td>
 						<th>
 							<div class="input-group mb-3">
-								<form:input path="name" class="form-control" placeholder="name" />
+								<input type="text" name="name" id="name" class="form-control" placeholder="2~13자리 한,영문만 가능"  onblur="nameCheck()">
 							</div>
 						</th>
 					</tr>
@@ -95,42 +97,37 @@
 						<td>전화번호</td>
 						<th>
 							<div class="input-group mb-3">
-								<form:input path="tel" class="form-control" placeholder="tel" />
+								<input type="text" name="tel" id="tel" class="form-control" placeholder="11자리 숫자만 가능합니다."  onblur="telCheck()">
 							</div>
 						</th>
 					</tr>
 					<tr>
 						<td>주 소</td>
 						<th>
-							<div class="input-group mb-3">
-								<form:input path="address" class="form-control"
-									placeholder="address" />
-							</div>
-						</th>
+							<div class="d-flex  justify-content-center">
+								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address1">
+					            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="border: none; background-color: rgb(255, 255, 255);">
+					        </div>
+					           <input type="text" size="45px" id="sample6_address" placeholder="주소" class="form-control" name="address2">
+					           <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control" name="address3">
+					           <input type="text" id="sample6_extraAddress" placeholder="참고항목" class="form-control" name="address4">
+					     </th>
+					</tr>
+
+					<tr>
+						<td colspan='2'>
+						<button type="submit"
+								class="form-control" style="background: rgb(246, 220, 216); border: none; ">관리자 가입</button>
+						
 					</tr>
 				</table>
-
-			</form:form>
-			<table>
-				<tr>
-					<td>
-						<div class="d-flex justify-content-around " style="width: 500px">
-							<button type="submit" id="btnRegister" class="form-control"
-								style="background: rgb(246, 220, 216); width: 150px;">회원가입</button>
-
-							<button type="submit" id="btnHom" class="form-control"
-								style="background: rgb(246, 220, 216); width: 150px;">메인페이지</button>
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
-
-
+			</div>
+		</form>
+		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 
 
 	</main>
 	<!-- Footer Area -->
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+	<%-- <%@ include file="/WEB-INF/views/common/footer.jsp"%> --%>
 </body>
 </html>

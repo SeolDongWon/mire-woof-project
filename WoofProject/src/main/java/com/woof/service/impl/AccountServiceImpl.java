@@ -67,8 +67,8 @@ public class AccountServiceImpl implements AccountService {
 
 	//admin이 개인계정을 찾기
 	@Override
-	public Account searcheAccount(Account searchKeyword) throws Exception {
-		return mapper.searcheAccount(searchKeyword);
+	public Account searchAccount(Account searchKeyword) throws Exception {
+		return mapper.searchAccount(searchKeyword);
 	}
 	
 	// 최초 관리자를 생성한다.

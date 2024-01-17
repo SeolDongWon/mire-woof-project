@@ -1,7 +1,11 @@
 package com.woof.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.woof.domain.Account;
 import com.woof.service.AccountService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.jsp.jstl.sql.Result;
 import lombok.extern.java.Log;
 
@@ -48,10 +54,14 @@ public class AccountController {
 		String inputPassword = account.getPassword();
 		account.setPassword(passwordEncoder.encode(inputPassword));
 		log.info(account.toString());
-
+		
+		String address = account.getAddress1() +" "+account.getAddress2() +" "+ account.getAddress3() +" "+ account.getAddress4();
+		account.setAddress(address);
+		
 		service.registerAccount(account);
 		rttr.addFlashAttribute("username", account.getUsername());
-
+ 
+		
 		return "redirect:/account/login";
 //		return "account/login/loginForm";
 	}
@@ -79,33 +89,34 @@ public class AccountController {
 
 	// 내정보
 	@RequestMapping(value = "/myAccount", method = RequestMethod.GET)
-	public String myAccountForm(Account account, Model model) throws Exception {
+	public String myAccountForm(Account account, Model model, Principal principal) throws Exception {
 		log.info("myAccountForm");
-		log.info("11111myAccount account : " + account.toString());
-	
+		log.info("...principal.getName : " + principal.getName());
+		account.setUsername(principal.getName());
 		model.addAttribute(service.getAccount(account));
-		log.info("2222myAccount account : " + account.toString());
+		log.info("myAccount account : " + account.toString());
 		return "account/myAccount/myAccountForm";
 	}
-	
+
 	// 내정보
-		@RequestMapping(value = "/myAccount", method = RequestMethod.POST)
-		public String myAccountFormpost(Account account, Model model) throws Exception {
-			log.info("myAccountForm post");
-			log.info("11111myAccount account : " + account.toString());
-			
-			model.addAttribute(service.getAccount(account));
-			log.info("2222myAccount account : " + account.toString());
-			return "account/myAccount/myAccountForm";
-		}
+	@RequestMapping(value = "/myAccount", method = RequestMethod.POST)
+	public String myAccountFormpost(Account account, Model model) throws Exception {
+		log.info("myAccountForm post");
+		log.info("11111myAccount account : " + account.toString());
+
+		model.addAttribute(service.getAccount(account));
+		log.info("myAccount account : " + account.toString());
+		return "account/myAccount/myAccountForm";
+	}
 
 	// 내정보 수정
-	@RequestMapping(value = "/modifyAccountForm", method = RequestMethod.POST)
-	public String modifyAccountForm(Account account, Model model) throws Exception {
+	@RequestMapping(value = "/modifyAccountForm", method = RequestMethod.GET)
+	public String modifyAccountForm(Account account, Model model, Principal principal) throws Exception {
 		log.info("modifyAccount : GET");
+		log.info("...principal.getName : " + principal.getName());
+		account.setUsername(principal.getName());
 		log.info("modifyAccountForm account : " + account.toString());
 		model.addAttribute(service.getAccount(account));
-		log.info("modifyAccountForm account : " + account.toString());
 		return "account/myAccount/modifyAccount";
 	}
 
@@ -116,38 +127,60 @@ public class AccountController {
 		// 비밀번호 암호화
 		String inputPassword = account.getPassword();
 		account.setPassword(passwordEncoder.encode(inputPassword));
-		
+
 		log.info("modifyAccount account : " + account.toString());
 		service.modifyAccount(account);
 		model.addAttribute(service.getAccount(account));
 		return "account/myAccount/myAccountForm";
 	}
 
-	
 	// 내정보 삭제
-		@RequestMapping(value = "/deleteAccountForm", method = RequestMethod.POST)
-		public String deleteAccountForm(Account account, Model model) throws Exception {
-			log.info("*** deleteAccountForm : POST");
-			model.addAttribute(service.getAccount(account));
+	@RequestMapping(value = "/deleteAccountForm", method = RequestMethod.GET)
+	public String deleteAccountForm(Account account, Model model, Principal principal) throws Exception {
+		log.info("*** deleteAccountForm : GET");
+		log.info("...principal.getName : " + principal.getName());
+		account.setUsername(principal.getName());
+		model.addAttribute(service.getAccount(account));
+		return "account/myAccount/deleteAccount";
+	}
+
+	// 내정보 삭제
+	@RequestMapping(value = "/deleteAccount", method = RequestMethod.POST)
+	public String deleteAccount(@ModelAttribute("account") Account account, BindingResult result,
+			Model model, RedirectAttributes rttr, Principal principal ,HttpServletRequest request, HttpServletResponse response) throws Exception {
+		log.info("*** deleteAccount : POST");
+
+		if (result.hasErrors()) {
+
 			return "account/myAccount/deleteAccount";
 		}
+		if (principal != null && principal.getName().equals(account.getUsername())) {
+			// 비밀번호 암호화
+//			String inputPassword = account.getPassword();
+//			account.setPassword(passwordEncoder.encode(inputPassword));
+			log.info("222...... deleteAccount(account)"+account);
 		
-		
-		// 내정보 삭제
-		@RequestMapping(value = "/deleteAccount", method = RequestMethod.POST)
-		public String deleteAccount(Account account, Model model, RedirectAttributes rttr) throws Exception {
-			log.info("*** deleteAccount : POST");
-			
-			
-		
+			// 서비스이용 deleteAccount.xml 이용(삭제기능 대체)
 			service.deleteAccount(account);
-			rttr.addFlashAttribute("magDelete", "DELETE");
-		
+			log.info("...... deleteAccount(account)"+account);
+			
+			// 로그아웃 처리 (세션 무효화)
+			SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+			logoutHandler.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
+			
+			// 삭제 후 홈페이지로 리다이렉트 및 메시지 전달
+			model.addAttribute("msg2", "SUCCESS2");
 			
 			return "homewoof";
-		}
-	
-	
+
+		}else {
+	        // 현재 로그인한 사용자와 폼에서 입력한 사용자가 다른 경우에 대한 처리
+	        // (예: 권한이 없는 사용자가 다른 사용자의 계정을 삭제하려는 시도)
+			model.addAttribute("msg3", "SUCCESS3");
+	        return "homewoof"; // 적절한 에러 페이지로 리다이렉트
+	    }
+
+	}
 
 	// 최초 관리자를 생성하는 화면.
 	@RequestMapping(value = "/setup", method = RequestMethod.GET)
@@ -166,7 +199,9 @@ public class AccountController {
 	// 회원 테이블에 데이터가 없으면 최초 관리자를 생성
 	@RequestMapping(value = "/setup", method = RequestMethod.POST)
 	public String setupAdmin(Account account, RedirectAttributes rttr, Model model) throws Exception {
-
+		
+		String address = account.getAddress1() +" "+account.getAddress2() +" "+ account.getAddress3() +" "+ account.getAddress4();
+		account.setAddress(address);
 		// 회원 테이블 데이터 건수를 확인하여 빈 테이블이면 최초 관리자를 생성
 		if (service.countAll() == 0) {
 			String inputPassword = account.getPassword();

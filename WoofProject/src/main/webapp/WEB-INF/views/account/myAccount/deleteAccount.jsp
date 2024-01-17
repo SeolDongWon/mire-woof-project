@@ -20,6 +20,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
+
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
@@ -38,46 +39,53 @@
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
 	<main class="pt-2">
 
-		
-		<div class="d-flex  justify-content-center">
-
-		<form action="/account/deleteAccount" method="post">
-			<div class="container mt-3" style="width: 500px">
-				<table class="table table-borderless">
 
 
-					<tr>
-						<td colspan='2'><h2>정보 삭제</h2></td>
-					</tr>
-					<tr>
-						<th>닉네임</th>
-						<th>
-							<div class="input-group mb-3">
-								<input name="username" class="form-control"
-									placeholder="Username" value=""/>
-							</div>
-						</th>
-					</tr>
+		<form:form action="/account/deleteAccount" modelAttribute="account">
+			<div class="d-flex  justify-content-center">
+				<div class="container mt-3" style="width: 500px">
+					<table class="table table-borderless">
 
-					<tr>
-						<td>비밀번호</td>
-						<th>
-							<div class="input-group mb-3">
-								<input name="password" class="form-control"
-									placeholder="password" value="" />
-							</div>
-						</th>
-					</tr>
-					
+
+						<tr>
+							<td colspan='2'><h2>정보 삭제</h2></td>
+						</tr>
+						<tr>
+							<th>닉네임</th>
+							<th>
+								<div class="input-group mb-3">
+									<input name="username" class="form-control"
+										placeholder="Username" />
+								</div>
+							</th>
+						</tr>
+
+						<tr>
+							<td>비밀번호</td>
+							<th>
+								<div class="input-group mb-3">
+									<input name="password" class="form-control"
+										placeholder="password" />
+								</div>
+							</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="d-flex  justify-content-center">
+				<table style="width: 450px;">
 					<tr>
 						<td colspan='2'>
-							<button type="submit" >삭제</button> 
+							<div class="d-flex  justify-content-end">
+								<form:button type="submit"
+									style="border: none; background-color: rgb(255, 255, 255);">삭제</form:button>
+							</div>
 						</td>
 					</tr>
 				</table>
 			</div>
-		</form>
-		</div>
+		</form:form>
+
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
