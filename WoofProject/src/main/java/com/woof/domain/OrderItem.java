@@ -9,10 +9,10 @@ import lombok.ToString;
 @ToString
 public class OrderItem {
 
-	private int orderNo;
+	private int orderHistoryNo;
 	private int itemNo;
 	private String itemName;
-	private int quantity;
-	private int price;
+	private int itemQuantity;
+	private int itemPrice;
 	private String itemMainPic;
 }

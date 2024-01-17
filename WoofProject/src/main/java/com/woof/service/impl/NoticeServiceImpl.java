@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.woof.domain.Notice;
-import com.woof.domain.Search;
+import com.woof.domain.PageRequest;
 import com.woof.mapper.NoticeMapper;
 import com.woof.service.NoticeService;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
-	
+
 	@Autowired
 	private NoticeMapper mapper;
 
@@ -22,10 +22,6 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.getNotice(notice);
 	}
 
-	@Override
-	public List<Notice> getNoticeList(Search noticeSearch) throws Exception {
-		return mapper.getNoticeList(noticeSearch);
-	}
 	@Transactional
 	@Override
 	public void insertNotice(Notice notice) throws Exception {
@@ -40,7 +36,7 @@ public class NoticeServiceImpl implements NoticeService {
 	@Override
 	public void deleteNotice(Notice notice) throws Exception {
 		mapper.deleteNotice(notice);
-		
+
 	}
 
 	@Override
@@ -48,4 +44,20 @@ public class NoticeServiceImpl implements NoticeService {
 		mapper.addNoticeViewCount(notice);
 	}
 
+	@Override
+	public int countNoticeList(PageRequest pageRequest) throws Exception {
+		return mapper.countNoticeList(pageRequest);
+	}
+
+	@Override
+	public List<Notice> getNoticeList(PageRequest pageRequest) throws Exception {
+		return mapper.getNoticeList(pageRequest);
+	}
+
+	@Override
+	public List<Notice> getMainPageNoticeList() throws Exception {
+		return mapper.getMainPageNoticeList();
+	}
+	
+	
 }

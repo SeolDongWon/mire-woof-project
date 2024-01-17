@@ -16,8 +16,8 @@ public class ItemServiceImpl implements ItemService {
 	private ItemMapper mapper;
 
 	@Override
-	public Item getItem(Item item) throws Exception {
-		return mapper.getItem(item);
+	public Item getItem(int itemNo) throws Exception {
+		return mapper.getItem(itemNo);
 	}
 
 	@Override
@@ -36,15 +36,25 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public void deleteItem(Item item) throws Exception {
-		mapper.deleteItem(item);
+	public void toggleItemStatus(int itemNo) throws Exception {
+		mapper.toggleItemStatus(itemNo);
 	}
 
+	@Override
+	public String getItemMainPic(Integer itemId) throws Exception {
+		return mapper.getItemMainPic(itemId);
+	}
+
+	@Override
+	public String getItemSubPic(Integer itemId) throws Exception {
+		return mapper.getItemSubPic(itemId);
+	}
+	
 	@Override
 	public List<Item> searchItemType(Item item) throws Exception {
 		return mapper.searchItemType(item);
 	}
-
+	
 	@Override
 	public List<Item> searchItemKeyword(Item item) throws Exception {
 		return mapper.searchItemKeyword(item);

@@ -23,5 +23,5 @@ public interface AccountService {
 	// 최초 관리자 생성을 위한 데이터를 등록
 	public int countAll() throws Exception;;
 	
-
+	public String getAddress(String username);
 }

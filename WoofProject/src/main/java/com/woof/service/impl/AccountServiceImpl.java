@@ -87,4 +87,9 @@ public class AccountServiceImpl implements AccountService {
 		return mapper.countAll();
 	}
 
+	@Override
+	public String getAddress(String username) {
+		return mapper.getAddress(username);
+	}
+
 }

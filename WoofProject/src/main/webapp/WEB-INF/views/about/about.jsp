@@ -31,40 +31,29 @@
 <!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
-<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-<menu id="subMenu" class="m-0 p-0">
-		<ul	class="nav nav-underline nav-justified justify-content-around border-bottom">
-			<li class="menu navMenu nav-item"><a href="/notice/getAbout"
-				class="nav-link text-black">시설소개</a></li>
-			<li class="menu navMenu nav-item"><a href="/notice/getLocation"
-				class="nav-link text-black">오시는 길</a></li>
-			<li class="menu navMenu nav-item"><a
-				href="/notice/getNoticeList" class="nav-link text-black">공지사항</a></li>
-		</ul>
-	</menu>
-	<main class="pt-2">
+	<main class="pt-2 text-center">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<h1>시설소개</h1>
 	<span>이쁜 강아지 많아요</span>
 	 <div id="carouselExampleIndicators" class="carousel slide">
       
-      <div class="carousel-inner w-50 ">
+      <div class="carousel-inner w-100 ">
         <div class="carousel-item active">
-          <img src="/resource/image/mainPage/cat1.jpg" class="d-block w-100" alt="...">
+          <img src="/resource/image/about/conference1.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="/resource/image/mainPage/cat3.jpg" class="d-block w-100" alt="...">
+          <img src="/resource/image/about/conference2.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="/resource/image/mainPage/cat5.jpg" class="d-block w-100" alt="...">
+          <img src="/resource/image/about/office.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" aria-label="Slide 1" style="width: 100px;height: 100px;"class="active" aria-current="true" >
-            <img src="/resource/image/mainPage/cat1.jpg" class="d-block w-100 " alt="..."></button>
+            <img src="/resource/image/about/conference1.jpg" class="d-block w-100 " alt="..."></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" style="width: 100px;height: 100px;">
-            <img src="/resource/image/mainPage/cat3.jpg" class="d-block w-100" alt="..."></button>
+            <img src="/resource/image/about/conference2.jpg" class="d-block w-100" alt="..."></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3" style="width: 100px;height: 100px;">
-            <img src="/resource/image/mainPage/cat5.jpg" class="d-block w-100" alt="..."></button>
+            <img src="/resource/image/about/office.jpg" class="d-block w-100" alt="..."></button>
         </div>
       </div>
     </div>

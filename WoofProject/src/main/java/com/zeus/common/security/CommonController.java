@@ -13,7 +13,7 @@ public class CommonController {
 
 	@RequestMapping("/accessError")
 	public void accessError(Authentication auth, Model model) {
-		log.info("accessError : "+auth);
+		log.info("accessError : "+ auth);
 		model.addAttribute("msg", "이 사이트는 회원 이상만 볼 수 있어요");
 	}
 	
