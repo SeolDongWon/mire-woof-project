@@ -24,6 +24,28 @@
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
+<script>
+	$(document).ready(function() {
+		var formObj = $("#noticeActionForm");
+
+		$("#btnDelete").on("click", function() {
+			var check = confirm('삭제할까요');
+
+			if (check) {
+				formObj.attr("action", "/notice/deleteNotice");
+				formObj.submit();
+			} else {
+				alert('삭제 취소');
+			}
+		});
+
+		$("#btnModify").on("click", function() {
+			formObj.attr("action", "/notice/modifyNoticeForm");
+			formObj.submit();
+		});
+
+	});
+</script>
 </head>
 <body>
 	<!-- Header Area -->
@@ -31,7 +53,6 @@
 	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
-
 	<main class="pt-2 w-75 m-auto">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 		<h3 class="text-center">NOTICE</h3>
@@ -62,18 +83,14 @@
 				</tr>
 			</tbody>
 		</table>
-
-			<button>
-				<a href="/notice/modifyNoticeForm/${notice.noticeNo}"
-					class="list-group-item list-group-item-action border-0 text-truncate">${notice.noticeNo}수정</a>
-			</button>
-			<form:form modelAttribute="notice" action="/notice/deleteNotice">
-				<form:input path="noticeNo" class="form-control" readonly="true"
-					type="hidden" />
-				<form:button>
-					<span>${notice.noticeNo}삭제</span>
-				</form:button>
-			</form:form>
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<form id="noticeActionForm" method="post">
+				<input type="hidden" name="noticeNo" value="${notice.noticeNo}"
+					class="form-control" readonly="true" />
+			</form>
+			<button id="btnModify" class="btn btn-outline-dark p-1">수정</button>
+			<button id="btnDelete" class="btn btn-outline-dark p-1">삭제</button>
+		</sec:authorize>
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

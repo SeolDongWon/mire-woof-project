@@ -40,15 +40,15 @@
 	<!-- subMenu Area -->
 	<main class="pt-2">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-		<h4>Response service</h4>
-		<section>
+		<div class="mt-3 w-75 m-auto">
+			<h4>Response service</h4>
 			<form:form modelAttribute="service" action="/service/respnoseService"
 				method="post">
-				serviceNo : <form:input path="serviceNo"
-					class="form-control" readonly="true" />
-				username : <form:input path="username"
-					class="form-control" readonly="true" />
-				
+				serviceNo : <form:input path="serviceNo" class="form-control"
+					readonly="true" />
+				username : <form:input path="username" class="form-control"
+					readonly="true" />
+
 				<%--  <form:input path="itemNo" class="form-control"/>	<br> 
 				 <form:input path="petNo" class="form-control" />	<br> --%>
 				serviceDesc : <form:textarea path="serviceDesc" class="form-control"
@@ -56,11 +56,11 @@
 			
 				response : <form:textarea path="response" class="form-control"
 					rows="5" />
-				
+
 				<button type="submit" id="btnRegister">Register</button>
 			</form:form>
 			<a href="/service/getServiceList"><button>List</button></a>
-		</section>
+		</div>
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

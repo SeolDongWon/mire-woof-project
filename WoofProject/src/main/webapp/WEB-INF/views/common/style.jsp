@@ -29,7 +29,7 @@ nav.dropdown-menu>ul {
 	border-bottom: 1px solid rgb(246, 220, 216);
 	position: absolute;
 	width: 1200px;
-	top: -2px;
+	top: -1px;
 }
 /* 메뉴 태그 */
 

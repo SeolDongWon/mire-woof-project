@@ -16,16 +16,19 @@
 	</update>
 	
 	<delete id="deleteService">
-	
+		DELETE FROM service
+		WHERE serviceNo = #{serviceNo}
 	</delete>
-	
-	<select id="getService">
-	
-	</select>
 	
 	<select id="countServiceList">
 		SELECT count(serviceNo)
 		FROM service 
+	</select>
+	
+	<select id="getService"  resultType="Service">
+		SELECT * 
+		FROM service
+		WHERE serviceNo = #{serviceNo}
 	</select>
 	
 	<select id="getServiceList"   resultType="Service">

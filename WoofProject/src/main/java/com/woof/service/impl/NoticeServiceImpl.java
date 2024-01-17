@@ -53,4 +53,11 @@ public class NoticeServiceImpl implements NoticeService {
 	public List<Notice> getNoticeList(PageRequest pageRequest) throws Exception {
 		return mapper.getNoticeList(pageRequest);
 	}
+
+	@Override
+	public List<Notice> getMainPageNoticeList() throws Exception {
+		return mapper.getMainPageNoticeList();
+	}
+	
+	
 }

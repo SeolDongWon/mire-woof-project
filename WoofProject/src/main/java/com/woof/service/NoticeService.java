@@ -20,4 +20,6 @@ public interface NoticeService {
 	public int countNoticeList(PageRequest pageRequest) throws Exception;
 
 	public List<Notice> getNoticeList(PageRequest pageRequest) throws Exception;
+	
+	public List<Notice> getMainPageNoticeList() throws Exception;
 }

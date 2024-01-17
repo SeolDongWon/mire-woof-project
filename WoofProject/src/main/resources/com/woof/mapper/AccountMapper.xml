@@ -28,7 +28,7 @@
 		LEFT OUTER JOIN account_auth auth
 		ON acc.username = auth.username
 		WHERE
-		acc.username = #{username}
+		acc.username = #{username} AND acc.status='active'
 	</select>
 	<!-- 내정보 -->
 	<select id="getAccount" resultType="Account">

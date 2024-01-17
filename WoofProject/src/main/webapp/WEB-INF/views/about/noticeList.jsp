@@ -159,11 +159,11 @@
 	<!-- subMenu Area -->
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
-			<a href="/notice/insertNoticeForm" class="btn btn-outline-secondary">글쓰기</a>
 		<div class="mt-3 w-75 m-auto">
 			<h3 class="text-center">NOTICE LIST</h3>
-
-
+			<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<a href="/notice/insertNoticeForm" class="btn btn-outline-dark float-end m-1">공지사항쓰기</a>
+			</sec:authorize>
 			<table class="table table-striped" style="table-layout: fixed;">
 
 				<thead>
@@ -191,16 +191,17 @@
 			<!-- 페이징-->
 			<div class="d-flex">
 				<form:form modelAttribute="pageRequest"
-					action="/notice/getNoticeList" method="get" class="m-auto">
+					action="/notice/getNoticeList" method="get" class="m-auto d-flex align-content-center">
 					<form:select path="condition">
 						<form:option value="TITLE" label="제목" />
 						<form:option value="CONTENT" label="내용" />
 					</form:select>
 					<form:input path="keyword" />
-					<form:button type="submit" class="btn btn-outline-secondary">일반검색</form:button>
+					<form:button type="submit" class="btn btn-outline-dark p-1">일반검색</form:button>
 				</form:form>
 			</div>
-			<div class="d-flex">
+			
+			<div class="d-flex m-1">
 				<ul class="pagination m-auto">
 					<c:if test="${pagination.prev}">
 						<li class="page-item"><a class="page-link"

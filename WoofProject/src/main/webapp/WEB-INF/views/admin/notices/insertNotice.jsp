@@ -28,9 +28,16 @@
 	$(document).ready(function() {
 		var formObj = $("#notice");
 		$("#btnRegister").on("click", function() {
-			formObj.attr("action", "/notice/insertNotice");
-			formObj.attr("method", "post");
-			formObj.submit();
+			/* formObj.attr("action", "/notice/insertNotice");
+			formObj.attr("method", "post"); */
+			 var check = confirm('등록할까요');
+			  
+			  if (check) {
+						formObj.submit();
+			   }
+			   else {
+			      alert('등록 취소');
+			   }
 		});
 		$("#btnList").on("click", function() {
 			self.location = "/notice/getNoticeList";
@@ -46,10 +53,10 @@
 <!-- subMenu Area -->
 	<main class="pt-2">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+	<div class="mt-3 w-75 m-auto">
 	<h1>INSERT NOTICE</h1>
-	<section>
 			NOTICE 
-			<form:form modelAttribute="notice">
+			<form:form modelAttribute="notice" action="/notice/insertNotice" method="post">
 				noticeTitle : <form:input path="noticeTitle" class="form-control"/><br>
 				noticeDesc : <form:textarea path="noticeDesc"  class="form-control" rows="5" id="comment"/><br>
 				
@@ -58,7 +65,7 @@
 				<button type="submit" id="btnRegister"class="btn btn-outline-secondary">Register</button>
 				<button type="submit" id="btnList"class="btn btn-outline-secondary">List</button>
 			</div>
-		</section>
+		</div>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

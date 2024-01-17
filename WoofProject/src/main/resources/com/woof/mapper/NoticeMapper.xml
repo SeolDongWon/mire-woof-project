@@ -8,7 +8,6 @@
 	</insert>
 
 	<select id="getNoticeList" resultType="Notice">
-		<!-- select * from notice order by noticeno desc -->
 			<![CDATA[
 		SELECT * 
 		FROM
@@ -18,12 +17,12 @@
 		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY noticeno DESC
 		]]>
 	</select>
+	
 	<select id="countNoticeList" resultType="int">
 		SELECT count(noticeNo)
 		FROM notice
 		WHERE noticetitle LIKE '%'||#{keywordTitle}||'%'
 		AND noticedesc LIKE '%'||#{keywordDesc}||'%'
-	
 	</select>
 
 	<select id="getNotice" resultType="com.woof.domain.Notice">
@@ -46,25 +45,12 @@
 
 	<delete id="deleteNotice">
 		DELETE FROM notice WHERE noticeno= #{noticeNo}
-
 	</delete>
-
-	<!-- 게시글 전체 건수를 조회한다. -->
-	<select id="count" resultType="int">
-	<![CDATA[
-	SELECT count(noticeNo)
-	FROM notice
-	WHERE noticeNo > 0
-	]]>
-	</select>
-<!-- 	 게시글 목록 페이지
-	<select id="getNoticePageList" resultType="Notice">
+	
+	<select id="getMainPageNoticeList" resultType="Notice">
 		<![CDATA[
-		SELECT * 
-		FROM (SELECT noticeno, noticetitle, noticedesc, noticeregdate, noticemoddate, noticeviewcount, ROWNUM AS rnum FROM notice)
-		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
-		ORDER BY noticeno DESC, noticeregdate DESC;
+		SELECT * FROM(SELECT * FROM NOTICE ORDER BY NOTICENO DESC) WHERE ROWNUM <= 5
 		]]>
-	</select> -->
+	</select>
 
 </mapper>

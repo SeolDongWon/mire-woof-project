@@ -27,23 +27,24 @@
 <%-- <%@ include file="" %> --%>
 <script>
 	$(document).ready(function() {
-		var formObj = $("#service");
+		var formObj = $("#serviceForm");
 		
-		var username = '${pageContext.request.userPrincipal.principal.account.username}';
-		
-		document.getElementById('username').value = username;
-		
-		console.log(username);
 		
 		$("#btnRegister").on("click", function() {
-			formObj.attr("action", "/service/insertService");
-			formObj.attr("method", "post");
-			formObj.submit();
+			  var check = confirm('등록할까요');
+			  
+			  if (check) {
+						formObj.submit();
+			   }
+			   else {
+			      alert('등록 취소');
+			   }
 		});
 		
 		$("#btnList").on("click", function() {
 			self.location = "/service/getServiceList";
 		});
+		
 	});
 </script>
 </head>
@@ -55,20 +56,17 @@
 <!-- subMenu Area -->
 	<main class="pt-2">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+	<div class="mt-3 w-75 m-auto">
 	<h4>INSERT service</h4>
-	<section>
-			<form:form modelAttribute="service">
-				username : <form:input id="username" path="username" class="form-control" readonly="true"/> 
-				<br>
-				<%--  <form:input path="itemNo" class="form-control"/>	<br> 
-				 <form:input path="petNo" class="form-control" />	<br> --%>
-				serviceDesc : <form:textarea path="serviceDesc"  class="form-control" rows="5"/><br>
-			</form:form>
+			<form id="serviceForm" action="/service/insertService" method="post">
+				username : <input name="username" class="form-control" value="${account.username}" readonly="true"/> 
+				serviceDesc : <textarea name="serviceDesc"  class="form-control" rows="5"></textarea>
+			</form>
 			<div>
 				<button type="submit" id="btnRegister">Register</button>
 				<button type="submit" id="btnList">List</button>
 			</div>
-		</section>
+		</div>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

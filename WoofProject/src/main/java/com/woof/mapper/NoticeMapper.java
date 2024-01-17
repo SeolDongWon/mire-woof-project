@@ -25,4 +25,6 @@ public interface NoticeMapper {
 	public int countNoticeList(PageRequest pageRequest) throws Exception;
 	
 	public List<Notice> getNoticePageList(PageRequest pageRequest) throws Exception;
+	
+	public List<Notice> getMainPageNoticeList() throws Exception;
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.woof.domain.Notice;
 import com.woof.domain.PageRequest;
@@ -31,39 +32,38 @@ public class NoticeController {
 	@Value("${kakaomap.appkey}")
 	private String kakaoMapAppkey;
 
-	@GetMapping("/getNotice")
+	@GetMapping(value = "/getNotice")
 	public String getNotice(Notice notice, Model model) throws Exception {
 		log.info("getNotice");
 		noticeService.addNoticeViewCount(notice);
-		Notice dto = noticeService.getNotice(notice);
-		model.addAttribute("notice", dto);
+		model.addAttribute(noticeService.getNotice(notice));
 		return "about/notice";
 	}
 
-	@GetMapping("/getNoticeList")
+	@GetMapping(value = "/getNoticeList")
 	public String getNoticeList(Model model, PageRequest pageRequest,Pagination pagination) throws Exception {
 		log.info("getNoticeList");
 		
-//		if (pageRequest.getCondition() == null) {
-//			pageRequest.setCondition("TITLE");
-//		}
+		if (pageRequest.getCondition() == null) {
+			pageRequest.setCondition("TITLE");
+		}
 		if (pageRequest.getKeyword() == null) {
 			pageRequest.setKeyword("");
 		}
 
 		// 검색정보 Null Check
-//		switch (pageRequest.getCondition()) {
-//		case "TITLE": {
-//			pageRequest.setKeywordTitle(pageRequest.getKeyword());
-//			pageRequest.setKeywordDesc("");
-//			break;
-//		}
-//		case "CONTENT": {
-//			pageRequest.setKeywordDesc(pageRequest.getKeyword());
-//			pageRequest.setKeywordTitle("");
-//			break;
-//		}
-//		}
+		switch (pageRequest.getCondition()) {
+		case "TITLE": {
+			pageRequest.setKeywordTitle(pageRequest.getKeyword());
+			pageRequest.setKeywordDesc("");
+			break;
+		}
+		case "CONTENT": {
+			pageRequest.setKeywordDesc(pageRequest.getKeyword());
+			pageRequest.setKeywordTitle("");
+			break;
+		}
+		}
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(noticeService.countNoticeList(pageRequest));
 		model.addAttribute("pagination", pagination);
@@ -71,6 +71,76 @@ public class NoticeController {
 		model.addAttribute("noticeList", noticeList);
 		
 		return "about/noticeList";
+	}
+
+	//공지사항 작성화면
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/insertNoticeForm")
+	public String insertNoticeForm(Notice notice) throws Exception {
+		return "admin/notices/insertNotice";
+	}
+	
+	//공지사항 작성
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PostMapping(value = "/insertNotice")
+	public String insertNotice(Notice notice) throws Exception {
+		log.info("insertNotice");
+
+		noticeService.insertNotice(notice);
+
+		// 샘플작성
+		String title = notice.getNoticeTitle();
+		String desc = notice.getNoticeDesc();
+		for (int i = 0; i < 30; i++) {
+			notice.setNoticeTitle(title + i);
+			notice.setNoticeDesc(desc + i);
+			noticeService.insertNotice(notice);
+		}
+		//샘플작성
+
+		return "redirect:/notice/getNoticeList";
+	}
+	
+	//공지사항 수정화면
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/modifyNoticeForm", method = RequestMethod.POST)
+	public String modifyNoticeForm(Notice notice, Model model) throws Exception {
+		model.addAttribute(noticeService.getNotice(notice));
+		return "admin/notices/modifyNotice";
+	}
+	
+	//공지사항 수정
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PostMapping(value = "/modifyNotice")
+	public String modifyNotice(Notice notice) throws Exception {
+		log.info("modifyNotice");
+
+		noticeService.modifyNotice(notice);
+
+		return "redirect:/notice/getNoticeList";
+	}
+	
+	//공지사항 삭제
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/deleteNotice")
+	public String deleteNotice(Notice notice) throws Exception {
+		noticeService.deleteNotice(notice);
+		return "redirect:/notice/getNoticeList";
+	}
+	
+	//시설소개
+	@RequestMapping(value = "/getAbout")
+	public String getAbout(Model model, Search search) throws Exception {
+		log.info("getAbout");
+		return "about/about";
+	}
+	
+	//오시는길
+	@RequestMapping(value = "/getLocation")
+	public String getLocation(Model model, Search search) throws Exception {
+		log.info("getAbout");
+		model.addAttribute("kakaoMapAppkey", kakaoMapAppkey);
+		return "about/location";
 	}
 
 //	@GetMapping("/getNoticeList")
@@ -152,75 +222,4 @@ public class NoticeController {
 //		return entity;
 //	}
 	
-	//공지사항 작성화면
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/insertNoticeForm")
-	public String insertNoticeForm(Notice notice) throws Exception {
-		return "admin/notices/insertNotice";
-	}
-	
-	//공지사항 작성
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping("/insertNotice")
-	public String insertNotice(Notice notice) throws Exception {
-		log.info("insertNotice");
-
-		noticeService.insertNotice(notice);
-
-		// 샘플작성
-		String title = notice.getNoticeTitle();
-		String desc = notice.getNoticeDesc();
-		for (int i = 0; i < 30; i++) {
-			notice.setNoticeTitle(title + i);
-			notice.setNoticeDesc(desc + i);
-			noticeService.insertNotice(notice);
-		}
-
-		return "redirect:/notice/getNoticeList";
-	}
-	
-	//공지사항 수정화면
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/modifyNoticeForm/{noticeNo}")
-	public String modifyNoticeForm(@PathVariable("noticeNo") int noticeNo, Notice dto, Model model) throws Exception {
-		dto.setNoticeNo(noticeNo);
-		noticeService.addNoticeViewCount(dto);
-		Notice notice = noticeService.getNotice(dto);
-		model.addAttribute("notice", notice);
-		return "admin/notices/modifyNotice";
-	}
-	
-	//공지사항 수정
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping("/modifyNotice")
-	public String modifyNotice(Notice notice) throws Exception {
-		log.info("modifyNotice");
-
-		noticeService.modifyNotice(notice);
-
-		return "redirect:/notice/getNoticeList";
-	}
-	
-	//공지사항 삭제
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/deleteNotice")
-	public String deleteNotice(Notice notice) throws Exception {
-		noticeService.deleteNotice(notice);
-		return "redirect:/notice/getNoticeList";
-	}
-	
-	//시설소개
-	@RequestMapping("/getAbout")
-	public String getAbout(Model model, Search search) throws Exception {
-		log.info("getAbout");
-		return "about/about";
-	}
-	
-	//오시는길
-	@RequestMapping("/getLocation")
-	public String getLocation(Model model, Search search) throws Exception {
-		log.info("getAbout");
-		model.addAttribute("kakaoMapAppkey", kakaoMapAppkey);
-		return "about/location";
-	}
 }
