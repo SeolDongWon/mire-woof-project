@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.woof.domain.Cart;
+import com.woof.domain.Item;
 import com.woof.mapper.CartMapper;
 import com.woof.service.CartService;
 
@@ -16,35 +17,40 @@ public class CartServiceImpl implements CartService {
 	private CartMapper mapper;
 	
 	@Override
-	public void addToCart(Cart cart) throws Exception {
-		mapper.addToCart(cart);
+	public void addToCart(Item item, String username, int itemQuantity) throws Exception {
+		mapper.addToCart(item, username, itemQuantity);
 	}
 
 	@Override
-	public List<Cart> getCart(Cart cart) throws Exception {
-		return mapper.getCart(cart);
+	public List<Cart> getCart(String username) throws Exception {
+		return mapper.getCart(username);
 	}
 
 	@Override
-	public List<Cart> getOrder(Cart cart) throws Exception {
-		return mapper.getOrder(cart);
+	public List<Cart> getOrder(List<String> selectedItems, String username) throws Exception {
+		return mapper.getOrder(selectedItems, username);
+	}
+
+//	@Override
+//	public void changeCheckStatus(Cart cart) throws Exception {
+//		mapper.changeCheckStatus(cart);
+//	}
+
+	@Override
+	public void removeFromCart(String itemNo, String username) throws Exception {
+		mapper.removeFromCart(itemNo, username);
 	}
 
 	@Override
-	public void changeCheckStatus(Cart cart) throws Exception {
-		mapper.changeCheckStatus(cart);
+	public void removeChecked(List<String> selectedItems, String username) throws Exception {
+		mapper.removeChecked(selectedItems, username);
 	}
 
 	@Override
-	public void removeFromCart(Cart cart) throws Exception {
-		mapper.removeFromCart(cart);
+	public void deleteDuplicateRows(String itemNo, String username) throws Exception {
+		mapper.deleteDuplicateRows(itemNo, username);
 	}
-
-	@Override
-	public void removeChecked(Cart cart) throws Exception {
-		mapper.removeChecked(cart);
-	}
-
+	
 	@Override
 	public void modifyQuantity(Cart cart) throws Exception {
 		mapper.modifyQuantity(cart);

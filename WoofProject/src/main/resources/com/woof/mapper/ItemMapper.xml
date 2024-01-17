@@ -8,16 +8,27 @@
 		SELECT * FROM item ORDER BY itemRegDate DESC
 	</select>
 	<insert id="insertItem">
-		INSERT INTO item (itemNo, itemName, price, stock, size, itemRegDate, itemMainPic, itemSubPic, itemDesc) VALUES 
-		(itemNo_seq.nextVal, #{itemName}, #{price}, #{stock}, #{size}, SYSDATE, #{itemMainPic}, #{itemSubPic}, #{itemDesc})
+		INSERT INTO item (itemNo, itemName, itemPrice, itemStock, itemType, itemRegDate, itemMainPic, itemSubPic, itemDesc, itemStatus) VALUES 
+		(itemNo_seq.nextVal, #{itemName}, #{itemPrice}, #{itemStock}, #{itemType}, SYSDATE, #{itemMainPic}, #{itemSubPic}, #{itemDesc}, #{itemStatus})
 	</insert>
 	<update id="modifyItem">
-		UPDATE item SET itemName=#{itemName}, price=#{price}, stock=#{stock}, size=#{size}, itemType=#{itemType}, 
+		UPDATE item SET itemName=#{itemName}, itemPrice=#{itemPrice}, itemStock=#{itemStock}, itemType=#{itemType}, 
 		itemMainPic=#{itemMainPic}, itemSubPic=#{itemSubPic}, itemDesc=#{itemDesc} WHERE itemNo=#{itemNo}
 	</update>
-	<delete id="deleteItem">
-		DELETE FROM item WHERE itemNo=#{itemNo}
-	</delete>
+	<update id="toggleItemStatus">
+		UPDATE item SET itemStatus=
+			CASE 
+				WHEN itemStatus = 'CLOSED' THEN 'OPEN'
+				WHEN itemStatus = 'OPEN' THEN 'CLOSED'
+			END
+		WHERE itemNo=#{itemNo}
+	</update>
+	<select id="getItemMainPic" resultType="String">
+		SELECT itemMainPic FROM item WHERE itemNo = #{itemNo}
+	</select>
+	<select id="getItemSubPic" resultType="String">
+		SELECT itemSubPic FROM item WHERE itemNo = #{itemNo}
+	</select>
 	<select id="searchItemType" resultType="Item">
 		SELECT * FROM item WHERE itemType=#{searchType} ORDER BY itemNo
 	</select>

@@ -3,7 +3,7 @@
 
   <hr>
 	
- <footer class="m-1">
+ <footer class="m-0">
       <div class="row">
         <div class="col-1">
         </div>
@@ -34,7 +34,7 @@
           <div class="col-3">
             <p class="fs-6 mb-2">상품</p>
             <ul class="navbar-nav fs-6 fw-light">
-              <li class="nav-item"><a href="" class="nav-link link-secondary p-1">상품 목록</a></li>
+              <li class="nav-item"><a href="/item/itemList" class="nav-link link-secondary p-1">상품 목록</a></li>
             </ul>
           </div>
           <div class="col-3">

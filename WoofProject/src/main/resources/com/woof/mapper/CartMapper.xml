@@ -1,27 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woof.mapper.CartMapper">
-	<insert id="addToCart">
-		INSERT INTO cart (cartNo, username, itemNo, quantity, itemName, price, size, itemMainPic, status) 
-		VALUES (cartNo_seq.nextVal, #{username}, #{itemNo}, #{quantity}, #{itemName}, #{price}, #{size}, #{itemMainPic}, 'checked')
+	<insert id="addToCart" parameterType="map">
+		INSERT INTO cart (cartNo, username, itemNo, itemQuantity, itemName, itemPrice, itemMainPic, checkStatus) 
+		VALUES (cartNo_seq.nextVal, #{username}, #{item.itemNo}, #{itemQuantity}, #{item.itemName}, #{item.itemPrice}, #{item.itemMainPic}, 'checked')
 	</insert>
+	
 	<select id="getCart" resultType="Cart">
-		SELECT * FROM cart WHERE username=#{username} ORDER BY cartNo DESC
+		SELECT * FROM cart WHERE username = #{username} ORDER BY cartNo DESC
 	</select>
-	<select id="getOrder" resultType="Cart">
-		SELECT * FROM cart WHERE username=#{username} AND status='checked' ORDER BY cartNo DESC
+	
+	<select id="getOrder" resultType="Cart" parameterType="java.util.List">
+		 SELECT * FROM cart WHERE username=#{username} AND itemNo IN
+    		<foreach item="item" collection="selectedItems" open="(" separator="," close=")">
+        		#{item}
+    		</foreach>
+    	ORDER BY cartNo DESC
 	</select>
+	
+	<!-- NOT USED
 	<update id="changeCheckStatus">
-		UPDATE cart SET status = CASE WHEN status='checked' THEN 'unchecked' ELSE 'checked' END 
+		UPDATE cart SET checkStatus = CASE WHEN checkStatus='checked' THEN 'unchecked' ELSE 'checked' END 
 		WHERE username=#{username} AND itemNo=#{itemNo}
 	</update>
+	-->
+	
 	<delete id="removeFromCart">
 		DELETE FROM cart WHERE username=#{username} AND itemNo=#{itemNo}
 	</delete>
+	
 	<delete id="removeChecked">
-		DELETE FROM cart WHERE username=#{username} AND status='checked'
+		DELETE FROM cart WHERE username = #{username} AND itemNo IN
+			<foreach item="item" collection="selectedItems" open="(" separator="," close=")">
+				#{item}
+			</foreach>
 	</delete>
+	
+	<delete id="deleteDuplicateRows">
+    DELETE FROM cart
+    WHERE cartNo IN
+      (SELECT cartNo FROM (
+        SELECT cartNo, username, itemNo, ROW_NUMBER() 
+        	OVER (PARTITION BY username, itemNo ORDER BY itemQuantity DESC) AS row_num
+        FROM cart WHERE username IN (
+          SELECT username FROM cart WHERE username = #{username}
+          GROUP BY username, itemNo HAVING COUNT(*) > 1)
+        AND itemNo IN 
+        (SELECT itemNo FROM cart WHERE itemNo = #{itemNo}
+          GROUP BY username, itemNo HAVING COUNT(*) > 1)
+      ) 
+      subquery WHERE row_num > 1
+    )
+  </delete>
+		
 	<update id="modifyQuantity">
-		UPDATE cart SET quantity=#{newQuantity} WHERE username=#{username} AND itemNo=#{itemNo}
+		UPDATE cart SET itemQuantity=#{newQuantity} WHERE username=#{username} AND itemNo=#{itemNo}
 	</update>
 </mapper>

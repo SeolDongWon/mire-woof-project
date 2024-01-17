@@ -1,3 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woof.mapper.NoticeMapper"></mapper>
+<mapper namespace="com.woof.mapper.NoticeMapper">
+
+	<insert id="insertNotice">
+		INSERT INTO notice(noticeno,noticetitle,noticedesc)
+		VALUES(noticeno_seq.NEXTVAL,#{noticeTitle},#{noticeDesc})
+	</insert>
+
+	<select id="getNoticeList" resultType="Notice">
+			<![CDATA[
+		SELECT * 
+		FROM
+			(SELECT  ROWNUM AS rnum, noticeno, noticetitle, noticedesc, noticeregdate, noticemoddate, noticeviewcount
+			FROM (select * from notice WHERE noticetitle LIKE '%'||#{keywordTitle}||'%' AND noticedesc LIKE '%'||#{keywordDesc}||'%' order by noticeno desc) 
+			ORDER BY noticeno asc)
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY noticeno DESC
+		]]>
+	</select>
+	
+	<select id="countNoticeList" resultType="int">
+		SELECT count(noticeNo)
+		FROM notice
+		WHERE noticetitle LIKE '%'||#{keywordTitle}||'%'
+		AND noticedesc LIKE '%'||#{keywordDesc}||'%'
+	</select>
+
+	<select id="getNotice" resultType="com.woof.domain.Notice">
+		SELECT * FROM notice WHERE
+		noticeNo = #{noticeNo}
+	</select>
+
+	<update id="addNoticeViewCount">
+		UPDATE notice SET noticeviewcount=noticeviewcount+1
+		WHERE
+		noticeno=#{noticeNo}
+	</update>
+
+	<update id="modifyNotice">
+		UPDATE notice
+		SET noticetitle=
+		#{noticeTitle},noticedesc=#{noticeDesc}
+		WHERE noticeno= #{noticeNo}
+	</update>
+
+	<delete id="deleteNotice">
+		DELETE FROM notice WHERE noticeno= #{noticeNo}
+	</delete>
+	
+	<select id="getMainPageNoticeList" resultType="Notice">
+		<![CDATA[
+		SELECT * FROM(SELECT * FROM NOTICE ORDER BY NOTICENO DESC) WHERE ROWNUM <= 5
+		]]>
+	</select>
+
+</mapper>

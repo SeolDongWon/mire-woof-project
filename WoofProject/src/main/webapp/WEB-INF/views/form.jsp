@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,9 +32,8 @@
 <!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
-<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-	<main class="pt-2">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+	<main class="pt-2">
 
 	</main>
 <!-- Footer Area -->

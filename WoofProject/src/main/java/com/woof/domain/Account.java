@@ -1,6 +1,10 @@
 package com.woof.domain;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -11,19 +15,32 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Account {
-
+public class Account implements Serializable{
+	private static final long serialVersionUID = 582999266267533096L;
+	
+	@NotBlank
 	private String username;
+	@NotBlank
 	private String password;
+	
+	
+	@NotBlank
 	private String name;
 	private String tel;
+	
 	private String address;
-	private String state;
+	private String address1;
+	private String address2;
+	private String address3;
+	private String address4;
+	
+	private String status;
 	@DateTimeFormat(pattern = "yy-MM-dd")
 	private Date regDate;
-	private String searchKeyword;
 	
 	
 	
+	// 1:N으로 연결한 테이블의 정보를 받아오는 멤버변수
+		private List<AccountAuth> authList;
 	
 }
