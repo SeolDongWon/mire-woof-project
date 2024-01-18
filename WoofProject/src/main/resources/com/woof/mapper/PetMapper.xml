@@ -17,10 +17,10 @@
 			VALUES (petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender}, 
 			#{petDesc}) -->
 		INSERT INTO pet (petNo, <!-- userName -->petName, petAge, petType, petGender,
-		petDesc,petStatus, petRegDate, petMainPic, petSubPic)
+		petDesc, petRegDate, petMainPic, petSubPic)
 		VALUES
 		(petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender},
-		#{petDesc},#{petStatus}, SYSDATE, #{petMainPic}, #{petSubPic})
+		#{petDesc}, SYSDATE, #{petMainPic}, #{petSubPic})
 	</insert>
 
 	<update id="modifyPet">

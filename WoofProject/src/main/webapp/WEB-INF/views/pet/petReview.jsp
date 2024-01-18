@@ -24,6 +24,12 @@
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
+<style>
+a {
+  text-decoration: none;
+  color: black;
+}
+</style>
 </head>
 <body>
 <!-- Header Area -->
@@ -47,12 +53,12 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td ><img src="getReviewPic?reviewNo=${review.reviewNo}"></td>
+						<td ><img src="getReviewPic?reviewNo=${review.reviewNo}"width="50%" height="100%"></td>
 						<td class="hashtag" style="position: absolute; bottom: 300px;">${review.reviewDesc}</td>
 					</tr>
 				</tbody>
 			</table>
-			<a href="/review/getReviewList">리스트</a>
+			<button style="background-color: white;"><a href="/review/getReviewList">리스트</a></button>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
