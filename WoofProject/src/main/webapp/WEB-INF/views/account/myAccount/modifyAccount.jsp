@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>mire woof(modifyAccount)</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -46,7 +46,7 @@
 		
 		<div class="d-flex  justify-content-center">
 
-		<form action="/account/modifyAccount" method="post">
+		<form action="/account/modifyAccount" method="post"  name="joinform" onsubmit="doSubmit(); return false;">
 			<div class="container mt-3" style="width: 500px">
 				<table class="table table-borderless">
 
@@ -68,9 +68,7 @@
 						<td>비밀번호</td>
 						<th>
 							<div class="input-group mb-3">
-								<input name="password" class="form-control"
-									placeholder="password" value="" />
-
+								<input name="password" class="form-control"	placeholder="password" value="" placeholder="5~13자리 영문,숫자, 특수문자만 가능"  onblur="pwCheck()"/>
 							</div>
 						</th>
 					</tr>
@@ -94,7 +92,7 @@
 						<td>주 소</td>
 						<th>
 							<div class="d-flex  justify-content-center">
-								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address" value="${account.address1}">
+								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address1" value="${account.address1}">
 					            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="border: none; background-color: rgb(255, 255, 255);">
 					        </div>
 					           <input type="text" size="45px" id="sample6_address" placeholder="주소" class="form-control" name="address2" value="${account.address2}">
@@ -107,9 +105,7 @@
 						<td colspan='2'>
 						<div class="d-flex  justify-content-end   ">
 							<button type="submit" style="border: none; margin-right: 50px;">내정보 수정</button> 
-								<sec:authorize access="hasRole('ROLE_ADMIN')">
-									<form:button type="submit" id="btnList">목록</form:button>
-							</sec:authorize>
+								
 							</div>
 						</td>
 					</tr>

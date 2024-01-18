@@ -29,6 +29,8 @@ function doSubmit() {
 		if (confirm("" + check)) {
 			frm.submit();
 		}
+	}else{
+		alert("password 꼭 써주세요");
 	}
 }
 
