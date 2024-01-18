@@ -98,75 +98,20 @@
 					<div class="row p-0 m-0 pe-1 " style="height: 800px;">
 
 						<!-- 입양후기 테이블에서 4개 뽑아오기 -->
+
 						
-						<%-- <div class="card col-6 p-1 h-50">
-							<a href=""
-								class="text-black link-underline link-underline-opacity-0 h-100 ">
-								<div class="h-75 overflow-hidden rounded ">
-									<img src="/resource/image/mainPage/cat1.jpg" alt=""
-										class="w-100">
-								</div>
-								<div class="h-25 overflow-hidden p-1"
-									style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;">
-									<spring:message code="home.petReviewExample1" />
-								</div>
-							</a>
-						</div>
-						
-						<div class="card col-6 p-1 h-50">
-							<a href=""
-								class="text-black link-underline link-underline-opacity-0 h-100 ">
-								<div class="h-75 overflow-hidden rounded ">
-									<img src="/resource/image/mainPage/puppy-7.jpg" alt=""
-										class="w-100">
-								</div>
-								<div class="h-25 overflow-hidden p-1"
-									style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;">
-									<spring:message code="home.petReviewExample2" />
-								</div>
-							</a>
-						</div>
-						
-						<div class="card col-6 p-1 h-50">
-							<a href=""
-								class="text-black link-underline link-underline-opacity-0 h-100 ">
-								<div class="h-75 overflow-hidden rounded ">
-									<img src="/resource/image/mainPage/cat5.jpg" alt=""
-										class="w-100">
-								</div>
-								<div class="h-25 overflow-hidden p-1"
-									style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;">
-									<spring:message code="home.petReviewExample3" />
-								</div>
-							</a>
-						</div>
-						
-						<div class="card col-6 p-1 h-50">
-							<a href=""
-								class="text-black link-underline link-underline-opacity-0 h-100 ">
-								<div class="h-75 overflow-hidden rounded ">
-									<img src="/resource/image/mainPage/cat3.jpg" alt=""
-										class="w-100">
-								</div>
-								<div class="h-25 overflow-hidden p-1"
-									style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;">
-									<spring:message code="home.petReviewExample4" />
-								</div>
-							</a>
-						</div> --%>
-						
-						<c:forEach items="${PetReviewList}" var="petReview">
+						<c:forEach items="${reviewList}" var="review">
 
 							<div class="card col-6 p-1 h-50">
-								<a href="/review/getReview?reviewNo=${petReview.reviewNo}"
+								<a href="/review/getReview?reviewNo=${review.reviewNo}"
 									class="text-black link-underline link-underline-opacity-0 h-100 ">
 									<div class="h-75 overflow-hidden rounded ">
-										<img src="reviewPic?reviewNo=${petReview.reviewNo}" alt=""
+										<img src="/review/getReviewPic?reviewNo=${review.reviewNo}" alt=""
 											class="w-100">
 									</div>
 									<div class="h-25 overflow-hidden p-1"
 										style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4;">
-										${petReview.reviewDesc}</div>
+										${review.reviewDesc}</div>
 								</a>
 							</div>
 						</c:forEach>
@@ -222,54 +167,6 @@
 					<div class="row p-0 m-0" style="height: 600px;">
 						<!-- 분양 테이블에서 4개 뽑아오기 -->
 						
-						<!-- <div class="card col-6 p-1 rounded-5 h-50 ">
-							<a href=""
-								class="text-black link-underline link-underline-opacity-0 rounded-5 overflow-hidden ">
-								<img src="/resource/image/mainPage/puppy-1.jpg" alt=""
-								class="w-100">
-								<div class="card-body card-img-overlay"
-									style="text-shadow: 1px 1px white, -1px -1px white, -1px 1px white, 1px -1px white;">
-									<span class="card-title fs-1 fw-bold">개이름</span><br> <span
-										class="card-text fs-3">개혈통</span>
-								</div>
-							</a>
-						</div>
-						<div class="card col-6  p-1  rounded-5 h-50 ">
-							<a href=""
-								class="text-black link-underline link-underline-opacity-0 rounded-5 overflow-hidden ">
-								<img src="/resource/image/mainPage/puppy-9.jpg" alt=""
-								class="w-100">
-								<div class="card-body card-img-overlay"
-									style="text-shadow: 1px 1px white, -1px -1px white, -1px 1px white, 1px -1px white;">
-									<span class="card-title fs-4 fw-bold">댕멍이</span><br> <span
-										class="card-text fs-6">치와와</span>
-								</div>
-							</a>
-						</div>
-						<div class="card col-6  p-1 rounded-5 h-50 ">
-							<a href=""
-								class="text-black link-underline link-underline-opacity-0 rounded-5 overflow-hidden ">
-								<img src="/resource/image/mainPage/puppy-8.jpg" alt=""
-								class="w-100">
-								<div class="card-body card-img-overlay"
-									style="text-shadow: 1px 1px white, -1px -1px white, -1px 1px white, 1px -1px white;">
-									<span class="card-title fs-3 fw-bold">멍댕이</span><br> <span
-										class="card-text fs-5">푸들</span>
-								</div>
-							</a>
-						</div>
-						<div class="card col-6  p-1  rounded-5 h-50 ">
-							<a href=""
-								class="text-black link-underline link-underline-opacity-0 rounded-5 overflow-hidden ">
-								<img src="/resource/image/mainPage/puppy-3.jpg" alt=""
-								class="w-100">
-								<div class="card-body card-img-overlay"
-									style="text-shadow: 1px 1px white, -1px -1px white, -1px 1px white, 1px -1px white;">
-									<span class="card-title fs-2 fw-bold">멍멍이</span><br> <span
-										class="card-text fs-4">골든 리트리버</span>
-								</div>
-							</a>
-						</div> -->
 						<c:forEach items="${petList}" var="pet">
 							<div class="card col-6 p-1 rounded-5 h-50 ">
 								<a href="/pet/getPet?petNo=${pet.petNo}"

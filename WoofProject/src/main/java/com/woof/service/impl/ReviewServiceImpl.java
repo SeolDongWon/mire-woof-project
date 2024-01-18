@@ -47,5 +47,10 @@ public class ReviewServiceImpl implements ReviewService {
 	public String getReviewPic(Integer reviewNo) throws Exception {
 		return mapper.getReviewPic(reviewNo);
 	}
+	
+	@Override
+	public List<Review> getMainReviewList() throws Exception {
+		return mapper.getMainReviewList();
+	}
 
 }

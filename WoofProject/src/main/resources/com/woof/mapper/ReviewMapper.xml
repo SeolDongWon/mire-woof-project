@@ -36,4 +36,10 @@
 		SELECT reviewPic FROM
 		review WHERE reviewNo = #{reviewNo}
 	</select>
+	
+	<select id="getMainReviewList" resultType="Review">
+		<![CDATA[
+		SELECT * FROM(SELECT * FROM review WHERE itemno=0 ORDER BY reviewno DESC) WHERE ROWNUM <= 4
+		]]>
+	</select>
 </mapper>

@@ -26,9 +26,5 @@ public interface NoticeService {
 	
 	public List<Notice> getMainNoticeList() throws Exception;
 	
-	public List<Pet> getMainPetList() throws Exception;
 	
-	public List<Review> getMainPetReviewList() throws Exception;
-	
-	public List<Item> getMainItemList() throws Exception;
 }

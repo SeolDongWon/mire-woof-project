@@ -51,22 +51,5 @@
 		]]>
 	</select>
 	
-	<select id="getMainPetList" resultType="Pet">
-		<![CDATA[
-		SELECT * FROM(SELECT * FROM pet WHERE petStatus='분양가능' ORDER BY petno DESC) WHERE ROWNUM <= 4
-		]]>
-	</select>
-	
-	<select id="getMainPetReviewList" resultType="Review">
-		<![CDATA[
-		SELECT * FROM(SELECT * FROM review WHERE itemno=0 ORDER BY reviewno DESC) WHERE ROWNUM <= 4
-		]]>
-	</select>
-	
-	<select id="getMainItemList" resultType="Item">
-		<![CDATA[
-		SELECT * FROM(SELECT * FROM item ORDER BY itemno DESC) WHERE ROWNUM <= 8
-		]]>
-	</select>
 
 </mapper>

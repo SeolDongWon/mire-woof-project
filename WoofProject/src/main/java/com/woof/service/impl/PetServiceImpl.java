@@ -54,6 +54,9 @@ public class PetServiceImpl implements PetService {
 		return mapper.getPetSubPic(petNo);
 	}
 
-
+	@Override
+	public List<Pet> getMainPetList() throws Exception {
+		return mapper.getMainPetList();
+	}
 
 }

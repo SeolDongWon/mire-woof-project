@@ -17,7 +17,12 @@ import com.woof.domain.Pet;
 import com.woof.domain.Review;
 import com.woof.service.ItemService;
 import com.woof.service.NoticeService;
+import com.woof.service.PetService;
+import com.woof.service.ReviewService;
 
+import lombok.extern.java.Log;
+
+@Log
 @Controller
 public class HomeController {
 	
@@ -27,25 +32,31 @@ public class HomeController {
 	@Autowired
 	private NoticeService noticeService;
 	
+	@Autowired
+	private PetService petService;
+	
+	@Autowired
+	private ReviewService reviewService;
+	
 	@GetMapping("/")
 	public String home(Locale locale, Model model,Account account) throws Exception {
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		String formattedDate = dateFormat.format(date);
-		model.addAttribute("serverTime", formattedDate);
-		
+
 		List<Item> itemList = itemService.getItemList();
 		model.addAttribute("itemList", itemList);
+		log.info("itemList : "+itemList.toString());
 		
-		List<Pet> petList = noticeService.getMainPetList();
+		List<Pet> petList = petService.getMainPetList();
 		model.addAttribute("petList", petList);
+		log.info("petList : "+petList.toString());
 		
 		List<Notice> noticeList = noticeService.getMainNoticeList();
 		model.addAttribute("noticeList", noticeList);
+		log.info("noticeList : "+noticeList.toString());
 		
-		List<Review> PetReviewList = noticeService.getMainPetReviewList();
-		model.addAttribute("PetReviewList", PetReviewList);
-
+		List<Review> reviewList = reviewService.getMainReviewList();
+		model.addAttribute("reviewList", reviewList);
+		log.info("PetReviewList : "+reviewList.toString());
+		
 		return "homewoof";
 	}
 }

@@ -62,20 +62,5 @@ public class NoticeServiceImpl implements NoticeService {
 		return mapper.getMainNoticeList();
 	}
 
-	@Override
-	public List<Pet> getMainPetList() throws Exception {
-		return mapper.getMainPetList();
-	}
-
-	@Override
-	public List<Review> getMainPetReviewList() throws Exception {
-		return mapper.getMainPetReviewList();
-	}
-
-	@Override
-	public List<Item> getMainItemList() throws Exception {
-		return mapper.getMainItemList();
-	}
-	
 	
 }
