@@ -2,8 +2,11 @@ package com.woof.service;
 
 import java.util.List;
 
+import com.woof.domain.Item;
 import com.woof.domain.Notice;
 import com.woof.domain.PageRequest;
+import com.woof.domain.Pet;
+import com.woof.domain.Review;
 
 public interface NoticeService {
 
@@ -21,5 +24,11 @@ public interface NoticeService {
 
 	public List<Notice> getNoticeList(PageRequest pageRequest) throws Exception;
 	
-	public List<Notice> getMainPageNoticeList() throws Exception;
+	public List<Notice> getMainNoticeList() throws Exception;
+	
+	public List<Pet> getMainPetList() throws Exception;
+	
+	public List<Review> getMainPetReviewList() throws Exception;
+	
+	public List<Item> getMainItemList() throws Exception;
 }

@@ -28,37 +28,21 @@
 	if(${msg!=null}){
 		alert("${msg}");
 	};
-
-	$(document).ready(function() {
-		var formObj = $("#serviceNoForm");
-
-		$("[id^='btnDelete']").on("click", function() {
-			var check = confirm('삭제할까요');
-
-			if (check) {
-				var buttonValue = $(this).val();
-				$("#noticeNoInput").val(buttonValue);
-				formObj.attr("action", "/service/deleteService");
-				formObj.submit();
-			} else {
-				alert('삭제 취소');
-			}
-
-		});
-
-		/* 	$("#btnModify").on("click", function() {
-			}); */
-
-		/* 	$("[id^='btnModify']").on("click", function() {
-				
-				var buttonValue = $(this).val();
-				alert(buttonValue);
-			  $("#noticeNoInput").val(buttonValue);
-				formObj.attr("action", "/service/modifyServiceForm");
-				formObj.submit();
-			}); */
-
-	});
+	
+	function serviceAction(actionType, form) {
+        switch (actionType) {
+					case 'modify':
+						 form.action = '/service/responseServiceForm';  // 수정 액션 주소
+						break;
+					case 'delete':
+						var check = confirm("정말로 삭제?");
+			      if(check){
+			    	  form.action = '/service/deleteService';
+			      }
+						break;
+				}
+        form.submit();
+    }
 </script>
 
 </head>
@@ -72,8 +56,15 @@
 	<main class="pt-2">
 		<div class="mt-3 w-75 m-auto">
 			<h3 class="text-center">service LIST</h3>
+			<sec:authorize access="isAuthenticated()">
 			<a href="/service/insertServiceForm"
 				class="btn btn-outline-dark float-end m-1">글쓰기</a>
+			</sec:authorize>
+						<a href="/reply/getReplyList"
+				class="btn btn-outline-dark float-end m-1">리플</a>
+			
+			
+			
 			<table class="table" style="table-layout: fixed;">
 
 				<thead>
@@ -82,38 +73,36 @@
 						<th class="bg-dark-subtle text-center" style="width: 20px;">작성자</th>
 						<th class="bg-dark-subtle text-center" style="width: 100px;">내용</th>
 						<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
-						<th class="bg-dark-subtle text-center" style="width: 20px;">기능</th>
+						<th class="border-0" style="width: 20px;"></th>
 					</tr>
 				</thead>
 
-				<tbody id="serviceListSpan">
-					<form id="serviceNoForm" method="post">
-						<input type="hidden" name="serviceNo" id="noticeNoInput" value=""		readonly="readonly">
-					</form>
+				<tbody>
+
 					<c:forEach items="${serviceList}" var="service">
+						<form method="post">
+							<input type="hidden" name="serviceNo" value="${service.serviceNo}" readonly="readonly"> 
+							<input type="hidden" name="username" value="${service.username}"readonly="readonly"> 
+							<input type="hidden"name="serviceDesc" value="${service.serviceDesc}"readonly="readonly">
+							<input type="hidden"name="response" value="${service.response}"readonly="readonly">
 						<tr>
 							<td name="username" align="center">${service.username}</td>
 							<td name="serviceDesc" align="left" class="text-break">${service.serviceDesc}</td>
-							<td align="center"><fmt:formatDate
-									pattern="yyyy-MM-dd HH:mm" value="${service.serviceRegDate}" /></td>
 							<td align="center">
-
-									<sec:authorize access="hasRole('ROLE_ADMIN')">
-										<a href="/service/responseServiceForm?serviceNo=${service.serviceNo}" class="btn btn-outline-dark p-0">답변</a>
-									<button id="btnDelete" value="${service.serviceNo}" class="btn btn-outline-dark p-0">삭제</button>
-									</sec:authorize>
-									
-									<sec:authorize access="hasRole('ROLE_MEMBER')">
-										<c:if test="${service.username==account.username}">
-											<div class="d-flex">
-												<button id="btnDelete" value="${service.serviceNo}" class="btn btn-outline-dark p-0">삭제</button>
-											</div>
-										</c:if>
-									
-									</sec:authorize>
-								
-							</td>
+								<fmt:formatDate	pattern="yyyy-MM-dd HH:mm" value="${service.serviceRegDate}" /></td>
+							<td align="center" class="border-0">
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<button class="btn btn-outline-dark p-0"										onclick="serviceAction('modify', this.form)">답변</button>
+									<button class="btn btn-outline-dark p-0"										onclick="serviceAction('delete', this.form)">삭제</button>
+								</sec:authorize> <sec:authorize access="hasRole('ROLE_MEMBER')">
+									<c:if test="${service.username==account.username}">
+										<div class="d-flex">
+											<button class="btn btn-outline-dark p-0"										onclick="serviceAction('delete', this.form)">삭제</button>
+										</div>
+									</c:if>
+								</sec:authorize></td>
 						</tr>
+						</form>
 						<c:if test="${null!=service.response}">
 							<tr>
 								<!-- <td class="bg-secondary-subtle" align="right"><span>ㄴ</span></td> -->
@@ -121,7 +110,7 @@
 								<td class="bg-secondary-subtle" align="left">${service.response}</td>
 								<td class="bg-secondary-subtle" align="center"><fmt:formatDate
 										pattern="yyyy-MM-dd HH:mm" value="${service.responseRegDate}" /></td>
-								<td class="bg-secondary-subtle"></td>
+								<td class="border-0"></td>
 							</tr>
 						</c:if>
 
