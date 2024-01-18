@@ -134,10 +134,10 @@
             <table class="table table-sm table-smaller">
             	<tr>
             		<td class="p-3">
-            			<h5><b>Select item to edit</b></h5>
+            			<h5><b><spring:message code="item.selectItem"/></b></h5>
             			<div class="input-group w-25">
 							<select class="form-select" name="selectedItem" id="selectedItem">
-									<option value="">Select Item</option>
+									<option value=""><spring:message code="item.itemPH"/></option>
 										<c:forEach items="${itemList}" var="item">
 									<option value="${item.itemNo}">${item.itemNo}
 									</option>
@@ -152,7 +152,7 @@
 		<div id="modifyFormContainer"></div>
 		
 		 <div class="d-flex justify-content-end">
-	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnGetItemList">Item list</button>
+	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnGetItemList"><spring:message code="item.viewItemList"/></button>
     	</div>
 	</main>
 	<!-- Footer Area -->

@@ -10,7 +10,7 @@
         <div class="col-4">
           <p class="fs-6 fw-light mb-0"><spring:message code="footer.woofName"/></p>
           <p class="fs-6 fw-light mb-0"><spring:message code="footer.groupNames"/></p>
-          <p class="fs-6 fw-light mb-0"><spring:message code="footer.woofAddress"/></p>
+          <p class="fs-6 fw-light mb-0"><spring:message code="common.woofAddress"/></p>
           <p class="fs-6 fw-light mb-0"><spring:message code="footer.woofEmail"/></p>
           <p class="fs-6 fw-light text-body-secondary mb-0"><spring:message code="footer.copyright"/></p>
         </div>
@@ -18,8 +18,8 @@
           <div class="col-3">
             <p class="fs-6 mb-2" id="bottom"><spring:message code="common.aboutUs"/></p>
             <ul class="navbar-nav fs-6 fw-light">
-              <li class="nav-item"><a href="/notice/getAbout" class="nav-link link-secondary p-1"><spring:message code="footer.facility"/></a></li>
-              <li class="nav-item"><a href="/notice/getLocation" class="nav-link link-secondary p-1"><spring:message code="footer.location"/></a></li>
+              <li class="nav-item"><a href="/notice/getAbout" class="nav-link link-secondary p-1"><spring:message code="common.facility"/></a></li>
+              <li class="nav-item"><a href="/notice/getLocation" class="nav-link link-secondary p-1"><spring:message code="common.location"/></a></li>
               <li class="nav-item"><a href="/notice/getNoticeList" class="nav-link link-secondary p-1"><spring:message code="common.announcement"/></a></li>
             </ul>
           </div>
@@ -33,10 +33,10 @@
           <div class="col-3">
             <p class="fs-6 mb-2"><spring:message code="common.store"/></p>
             <ul class="navbar-nav fs-6 fw-light">
-              <li class="nav-item"><a href="/item/itemList" class="nav-link link-secondary p-1"><spring:message code="footer.itemType1"/></a></li>
-              <li class="nav-item"><a href="/item/itemList" class="nav-link link-secondary p-1"><spring:message code="footer.itemType2"/></a></li>
-              <li class="nav-item"><a href="/item/itemList" class="nav-link link-secondary p-1"><spring:message code="footer.itemType3"/></a></li>
-              <li class="nav-item"><a href="/item/itemList" class="nav-link link-secondary p-1"><spring:message code="footer.itemType4"/></a></li>
+              <li class="nav-item"><a href="/item/itemList" class="nav-link link-secondary p-1"><spring:message code="common.itemType1"/></a></li>
+              <li class="nav-item"><a href="/item/itemList" class="nav-link link-secondary p-1"><spring:message code="common.itemType2"/></a></li>
+              <li class="nav-item"><a href="/item/itemList" class="nav-link link-secondary p-1"><spring:message code="common.itemType3"/></a></li>
+              <li class="nav-item"><a href="/item/itemList" class="nav-link link-secondary p-1"><spring:message code="common.itemType4"/></a></li>
             </ul>
           </div>
           <div class="col-3">

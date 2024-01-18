@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -43,32 +43,28 @@
 				<table class="table table-borderless">
 					<tr>
 						<td colspan="2">
-							<h2 class="mb-5">내정보</h2>
+							<h2 class="mb-5"><spring:message code="account.myAccount"/></h2>
 						</td>
 					</tr>
 					<tr>
-						<th style="width: ">아이디</th>
-						<th >
+						<td style="width: "><spring:message code="common.username"/></th>
+						<td >
 					<input name="username" class="form-control" value="${account.username}" readonly="readonly"/>
 						</tr>
 					<tr>
-						<td>비밀번호</td>
-						<td></td>
-					</tr>
-					<tr>
-						<th style="width: 250px;">이름</th>
-						<th>
-						<input name="name" class="form-control" value="${account.name}" readonly="readonly"/>
-						</th>
-					</tr>
-					<tr>
-						<td>전화번호</td>
+						<td style="width: 250px;"><spring:message code="common.name"/></th>
 						<td>
-						<input name="address" class="form-control" " value="${account.tel}" readonly="readonly"/>
+						<input name="name" class="form-control" value="${account.name}" readonly="readonly"/>
 						</td>
 					</tr>
 					<tr>
-						<td>주소</td>
+						<td><spring:message code="common.phone"/></td>
+						<td>
+						<input name="address" class="form-control" value="${account.tel}" readonly="readonly"/>
+						</td>
+					</tr>
+					<tr>
+						<td><spring:message code="common.address"/></td>
 						<td>
 							<input class="form-control" name="address1" value="${account.address1}" readonly="readonly"/>
 					        <input class="form-control" name="address2" value="${account.address2}" readonly="readonly"/>
@@ -81,17 +77,11 @@
 			</div>
 		</div>
 
-		<div class="d-flex  justify-content-center">
-			<table style="width: 270px;">
-				<tr>
-					<td colspan="2">
-						<div class="d-flex  justify-content-around">
-							<a href="/account/modifyAccountForm" class="nav-link text-black"  >수정</a>
-							<a href="/account/deleteAccountForm" class="nav-link text-black">삭제</a>
-						</div>
-					</td>
-				</tr>
-			</table>
+		<div class="d-flex justify-content-end">
+			<div class="d-flex justify-content-around">
+				<a href="/account/deleteAccountForm" class="btn btn-danger m-2"><spring:message code="account.deleteAccount"/></a>
+				<a href="/account/modifyAccountForm" class="btn btn-primary m-2"><spring:message code="account.modifyAccount"/></a>
+			</div>
 		</div>
 	</main>
 	<!-- Footer Area -->

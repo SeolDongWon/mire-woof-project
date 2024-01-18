@@ -12,7 +12,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -65,59 +65,59 @@
 			<div class="container mt-3" style="width: 750px;">
 				<table class="table table-borderless" style="margin-top: 100px;">
 					<tr>
-						<td colspan='2'><h2>관리자 가입</h2></td>
+						<td colspan='2'><h2><spring:message code="setup.register"/></h2></td>
 					</tr>
 					<tr>
-						<th style="width: 150px">아이디</th>
+						<th style="width: 150px"><spring:message code="common.username"/></th>
 						<th>
 							<div class="input-group mb-3">
-								<input type="text" name="username" id="username" class="form-control" placeholder="5~13자리 영,숫자,특수문자( _ )만 입력"  onblur="idCheck()">
+								<input type="text" name="username" id="username" class="form-control" placeholder="<spring:message code="signup.usernamePH"/>"  onblur="idCheck()">
 							</div>
 						</th>
 					</tr>
 
 					<tr>
-						<td>비밀번호</td>
+						<td><spring:message code="common.password"/></td>
 						<th>
 							<div class="input-group mb-3">
-								<input type="password" name="password" id="password" class="form-control" placeholder="5~13자리 영문,숫자, 특수문자만 가능"  onblur="pwCheck()">
+								<input type="password" name="password" id="password" class="form-control" placeholder="<spring:message code="signup.passwordPH"/>"  onblur="pwCheck()">
 
 							</div>
 						</th>
 					</tr>
 					<tr>
-						<td>이 름</td>
+						<td><spring:message code="common.name"/></td>
 						<th>
 							<div class="input-group mb-3">
-								<input type="text" name="name" id="name" class="form-control" placeholder="2~13자리 한,영문만 가능"  onblur="nameCheck()">
+								<input type="text" name="name" id="name" class="form-control" placeholder="<spring:message code="signup.namePH"/>"  onblur="nameCheck()">
 							</div>
 						</th>
 					</tr>
 					<tr>
-						<td>전화번호</td>
+						<td><spring:message code="common.phone"/></td>
 						<th>
 							<div class="input-group mb-3">
-								<input type="text" name="tel" id="tel" class="form-control" placeholder="11자리 숫자만 가능합니다."  onblur="telCheck()">
+								<input type="text" name="tel" id="tel" class="form-control" placeholder="<spring:message code="signup.phonePH"/>"  onblur="telCheck()">
 							</div>
 						</th>
 					</tr>
 					<tr>
-						<td>주 소</td>
+						<td><spring:message code="common.address"/></td>
 						<th>
 							<div class="d-flex  justify-content-center">
-								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address1">
-					            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="border: none; background-color: rgb(255, 255, 255);">
+								<input type="text" id="sample6_postcode" placeholder="<spring:message code="signup.address1PH"/>" class="form-control" name="address1">
+					            <input type="button" onclick="sample6_execDaumPostcode()" value="<spring:message code="common.findZipcode"/>" style="border: none; background-color: rgb(255, 255, 255);">
 					        </div>
-					           <input type="text" size="45px" id="sample6_address" placeholder="주소" class="form-control" name="address2">
-					           <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control" name="address3">
-					           <input type="text" id="sample6_extraAddress" placeholder="참고항목" class="form-control" name="address4">
+					           <input type="text" size="45px" id="sample6_address" placeholder="<spring:message code="signup.address2PH"/>" class="form-control" name="address2">
+					           <input type="text" id="sample6_detailAddress" placeholder="<spring:message code="signup.address3PH"/>" class="form-control" name="address3">
+					           <input type="text" id="sample6_extraAddress" placeholder="<spring:message code="signup.address4PH"/>" class="form-control" name="address4">
 					     </th>
 					</tr>
 
 					<tr>
 						<td colspan='2'>
 						<button type="submit"
-								class="form-control" style="background: rgb(246, 220, 216); border: none; ">관리자 가입</button>
+								class="form-control" style="background: rgb(246, 220, 216); border: none; "><spring:message code="setup.register"/></button>
 						
 					</tr>
 				</table>
