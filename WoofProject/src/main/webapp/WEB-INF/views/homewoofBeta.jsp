@@ -173,6 +173,7 @@
 					<div class="ps-1 pb-2 m-0">분양</div>
 					<div class="row p-0 m-0" style="height: 600px;">
 						<!-- 분양 테이블에서 4개 뽑아오기 -->
+						
 						<c:forEach items="${petList}" var="pet">
 							<div class="card col-6 p-1 rounded-5 h-50 ">
 								<a href="/pet/getPet?petNo=${pet.petNo}"
@@ -186,11 +187,11 @@
 									</div>
 								</a>
 							</div>
-
 						</c:forEach>
 
 					</div>
 					<hr>
+					
 					<div class="mt-3">
 						<p class="text-center fs-5 mt-3">공지사항</p>
 						<ul class="list-group list-group-flush">
