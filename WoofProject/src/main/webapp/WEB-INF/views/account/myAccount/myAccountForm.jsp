@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>mire woof(myAccountForm)</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -49,6 +49,7 @@
 					<tr>
 						<th style="width: ">아이디</th>
 						<th >
+						
 					<input name="username" class="form-control" value="${account.username}" readonly="readonly"/>
 						</tr>
 					<tr>
@@ -58,18 +59,21 @@
 					<tr>
 						<th style="width: 250px;">이름</th>
 						<th>
+						
 						<input name="name" class="form-control" value="${account.name}" readonly="readonly"/>
 						</th>
 					</tr>
 					<tr>
 						<td>전화번호</td>
 						<td>
+						
 						<input name="address" class="form-control" " value="${account.tel}" readonly="readonly"/>
 						</td>
 					</tr>
 					<tr>
 						<td>주소</td>
 						<td>
+						
 							<input class="form-control" name="address1" value="${account.address1}" readonly="readonly"/>
 					        <input class="form-control" name="address2" value="${account.address2}" readonly="readonly"/>
 					        <input class="form-control" name="address3" value="${account.address3}" readonly="readonly"/>

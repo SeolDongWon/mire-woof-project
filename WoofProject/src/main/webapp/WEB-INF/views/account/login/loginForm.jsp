@@ -27,6 +27,12 @@
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
 </head>
+<!-- <script>
+	let result = "${error}";
+	if (result != null) {
+		alert(result);
+	}
+</script> -->
 <body>
 	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -35,12 +41,7 @@
 	<!-- subMenu Area -->
 	<main>
 		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-		<h2>
-			<c:out value="${error}" />
-		</h2>
-		<h2>
-			<c:out value="${logout}" />
-		</h2>
+		
 
 		<form method="post" action="/login">
 
@@ -70,7 +71,11 @@
 						<tr>
 							<td><input type="checkbox" name="remember-me">
 								로그인상태유지</td>
+								<td style="color: red;">
+							<c:out value="${error}" />
+								</td>
 						</tr>
+
 						<tr>
 							<td colspan='2'>
 							
