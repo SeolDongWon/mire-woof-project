@@ -6,8 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.woof.domain.Item;
 import com.woof.domain.Notice;
 import com.woof.domain.PageRequest;
+import com.woof.domain.Pet;
+import com.woof.domain.Review;
 import com.woof.mapper.NoticeMapper;
 import com.woof.service.NoticeService;
 
@@ -55,8 +58,23 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<Notice> getMainPageNoticeList() throws Exception {
-		return mapper.getMainPageNoticeList();
+	public List<Notice> getMainNoticeList() throws Exception {
+		return mapper.getMainNoticeList();
+	}
+
+	@Override
+	public List<Pet> getMainPetList() throws Exception {
+		return mapper.getMainPetList();
+	}
+
+	@Override
+	public List<Review> getMainPetReviewList() throws Exception {
+		return mapper.getMainPetReviewList();
+	}
+
+	@Override
+	public List<Item> getMainItemList() throws Exception {
+		return mapper.getMainItemList();
 	}
 	
 	

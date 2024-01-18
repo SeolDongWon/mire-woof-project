@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -63,7 +64,8 @@ public class ServiceController {
 	public String responseServiceForm(Service service, Model model) throws Exception {
 		log.info("responseServiceForm");
 		log.info("responseServiceForm : " + service.toString());
-		model.addAttribute(serviceService.getService(service));
+//		model.addAttribute(serviceService.getService(service));
+		model.addAttribute("service",service);
 		return "service/responseService";
 	}
 
@@ -77,60 +79,27 @@ public class ServiceController {
 		return "redirect:/service/getServiceList";
 	}
 
-//	// 수정화면
-//	@RequestMapping(value = "/modifyServiceForm/{ServiceNo}")
-//	public String modifyServiceForm(@PathVariable("ServiceNo") int ServiceNo, Service dto, Model model)
-//			throws Exception {
-//		dto.setServiceNo(ServiceNo);
-//		serviceService.addServiceViewCount(dto);
-//		Service Service = serviceService.getService(dto);
-//		model.addAttribute("Service", Service);
-//		return "admin/Services/modifyService";
-//	}
-	// 수정화면
-//	@RequestMapping(value = "/modifyServiceForm", method = RequestMethod.POST)
-//	public String modifyServiceForm(Service Service, Model model) throws Exception {
-//		dto.setServiceNo(ServiceNo);
-//		serviceService.addServiceViewCount(dto);
-//		Service Service = serviceService.getService(Service);
-//		model.addAttribute(serviceService.getService(Service));
-//		return "service/modifyService";
-//	}
-
-	// 수정
-//	@PostMapping(value = "/modifyService")
-//	public String modifyService(Service Service) throws Exception {
-//		log.info("modifyService");
-//		serviceService.modifyService(Service);
-//		return "redirect:/service/getServiceList";
-//	}
-
 	// 삭제
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')")
 	@RequestMapping(value = "/deleteService")
-	public String deleteService(Service service, Principal principal,RedirectAttributes rttr) throws Exception {
-		 
+	public String deleteService(@AuthenticationPrincipal UserDetails userDetails, Service service, Principal principal,RedirectAttributes rttr) throws Exception {
+		log.info(service.toString());
 		
-		// Principal을 얻어오고
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-	    // UserDetails 객체에서 원하는 정보에 접근
-	    // authList를 사용하여 필요한 작업 수행
 	    String authList = userDetails.getAuthorities().toString();
+	    log.info("userDetails : "+userDetails.toString());
 	    
+//	    Service serviceB = serviceService.getService(service);
 	    
-	    Service serviceB = serviceService.getService(service);
-	    
-	    String msg=null;
 	    
 	    if(authList.equals("[ROLE_ADMIN]")) {
 	    	serviceService.deleteService(service);
 	    	return "redirect:/service/getServiceList";
 	    }
 	    
-	    if(!principal.getName().equals(serviceB.getUsername())){
+	    String msg=null;
+	    if(!principal.getName().equals(service.getUsername())){
 	    	msg="작성자가 아니면 삭제할 수 없어요";
-	    }else if(serviceB.getResponse()!=null){
+	    }else if(service.getResponse()!=null){
 	    	msg="답변이 달린 글은 삭제할 수 없어요";
     	}else {
     		serviceService.deleteService(service);	    		
