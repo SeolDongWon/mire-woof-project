@@ -45,19 +45,12 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-	<menu id="subMenu" class="m-0 p-0">
-		<ul
-			class="nav nav-underline nav-justified justify-content-around border-bottom">
-			<li class="menu nav-item"><a href="getPetList"
-				class="nav-link text-black">입양견 목록</a></li>
-			<li class="menu nav-item"><a href="/review/getReviewList" class="nav-link text-black">입양후기</a></li>
-		</ul>
-	</menu>
+	
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
 		<div align="center">
 			<section>
-				<h5>펫 등록</h5>
+				<h3>펫 등록</h3>
 				<div class="card" style="width: 26rem;">
 					<div class="card-body">
 						<p class="card-text">
@@ -73,8 +66,6 @@
 				성별<form:input path="petGender" />
 								<br>
 				소개<form:input path="petDesc" />
-								<br>
-				입양유무<form:input path="petStatus" />
 								<br>
 								<br>
 				메인사진 <input type="file" name="pictures" path="petMainPic" />

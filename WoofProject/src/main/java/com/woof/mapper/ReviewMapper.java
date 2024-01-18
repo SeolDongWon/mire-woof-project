@@ -18,4 +18,5 @@ public interface ReviewMapper {
 
 	String getReviewPic(Integer reviewNo) throws Exception;
 
+	public List<Review> getMainReviewList() throws Exception;
 }

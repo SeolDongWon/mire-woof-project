@@ -32,40 +32,25 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
 <!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-<menu id="subMenu" class="m-0 p-0">
-		<ul
-			class="nav nav-underline nav-justified justify-content-around border-bottom">
-			<li class="menu nav-item"><a href="/pet/getPetList"
-				class="nav-link text-black">입양견 목록</a></li>
-			<li class="menu nav-item"><a href="/review/getReviewList"
-				class="nav-link text-black">입양후기</a></li>
-		</ul>
-	</menu>
+
 	<main class="pt-2">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+	<hr>
 	<table class="table" id="article-table">
 				<thead>
 					<tr>
-						<th class="hashtag col-2"><a>제목</a></th>
-						<th class="title col-2"><a>내용</a></th>
-						<th class="user-id"><a>작성자</a></th>
-						<th class="created-at"><a>작성일</a></th>
-						<th>사진</th>				
+						<td class="title">${review.reviewTitle}</td>
+						<td class="user-id" align="right">${review.userName} |
+						${review.reviewRegDate}</td>
 						
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						
-						<td class="title">${review.reviewTitle}</td>
-						<td class="hashtag">${review.reviewDesc}</td>
-						<td class="user-id">${review.userName}</td>
-						<td class="created-at">${review.reviewRegDate}</td>
-						<td class="created-at"><img src="reviewPic?reviewNo=${review.reviewNo}"width="120" height="100%"></td>
-						
-					</tr>	
+						<td ><img src="getReviewPic?reviewNo=${review.reviewNo}"></td>
+						<td class="hashtag" style="position: absolute; bottom: 300px;">${review.reviewDesc}</td>
+					</tr>
 				</tbody>
-				
 			</table>
 			<a href="/review/getReviewList">리스트</a>
 	</main>

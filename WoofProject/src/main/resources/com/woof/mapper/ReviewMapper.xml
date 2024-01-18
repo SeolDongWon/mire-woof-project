@@ -2,19 +2,44 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woof.mapper.ReviewMapper">
 
-	 <select id="getReview" resultType="com.woof.domain.Review">
-		SELECT * FROM review WHERE reviewNO =
+	<select id="getReview" resultType="com.woof.domain.Review">
+		SELECT * FROM review WHERE
+		reviewNO =
 		#{reviewNo}
-	</select> 
-	
+	</select>
+
 	<select id="getReviewList" resultType="com.woof.domain.Review">
-		SELECT * FROM review ORDER BY
+		SELECT * FROM review ORDER
+		BY
 		reviewNo
 	</select>
-	
+
 	<insert id="insertPetReview">
-		INSERT INTO review (reviewNo,userName,itemNo,petNo,reviewTitle,reviewDesc,reviewRegDate,reviewPic)
+		INSERT INTO review
+		(reviewNo,userName,itemNo,petNo,reviewTitle,reviewDesc,reviewRegDate,reviewPic)
 		VALUES
-		(reviewNo_seq.nextVal, #{userName},#{itemNo},#{petNo},#{reviewTitle},#{reviewDesc},SYSDATE,#{reviewPic})
+		(reviewNo_seq.nextVal,
+		#{userName},#{itemNo},#{petNo},#{reviewTitle},#{reviewDesc},SYSDATE,#{reviewPic})
 	</insert>
+
+	<update id="modifyReview">
+		UPDATE review SET
+		reviewTitle=#{reviewTitle},reviewDesc=#{reviewDesc},reviewModDate=SYSDATE,reviewPic=#{reviewPic}
+		WHERE reviewNo = #{reviewNo}
+	</update>
+	
+	<delete id="deleteReview">
+		DELETE FROM review WHERE reviewNo=#{reviewNo}
+	</delete>
+	
+	<select id="getReviewPic" resultType="String">
+		SELECT reviewPic FROM
+		review WHERE reviewNo = #{reviewNo}
+	</select>
+	
+	<select id="getMainReviewList" resultType="Review">
+		<![CDATA[
+		SELECT * FROM(SELECT * FROM review WHERE itemno=0 ORDER BY reviewno DESC) WHERE ROWNUM <= 4
+		]]>
+	</select>
 </mapper>

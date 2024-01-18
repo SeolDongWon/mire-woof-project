@@ -48,5 +48,11 @@
 	<select id="getPetSubPic" resultType="String">
 		SELECT petSubPic FROM pet WHERE petNo = #{petNo}
 	</select>
+	
+	<select id="getMainPetList" resultType="Pet">
+		<![CDATA[
+		SELECT * FROM(SELECT * FROM pet WHERE petStatus='분양가능' ORDER BY petno DESC) WHERE ROWNUM <= 4
+		]]>
+	</select>
 
 </mapper>

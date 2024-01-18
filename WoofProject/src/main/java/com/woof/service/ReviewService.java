@@ -16,6 +16,8 @@ public interface ReviewService {
 
 	void deleteReview(Review review)throws Exception;
 	
+	public List<Review> getMainReviewList() throws Exception;
+	
 	// 사진 파일 불러오기
 	String getReviewPic(Integer reviewNo)throws Exception;
 

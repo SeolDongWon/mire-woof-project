@@ -27,5 +27,5 @@ public interface PetMapper {
 
 	public String getPetSubPic(Integer petNo) throws Exception;
 
-
+	public List<Pet> getMainPetList() throws Exception;
 }

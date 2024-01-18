@@ -22,4 +22,6 @@ public interface PetService {
 	public String getPetMainPic(Integer petNo) throws Exception;
 
 	public String getPetSubPic(Integer petNo) throws Exception;
+	
+	public List<Pet> getMainPetList() throws Exception;
 }
