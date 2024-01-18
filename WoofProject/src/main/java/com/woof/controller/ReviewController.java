@@ -112,7 +112,7 @@ public class ReviewController {
 		log.info("model add attribute");
 		return "pet/modifyPetReview";
 	}
-
+	@PostMapping("/modifyReview")
 	public String modify(Review review,Model model)throws Exception{
 		log.info("/modifyReview POST");
 		List<MultipartFile> pictures = review.getPictures();
@@ -127,12 +127,13 @@ public class ReviewController {
 		}
 		this.service.modifyReview(review);
 		model.addAttribute("수정이 완료 되었습니다.");
-		return "redirect:/pet/petReviewList";
+		return "redirect:/review/getReviewList";
 	}
 	
+	@GetMapping(value = "/deleteReview")
 	public String deleteReview(Review review,Model model) throws Exception{
 		this.service.deleteReview(review);
-		return "redirect:/pet/getReviewList";
+		return "redirect:/review/getReviewList";
 	}
 	
 	//----------------------------사진 업로드----------------------------------
