@@ -1,5 +1,6 @@
 package com.woof.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -38,7 +39,8 @@ public class CartController {
 	}
 	
 	@GetMapping("/myCart")
-	public String getCart(@RequestParam("username") String username, Model model) throws Exception {
+	public String getCart(Principal principal, Model model) throws Exception {
+		String username = principal.getName();
 		log.info("/myCart GET: username: " + username);
 		// for test
 		List<Cart> cartList = cartService.getCart(username);
