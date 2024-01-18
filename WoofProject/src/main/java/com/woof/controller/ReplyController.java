@@ -2,9 +2,9 @@ package com.woof.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.MergedAnnotations.Search;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.woof.domain.Account;
-import com.woof.domain.Notice;
 import com.woof.domain.PageRequest;
 import com.woof.domain.Pagination;
 import com.woof.domain.Reply;
@@ -68,9 +67,20 @@ public class ReplyController {
 	}
 	
 	@PutMapping(value = "/getReplyListAjax")
-	public ResponseEntity<List> getReplyListAjax(PageRequest pageRequest) throws Exception {
+	public ResponseEntity<List> getReplyListAjax(@RequestBody Map<String, Object> putData, Reply reply, PageRequest pageRequest) throws Exception {
 		log.info("getNoticeListAjaxPut");
-
+		log.info("putData : " + putData.toString());
+		log.info("reply : " + reply.toString());
+		log.info("pageRequest : " + pageRequest.toString());
+		Map<String, Object> replyMap = (Map<String, Object>) putData.get("reply");
+        Map<String, Object> pageRequestMap = (Map<String, Object>) putData.get("pageRequest");
+        
+       
+		
+		if(reply.getReply()!=null&&!reply.getReply().equals("")) {
+			log.info("reply : " + reply.toString());
+			replyService.insertReply(reply);
+		}
 
 		List<Reply> replyList = replyService.getReplyList(pageRequest);
 		ResponseEntity<List> entity = null;

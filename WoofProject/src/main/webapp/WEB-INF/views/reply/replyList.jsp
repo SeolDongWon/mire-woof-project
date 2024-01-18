@@ -54,65 +54,54 @@
 	});
 	
 	function ajaxReply(){
-		/* alert("ajaxReply"); */
-		var username = $("#username").val();
+
+		/* var username = $("#username").val(); */
 		
 		/* alert("username : "+username); */
 
-		let reply = {
+		var putData = {
+			
+			reply : {
 				username : $("#username").val(),
-				reply : $("#reply").val(),
-			};
+				reply : $("#reply").val()
+			}
+		};
 		
-		/* alert(reply.username+reply.reply); */
+		alert(reply.username+reply.reply);
+		
 		$.ajax({
-			type : "put",
+				type : "put",
 				url : "/reply/getReplyListAjax",
-				data : JSON.stringify(reply),
+				data : JSON.stringify(putData),
 				contentType : "application/json; charset=UTF-8",
 				
 				success : 
 					function(result) {
-					console.log("result.length : " + result.length);
-				/* 	let noticeList = "";
+	
+						let replyList = ""
+						var parsedDate = null;
+						var formattedDate = null;
+						
 						for (var i = 0; i < result.length; i++) {
-							noticeList += '<tr style="font-size: 12px;">';
-							noticeList += '<td class=" text-center p-1" style="width: 50px;">';
-							noticeList += result[i].noticeNo + '</td>';
-							noticeList += '<td class="text-truncate p-1">';
-							noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
-				noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
-							noticeList += result[i].noticeTitle
-									+ '</a></td>';
-							noticeList += '<td class=" text-center p-1" style="width: 130px;">'
-							noticeList += result[i].noticeRegDate + '</td>';
-							noticeList += '</tr>';
-				
-						} */
-						let noticeList = ""
-							for (var i = 0; i < result.length; i++) {
-								noticeList += '<form method="post">';
-									noticeList += '<input type="hidden" name="replyNo" value="'+result[i].replyNo+'"readonly="readonly"> ';
-									noticeList += '<input type="hidden"name="username" value="'+result[i].username+'" readonly="readonly">';
-												noticeList += '	<input type="hidden" name="reply" value="'+result[i].reply+'"readonly="readonly">';
-													noticeList += '		<tr>';
-														noticeList += '	<td name="username" align="center">'+result[i].username+'</td>';
-															noticeList += '	<td name="reply" align="left" class="text-break">'+result[i].reply+'</td>';
-																noticeList += '	<td align="center">';
-																	noticeList += '		<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="'+result[i].replyRegDate+'"/></td>';
-																		noticeList += '	<td align="center" class="border-0"><sec:authorize access="hasRole(''ROLE_ADMIN'')">';
-																		noticeList += '	<button class="btn btn-outline-dark p-0"onclick="handleAction('delete', this.form)">삭제</button>';
-																		noticeList += '</sec:authorize> <sec:authorize access="hasRole(''ROLE_MEMBER'')">';
-																		noticeList += '	<c:if test="'+result[i].username+'==account.username+'">';
-																			noticeList += '	<div class="d-flex">';
-																				noticeList += '	<button class="btn btn-outline-dark p-0"';
-																					noticeList += '	onclick="handleAction('delete', this.form)">삭제</button>';
-									</div>
-								</c:if>
-							</sec:authorize></td>
-					</tr>
-					</form>
-							}
+							parsedDate = new Date(result[i].replyRegDate);
+							formattedDate = parsedDate.toLocaleString({ timeZone: 'UTC' });
+							
+							replyList += '<form method="post">';
+							replyList += '<input type="hidden" name="replyNo" value="'+result[i].replyNo+'"readonly="readonly"> ';
+							replyList += '<input type="hidden"name="username" value="'+result[i].username+'" readonly="readonly">';
+							replyList += '<input type="hidden" name="reply" value="'+result[i].reply+'"readonly="readonly"><tr>';
+							replyList += '<td name="username" align="center">'+result[i].username+'</td>';
+							replyList += '<td name="reply" align="left" class="text-break">'+result[i].reply+'</td><td align="center">';
+							replyList += '<span>'+formattedDate+'</span>';
+							replyList += '<td align="center" class="border-0"><sec:authorize access="hasRole('ROLE_ADMIN')">';
+							replyList += '<button class="btn btn-outline-dark p-0"onclick="handleAction("delete", this.form)">삭제</button>';
+							replyList += '</sec:authorize> <sec:authorize access="hasRole('ROLE_MEMBER')">';
+							replyList += '<c:if test="${account.username=='+result[i].username+'}"><div class="d-flex">';
+							replyList += '<button class="btn btn-outline-dark p-0"onclick="handleAction("delete", this.form)">삭제</button>';
+							replyList += '</div></c:if></sec:authorize></td></tr></form>';
+						}
+						
+						$("#replyListSpan").html(replyList);
 					}
 		});
 }
@@ -147,9 +136,8 @@
 								noticeList += result[i].noticeNo + '</td>';
 								noticeList += '<td class="text-truncate p-1">';
 								noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
-				noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
-								noticeList += result[i].noticeTitle
-										+ '</a></td>';
+								noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
+								noticeList += result[i].noticeTitle	+ '</a></td>';
 								noticeList += '<td class=" text-center p-1" style="width: 130px;">'
 								noticeList += result[i].noticeRegDate + '</td>';
 								noticeList += '</tr>';
@@ -171,7 +159,6 @@
 					}
 				});
 	}
-
 	/* $(document).ready(function() {
 		ajaxPut();
 
@@ -244,8 +231,8 @@ $.ajax({
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
-		reply
 		<div class="mt-3 w-75 m-auto">
+	<h4>	reply</h4>
 
 			<form id="serviceForm" action="/reply/insertReply" method="post"
 				class="w-75">
