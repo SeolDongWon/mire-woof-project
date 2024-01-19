@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -46,48 +46,74 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-
-	<main class="pt-2">
+<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
-		<div align="center">
-			<section>
-				<h3>펫 등록</h3>
-				<div class="card" style="width: 26rem;">
-					<div class="card-body">
-						<p class="card-text">
-							<form:form modelAttribute="pet" action="insertPet" method="post"
-								enctype="multipart/form-data">
-								<br>
-				이름<form:input path="petName" />
-								<br>
-				나이<form:input path="petAge" />
-								<br>
-				품종<form:input path="petType" />
-								<br>
-									<label for="petGender">성별</label> 
-									<input type="radio"
-										id="petGender" name="petGender" value="M"> <label
-										for="petGender">M</label> <input type="radio" id="petGender2"
-										name="petGender" value="F"> <label for="petGender2">F</label>
-								<br> 소개
-									<form:input path="petDesc" />
-								<br>
-								<br> 메인사진 <input type="file" name="pictures"
-									path="petMainPic" />
-								<br> 서브사진 <input type="file" name="pictures"
-									path="petSubPic" />
-								<br>
-							</form:form>
-						</p>
-						<div>
-							<button type="submit" id="btnRegister">Register</button>
-							<button type="submit" id="btnList">List</button>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-	</main>
+<div align="center">
+    <section>
+        <h3><spring:message code="pet.insert"/></h3>
+        <div class="card" style="width: 50rem;">
+            <div class="card-body">
+                <form:form modelAttribute="pet" action="insertPet" method="post" enctype="multipart/form-data">
+                    <div class="form-group row">
+                        <label for="petName" class="col-sm-3 col-form-label"><spring:message code="common.name"/> :</label>
+                        <div class="col-sm-9">
+                            <form:input path="petName" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="petAge" class="col-sm-3 col-form-label"><spring:message code="pet.age"/> :</label>
+                        <div class="col-sm-9">
+                            <form:input path="petAge" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="petType" class="col-sm-3 col-form-label"><spring:message code="pet.breed"/> :</label>
+                        <div class="col-sm-9">
+                            <form:input path="petType" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label"><spring:message code="pet.gender"/></label>
+                        <div class="col-sm-9 d-flex align-items-center">
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="petGender" name="petGender" value="M" class="form-check-input">
+                                <label for="petGender" class="form-check-label"><spring:message code="pet.male"/></label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" id="petGender2" name="petGender" value="F" class="form-check-input">
+                                <label for="petGender2" class="form-check-label"><spring:message code="pet.female"/></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="petDesc" class="col-sm-3 col-form-label"><spring:message code="common.description"/></label>
+                        <div class="col-sm-9">
+                            <form:textarea path="petDesc" class="form-control" rows="4"></form:textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row d-flex align-items-center">
+                        <label class="col-sm-3 col-form-label"><spring:message code="common.mainPic"/></label>
+                        <div class="col-sm-9 d-flex">
+                            <input type="file" name="pictures" path="petMainPic" />
+                        </div>
+                    </div>
+                    <div class="form-group row d-flex align-items-center">
+                        <label class="col-sm-3 col-form-label"><spring:message code="common.subPic"/></label>
+                        <div class="col-sm-9 d-flex">
+                            <input type="file" name="pictures" path="petSubPic" />
+                        </div>
+                    </div>
+                    <div class="form-group col d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary m-2" id="btnRegister"><spring:message code="common.submit"/></button>
+                        <button type="submit" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list"/></button>
+                    </div>
+                </form:form>
+            </div>
+        </div>
+    </section>
+</div>
+
+</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

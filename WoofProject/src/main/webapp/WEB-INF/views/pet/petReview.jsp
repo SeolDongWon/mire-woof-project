@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -57,7 +57,7 @@ a {
 					</tr>
 				</tbody>
 			</table>
-			<button style="background-color: white; border-radius: 5px;"><a href="/review/getReviewList">리스트</a></button>
+			<a href="/review/getReviewList" class="btn btn-light text-dark m-2"><spring:message code="common.list"/></a>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

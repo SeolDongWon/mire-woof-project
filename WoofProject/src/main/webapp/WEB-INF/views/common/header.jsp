@@ -6,7 +6,7 @@
 <div style="width: 1200px; margin: auto;">
 	<header>
 		<!-- 로그인에 따라 출력이 달라짐 -->
-		<div class="row d-flex">
+		<div class="row d-flex m-3">
 			<div class="col-2 d-flex justify-content-start align-items-center">
 				<ul class="nav nav-underline">
 					<li class="nav-item"><a href="/changeLanguage?language=ko" class="nav-link text-decoration-none text-dark">한국어</a></li>
@@ -14,7 +14,7 @@
 				</ul>
 			</div>
 			
-			<div class="col-10 d-flex justify-content-end align-items-center mt-4">
+			<div class="col-10 d-flex justify-content-end align-items-center">
 				<ul class="nav nav-underline  justify-content-around">
 					<!-- 로그인을 하지 않은 경우 -->
 					<sec:authorize access="!isAuthenticated()">

@@ -138,7 +138,7 @@
 		</form:form>
 		 <div class="d-flex justify-content-end">
 	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnGetItemList"><spring:message code="item.viewItemList"/></button>
-	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnInsertItem"><spring:message code="item.registerItem"/></button>
+	        <button class="btn btn-success m-2" type="submit" id="btnInsertItem"><spring:message code="item.registerItem"/></button>
     	</div>
 		
 		<!-- unused variables -->

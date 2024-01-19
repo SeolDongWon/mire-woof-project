@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -56,12 +57,14 @@ public class ItemController {
 		model.addAttribute("itemList", itemList);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/admin/insertItem")
 	public void insertItemGet(Model model) throws Exception {
 		log.info("/admin/insertItem GET");
 		model.addAttribute(new Item());
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/admin/insertItem")
 	public String insertItem(Item item) throws Exception {
 		log.info("/admin/insertItem POST");
@@ -88,6 +91,7 @@ public class ItemController {
 		return savedName;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modifyItem")
 	public String modifyItemGet(Model model) throws Exception {
 		List<Item> itemList = itemService.getItemList();
@@ -96,6 +100,7 @@ public class ItemController {
 		return "item/admin/modifyItem";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modifyItem")
 	public String modifyItem(Item item) throws Exception {
 		log.info("/modifyItem POST item: " + item.toString());
