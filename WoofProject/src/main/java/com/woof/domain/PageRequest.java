@@ -13,8 +13,6 @@ public class PageRequest {
 	private String keywordTitle; // 제목이 검색대상인 키워드 / titleKeyword
 	private String keywordDesc; // 내용이 검색대상인 키워드 / descKeyword
 	
-	
-
 	public int getPostNo() {
 		return postNo;
 	}

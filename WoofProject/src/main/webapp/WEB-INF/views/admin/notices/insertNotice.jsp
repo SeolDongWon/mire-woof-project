@@ -54,7 +54,7 @@
 	<main class="pt-2">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<div class="mt-3 w-75 m-auto">
-	<h1><spring:message code="announcement.admin.write"/></h1> 
+	<h1><spring:message code="announcement.admin.writeNotice"/></h1> 
 			<form:form modelAttribute="notice" action="/notice/insertNotice" method="post">
 				<spring:message code="common.title"/> <form:input path="noticeTitle" class="form-control"/><br>
 				<spring:message code="common.description"/> <form:textarea path="noticeDesc"  class="form-control" rows="5" id="comment"/><br>
