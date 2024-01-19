@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -102,7 +103,7 @@ public class ReviewController {
 		FileCopyUtils.copy(fileData, target);
 		return savedName;
 	}
-
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modifyReview")
 	public String modifyReivew(Review reivew, Model model) throws Exception {
 		log.info("/modifyPetReview GET");
@@ -112,6 +113,7 @@ public class ReviewController {
 		log.info("model add attribute");
 		return "pet/modifyPetReview";
 	}
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modifyReview")
 	public String modify(Review review,Model model)throws Exception{
 		log.info("/modifyReview POST");
@@ -129,7 +131,7 @@ public class ReviewController {
 		model.addAttribute("수정이 완료 되었습니다.");
 		return "redirect:/review/getReviewList";
 	}
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/deleteReview")
 	public String deleteReview(Review review,Model model) throws Exception{
 		this.service.deleteReview(review);

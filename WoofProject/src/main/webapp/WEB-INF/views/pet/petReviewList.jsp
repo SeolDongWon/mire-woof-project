@@ -153,8 +153,10 @@
 						<br>
 						<p class="hashtag" style="font-size: 10px">${review.reviewDesc}</p>
 					</div>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<a href="modifyReview?reviewNo=${review.reviewNo}">수정</a> 
 					<a href="deleteReview?reviewNo=${review.reviewNo}"onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+					</sec:authorize>
 				</div>
 			</c:forEach>
 
