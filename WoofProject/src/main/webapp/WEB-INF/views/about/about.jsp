@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -33,8 +33,12 @@
 <!-- subMenu Area -->
 	<main class="pt-2 text-center">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-	<h1>시설소개</h1>
-	<span>이쁜 강아지 많아요</span>
+	<h1><spring:message code="common.facility"/></h1>
+	<span>
+		<div class="mb-2">
+			<spring:message code="facility.intro"/>
+		</div>
+	</span>
 	 <div id="carouselExampleIndicators" class="carousel slide">
       
       <div class="carousel-inner w-100 ">

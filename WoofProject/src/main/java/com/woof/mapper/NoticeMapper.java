@@ -2,8 +2,11 @@ package com.woof.mapper;
 
 import java.util.List;
 
+import com.woof.domain.Item;
 import com.woof.domain.Notice;
 import com.woof.domain.PageRequest;
+import com.woof.domain.Pet;
+import com.woof.domain.Review;
 
 public interface NoticeMapper {
 
@@ -26,5 +29,6 @@ public interface NoticeMapper {
 	
 	public List<Notice> getNoticePageList(PageRequest pageRequest) throws Exception;
 	
-	public List<Notice> getMainPageNoticeList() throws Exception;
+	public List<Notice> getMainNoticeList() throws Exception;
+	
 }

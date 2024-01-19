@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -37,10 +37,10 @@
 	<table class="table">
 		<thead class="t-head">
 			<tr>
-				<th class="align-middle text-center">Item name</th>
-				<th class="align-middle text-center">Price</th>
-				<th class="align-middle text-center">Category</th>
-				<th class="align-middle text-center">Main picture</th>
+				<th class="align-middle text-center"></th>
+				<th class="align-middle text-center"><spring:message code="item.item"/></th>
+				<th class="align-middle text-center"><spring:message code="item.itemType"/></th>
+				<th class="align-middle text-center"><spring:message code="common.price"/></th>
 			</tr>
 		</thead>
 		<c:choose>
@@ -53,12 +53,12 @@
 				<c:forEach items="${itemList}" var="item">
 					<c:if test="${not empty item.itemStatus and item.itemStatus ne 'CLOSED'}">
 						<tr>
-							<td class="align-middle text-center">${item.itemName}</td>
-							<td class="align-middle text-center">${item.itemPrice}</td>
-							<td class="align-middle text-center">${item.itemType}</td>
 							<td class="align-middle text-center">
-								<a href="getItem?itemNo=${item.itemNo}"><img src="getItemMainPic?itemNo=${item.itemNo}" width="175" height="175"></a>
+								<a href="getItem?itemNo=${item.itemNo}"><img src="getItemMainPic?itemNo=${item.itemNo}" alt="Item Main Picture" width="175" height="175"></a>
 							</td>
+							<td class="align-middle text-center">${item.itemName}</td>
+							<td class="align-middle text-center">${item.itemType}</td>
+							<td class="align-middle text-center">₩${item.itemPrice}</td>
 						</tr>
 					</c:if>
 				</c:forEach>
@@ -66,12 +66,12 @@
 		</c:choose>
 	</table>
 	<main>
-	
-	<form action="/item/admin/insertItem" method="get">
-		<button type="submit">Insert item</button>
-	</form>
-	
-	<p><a href="modifyItem" class="btn btn-light">Modify item</a></p>	
+	<sec:authorize access="hasRole('ROLE_ADMIN')">
+		<div class="text-end">
+			<a href="/item/admin/insertItem" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="item.insertItem"/></a>
+			<a href="/item/modifyItem" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="item.modifyItem"/></a>	
+		</div>
+	</sec:authorize>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

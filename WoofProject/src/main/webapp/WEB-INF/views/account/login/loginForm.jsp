@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -27,12 +27,6 @@
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
 </head>
-<!-- <script>
-	let result = "${error}";
-	if (result != null) {
-		alert(result);
-	}
-</script> -->
 <body>
 	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -41,7 +35,12 @@
 	<!-- subMenu Area -->
 	<main>
 		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-		
+		<h2>
+			<c:out value="${error}" />
+		</h2>
+		<h2>
+			<c:out value="${logout}" />
+		</h2>
 
 		<form method="post" action="/login">
 
@@ -50,10 +49,10 @@
 				<div class="container mt-3" style="width: 500px">
 					<table class="table table-borderless">
 						<tr>
-							<td colspan='2'><h2>로그인</h2></td>
+							<td colspan='2'><h2><spring:message code="common.login"/></h2></td>
 						</tr>
 						<tr>
-							<th>아이디</th>
+							<th><spring:message code="common.username"/></th>
 							<th>
 								<div class="input-group mb-3">
 									<input type="text" name="username" class="form-control" value="" />
@@ -61,7 +60,7 @@
 							</th>
 						</tr>
 						<tr>
-							<td>비밀번호</td>
+							<td><spring:message code="common.password"/></td>
 							<th>
 								<div class="input-group mb-3">
 									<input type="password" name="password" class="form-control" value="" />
@@ -70,16 +69,13 @@
 						</tr>
 						<tr>
 							<td><input type="checkbox" name="remember-me">
-								로그인상태유지</td>
-								<td style="color: red;">
-							<c:out value="${error}" />
-								</td>
+							<spring:message code="login.rememberMe"/>
+							</td>
 						</tr>
-
 						<tr>
 							<td colspan='2'>
 							
-								<button type="submit" class="form-control" style="background: rgb(246, 220, 216); border: none; ">로그인</button>
+								<button type="submit" class="form-control" style="background: rgb(246, 220, 216); border: none; "><spring:message code="common.login"/></button>
 							</td>
 						</tr>
 					</table>

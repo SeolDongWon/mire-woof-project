@@ -24,6 +24,7 @@
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
+
 </head>
 <body>
 	<!-- Header Area -->
@@ -32,20 +33,30 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-	<menu id="subMenu" class="m-0 p-0">
-		<ul class="nav nav-underline nav-justified justify-content-around border-bottom">
-			<li class="menu nav-item"><a href="" class="nav-link text-black">입양견 목록</a></li>
-			<li class="menu nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
-		</ul>
-	</menu>
+	
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
-		<section>
-			<a href="/pet/insertPet">/pet/insertPet</a> 팻 리스트
+	
+			<a href="insertPet" style="float: right; text-decoration: none;">새로등록</a><br>
+	
+		<section style="display: flex; flex-wrap: wrap; gap: 6rem;">
 			<c:forEach var="pet" items="${petList}">
-		${pet.petName}
-		</c:forEach>
+				<div class="card" style="width: 21rem;" >
+					<a href="getPet?petNo=${pet.petNo}"><img
+						src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top"
+						alt="..."></a>
+					<div class="card-body" align="center">
+						<h5 class="card-title">펫 정보</h5>
+						<hr>
+						<a href="getPet?petNo=${pet.petNo}" style="text-decoration: none; color: black;">이름:${pet.petName}/나이:${pet.petAge}/견종:${pet.petType}</a>
+					</div>
+					<a href="modifyPet?petNo=${pet.petNo}">수정</a> 
+					<a href="deletePet?petNo=${pet.petNo}"onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+				</div>
+			</c:forEach>
+
 		</section>
+
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

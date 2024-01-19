@@ -45,34 +45,43 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-	<menu id="subMenu" class="m-0 p-0">
-		<ul class="nav nav-underline nav-justified justify-content-around border-bottom">
-    		<li class="menu nav-item"><a href="" class="nav-link text-black">입양견 목록</a></li>
-     		<li class="menu nav-item"><a href="" class="nav-link text-black">입양후기</a></li>
-    	</ul>
-	</menu>
+	
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
-		<section>
-			팻작성 
-			<form:form modelAttribute="pet" action="insertPet">
-				이름<form:input path="petName" /><br>
-				나이<form:input path="petAge" /><br>
-				품중<form:input path="petType" /><br>
-				성별<form:input path="petGender" /><br>
-				설명<form:input path="petDesc" /><br>
-				상태<form:input path="petStatus" /><br>
-				메인사진<form:input path="petMainPic" /><br>
-				사진<form:input path="petSubPic" /><br>
-
-			</form:form>
-			<div>
-				<button type="submit" id="btnRegister">Register</button>
-				<button type="submit" id="btnList">List</button>
-			</div>
-			<a href="/pet/getPetList">/pet/getPetList</a>
-
-		</section>
+		<div align="center">
+			<section>
+				<h3>펫 등록</h3>
+				<div class="card" style="width: 26rem;">
+					<div class="card-body">
+						<p class="card-text">
+							<form:form modelAttribute="pet" action="insertPet" method="post"
+								enctype="multipart/form-data">
+								<br>
+				이름<form:input path="petName" />
+								<br>
+				나이<form:input path="petAge" />
+								<br>
+				품종<form:input path="petType" />
+								<br>
+				성별<form:input path="petGender" />
+								<br>
+				소개<form:input path="petDesc" />
+								<br>
+								<br>
+				메인사진 <input type="file" name="pictures" path="petMainPic" />
+								<br>
+				서브사진 <input type="file" name="pictures" path="petSubPic" />
+								<br>
+							</form:form>
+						</p>
+						<div>
+							<button type="submit" id="btnRegister">Register</button>
+							<button type="submit" id="btnList">List</button>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

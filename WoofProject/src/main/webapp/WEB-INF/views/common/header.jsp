@@ -6,47 +6,57 @@
 <div style="width: 1200px; margin: auto;">
 	<header>
 		<!-- 로그인에 따라 출력이 달라짐 -->
-		<div class="d-flex justify-content-end">
-			<ul class="nav nav-underline  justify-content-around">
-				<!-- 로그인을 하지 않은 경우 -->
-				<sec:authorize access="!isAuthenticated()">
-					<li class="nav-item"><a href="/account/login"
-						class="nav-link text-black">로그인</a></li>
-					<li class="nav-item"><a href="/account/createAccount"
-						class="nav-link text-black">회원가입</a></li>
-				</sec:authorize>
-
-				<!-- 인증된 사용자인 경우 true -->
-				<sec:authorize access="hasRole('ROLE_MEMBER')">
-					<li class="nav-item"><a href="#" class="nav-link text-black">
-							<sec:authentication property="principal.account.name" />님 환영합니다
-					</a></li>
-					<li class="nav-item">
-						<a href="/account/myAccount" class="nav-link text-black">내정보</a>
+		<div class="row d-flex">
+			<div class="col d-flex justify-content-start align-items-center">
+				<ul class="nav nav-underline">
+					<li class="nav-item"><a href="/changeLanguage?language=ko" class="nav-link text-decoration-none text-dark">한국어</a></li>
+					<li class="nav-item"><a href="/changeLanguage?language=en" class="nav-link text-decoration-none text-dark">ENGLISH</a></li>
+				</ul>
+			</div>
+			
+			<div class="col d-flex justify-content-end align-items-center">
+				<ul class="nav nav-underline  justify-content-around">
+					<!-- 로그인을 하지 않은 경우 -->
+					<sec:authorize access="!isAuthenticated()">
+						<li class="nav-item"><a href="/account/login"
+							class="nav-link text-black"><spring:message code="header.login"/></a></li>
+						<li class="nav-item"><a href="/account/createAccount"
+							class="nav-link text-black"><spring:message code="header.register"/></a></li>
+					</sec:authorize>
 	
+					<!-- 인증된 사용자인 경우 true -->
+					<sec:authorize access="hasRole('ROLE_MEMBER')">
+						<li class="nav-item">
+							<a href="/cart/myCart" class="nav-link text-black">
+									<spring:message code="header.welcomeEn"/><sec:authentication property="principal.account.name"/><spring:message code="header.welcomeKo"/>
+							</a>
 						</li>
-					<li class="nav-item"><a href="/account/logout"
-						class="nav-link text-black">로그아웃</a></li>
-				</sec:authorize>
-
-				<!-- 인증된 사용자이며, 사용자 역할이 'admin'인 경우 -->
-				<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<li class="nav-item"><a href="#" class="nav-link text-black">
-							<sec:authentication property="principal.account.name" />님 환영합니다
-					</a></li>
-					<li class="nav-item "><a href="#" class="nav-link text-black">공지관리</a></li>
-					<li class="nav-item "><a href="#" class="nav-link text-black">입양관리</a></li>
-					<li class="nav-item "><a href="#" class="nav-link text-black">제품관리</a></li>
-					<li class="nav-item "><a href="#" class="nav-link text-black">유저관리</a></li>
-					<li class="nav-item "><a href="/account/logout"
-						class="nav-link text-black">로그아웃</a></li>
-				</sec:authorize>
-			</ul>
+						<li class="nav-item">
+							<a href="/account/myAccount" class="nav-link text-black"><spring:message code="header.profile"/></a>
+		
+							</li>
+						<li class="nav-item"><a href="/account/logout"
+							class="nav-link text-black"><spring:message code="header.logout"/></a></li>
+					</sec:authorize>
+	
+					<!-- 인증된 사용자이며, 사용자 역할이 'admin'인 경우 -->
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<li class="nav-item"><a href="#" class="nav-link text-black">
+								<spring:message code="header.welcomeEn"/><sec:authentication property="principal.account.name" /><spring:message code="header.welcomeKo"/>
+						</a></li>
+						<li class="nav-item "><a href="#" class="nav-link text-black"><spring:message code="header.admin.manageNotices"/></a></li>
+						<li class="nav-item "><a href="#" class="nav-link text-black"><spring:message code="header.admin.managePets"/></a></li>
+						<li class="nav-item "><a href="/item/admin/modifyItem" class="nav-link text-black"><spring:message code="header.admin.manageItems"/></a></li>
+						<li class="nav-item "><a href="#" class="nav-link text-black"><spring:message code="header.admin.manageAccounts"/></a></li>
+						<li class="nav-item "><a href="/account/logout"
+							class="nav-link text-black"><spring:message code="header.logout"/></a></li>
+					</sec:authorize>
+				</ul>
+			</div>
 		</div>
-
 		<div class="text-center mb-3">
 			<a href="/"> <img src="/resource/image/header/mirewoof.jpg"
-				alt="적당한 로고 / 클릭하면 메인화면으로" style="height: 100px;" id="top">
+				alt="Logo" style="height: 100px;" id="top">
 			</a>
 		</div>
 	</header>

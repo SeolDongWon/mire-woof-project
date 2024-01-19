@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,60 +26,84 @@
 <%-- <%@ include file="" %> --%>
 <script>
 	$(document).ready(function() {
-		var formObj = $("#review");
+		var formObj = $("#pet");
 		$("#btnModify").on("click", function() {
-			formObj.attr("action", "/review/modifyReview");
+			formObj.attr("action", "/pet/modifyPet");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
 		$("#btnList").on("click", function() {
-			self.location = "/review/getReviewList";
+			self.location = "/pet/getPetList";
 		});
 	});
 </script>
-<style>
-table {
-  border-radius: 5px;
-}
-</style>
 </head>
 <body>
-<!-- Header Area -->
+	<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<!-- Menu Area -->
+	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
-<!-- subMenu Area -->
-<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-	<main class="pt-2">
-	<div align="center">
-		<form:form modelAttribute="review" action="modifyReview"
+	<!-- subMenu Area -->
+	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
+	<main class="pt-2" >
+		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+		<div align="center">
+		<form:form modelAttribute="pet" action="modify"
 			enctype="multipart/form-data">
-			<form:hidden path="reviewNo"/>
-			<table  border="1" >
+			<form:hidden path="petNo"/>
+			<table border="1px">
 				<tr>
-					<td>제목</td>
-					<td><form:input path="reviewTitle" /></td>
-					<td><font color="red"><form:errors path="reviewTitle" /></font></td>
+					<td>애칭</td>
+					<td><form:input path="petName" /></td>
+					<td><font color="red"><form:errors path="petName" /></font></td>
 				</tr>
 				<tr>
-					<td>내용</td>
-					<td><form:input path="reviewDesc" /></td>
-					<td><font color="red"><form:errors path="reviewDesc" /></font></td>
+					<td>나이</td>
+					<td><form:input path="petAge" /></td>
+					<td><font color="red"><form:errors path="petAge" /></font></td>
+				</tr>
+				<tr>
+					<td>견종</td>
+					<td><form:input path="petType" /></td>
+					<td><font color="red"><form:errors path="petType" /></font></td>
+				</tr>
+				<tr>
+					<td>성별</td>
+					<td><form:input path="petGender" /></td>
+					<td><font color="red"><form:errors path="petGender" /></font></td>
+				</tr>
+				<tr>
+					<td>소개</td>
+					<td><form:textarea path="petDesc" /></td>
+					<td><font color="red"><form:errors path="petDesc" /></font></td>
 				</tr>
 				  <tr>
 					<td>수정일</td>
-					<td>${review.reviewModDate}</td>
+					<td>${pet.petModDate}</td>
 				</tr> 
+				<tr>
+					<td>입양유무</td>
+					<td><form:input path="petStatus" /></td>
+					<td><font color="red"><form:errors path="petStatus" /></font></td>
+				</tr>
 				 <tr>
-					<td>사진</td>
-					<td><img src="getReviewPic?reviewNo=${review.reviewNo}" width="210"
+					<td>메인사진</td>
+					<td><img src="getPetMainPic?petNo=${pet.petNo}" width="210"
 						height="240" /></td>
 				</tr>
 				<tr>
-					<td>사진</td>
+					<td>메인사진</td>
 					<td><input type="file" name="pictures" /></td>
 				</tr>
-				
+				<tr>
+					<td>서브사진</td>
+					<td><img src="getPetSubPic?petNo=${pet.petNo}" width="210"
+						height="240" /></td>
+				</tr>
+				<tr>
+					<td>서브사진</td>
+					<td><input type="file" name="pictures" /></td>
+				</tr> 
 			</table>
 		</form:form>
 		</div>
@@ -89,7 +112,7 @@ table {
 		<button type="submit" id="btnModify">Modify</button>
 		<button type="submit" id="btnList">List</button>
 	</div>
-<!-- Footer Area -->
+	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>

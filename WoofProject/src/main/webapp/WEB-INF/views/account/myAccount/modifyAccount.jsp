@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof(modifyAccount)</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -46,16 +46,16 @@
 		
 		<div class="d-flex  justify-content-center">
 
-		<form action="/account/modifyAccount" method="post"  name="joinform" onsubmit="doSubmit(); return false;">
+		<form action="/account/modifyAccount" method="post">
 			<div class="container mt-3" style="width: 500px">
 				<table class="table table-borderless">
 
 
 					<tr>
-						<td colspan='2'><h2>회원정보 수정</h2></td>
+						<td colspan='2'><h2><spring:message code="account.modifyAccount"/></h2></td>
 					</tr>
 					<tr>
-						<th>닉네임</th>
+						<th><spring:message code="common.username"/></th>
 						<th>
 							<div class="input-group mb-3">
 								<input name="username" class="form-control"
@@ -65,15 +65,17 @@
 					</tr>
 
 					<tr>
-						<td>비밀번호</td>
+						<td><spring:message code="common.password"/></td>
 						<th>
 							<div class="input-group mb-3">
-								<input name="password" class="form-control"	placeholder="password" value="" placeholder="5~13자리 영문,숫자, 특수문자만 가능"  onblur="pwCheck()"/>
+								<input name="password" class="form-control"
+									placeholder="password" value="" />
+
 							</div>
 						</th>
 					</tr>
 					<tr>
-						<td>이 름</td>
+						<td><spring:message code="common.name"/></td>
 						<th>
 							<div class="input-group mb-3">
 								<input name="name" class="form-control" placeholder="name" value="${account.name}" />
@@ -81,7 +83,7 @@
 						</th>
 					</tr>
 					<tr>
-						<td>전화번호</td>
+						<td><spring:message code="common.phone"/></td>
 						<th>
 							<div class="input-group mb-3">
 								<input name="tel" class="form-control" placeholder="tel" value="${account.tel}" />
@@ -89,11 +91,11 @@
 						</th>
 					</tr>
 					<tr>
-						<td>주 소</td>
+						<td><spring:message code="common.address"/></td>
 						<th>
 							<div class="d-flex  justify-content-center">
-								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address1" value="${account.address1}">
-					            <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" style="border: none; background-color: rgb(255, 255, 255);">
+								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address" value="${account.address1}">
+					            <input type="button" class="btn-light btn-outline-secondary text-dark m-2" onclick="sample6_execDaumPostcode()" value="<spring:message code="common.findZipcode"/>" style="border: none; background-color: rgb(255, 255, 255);">
 					        </div>
 					           <input type="text" size="45px" id="sample6_address" placeholder="주소" class="form-control" name="address2" value="${account.address2}">
 					           <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control" name="address3" value="${account.address3}">
@@ -103,9 +105,11 @@
 
 					<tr>
 						<td colspan='2'>
-						<div class="d-flex  justify-content-end   ">
-							<button type="submit" style="border: none; margin-right: 50px;">내정보 수정</button> 
-								
+						<div class="d-flex justify-content-end">
+							<button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" style="border: none; margin-right: 50px;"><spring:message code="account.modifyAccount"/></button> 
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<form:button type="submit" id="btnList">목록</form:button>
+							</sec:authorize>
 							</div>
 						</td>
 					</tr>

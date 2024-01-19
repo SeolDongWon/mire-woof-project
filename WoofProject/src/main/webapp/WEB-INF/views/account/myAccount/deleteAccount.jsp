@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -38,54 +38,38 @@
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
 	<main class="pt-2">
-
-
-
 		<form:form action="/account/deleteAccount" modelAttribute="account">
-			<div class="d-flex  justify-content-center">
+			<div class="d-flex justify-content-center">
 				<div class="container mt-3" style="width: 500px">
 					<table class="table table-borderless">
-
-
 						<tr>
-							<td colspan='2'><h2>정보 삭제</h2></td>
+							<td colspan='2'><h2><spring:message code="account.deleteAccount"/></h2></td>
 						</tr>
 						<tr>
-							<th>닉네임</th>
-							<th>
+							<td><spring:message code="common.username"/></th>
+							<td>
 								<div class="input-group mb-3">
 									<input name="username" class="form-control"
-										placeholder="Username" />
+										placeholder="<spring:message code="common.username"/>" />
 								</div>
 							</th>
 						</tr>
-
 						<tr>
-							<td>비밀번호</td>
-							<th>
+							<td><spring:message code="common.password"/></td>
+							<td>
 								<div class="input-group mb-3">
 									<input name="password" class="form-control"
-										placeholder="password" />
+										placeholder="<spring:message code="common.password"/>" />
 								</div>
 							</th>
 						</tr>
 					</table>
 				</div>
 			</div>
-			<div class="d-flex  justify-content-center">
-				<table style="width: 450px;">
-					<tr>
-						<td colspan='2'>
-							<div class="d-flex  justify-content-end">
-								<form:button type="submit"
-									style="border: none; background-color: rgb(255, 255, 255);">삭제</form:button>
-							</div>
-						</td>
-					</tr>
-				</table>
+			<div class="d-flex justify-content-center">
+				<form:button type="submit" style="border: none; background-color: rgb(255, 255, 255);"><spring:message code="account.deleteAccount"/></form:button>
 			</div>
 		</form:form>
-
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

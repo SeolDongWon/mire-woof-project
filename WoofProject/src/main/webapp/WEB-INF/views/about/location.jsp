@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -33,8 +33,8 @@
 	<!-- subMenu Area -->
 	<main class="pt-2 text-center">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-		<h1>오시는길</h1>
-		<p>서울시 성동구 왕십리로 315 한동빌딩 17층</p>
+		<h1><spring:message code="common.location"/></h1>
+		<p><spring:message code="common.woofAddress"/></p>
 		<!-- 지도를 표시할 div 입니다 -->
 	
 		<div id="map" style="width: 100%; height: 350px;"></div>

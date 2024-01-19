@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -160,17 +160,17 @@
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
 		<div class="mt-3 w-75 m-auto">
-			<h3 class="text-center">NOTICE LIST</h3>
+			<h3 class="text-center"><spring:message code="common.announcement"/></h3>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<a href="/notice/insertNoticeForm" class="btn btn-outline-dark float-end m-1">공지사항쓰기</a>
+				<a href="/notice/insertNoticeForm" class="btn btn-light btn-outline-secondary text-dark float-end m-2"><spring:message code="announcement.admin.write"/></a>
 			</sec:authorize>
-			<table class="table table-striped" style="table-layout: fixed;">
+			<table class="table table-striped table-hover shadow-sm" style="table-layout: fixed;">
 
 				<thead>
 					<tr>
-						<th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th>
-						<th class="bg-dark-subtle text-center" style="width: 100px;">제목</th>
-						<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
+						<th class="bg-dark-subtle text-center" style="width: 20px;"><spring:message code="common.no"/></th>
+						<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.title"/></th>
+						<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.date"/></th>
 					</tr>
 				</thead>
 
@@ -193,11 +193,11 @@
 				<form:form modelAttribute="pageRequest"
 					action="/notice/getNoticeList" method="get" class="m-auto d-flex align-content-center">
 					<form:select path="condition">
-						<form:option value="TITLE" label="제목" />
-						<form:option value="CONTENT" label="내용" />
+						<form:option value="TITLE"><spring:message code="common.title"/></form:option>
+						<form:option value="CONTENT"><spring:message code="common.content"/></form:option>
 					</form:select>
 					<form:input path="keyword" />
-					<form:button type="submit" class="btn btn-outline-dark p-1">일반검색</form:button>
+					<form:button type="submit" class="btn btn-light btn-outline-secondary text-dark"><spring:message code="common.search"/></form:button>
 				</form:form>
 			</div>
 			
@@ -213,7 +213,7 @@
 							href="/notice/getNoticeList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
 					</c:forEach>
 					<c:if test="${pagination.next && pagination.endPage > 0}">
-						<li class="page-item"><a class="page-link"
+						<li class="page-item"><a class="page-link text-decoration-none text-dark"
 							href="/notice/getNoticeList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
 					</c:if>
 				</ul>

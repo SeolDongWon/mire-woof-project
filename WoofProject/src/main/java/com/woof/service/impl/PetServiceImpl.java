@@ -19,9 +19,8 @@ public class PetServiceImpl implements PetService {
 		return mapper.getPet(pet) ;
 	}
 
-	@Override
-	public List<Pet> getPetList(Pet pet)  throws Exception{
-		return mapper.getPetList(pet);
+	public List<Pet> getPetList()  throws Exception{
+		return mapper.getPetList();
 	}
 
 	@Override
@@ -36,12 +35,28 @@ public class PetServiceImpl implements PetService {
 
 	@Override
 	public void deletePet(Pet pet)  throws Exception{
-		mapper.insertPet(pet);
+		mapper.deletePet(pet);
 	}
 
 	@Override
 	public <List> Pet searchPetType(Pet pet)  throws Exception{
 		return mapper.searchPetType(pet);
+	}
+	
+	
+	@Override
+	public String getPetMainPic(Integer petNo) throws Exception {
+		return mapper.getPetMainPic(petNo);
+	}
+
+	@Override
+	public String getPetSubPic(Integer petNo) throws Exception {
+		return mapper.getPetSubPic(petNo);
+	}
+
+	@Override
+	public List<Pet> getMainPetList() throws Exception {
+		return mapper.getMainPetList();
 	}
 
 }
