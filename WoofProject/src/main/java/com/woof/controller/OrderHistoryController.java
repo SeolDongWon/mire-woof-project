@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.woof.domain.Account;
 import com.woof.domain.Cart;
 import com.woof.domain.OrderHistory;
 import com.woof.domain.OrderItem;
@@ -55,10 +56,16 @@ public class OrderHistoryController {
 	}
 	
 	@PostMapping("/addToOrderHistory")
-	public String addToOrderHistory(@RequestParam("itemNo") List<String> itemNoList, OrderHistory orderHistory) throws Exception {
-		log.info("/addToOrderHistory POST");
-		String username = orderHistory.getUsername();
-		String address = accountService.getAddress(username);
+	public String addToOrderHistory(@RequestParam("itemNo") List<String> itemNoList, OrderHistory orderHistory, Principal principal) throws Exception {
+		log.info("/addToOrderHistory POST: " + orderHistory.toString());
+		String username = principal.getName();
+		Account account = new Account();
+		account.setUsername(username);
+		orderHistory.setUsername(username);
+		log.info("account: " + account.toString());
+		account = accountService.getAccount(account);
+		log.info("account: " + account.toString());
+		String address = account.getAddress();
 		orderHistory.setAddress(address);
 		log.info("/addToOrderHistory POST orderHistory: " + orderHistory.toString() + ", itemNoList: " + itemNoList.toString());
 		

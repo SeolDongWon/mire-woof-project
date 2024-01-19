@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -90,55 +90,55 @@
 		<form:form modelAttribute="item" action="insertItem" enctype="multipart/form-data">
 			<table class="table mx-auto table-striped">
 				<tr>
-					<td>Item name</td>
+					<td><spring:message code="item.itemName"/></td>
 					<td><form:input class="form-control" path="itemName" name="itemName" id="itemName"/></td>
 				</tr>
 				<tr>
-					<td>Price</td>
+					<td><spring:message code="common.price"/></td>
 					<td><form:input class="form-control" path="itemPrice" name="itemPrice" id="itemPrice"/></td>
 				</tr>
 				<tr>
-					<td>Stock</td>
+					<td><spring:message code="item.itemStock"/></td>
 					<td><form:input class="form-control" path="itemStock" name="itemStock" id="itemStock"/></td>
 				</tr>
 				<tr>
-					<td>Item category</td>
+					<td><spring:message code="item.itemType"/></td>
 					<td>
 						<select class="form-control" name="itemType" id="itemType">
-							<option value="">Select item category</option>
-							<option value="toy">Toy</option>
-							<option value="food">Food</option>
-							<option value="clothing">Clothing</option>
-							<option value="accessory">Accessory</option>
+							<option value=""><spring:message code="item.itemTypePH"/></option>
+							<option value="clothing"><spring:message code="common.itemType1"/></option>
+							<option value="toy"><spring:message code="common.itemType2"/></option>
+							<option value="food"><spring:message code="common.itemType3"/></option>
+							<option value="accessory"><spring:message code="common.itemType4"/></option>
 						</select>
 					</td>
 				</tr>
 				<tr>
-					<td>Main photo</td>
+					<td><spring:message code="common.mainPic"/></td>
 					<td><input type="file" name="pictures" id="itemMainPic"/></td>
 				</tr>
 				<tr>
-					<td>Secondary photo</td>
+					<td><spring:message code="common.subPic"/></td>
 					<td><input type="file" name="pictures" id="itemSubPic"/></td>
 				</tr>
 				<tr>
-					<td>Description</td>
+					<td><spring:message code="common.description"/></td>
 					<td><form:textarea class="form-control" rows="10" path="itemDesc" name="itemDesc" id="itemDesc"/></td>
 				</tr>
 				<tr>
-					<td>Item status</td>
+					<td><spring:message code="item.itemStatus"/></td>
 					<td>
 						<select class="form-control" name="itemStatus" id="itemStatus">
-							<option value="OPEN">Open</option>
-							<option value="CLOSED">Closed</option>
+							<option value="OPEN"><spring:message code="common.open"/></option>
+							<option value="CLOSED"><spring:message code="common.closed"/></option>
 						</select>
 					</td>
 				</tr>
 			</table>
 		</form:form>
 		 <div class="d-flex justify-content-end">
-	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnGetItemList">View item list</button>
-	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnInsertItem">Register item</button>
+	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnGetItemList"><spring:message code="item.viewItemList"/></button>
+	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnInsertItem"><spring:message code="item.registerItem"/></button>
     	</div>
 		
 		<!-- unused variables -->

@@ -181,7 +181,6 @@
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
 	<form id="cartForm" action="#" method="post">
-		<input type="hidden" name="username" value="${pageContext.request.userPrincipal.principal.account.name}"/>
 		<table class="table">
 			<thead class="t-head">
 				<tr>

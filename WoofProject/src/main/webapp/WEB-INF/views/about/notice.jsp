@@ -55,15 +55,15 @@
 	<!-- subMenu Area -->
 	<main class="pt-2 w-75 m-auto">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-		<h3 class="text-center">NOTICE</h3>
-		<table class="table border border-1" style="table-layout: fixed;">
+		<h3 class="text-center"><spring:message code="announcement.notice"/></h3>
+		<table class="table border border-1 shadow-sm" style="table-layout: fixed;">
 			<thead>
 				<tr>
-					<th class="bg-dark-subtle text-center" style="width: 50px;">글번호</th>
-					<th class="bg-dark-subtle text-center" style="width: 200px;">제목</th>
-					<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
-					<th class="bg-dark-subtle text-center" style="width: 50px;">수정일</th>
-					<th class="bg-dark-subtle text-center" style="width: 50px;">조회수</th>
+					<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.no"/></th>
+					<th class="bg-dark-subtle text-center" style="width: 200px;"><spring:message code="common.title"/></th>
+					<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.date"/></th>
+					<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.modDate"/></th>
+					<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.views"/></th>
 				</tr>
 			</thead>
 			<tbody id="noticeListSpan">
@@ -88,8 +88,10 @@
 				<input type="hidden" name="noticeNo" value="${notice.noticeNo}"
 					class="form-control" readonly="true" />
 			</form>
-			<button id="btnModify" class="btn btn-outline-dark p-1">수정</button>
-			<button id="btnDelete" class="btn btn-outline-dark p-1">삭제</button>
+			<div class="text-end">
+			<button id="btnDelete" class="btn btn-danger m-2"><spring:message code="common.delete"/></button>
+			<button id="btnModify" class="btn btn-primary m-2"><spring:message code="common.modify"/></button>
+			</div>
 		</sec:authorize>
 	</main>
 	<!-- Footer Area -->

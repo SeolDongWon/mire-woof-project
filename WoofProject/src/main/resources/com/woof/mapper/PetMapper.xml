@@ -13,9 +13,6 @@
 	</select>
 
 	<insert id="insertPet">
-		<!-- INSERT INTO pet (petNo, petName, petAge, petType, petGender, petDesc) 
-			VALUES (petNo_seq.nextVal, #{petName}, #{petAge},#{petType}, #{petGender}, 
-			#{petDesc}) -->
 		INSERT INTO pet (petNo, <!-- userName -->petName, petAge, petType, petGender,
 		petDesc, petRegDate, petMainPic, petSubPic)
 		VALUES

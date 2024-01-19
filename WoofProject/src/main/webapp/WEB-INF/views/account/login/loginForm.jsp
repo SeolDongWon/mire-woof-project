@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -49,10 +49,10 @@
 				<div class="container mt-3" style="width: 500px">
 					<table class="table table-borderless">
 						<tr>
-							<td colspan='2'><h2>로그인</h2></td>
+							<td colspan='2'><h2><spring:message code="common.login"/></h2></td>
 						</tr>
 						<tr>
-							<th>아이디</th>
+							<th><spring:message code="common.username"/></th>
 							<th>
 								<div class="input-group mb-3">
 									<input type="text" name="username" class="form-control" value="" />
@@ -60,7 +60,7 @@
 							</th>
 						</tr>
 						<tr>
-							<td>비밀번호</td>
+							<td><spring:message code="common.password"/></td>
 							<th>
 								<div class="input-group mb-3">
 									<input type="password" name="password" class="form-control" value="" />
@@ -69,12 +69,13 @@
 						</tr>
 						<tr>
 							<td><input type="checkbox" name="remember-me">
-								로그인상태유지</td>
+							<spring:message code="login.rememberMe"/>
+							</td>
 						</tr>
 						<tr>
 							<td colspan='2'>
 							
-								<button type="submit" class="form-control" style="background: rgb(246, 220, 216); border: none; ">로그인</button>
+								<button type="submit" class="form-control" style="background: rgb(246, 220, 216); border: none; "><spring:message code="common.login"/></button>
 							</td>
 						</tr>
 					</table>
