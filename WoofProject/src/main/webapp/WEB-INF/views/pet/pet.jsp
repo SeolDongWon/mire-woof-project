@@ -35,6 +35,10 @@ table tr td img {
   margin-right: 15rem;
   padding-top: 30px;
 }
+a {
+  text-decoration: none;
+  color: black;
+}
 </style>
 </head>
 <body>
@@ -53,8 +57,8 @@ table tr td img {
 					<td><img src="getPetMainPic?petNo=${pet.petNo}" width="250" height="100%">
 						<div>
 							애칭:${pet.petName}<br> 나이: ${pet.petAge}<br> (견종:${pet.petType},
-							성별:${pet.petGender})<br> 소개: ${pet.petDesc}<br> 입양유무: ${pet.petStatus}<br> 등록일: ${pet.petRegDate}<br><br>
-							<a href="/pet/getPetList">리스트</a>
+							성별:${pet.petGender})<br> 소개: ${pet.petDesc}<br> 입양유무: ${pet.petStatus}<br> 등록일: <fmt:formatDate pattern="yyyy-MM-dd" value="${pet.petRegDate}"/><br><br>
+							<button><a href="/pet/getPetList">리스트</a></button>
 						</div></td>
 				</tr>
 			</table>

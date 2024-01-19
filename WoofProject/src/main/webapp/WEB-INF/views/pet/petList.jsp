@@ -48,7 +48,7 @@
 					<div class="card-body" align="center">
 						<h5 class="card-title">펫 정보</h5>
 						<hr>
-						<a href="getPet?petNo=${pet.petNo}" style="text-decoration: none; color: black;">이름:${pet.petName}/나이:${pet.petAge}/견종:${pet.petType}</a>
+						<a href="getPet?petNo=${pet.petNo}" style="text-decoration: none; color: black;">이름:${pet.petName} | 나이:${pet.petAge} | 견종:${pet.petType}</a>
 					</div>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<a href="modifyPet?petNo=${pet.petNo}">수정</a> 

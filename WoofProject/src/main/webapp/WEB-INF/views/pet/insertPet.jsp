@@ -37,6 +37,7 @@
 		});
 	});
 </script>
+
 </head>
 <body>
 	<!-- Header Area -->
@@ -45,7 +46,7 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-	
+
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
 		<div align="center">
@@ -63,14 +64,18 @@
 								<br>
 				품종<form:input path="petType" />
 								<br>
-				성별<form:input path="petGender" />
+									<label for="petGender">성별</label> 
+									<input type="radio"
+										id="petGender" name="petGender" value="M"> <label
+										for="petGender">M</label> <input type="radio" id="petGender2"
+										name="petGender" value="F"> <label for="petGender2">F</label>
+								<br> 소개
+									<form:input path="petDesc" />
 								<br>
-				소개<form:input path="petDesc" />
-								<br>
-								<br>
-				메인사진 <input type="file" name="pictures" path="petMainPic" />
-								<br>
-				서브사진 <input type="file" name="pictures" path="petSubPic" />
+								<br> 메인사진 <input type="file" name="pictures"
+									path="petMainPic" />
+								<br> 서브사진 <input type="file" name="pictures"
+									path="petSubPic" />
 								<br>
 							</form:form>
 						</p>

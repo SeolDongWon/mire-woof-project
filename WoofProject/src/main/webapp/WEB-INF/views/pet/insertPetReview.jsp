@@ -69,7 +69,7 @@ textarea {
 				내용<form:textarea path="reviewDesc" />
 								<br>
 								<br>
-				작성자<form:input path="userName" />
+				작성자<form:input path="userName" readonly="true"/>
 								<br>
 				사진<input type="file" name="pictures" path="reviewPic" />
 							</form:form>

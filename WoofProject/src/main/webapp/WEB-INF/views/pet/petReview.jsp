@@ -46,19 +46,18 @@ a {
 				<thead>
 					<tr>
 						<td class="title">${review.reviewTitle}</td>
-						<td class="user-id" align="right">${review.userName} |
-						${review.reviewRegDate}</td>
-						
+						<td class="user-id">${review.userName}</td> 
+						<td align="center" width="100px"><fmt:formatDate  pattern="yyyy-MM-dd" value="${review.reviewRegDate}"/></td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td ><img src="getReviewPic?reviewNo=${review.reviewNo}"width="50%" height="100%"></td>
-						<td class="hashtag" style="position: absolute; bottom: 300px;">${review.reviewDesc}</td>
+						<td class="hashtag" style="position: absolute; bottom: 250px;">${review.reviewDesc}</td>
 					</tr>
 				</tbody>
 			</table>
-			<button style="background-color: white;"><a href="/review/getReviewList">리스트</a></button>
+			<button style="background-color: white; border-radius: 5px;"><a href="/review/getReviewList">리스트</a></button>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

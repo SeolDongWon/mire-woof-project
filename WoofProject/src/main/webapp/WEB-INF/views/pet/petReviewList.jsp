@@ -159,67 +159,46 @@
 					</sec:authorize>
 				</div>
 			</c:forEach>
-
 		</section>
 		<br>
+		
 		<div class="row">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				<a href="/review/insertPetReviewForm"
 					class="btn btn-primary me-md-2" role="button" id="write-article">후기작성</a>
 			</div>
 		</div>
-
-		<div class="row">
-			<nav id="pagination" aria-label="Page navigation">
-				<ul class="pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
+		
+			<!-- 페이징-->
+			<div class="d-flex m-1">
+				<ul class="pagination m-auto">
+					<c:if test="${pagination.prev}">
+						<li class="page-item"><a class="page-link"
+							href="/review/getReviewList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Previous</a></li>
+					</c:if>
+					<c:forEach begin="${pagination.startPage }"
+						end="${pagination.endPage }" var="idx">
+						<li class="page-item"><a class="page-link"
+							href="/review/getReviewList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
+					</c:forEach>
+					<c:if test="${pagination.next && pagination.endPage > 0}">
+						<li class="page-item"><a class="page-link text-decoration-none text-dark"
+							href="/review/getReviewList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
+					</c:if>
 				</ul>
-			</nav>
-		</div>
-		<hr>
-		<div class="row">
-			<div class="card card-margin search-form">
-				<div class="card-body p-0">
-					<form id="search-form">
-						<div class="row">
-							<div class="col-12">
-								<div class="row no-gutters">
-									<div class="col-lg-3 col-md-3 col-sm-12 p-0">
-										<label for="search-type" hidden>검색 유형</label> <select
-											class="form-control" id="search-type" name="searchType">
-											<option>제목</option>
-											<option>내용</option>
-									
-										</select>
-									</div>
-									<div class="col-lg-8 col-md-6 col-sm-12 p-0">
-										<label for="search-value" hidden>검색어</label> <input
-											type="text" placeholder="검색어..." class="form-control"
-											id="search-value" name="searchValue">
-									</div>
-									<div class="col-lg-1 col-md-3 col-sm-12 p-0">
-										<button type="submit" class="btn btn-base">
-											<svg xmlns="http://www.w3.org/2000/svg" width="24"
-												height="24" viewBox="0 0 24 24" fill="none"
-												stroke="currentColor" stroke-width="2"
-												stroke-linecap="round" stroke-linejoin="round"
-												class="feather feather-search">
-                                            <circle cx="11" cy="11"
-													r="8"></circle>
-                                            <line x1="21" y1="21"
-													x2="16.65" y2="16.65"></line>
-                                        </svg>
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form>
-				</div>
 			</div>
-		</div>
+		<hr>
+		<div class="d-flex">
+				<form:form modelAttribute="pageRequest"
+					action="/review/getReviewList" method="get" class="m-auto d-flex align-content-center">
+					<form:select path="condition">
+						<form:option value="TITLE"><spring:message code="common.title"/></form:option>
+						<form:option value="CONTENT"><spring:message code="common.content"/></form:option>
+					</form:select>
+					<form:input path="keyword" />
+					<form:button type="submit" class="btn btn-light btn-outline-secondary text-dark"><spring:message code="common.search"/></form:button>
+				</form:form>
+			</div>
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
