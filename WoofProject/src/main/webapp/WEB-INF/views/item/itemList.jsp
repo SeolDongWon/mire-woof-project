@@ -31,9 +31,21 @@
 <!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
-	<main>
+<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
+	<div class="pt-3 mb-2">
+		<form action="/item/searchByKeyword" method="post">
+	        <div class="input-group">
+	            <select name="condition" class="form-select w-20">
+		            <option value="itemName" selected><spring:message code="item.searchCondition1"/></option>
+		            <option value="itemType"><spring:message code="item.searchCondition2"/></option>
+	            </select>
+	            <input type="text" name="keyword" class="form-control w-75" placeholder="<spring:message code="common.enterKeyword"/>">
+	            <button class="btn btn-outline-secondary text-dark" type="submit"><spring:message code="common.search"/></button>
+	        </div>
+	    </form>
+	</div>
 	<table class="table">
 		<thead class="t-head">
 			<tr>
@@ -65,14 +77,13 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
-	<main>
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<div class="text-end">
 			<a href="/item/admin/insertItem" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="item.insertItem"/></a>
 			<a href="/item/modifyItem" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="item.modifyItem"/></a>	
 		</div>
 	</sec:authorize>
-	</main>
+</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

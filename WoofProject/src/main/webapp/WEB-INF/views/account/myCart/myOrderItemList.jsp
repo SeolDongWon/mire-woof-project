@@ -21,9 +21,6 @@
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
 <%@ include file="/WEB-INF/views/common/script.jsp"%>
 <!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
-<style>
-
-</style>
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>

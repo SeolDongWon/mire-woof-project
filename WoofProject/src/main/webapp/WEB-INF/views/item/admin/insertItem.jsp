@@ -106,10 +106,10 @@
 					<td>
 						<select class="form-control" name="itemType" id="itemType">
 							<option value=""><spring:message code="item.itemTypePH"/></option>
-							<option value="clothing"><spring:message code="common.itemType1"/></option>
-							<option value="toy"><spring:message code="common.itemType2"/></option>
-							<option value="food"><spring:message code="common.itemType3"/></option>
-							<option value="accessory"><spring:message code="common.itemType4"/></option>
+							<option value="Clothing"><spring:message code="common.itemType1"/></option>
+							<option value="Toy"><spring:message code="common.itemType2"/></option>
+							<option value="Food"><spring:message code="common.itemType3"/></option>
+							<option value="Accessory"><spring:message code="common.itemType4"/></option>
 						</select>
 					</td>
 				</tr>

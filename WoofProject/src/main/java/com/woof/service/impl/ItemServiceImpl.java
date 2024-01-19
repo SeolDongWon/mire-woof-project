@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.woof.domain.Item;
+import com.woof.domain.PageRequest;
 import com.woof.mapper.ItemMapper;
 import com.woof.service.ItemService;
 
@@ -51,13 +52,17 @@ public class ItemServiceImpl implements ItemService {
 	}
 	
 	@Override
-	public List<Item> searchItemType(Item item) throws Exception {
-		return mapper.searchItemType(item);
+	public List<Item> searchItemType(PageRequest pageRequest) throws Exception {
+		return mapper.searchItemType(pageRequest);
+	}
+
+	@Override
+	public List<Item> searchItemName(PageRequest pageRequest) throws Exception {
+		return mapper.searchItemName(pageRequest);
 	}
 	
 	@Override
-	public List<Item> searchItemKeyword(Item item) throws Exception {
-		return mapper.searchItemKeyword(item);
+	public List<Item> listItemType(Item item) throws Exception {
+		return mapper.listItemType(item);
 	}
-
 }

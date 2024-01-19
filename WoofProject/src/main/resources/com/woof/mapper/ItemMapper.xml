@@ -30,9 +30,12 @@
 		SELECT itemSubPic FROM item WHERE itemNo = #{itemNo}
 	</select>
 	<select id="searchItemType" resultType="Item">
-		SELECT * FROM item WHERE itemType=#{searchType} ORDER BY itemNo
+		SELECT * FROM item WHERE itemType LIKE '%' || #{keyword} || '%' ORDER BY itemNo
 	</select>
-	<select id="searchItemKeyword" resultType="Item">
-		SELECT * FROM item WHERE itemName LIKE '%' || #{searchKeyword} || '%' ORDER BY itemNo
+	<select id="searchItemName" resultType="Item">
+		SELECT * FROM item WHERE itemName LIKE '%' || #{keyword} || '%' ORDER BY itemNo
+	</select>
+	<select id="listItemType" resultType="Item">
+		SELECT * FROM item WHERE itemType = #{itemType} ORDER BY itemNo
 	</select>
 </mapper>
