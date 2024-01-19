@@ -64,9 +64,21 @@ public class NoticeController {
 			break;
 		}
 		}
+		log.info("pageRequest1 : "+pageRequest.toString());
+		log.info("pagination1 : "+pagination.toString());
 		pagination.setPageRequest(pageRequest);
+		log.info("pageRequest2 : "+pageRequest.toString());
+		log.info("pagination2 : "+pagination.toString());
+		
 		pagination.setTotalCount(noticeService.countNoticeList(pageRequest));
+		
+		log.info("pageRequest3 : "+pageRequest.toString());
+		log.info("pagination3 : "+pagination.toString());
+		
+		
 		model.addAttribute("pagination", pagination);
+		
+		
 		List<Notice> noticeList = noticeService.getNoticeList(pageRequest);
 		model.addAttribute("noticeList", noticeList);
 		

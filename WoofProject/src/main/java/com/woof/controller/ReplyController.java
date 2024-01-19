@@ -1,8 +1,8 @@
 package com.woof.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,20 +66,17 @@ public class ReplyController {
 		return "redirect:/reply/getReplyList";
 	}
 	
-	@PutMapping(value = "/getReplyListAjax")
-	public ResponseEntity<List> getReplyListAjax(@RequestBody Map<String, Object> putData, Reply reply, PageRequest pageRequest) throws Exception {
-		log.info("getNoticeListAjaxPut");
-		log.info("putData : " + putData.toString());
+	@PutMapping(value = "/getReplyRegist")
+	public ResponseEntity<List> getReplyRegist(@RequestBody Reply reply, PageRequest pageRequest) throws Exception {
+		log.info("getReplyRegist");
 		log.info("reply : " + reply.toString());
-		log.info("pageRequest : " + pageRequest.toString());
-		Map<String, Object> replyMap = (Map<String, Object>) putData.get("reply");
-        Map<String, Object> pageRequestMap = (Map<String, Object>) putData.get("pageRequest");
         
        
 		
 		if(reply.getReply()!=null&&!reply.getReply().equals("")) {
 			log.info("reply : " + reply.toString());
-			replyService.insertReply(reply);
+			
+				replyService.insertReply(reply);				
 		}
 
 		List<Reply> replyList = replyService.getReplyList(pageRequest);
@@ -87,6 +84,42 @@ public class ReplyController {
 		if (replyList.size() != 0) {
 			entity = new ResponseEntity<List>(replyList, HttpStatus.OK);
 		}
+		return entity;
+	}
+	
+	@PutMapping(value = "/getReplyList")
+	public ResponseEntity<List> getReplyList(@RequestBody PageRequest pageRequest, Pagination pagination) throws Exception {
+		log.info("getReplyList");
+        
+       
+		pagination.setPageRequest(pageRequest);
+		pagination.setTotalCount(replyService.countReplyList(pageRequest));
+		
+		log.info("pagination3 : "+pagination.toString());
+		log.info("pageRequest3 : "+pageRequest.toString());
+		
+		List<Reply> replyList = replyService.getReplyList(pageRequest);
+		ResponseEntity<List> entity = null;
+		if (replyList.size() != 0) {
+			entity = new ResponseEntity<List>(replyList, HttpStatus.OK);
+			log.info("replyList : "+replyList.toString());
+		}
+		return entity;
+	}
+	
+	@PutMapping(value = "/getReplyPage")
+	public ResponseEntity<List> getReplyPage(@RequestBody PageRequest pageRequest, Pagination pagination) throws Exception {
+		log.info("getReplyPage");
+        
+       
+		pagination.setPageRequest(pageRequest);
+		pagination.setTotalCount(replyService.countReplyList(pageRequest));
+		log.info("pagination3 : "+pagination.toString());
+		log.info("pageRequest3 : "+pageRequest.toString());
+		List<Pagination> pageList = new ArrayList<Pagination>();
+		pageList.add(pagination);
+		
+		ResponseEntity<List> entity = new ResponseEntity<List>(pageList, HttpStatus.OK);
 		return entity;
 	}
 

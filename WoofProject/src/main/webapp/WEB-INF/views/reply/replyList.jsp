@@ -31,7 +31,7 @@
 	function replyAction(actionType, form) {
 		switch (actionType) {
 		case 'modify':
-			form.action = '/service/responseServiceForm'; // 수정 액션 주소
+			form.action = '/service/responseServiceForm';
 			break;
 		case 'delete':
 			var check = confirm("정말로 삭제?");
@@ -45,34 +45,130 @@
 
 	//Ajax
 	$(document).ready(function() {
-		ajaxReply();
+		replyList();
 
-		$("#ajaxReplyBtn").on("click", function() {
-			ajaxReply();
+		$("#RegisterBtn").on("click", function() {
+			replyRegister();
 		});
+		
+		
+	  $("[id^='pageBtn']").on("click", function() {
+		  var idx = $(this).attr('id').split('_')[1];
+	    alert("pageBtn: " + idx);
+	    
+	    replyList(idx);
+	    
+	    pagination(idx);
+	    
+	  });
+	  
 		
 	});
 	
-	function ajaxReply(){
-
-		/* var username = $("#username").val(); */
-		
-		/* alert("username : "+username); */
-
-		var putData = {
-			
-			reply : {
-				username : $("#username").val(),
-				reply : $("#reply").val()
-			}
+	function pagination(idx){
+		var pageRequest = {
+				page : idx
 		};
 		
-		alert(reply.username+reply.reply);
+	$.ajax({
+				type : "put",
+				url : "/reply/getReplyPage",
+				data : JSON.stringify(pageRequest),
+				contentType : "application/json; charset=UTF-8",
+				
+				success : 
+					function(result) {
+							alert("pagination");	
+							
+							let pageListTest = ""
+							
+							for (var i = 0; i < result.length; i++) {
+								pageListTest += result[i].totalCount + " ";
+								pageListTest += result[i].startPage + " ";
+								pageListTest += result[i].endPage + " ";
+								pageListTest += result[i].prev + " ";
+								pageListTest += result[i].next + " ";
+								pageListTest += result[i].displayPageNum + " ";
+								pageListTest += result[i].pageRequest + " ";
+							}
+							alert(pageListTest);
+							
+							/* let pageList = ""
+								pageList += '
+								<ul class="pagination m-auto">
+							<c:if test="${pagination.prev}">
+								<li class="page-item"><a class="page-link" href="">Previous</a></li>
+							</c:if>
+
+							<c:forEach begin="${pagination.startPage }"	end="${pagination.endPage }" var="idx">
+								<li class="page-item"><button id="pageBtn_${idx}" class="page-link">${idx}</button></li>
+							</c:forEach>
+
+							<c:if test="${pagination.next && pagination.endPage > 0}">
+								<li class="page-item"><button id="nextPageBtn_${pagination.endPage+1}" class="page-link">Next</a></li>
+							</c:if>
+						</ul> */
+						
+						$("#pageListSpan").html(replyList); 
+					
+		});
+		 document.getElementById('reply').value = '';
+	}
+	
+	function replyList(idx){
+		var pageRequest = {
+				page : idx
+		};
+		
+	$.ajax({
+				type : "put",
+				url : "/reply/getReplyList",
+				data : JSON.stringify(pageRequest),
+				contentType : "application/json; charset=UTF-8",
+				
+				success : 
+					function(result) {
+	
+					 	let replyList = ""
+						var parsedDate = null;
+						var formattedDate = null; 
+						
+						 for (var i = 0; i < result.length; i++) {
+							parsedDate = new Date(result[i].replyRegDate);
+							formattedDate = parsedDate.toLocaleString({ timeZone: 'UTC' });
+							
+							replyList += '<form method="post">';
+							replyList += '<input type="hidden" name="replyNo" value="'+result[i].replyNo+'"readonly="readonly"> ';
+							replyList += '<input type="hidden"name="username" value="'+result[i].username+'" readonly="readonly">';
+							replyList += '<input type="hidden" name="reply" value="'+result[i].reply+'"readonly="readonly"><tr>';
+							replyList += '<td name="username" align="center">'+result[i].username+'</td>';
+							replyList += '<td name="reply" align="left" class="text-break">'+result[i].reply+'</td><td align="center">';
+							replyList += '<span>'+formattedDate+'</span>';
+							replyList += '<td align="center" class="border-0"><sec:authorize access="hasRole('ROLE_ADMIN')">';
+							replyList += '<button class="btn btn-outline-dark p-0"onclick="handleAction("delete", this.form)">삭제</button>';
+							replyList += '</sec:authorize> <sec:authorize access="hasRole('ROLE_MEMBER')">';
+							replyList += '<c:if test="${account.username=='+result[i].username+'}"><div class="d-flex">';
+							replyList += '<button class="btn btn-outline-dark p-0"onclick="handleAction("delete", this.form)">삭제</button>';
+							replyList += '</div></c:if></sec:authorize></td></tr></form>';
+						}
+						 
+						 $("#replyListSpan").html(replyList); 
+					}
+		});
+		 document.getElementById('reply').value = '';
+	}
+	
+	
+	function replyRegister(){
+		var reply = {
+				username : $("#username").val(),
+				reply : $("#reply").val()
+		};
 		
 		$.ajax({
 				type : "put",
-				url : "/reply/getReplyListAjax",
-				data : JSON.stringify(putData),
+				url : "/reply/getReplyRegist",
+				data : JSON.stringify(reply),
 				contentType : "application/json; charset=UTF-8",
 				
 				success : 
@@ -104,124 +200,9 @@
 						$("#replyListSpan").html(replyList);
 					}
 		});
+		 document.getElementById('reply').value = '';
 }
-
-	function ajaxNotice() {
-		let pageRequest = {
-			condition : $("#condition").val(),
-			keyword : $("#keyword").val(),
-			sizePerPage : $("#sizePerPage").val(),
-			page : $("#page").val()
-
-		};
-
-		alert(pageRequest.condition + " " + pageRequest.keyword + " "
-				+ pageRequest.sizePerPage+" "+pageRequest.page);
-
-			$.ajax({
-								type : "put",
-					url : "/notice/getNoticeListAjaxPut",
-					data : JSON.stringify(pageRequest),
-					contentType : "application/json; charset=UTF-8",
-
-					success : function(result) {
-						console.log("result.length : " + result.length);
-						let noticeList = "";
-
-						if (result.length != 0) {
-
-							for (var i = 0; i < result.length; i++) {
-								noticeList += '<tr style="font-size: 12px;">';
-								noticeList += '<td class=" text-center p-1" style="width: 50px;">';
-								noticeList += result[i].noticeNo + '</td>';
-								noticeList += '<td class="text-truncate p-1">';
-								noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
-								noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
-								noticeList += result[i].noticeTitle	+ '</a></td>';
-								noticeList += '<td class=" text-center p-1" style="width: 130px;">'
-								noticeList += result[i].noticeRegDate + '</td>';
-								noticeList += '</tr>';
-
-							}
-						} else {
-							alert("검색결과 없음");
-						}
-
-						$("#noticeListSpan").html(noticeList);
-
-						if (pageRequest.keyword != "") {
-							let url = "?condition=" + pageRequest.condition
-									+ "&keyword=" + pageRequest.keyword;
-							if (typeof (history.pushState) != "undefined") {
-								history.pushState(null, null, url);
-							}
-						}
-					}
-				});
-	}
-	/* $(document).ready(function() {
-		ajaxPut();
-
-		$("#ajaxPutBtn").on("click", function() {
-			alert("putBtn");
-			ajaxPut();
-		});
-	});
-
-	function ajaxPut() {
-		let pageRequest = {
-			condition : $("#condition").val(),
-			keyword : $("#keyword").val(),
-			sizePerPage : $("#sizePerPage").val(),
-			page : $("#page").val()
-
-		};
-
-		alert(pageRequest.condition + " " + pageRequest.keyword + " "
-				+ pageRequest.sizePerPage+" "+pageRequest.page);
-
-$.ajax({
-								type : "put",
-					url : "/notice/getNoticeListAjaxPut",
-					data : JSON.stringify(pageRequest),
-					contentType : "application/json; charset=UTF-8",
-
-					success : function(result) {
-						console.log("result.length : " + result.length);
-						let noticeList = "";
-
-						if (result.length != 0) {
-
-							for (var i = 0; i < result.length; i++) {
-								noticeList += '<tr style="font-size: 12px;">';
-								noticeList += '<td class=" text-center p-1" style="width: 50px;">';
-								noticeList += result[i].noticeNo + '</td>';
-								noticeList += '<td class="text-truncate p-1">';
-								noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
-				noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
-								noticeList += result[i].noticeTitle
-										+ '</a></td>';
-								noticeList += '<td class=" text-center p-1" style="width: 130px;">'
-								noticeList += result[i].noticeRegDate + '</td>';
-								noticeList += '</tr>';
-
-							}
-						} else {
-							alert("검색결과 없음");
-						}
-
-						$("#noticeListSpan").html(noticeList);
-
-						if (pageRequest.keyword != "") {
-							let url = "?condition=" + pageRequest.condition
-									+ "&keyword=" + pageRequest.keyword;
-							if (typeof (history.pushState) != "undefined") {
-								history.pushState(null, null, url);
-							}
-						}
-					}
-				});
-	} */
+	
 </script>
 </head>
 <body>
@@ -242,7 +223,7 @@ $.ajax({
 				<button type="submit">Register</button>
 				<textarea id="reply" name="reply" class="form-control" rows="5"></textarea>
 			</form>
-				<button id="ajaxReplyBtn">ajaxReplyBtn</button>
+				<button id="RegisterBtn">RegisterBtnAjax</button>
 			
 			<div></div>
 			<table class="table" style="table-layout: fixed;">
@@ -258,56 +239,28 @@ $.ajax({
 				</thead>
 
 				<tbody id="replyListSpan">
-
-					<c:forEach items="${replyList}" var="reply">
-						<form method="post">
-							<input type="hidden" name="replyNo" value="${reply.replyNo}"
-								readonly="readonly"> <input type="hidden"
-								name="username" value="${reply.username}" readonly="readonly">
-							<input type="hidden" name="reply" value="${reply.reply}"
-								readonly="readonly">
-						<tr>
-							<td name="username" align="center">${reply.username}</td>
-							<td name="reply" align="left" class="text-break">${reply.reply}</td>
-							<td align="center"><fmt:formatDate
-									pattern="yyyy-MM-dd HH:mm" value="${reply.replyRegDate}" /></td>
-							<td align="center" class="border-0"><sec:authorize
-									access="hasRole('ROLE_ADMIN')">
-									<button class="btn btn-outline-dark p-0"
-										onclick="handleAction('modify', this.form)">답변</button>
-									<button class="btn btn-outline-dark p-0"
-										onclick="handleAction('delete', this.form)">삭제</button>
-								</sec:authorize> <sec:authorize access="hasRole('ROLE_MEMBER')">
-									<c:if test="${reply.username==account.username}">
-										<div class="d-flex">
-											<button class="btn btn-outline-dark p-0"
-												onclick="handleAction('delete', this.form)">삭제</button>
-										</div>
-									</c:if>
-								</sec:authorize></td>
-						</tr>
-						</form>
-					</c:forEach>
-
 				</tbody>
 
 			</table>
-			<div class="d-flex">
+			
+			<div id="pageListSpan" class="d-flex">
 				<ul class="pagination m-auto">
 					<c:if test="${pagination.prev}">
 						<li class="page-item"><a class="page-link" href="">Previous</a></li>
 					</c:if>
 
-					<c:forEach begin="${pagination.startPage }"
-						end="${pagination.endPage }" var="idx">
-						<li class="page-item"><a class="page-link" href="">${idx}</a></li>
+					<c:forEach begin="${pagination.startPage }"	end="${pagination.endPage }" var="idx">
+						<li class="page-item"><button id="pageBtn_${idx}" class="page-link">${idx}</button></li>
 					</c:forEach>
 
 					<c:if test="${pagination.next && pagination.endPage > 0}">
-						<li class="page-item"><a class="page-link" href="">Next</a></li>
+						<li class="page-item"><button id="pageBtn_${pagination.endPage+1}" class="page-link">Next</a></li>
 					</c:if>
 				</ul>
 			</div>
+			
+			
+			
 		</div>
 	</main>
 	<!-- Footer Area -->
