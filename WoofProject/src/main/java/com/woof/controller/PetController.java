@@ -124,7 +124,7 @@ public class PetController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modifyPet")
 	public String modify(Pet pet, Model model)throws Exception{
-		log.info("/modifyPet POST");
+		log.info("/modifyPet POST: " + pet.toString());
 		List<MultipartFile> pictures = pet.getPictures();
 		for(int i = 0; i < pictures.size(); i++) {
 			MultipartFile file = pictures.get(i);

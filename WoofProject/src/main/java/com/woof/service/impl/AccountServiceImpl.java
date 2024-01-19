@@ -92,4 +92,10 @@ public class AccountServiceImpl implements AccountService {
 		return mapper.getAddress(username);
 	}
 
+	@Override
+	public void remove(Account username) throws Exception {
+		mapper.remove(username);
+		
+	}
+
 }

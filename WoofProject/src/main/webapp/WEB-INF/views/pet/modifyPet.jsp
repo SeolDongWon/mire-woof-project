@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -47,71 +47,70 @@
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
 	<main class="pt-2" >
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-		<div align="center">
-		<form:form modelAttribute="pet" action="modify"
-			enctype="multipart/form-data">
-			<form:hidden path="petNo"/>
-			<table border="1px">
-				<tr>
-					<td>애칭</td>
-					<td><form:input path="petName" /></td>
-					<td><font color="red"><form:errors path="petName" /></font></td>
-				</tr>
-				<tr>
-					<td>나이</td>
-					<td><form:input path="petAge" /></td>
-					<td><font color="red"><form:errors path="petAge" /></font></td>
-				</tr>
-				<tr>
-					<td>견종</td>
-					<td><form:input path="petType" /></td>
-					<td><font color="red"><form:errors path="petType" /></font></td>
-				</tr>
-				<tr>
-					<td>성별</td>
-					<td><form:input path="petGender" /></td>
-					<td><font color="red"><form:errors path="petGender" /></font></td>
-				</tr>
-				<tr>
-					<td>소개</td>
-					<td><form:textarea path="petDesc" /></td>
-					<td><font color="red"><form:errors path="petDesc" /></font></td>
-				</tr>
-				  <tr>
-					<td>수정일</td>
-					<td>${pet.petModDate}</td>
-				</tr> 
-				<tr>
-					<td>입양유무</td>
-					<td><form:input path="petStatus" /></td>
-					<td><font color="red"><form:errors path="petStatus" /></font></td>
-				</tr>
-				 <tr>
-					<td>메인사진</td>
-					<td><img src="getPetMainPic?petNo=${pet.petNo}" width="210"
-						height="240" /></td>
-				</tr>
-				<tr>
-					<td>메인사진</td>
-					<td><input type="file" name="pictures" /></td>
-				</tr>
-				<tr>
-					<td>서브사진</td>
-					<td><img src="getPetSubPic?petNo=${pet.petNo}" width="210"
-						height="240" /></td>
-				</tr>
-				<tr>
-					<td>서브사진</td>
-					<td><input type="file" name="pictures" /></td>
-				</tr> 
-			</table>
-		</form:form>
-		</div>
-	</main>
 	<div align="center">
-		<button type="submit" id="btnModify">Modify</button>
-		<button type="button" id="btnList">List</button>
+    <form:form modelAttribute="pet" action="modify" enctype="multipart/form-data">
+        <form:hidden path="petNo" />
+        <table class="table" border="1px">
+            <tr>
+                <td><spring:message code="common.name" /></td>
+                <td><form:input path="petName" class="form-control" /></td>
+                <td><font color="red"><form:errors path="petName" /></font></td>
+            </tr>
+            <tr>
+                <td><spring:message code="pet.age" /></td>
+                <td><form:input path="petAge" class="form-control" /></td>
+                <td><font color="red"><form:errors path="petAge" /></font></td>
+            </tr>
+            <tr>
+                <td><spring:message code="pet.breed" /></td>
+                <td><form:input path="petType" class="form-control" /></td>
+                <td><font color="red"><form:errors path="petType" /></font></td>
+            </tr>
+            <tr>
+                <td><spring:message code="pet.gender" /></td>
+                <td><form:input path="petGender" class="form-control" /></td>
+                <td><font color="red"><form:errors path="petGender" /></font></td>
+            </tr>
+            <tr>
+                <td><spring:message code="common.description" /></td>
+                <td><form:textarea path="petDesc" class="form-control" /></td>
+                <td><font color="red"><form:errors path="petDesc" /></font></td>
+            </tr>
+            <tr>
+                <td><spring:message code="common.modDate" /></td>
+                <td>${pet.petModDate}</td>
+            </tr>
+            <tr>
+                <td><spring:message code="pet.petStatus" /></td>
+                <td>
+					<select class="form-control" name="petStatus" id="petStatus">
+						<option value="OPEN"><spring:message code="common.open"/></option>
+						<option value="CLOSED"><spring:message code="common.closed"/></option>
+					</select>
+				</td>
+            </tr>
+            <tr>
+                <td><spring:message code="common.mainPic" /></td>
+                <td><img src="getPetMainPic?petNo=${pet.petNo}" width="210" height="240" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="file" name="pictures" class="form-control-file" /></td>
+            </tr>
+            <tr>
+                <td><spring:message code="common.subPic" /></td>
+                <td><img src="getPetSubPic?petNo=${pet.petNo}" width="210" height="240" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="file" name="pictures" class="form-control-file" /></td>
+            </tr>
+        </table>
+    </form:form>
 	</div>
+	<div align="center">
+	    <button type="submit" class="btn btn-primary m-2" id="btnModify"><spring:message code="common.modify" /></button>
+	    <button type="submit" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list" /></button>
+	</div>
+</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

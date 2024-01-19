@@ -30,5 +30,8 @@ public interface AccountMapper {
 	//사용자 아이디를 가진 회원 정보를 조회
 	public Account readByUsername(String username);
 	
+	//유저 영구삭제
+	public void remove(Account username);
+
 	public String getAddress(String username);
 }

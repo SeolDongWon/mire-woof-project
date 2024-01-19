@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -36,35 +36,33 @@
 
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
-
-		<a href="insertPet" style="float: right; text-decoration: none;">새로등록</a><br>
-
 		<section style="display: flex; flex-wrap: wrap; gap: 6rem;">
 			<c:forEach var="pet" items="${petList}">
 				<div class="card" style="width: 21rem;">
 					<a href="getPet?petNo=${pet.petNo}"><img
 						src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top"
-						alt="..."></a>
+						alt="Pet"></a>
 					<div class="card-body" align="center">
-						<h5 class="card-title">펫 정보</h5>
+						<h5 class="card-title">${pet.petName}</h5>
 						<hr>
 						<a href="getPet?petNo=${pet.petNo}"
-							style="text-decoration: none; color: black;">이름:${pet.petName}
-							| 나이:${pet.petAge}(개월) | 견종:${pet.petType}</a>
+							style="text-decoration: none; color: black;"><spring:message
+								code="pet.age" /> : ${pet.petAge} | <spring:message
+								code="pet.breed" /> : ${pet.petType}</a>
 					</div>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<a href="modifyPet?petNo=${pet.petNo}">수정</a>
-						<a href="deletePet?petNo=${pet.petNo}"
-							onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+						<a href="modifyPet?petNo=${pet.petNo}" class="btn btn-primary m-2"><spring:message
+								code="common.modify" /></a>
+						<a href="deletePet?petNo=${pet.petNo}" class="btn btn-danger m-2"
+							onclick="return confirm('정말 삭제하시겠습니까?')"><spring:message
+								code="common.delete" /></a>
 					</sec:authorize>
 				</div>
 			</c:forEach>
 		</section>
-		<hr>
-		<!-- 페이지번호 삽입 예정 -->
+		<a href="insertPet" class="btn btn-light text-dark m-6" style="float: right; text-decoration: none;"><spring:message
+				code="pet.insert" /></a><br>
 	</main>
-
-
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

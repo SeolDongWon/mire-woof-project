@@ -57,6 +57,9 @@
             self.location = "/item/itemList";
         });
         
+        $("#btnInsertItem").on("click", function() {
+        	self.location = "/item/admin/insertItem"
+        });
     });
     
     function confirmClose(itemStatus) {
@@ -152,6 +155,7 @@
 		<div id="modifyFormContainer"></div>
 		
 		 <div class="d-flex justify-content-end">
+	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnInsertItem"><spring:message code="item.insertItem"/></button>
 	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnGetItemList"><spring:message code="item.viewItemList"/></button>
     	</div>
 	</main>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -53,42 +53,37 @@ table {
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
 	<div align="center">
-		<form:form modelAttribute="review" action="modifyReview"
-			enctype="multipart/form-data">
-			<form:hidden path="reviewNo"/>
-			<table  border="1" >
-				<tr>
-					<td>제목</td>
-					<td><form:input path="reviewTitle" /></td>
-					<td><font color="red"><form:errors path="reviewTitle" /></font></td>
-				</tr>
-				<tr>
-					<td>내용</td>
-					<td><form:input path="reviewDesc" /></td>
-					<td><font color="red"><form:errors path="reviewDesc" /></font></td>
-				</tr>
-				  <tr>
-					<td>수정일</td>
-					<td>${review.reviewModDate}</td>
-				</tr> 
-				 <tr>
-					<td>사진</td>
-					<td><img src="getReviewPic?reviewNo=${review.reviewNo}" width="210"
-						height="240" /></td>
-				</tr>
-				<tr>
-					<td>사진</td>
-					<td><input type="file" name="pictures" /></td>
-				</tr>
-				
-			</table>
-		</form:form>
-		</div>
-	</main>
-	<div align="center">
-		<button type="submit" id="btnModify">Modify</button>
-		<button type="button" id="btnList">List</button>
-	</div>
+    <form:form modelAttribute="review" action="modifyReview" enctype="multipart/form-data">
+        <form:hidden path="reviewNo" />
+        <table class="table" border="1">
+            <tr>
+                <td><spring:message code="common.title" /></td>
+                <td><form:input path="reviewTitle" class="form-control" /></td>
+                <td><font color="red"><form:errors path="reviewTitle" /></font></td>
+            </tr>
+            <tr>
+                <td><spring:message code="common.description" /></td>
+                <td><form:input path="reviewDesc" class="form-control" /></td>
+                <td><font color="red"><form:errors path="reviewDesc" /></font></td>
+            </tr>
+            <tr>
+                <td><spring:message code="common.modDate" /></td>
+                <td>${review.reviewModDate}</td>
+            </tr>
+            <tr>
+                <td><spring:message code="common.picture" /></td>
+                <td><img src="getReviewPic?reviewNo=${review.reviewNo}" width="210" height="240" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><input type="file" name="pictures" class="form-control-file" /></td>
+            </tr>
+        </table>
+    </form:form>
+</div>
+<div align="center">
+    <button type="submit" class="btn btn-primary m-2" id="btnModify"><spring:message code="common.modify" /></button>
+    <button type="submit" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list" /></button>
+</div>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

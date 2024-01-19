@@ -181,8 +181,8 @@
 							<!-- 게시글 상세보기할 때 페이징 요청 정보를 매개변수로 전달한다. -->
 							<td align="left" class="text-break"><a class="text-decoration-none text-black"
 								href="/notice/getNotice?noticeNo=${notice.noticeNo}">${notice.noticeTitle}</a></td>
-							<td align="center"><fmt:formatDate
-									pattern="yyyy-MM-dd HH:mm" value="${notice.noticeRegDate}" /></td>
+							<td align="center">
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.noticeRegDate}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>

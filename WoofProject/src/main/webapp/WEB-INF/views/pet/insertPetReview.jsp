@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -52,37 +52,40 @@ textarea {
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-	<main class="pt-2">
+<main class="pt-2">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 		<div align="center">
-			<section>
-				<h5>리뷰 등록</h5>
-				<div class="card" style="width: 20rem;">
-					<div class="card-body">
-						<p class="card-text">
-							<form:form modelAttribute="review" action="insertPetReview"
-								method="post" enctype="multipart/form-data">
-								<br>
-				제목<form:input path="reviewTitle" />
-								<br>
-								<br>
-				내용<form:textarea path="reviewDesc" />
-								<br>
-								<br>
-				작성자<form:input path="userName" readonly="true"/>
-								<br>
-				사진<input type="file" name="pictures" path="reviewPic" />
-							</form:form>
-						</p>
-						<div>
-							<button type="submit" id="btnRegister">Register</button>
-							<button type="button" id="btnList">List</button>
-						</div>
-					</div>
-				</div>
-			</section>
-		</div>
-	</main>
+    <section>
+        <h5><spring:message code="pet.insertReview"/></h5>
+        <div class="card" style="width: 35rem;">
+            <div class="card-body">
+                <form:form modelAttribute="review" action="insertPetReview" method="post" enctype="multipart/form-data">
+                    <div class="form-group m-2">
+                        <label><spring:message code="common.title"/></label>
+                        <form:input path="reviewTitle" class="form-control" />
+                    </div>
+                    <div class="form-group m-2">
+                        <label><spring:message code="common.description"/></label>
+                        <form:textarea path="reviewDesc" class="form-control" rows="4"></form:textarea>
+                    </div>
+                    <div class="form-group m-2">
+                        <label><spring:message code="common.author"/></label>
+                        <form:input path="userName" readonly="true" class="form-control" />
+                    </div>
+                    <div class="form-group m-2">
+                        <label><spring:message code="common.picture"/></label>
+                        <input type="file" name="pictures" path="reviewPic" />
+                    </div>
+                    <div class="form-group d-flex justify-content-center m-2">
+                        <button type="submit" class="btn btn-primary m-2" id="btnRegister"><spring:message code="common.submit"/></button>
+                        <button type="button" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list"/></button>
+                    </div>
+                </form:form>
+            </div>
+        </div>
+    </section>
+</div>
+</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

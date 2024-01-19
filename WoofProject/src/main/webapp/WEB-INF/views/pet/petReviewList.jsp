@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -118,7 +118,7 @@ a {
 	
 	<main class="pt-2">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-		<h1 align="center">분양 후기</h1>
+		<h1 align="center"><spring:message code="common.petReview"/></h1>
 		<br>
 		
 
@@ -162,8 +162,8 @@ a {
 						<button style="border-radius: 5px;"><a href="getReview?reviewNo=${review.reviewNo}" style="font-size: 12px; border: none;">더 보기</button>
 					</div>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<a href="modifyReview?reviewNo=${review.reviewNo}">수정</a> 
-					<a href="deleteReview?reviewNo=${review.reviewNo}"onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+					<a href="modifyReview?reviewNo=${review.reviewNo}" class="btn btn-primary m-2"><spring:message code="common.modify"/></a> 
+					<a href="deleteReview?reviewNo=${review.reviewNo}" class="btn btn-danger m-2" onclick="return confirm('정말 삭제하시겠습니까?')"><spring:message code="common.delete"/></a>
 					</sec:authorize>
 				</div>
 			</c:forEach>
@@ -173,7 +173,7 @@ a {
 		<div class="row">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				<a href="/review/insertPetReviewForm"
-					class="btn btn-primary me-md-2" role="button" id="write-article">후기작성</a>
+					class="btn btn-light text-dark me-md-2" role="button" id="write-article"><spring:message code="pet.insertReview"/></a>
 			</div>
 		</div>
 		
@@ -182,7 +182,7 @@ a {
 				<ul class="pagination m-auto">
 					<c:if test="${pagination.prev}">
 						<li class="page-item"><a class="page-link"
-							href="/review/getReviewList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Previous</a></li>
+							href="/review/getReviewList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}"><spring:message code="common.previous"/></a></li>
 					</c:if>
 					<c:forEach begin="${pagination.startPage }"
 						end="${pagination.endPage }" var="idx">
@@ -191,7 +191,7 @@ a {
 					</c:forEach>
 					<c:if test="${pagination.next && pagination.endPage > 0}">
 						<li class="page-item"><a class="page-link text-decoration-none text-dark"
-							href="/review/getReviewList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
+							href="/review/getReviewList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}"><spring:message code="common.next"/></a></li>
 					</c:if>
 				</ul>
 			</div>

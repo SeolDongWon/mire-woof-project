@@ -22,6 +22,8 @@ public interface AccountService {
 	public void setupAdmin(Account account) throws Exception;;
 	// 최초 관리자 생성을 위한 데이터를 등록
 	public int countAll() throws Exception;;
+	//관리자가 유저 영구 탈퇴
+	public void remove(Account username) throws Exception;
 	
 	public String getAddress(String username);
 }
