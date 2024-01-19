@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,16 +54,16 @@ public class AccountController {
 		// 비밀번호 암호화
 		String inputPassword = account.getPassword();
 		account.setPassword(passwordEncoder.encode(inputPassword));
-		log.info("======== 전 =========account.toString()"+account.toString());
-		
-		String address = account.getAddress1() +" "+account.getAddress2() +" "+ account.getAddress3() +" "+ account.getAddress4();
+		log.info("======== 전 =========account.toString()" + account.toString());
+
+		String address = account.getAddress1() + " " + account.getAddress2() + " " + account.getAddress3() + " "
+				+ account.getAddress4();
 		account.setAddress(address);
-		
-		log.info("======== 후 =========account.toString()"+account.toString());
+
+		log.info("======== 후 =========account.toString()" + account.toString());
 		service.registerAccount(account);
 		rttr.addFlashAttribute("username", account.getUsername());
- 
-		
+
 		return "redirect:/account/login";
 //		return "account/login/loginForm";
 	}
@@ -83,16 +84,14 @@ public class AccountController {
 		}
 		return "account/login/loginForm";
 	}
+
 	// 로그인 실패
 	@RequestMapping(value = "/loginFail", method = RequestMethod.GET)
 	public String loginFail(String error, String logout, Model model) {
 		log.info("===========loginFail");
-		
-		
+
 		model.addAttribute("error", "xo");
-			
-	
-			
+
 		return "account/login/loginForm";
 	}
 
@@ -139,22 +138,20 @@ public class AccountController {
 	@RequestMapping(value = "/modifyAccount", method = RequestMethod.POST)
 	public String modifyAccount(@Validated Account account, Model model) throws Exception {
 		log.info("modifyAccount : POST");
-		
-		
+
 		// 비밀번호 암호화
 		String inputPassword = account.getPassword();
 		account.setPassword(passwordEncoder.encode(inputPassword));
-		
 
-		String address = account.getAddress1() +" "+account.getAddress2() +" "+ account.getAddress3() +" "+ account.getAddress4();
+		String address = account.getAddress1() + " " + account.getAddress2() + " " + account.getAddress3() + " "
+				+ account.getAddress4();
 		account.setAddress(address);
-	
-		
+
 		service.modifyAccount(account);
-		
+
 		log.info("======= modifyAccount account : " + account.toString());
 		model.addAttribute(service.getAccount(account));
-		
+
 		return "account/myAccount/myAccountForm";
 	}
 
@@ -170,8 +167,9 @@ public class AccountController {
 
 	// 내정보 삭제
 	@RequestMapping(value = "/deleteAccount", method = RequestMethod.POST)
-	public String deleteAccount(@ModelAttribute("account") Account account, BindingResult result,
-			Model model, RedirectAttributes rttr, Principal principal ,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String deleteAccount(@ModelAttribute("account") Account account, BindingResult result, Model model,
+			RedirectAttributes rttr, Principal principal, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		log.info("*** deleteAccount : POST");
 
 		if (result.hasErrors()) {
@@ -182,27 +180,27 @@ public class AccountController {
 			// 비밀번호 암호화
 //			String inputPassword = account.getPassword();
 //			account.setPassword(passwordEncoder.encode(inputPassword));
-			log.info("222...... deleteAccount(account)"+account);
-		
+			log.info("222...... deleteAccount(account)" + account);
+
 			// 서비스이용 deleteAccount.xml 이용(삭제기능 대체)
 			service.deleteAccount(account);
-			log.info("...... deleteAccount(account)"+account);
-			
+			log.info("...... deleteAccount(account)" + account);
+
 			// 로그아웃 처리 (세션 무효화)
 			SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
 			logoutHandler.logout(request, response, SecurityContextHolder.getContext().getAuthentication());
-			
+
 			// 삭제 후 홈페이지로 리다이렉트 및 메시지 전달
 			model.addAttribute("msg2", "SUCCESS2");
-			
+
 			return "homewoof";
 
-		}else {
-	        // 현재 로그인한 사용자와 폼에서 입력한 사용자가 다른 경우에 대한 처리
-	        // (예: 권한이 없는 사용자가 다른 사용자의 계정을 삭제하려는 시도)
+		} else {
+			// 현재 로그인한 사용자와 폼에서 입력한 사용자가 다른 경우에 대한 처리
+			// (예: 권한이 없는 사용자가 다른 사용자의 계정을 삭제하려는 시도)
 			model.addAttribute("msg3", "SUCCESS3");
-	        return "homewoof"; // 적절한 에러 페이지로 리다이렉트
-	    }
+			return "homewoof"; // 적절한 에러 페이지로 리다이렉트
+		}
 
 	}
 
@@ -223,8 +221,9 @@ public class AccountController {
 	// 회원 테이블에 데이터가 없으면 최초 관리자를 생성
 	@RequestMapping(value = "/setup", method = RequestMethod.POST)
 	public String setupAdmin(Account account, RedirectAttributes rttr, Model model) throws Exception {
-		
-		String address = account.getAddress1() +" "+account.getAddress2() +" "+ account.getAddress3() +" "+ account.getAddress4();
+
+		String address = account.getAddress1() + " " + account.getAddress2() + " " + account.getAddress3() + " "
+				+ account.getAddress4();
 		account.setAddress(address);
 		// 회원 테이블 데이터 건수를 확인하여 빈 테이블이면 최초 관리자를 생성
 		if (service.countAll() == 0) {
@@ -239,15 +238,26 @@ public class AccountController {
 		return "homewoof";
 	}
 
-	
-	//관리자의 유저관리 (accountList)
-	@RequestMapping(value = "/accountList", method = RequestMethod.GET)
+	// 관리자의 유저관리 (accountList)
+	@GetMapping(value = "/accountList")
 	public String accountListForm(Account account, Model model) throws Exception {
 		log.info("**ADMIN** : accountList");
-		
-		
+
+		log.info("**List" + service.getAccountList());
+
+		model.addAttribute("list", service.getAccountList());
+
 		return "account/admin/accountList";
 	}
 
-	
+	// 계정 삭제 처리
+	@RequestMapping(value = "/remove", method = RequestMethod.POST)
+	public String remove(Account account, RedirectAttributes rttr) throws Exception {
+		log.info("/remove");
+		log.info(account.toString());
+		service.remove(account);
+		rttr.addFlashAttribute("msg", "SUCCESS");
+		return "account/admin/accountList";
+	}
+
 }

@@ -66,8 +66,8 @@
 							<td><input type="checkbox" name="remember-me">
 							<spring:message code="login.rememberMe"/>
 							</td>
-							<td>
-								<c:if test="${error} == 'xo'">
+							<td style="color: red;">
+								<c:if test="${error == 'xo'}">
 								<spring:message code="login.error"/>
 								</c:if>
 							</td>

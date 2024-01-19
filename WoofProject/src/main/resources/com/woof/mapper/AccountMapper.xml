@@ -27,19 +27,22 @@
 	<select id="readByUsername" resultMap="accontMap">
 		SELECT
 		acc.username,
-		password, name, tel, address,address1,address2,address3,address4, status, regDate, auth
+		password, name, tel, address,address1,address2,address3,address4,
+		status, regDate, auth
 		FROM
 		account acc
 		LEFT OUTER JOIN account_auth auth
 		ON acc.username = auth.username
 		WHERE
-		acc.username = #{username} and acc.status = 'active'
+		acc.username = #{username} and
+		acc.status = 'active'
 	</select>
 	<!-- 내정보 -->
 	<select id="getAccount" parameterType="Account">
 		SELECT
 		acc.username,
-		password, name, tel, address,address1,address2,address3,address4, status, regDate, auth
+		password, name, tel, address,address1,address2,address3,address4,
+		status, regDate, auth
 		FROM
 		account acc
 		LEFT OUTER JOIN account_auth auth
@@ -84,7 +87,7 @@
 	<!-- 정보 수정 -->
 	<update id="modifyAccount" parameterType="Account">
 		UPDATE account
-		SET 
+		SET
 		password=#{password},
 		name=#{name},
 		tel=#{tel},
@@ -98,7 +101,7 @@
 	</update>
 
 
-	<!-- 계정 탈퇴 -->
+	<!-- 유저 탈퇴 -->
 	<update id="deleteAccount" parameterType="Account">
 		UPDATE account SET
 		status='deactivated'
@@ -115,4 +118,41 @@
 	<select id="countAll" resultType="int">
 		SELECT count(*) FROM account
 	</select>
+
+	<!-- 유저 영구 탈퇴 -->
+	<delete id="remove">
+
+		DELETE FROM orderItem
+		WHERE orderHistoryNo IN (SELECT orderHistoryNo FROM orderHistory WHERE
+		username = #{username})
+
+
+		DELETE FROM cart
+		WHERE username = #{username}
+
+		DELETE FROM service
+		WHERE username = #{username}
+
+
+		DELETE FROM notice
+		WHERE noticeNo IN (SELECT noticeNo FROM notice WHERE username =
+		#{username})
+
+
+		DELETE FROM review
+		WHERE username = #{username}
+
+
+		DELETE FROM reply
+		WHERE username = #{username}
+
+
+		DELETE FROM account_auth
+		WHERE username = #{username}
+
+
+		DELETE FROM account
+		WHERE username = #{username}
+
+	</delete>
 </mapper>

@@ -16,6 +16,31 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+	/* $(document).ready(function() {
+		var formObj = $("#account");
+		console.log(formObj);
+		$("#btnRemove").on("click", function() {
+			formObj.attr("action", "remove");
+			formObj.submit();
+		});
+		
+	}); */
+function accountdelete(form) {
+	
+	var check = confirm("삭젵네스트");
+	if(check){
+		form.action='/account/remove';
+		form.submit();
+	}else{
+		
+	}
+	
+	
+}	
+	
+</script>
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
@@ -35,57 +60,76 @@
 	<!-- subMenu Area -->
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
-		<div class="mt-3 w-75 m-auto">
-			<h3 class="mb-5">User 계정관리</h3>
-			
+		<h3 class="mb-2">User관리</h3>
+		<div class="d-flex  justify-content-center">
+
 			<table class="table" style="table-layout: fixed;">
 				<thead>
 					<tr>
 						<!-- <th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th> -->
-						<th class="text-center" style="width: 20px;">유저이름</th>
-						<th class="text-center" style="width: 100px;">내용</th>
-						<th class="text-center" style="width: 50px;">작성일</th>
-						<th class="text-center" style="width: 20px;">삭제 여/부</th>
+						<th class="text-center" style="width: 70px;">아이디</th>
+						<th class="text-center" style="width: 70px;">성명</th>
+						<th class="text-center" style="width: 120px;">전화번호</th>
+						<th class="text-center">주소</th>
+						<th class="text-center" style="width: 100px;">작성일</th>
+						<th class="text-center" style="width: 80px;">탈퇴여부</th>
+						<th class="text-center" style="width: 100px;">삭제 여/부</th>
 					</tr>
 				</thead>
 
 				<tbody>
-						<tr>
-							<td name="username" >
-							${account.username}
-							</td>
-							<td name="authList" align="left" class="text-break">
-							${account.authList}
-							</td>
-							<td align="center">
-							
-							</td>
-						</tr>
+					<c:choose>
+						<c:when test="${empty list}">
+							<tr>
+								<td colspan="6">정보 없음 <%-- <spring:message code="common.listEmpty" /> --%>
+								</td>
+							</tr>
+						</c:when>
+						<c:otherwise>
+							<c:forEach items="${list}" var="account">
+								<tr>
+								<form method="post" name="acconutdelete" >
+									<td align="center" name="username">${account.username}</a></td>
+									<td align="center">${account.name}</td>
+									<td align="center">${account.tel}</td>
+									<td align="left">${account.address}</td>
+									<td align="center"><fmt:formatDate
+											value="${account.regDate}" pattern="yy-MM-dd HH:mm" /></td>
+									<td align="center">${account.status}</td>
+									<td align="center">
+										<button id="btnRemove" onclick="accountdelete(this.form)">삭제</button>
+									</td>
+									</form>
+								</tr>
+							</c:forEach>
+						</c:otherwise>
+					</c:choose>
+
 				</tbody>
 
 			</table>
-
-			<div class="d-flex">
-				<ul class="pagination m-auto">
-					<c:if test="${pagination.prev}">
-						<li class="page-item"><a class="page-link"
-							href="/service/getServiceList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Previous</a></li>
-					</c:if>
-
-					<c:forEach begin="${pagination.startPage }"
-						end="${pagination.endPage }" var="idx">
-						<li class="page-item"><a class="page-link"
-							href="/service/getServiceList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
-					</c:forEach>
-
-					<c:if test="${pagination.next && pagination.endPage > 0}">
-						<li class="page-item"><a class="page-link"
-							href="/service/getServiceList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
-					</c:if>
-				</ul>
-			</div>
-
 		</div>
+		<div class="d-flex">
+			<ul class="pagination m-auto">
+				<c:if test="${pagination.prev}">
+					<li class="page-item"><a class="page-link"
+						href="/service/getServiceList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Previous</a></li>
+				</c:if>
+
+				<c:forEach begin="${pagination.startPage }"
+					end="${pagination.endPage }" var="idx">
+					<li class="page-item"><a class="page-link"
+						href="/service/getServiceList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
+				</c:forEach>
+
+				<c:if test="${pagination.next && pagination.endPage > 0}">
+					<li class="page-item"><a class="page-link"
+						href="/service/getServiceList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
+				</c:if>
+			</ul>
+		</div>
+
+
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
