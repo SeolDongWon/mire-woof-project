@@ -3,6 +3,7 @@ package com.woof.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,9 +22,13 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.woof.domain.Account;
+import com.woof.domain.PageRequest;
+import com.woof.domain.Pagination;
 import com.woof.domain.Pet;
 import com.woof.domain.Review;
 import com.woof.service.ReviewService;
@@ -54,18 +59,54 @@ public class ReviewController {
 		service.getReview(review);
 	}
 
-	@RequestMapping(value = "/getReviewList")
-	public String getReviewList(Review review, Model model) throws Exception {
+//	@RequestMapping(value = "/getReviewList")
+//	public String getReviewList(Review review, Model model) throws Exception {
+//		log.info("getReviewList");
+//		List<Review> reviewList = service.getReviewList();
+//		model.addAttribute("reviewList", reviewList);
+//		log.info(reviewList.toString());
+//		return "pet/petReviewList";
+//	}
+	
+	@GetMapping(value = "/getReviewList")
+	public String getReviewList(Model model,PageRequest pageRequest,Pagination pagination) throws Exception{
 		log.info("getReviewList");
-		List<Review> reviewList = service.getReviewList();
+		
+		if(pageRequest.getCondition() == null) {
+			pageRequest.setCondition("TITLE");
+		}
+		if(pageRequest.getKeyword() == null) {
+			pageRequest.setKeyword("");
+		}
+		
+		//검색 정보 null check
+		switch (pageRequest.getCondition()) {
+		case "TITLE":{
+			pageRequest.setKeywordTitle(pageRequest.getKeyword());
+			pageRequest.setKeywordDesc("");
+			break;
+		}
+		case "CONTENT":{
+			pageRequest.setKeywordDesc(pageRequest.getKeyword());
+			pageRequest.setKeywordTitle("");
+			break;
+		}
+		}
+		pagination.setPageRequest(pageRequest);
+		pagination.setTotalCount(service.countReviewList(pageRequest));
+		model.addAttribute("pagination", pagination);
+		List<Review> reviewList = service.getReviewList(pageRequest);
 		model.addAttribute("reviewList", reviewList);
-		log.info(reviewList.toString());
+		
 		return "pet/petReviewList";
 	}
 	
-	//화면에서 누르고 pet/insertPetReview 이동
-	@GetMapping(value = "/insertPetReviewForm")
-	public String insertPetReviewForm(Review review, Model model) throws Exception {
+//	내정보
+	@RequestMapping(value = "/insertPetReviewForm", method = RequestMethod.GET)
+	public String ReviewForm(Review review, Model model, Principal principal) throws Exception {
+		log.info("myAccountForm");
+		log.info("...principal.getName : " + principal.getName());
+		review.setUserName(principal.getName());
 		return "pet/insertPetReview";
 	}
 
@@ -137,6 +178,8 @@ public class ReviewController {
 		this.service.deleteReview(review);
 		return "redirect:/review/getReviewList";
 	}
+	
+	
 	
 	//----------------------------사진 업로드----------------------------------
 

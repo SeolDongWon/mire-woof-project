@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.woof.domain.PageRequest;
+import com.woof.domain.Pagination;
 import com.woof.domain.Review;
 import com.woof.mapper.ReviewMapper;
 import com.woof.service.ReviewService;
@@ -21,8 +23,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public List<Review> getReviewList() throws Exception {
-		return mapper.getReviewList();
+	public List<Review> getReviewList(PageRequest pageRequest) throws Exception {
+		return mapper.getReviewList(pageRequest);
 	}
 
 	@Override
@@ -51,6 +53,12 @@ public class ReviewServiceImpl implements ReviewService {
 	@Override
 	public List<Review> getMainReviewList() throws Exception {
 		return mapper.getMainReviewList();
+	}
+
+	@Override
+	public int countReviewList(PageRequest pageRequest) {
+		
+		return mapper.countReviewList(pageRequest);
 	}
 
 }

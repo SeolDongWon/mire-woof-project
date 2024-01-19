@@ -3,6 +3,7 @@ package com.woof.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.woof.domain.Item;
+import com.woof.domain.PageRequest;
 import com.woof.service.ItemService;
 
 import lombok.extern.java.Log;
@@ -54,12 +57,14 @@ public class ItemController {
 		model.addAttribute("itemList", itemList);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/admin/insertItem")
 	public void insertItemGet(Model model) throws Exception {
 		log.info("/admin/insertItem GET");
 		model.addAttribute(new Item());
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/admin/insertItem")
 	public String insertItem(Item item) throws Exception {
 		log.info("/admin/insertItem POST");
@@ -86,6 +91,7 @@ public class ItemController {
 		return savedName;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modifyItem")
 	public String modifyItemGet(Model model) throws Exception {
 		List<Item> itemList = itemService.getItemList();
@@ -94,6 +100,7 @@ public class ItemController {
 		return "item/admin/modifyItem";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modifyItem")
 	public String modifyItem(Item item) throws Exception {
 		log.info("/modifyItem POST item: " + item.toString());
@@ -185,12 +192,34 @@ public class ItemController {
 	}
 	
 	@GetMapping("/getModifyItemForm")
-	public String getModifyItemForm(@RequestParam("itemNo") String itemNo, Model model) throws Exception {
-		log.info("/getModifyItemForm GET itemNo: " + itemNo);
-		int itemNo_ = Integer.parseInt(itemNo);
-		Item item = itemService.getItem(itemNo_);
-		model.addAttribute(item);
+	public String getModifyItemForm(Item item, Model model) throws Exception {
+		log.info("/getModifyItemForm GET itemNo: " + item.getItemNo());
+		Item item_ = itemService.getItem(item.getItemNo());
+		model.addAttribute(item_);
 		return "item/admin/modifyItemForm";
 	}
 	
+	@PostMapping("/searchByKeyword")
+	public String searchByKeyword(PageRequest pageRequest, Model model) throws Exception {
+		List<Item> itemList = new ArrayList<Item>();
+		String condition = pageRequest.getCondition();
+		
+		log.info("/searchByKeyword POST condition: " + condition);
+		switch(condition) {
+			case "itemName": itemList = itemService.searchItemName(pageRequest); break;
+			case "itemType": itemList = itemService.searchItemType(pageRequest); break;
+		}
+		log.info("/searchByKeyword POST itemList: " + itemList.toString());
+		model.addAttribute(itemList);
+		return "item/itemList";
+	}
+	
+	@GetMapping("/listItemType")
+	public String listItemType(Item item, Model model) throws Exception {
+		List<Item> itemList = new ArrayList<Item>();
+		itemList = itemService.listItemType(item);
+		log.info("/listItemType GET itemList: " + itemList.toString());
+		model.addAttribute(itemList);
+		return "item/itemList";
+	}
 }

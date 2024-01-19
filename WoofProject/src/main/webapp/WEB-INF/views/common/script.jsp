@@ -14,6 +14,7 @@
 			document.getElementById("aboutMenu").click();
 			break;
 		case "pet":
+		case "review":
 			document.getElementById("petMenu").click();
 			break;
 		case "item":

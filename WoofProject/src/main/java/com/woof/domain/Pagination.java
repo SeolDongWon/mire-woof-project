@@ -76,6 +76,12 @@ public class Pagination {
 		return uriComponents.toUriString();
 	}
 
+	@Override
+	public String toString() {
+		return "Pagination [totalCount=" + totalCount + ", startPage=" + startPage + ", endPage=" + endPage + ", prev="
+				+ prev + ", next=" + next + ", displayPageNum=" + displayPageNum + ", pageRequest=" + pageRequest + "]";
+	}
+
 	
 
 }

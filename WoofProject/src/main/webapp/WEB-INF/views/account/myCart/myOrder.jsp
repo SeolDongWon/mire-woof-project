@@ -66,10 +66,10 @@
 		<table class="table">
 			<thead class="t-head">
 				<tr>
-					<th class="align-middle text-center">Main picture</th>
-					<th class="align-middle text-center">Item name</th>
-					<th class="align-middle text-center">Quantity</th>
-					<th class="align-middle text-center">Price</th>
+					<th class="align-middle text-center"></th>
+					<th class="align-middle text-center"><spring:message code="item.itemName"/></th>
+					<th class="align-middle text-center"><spring:message code="common.quantity"/></th>
+					<th class="align-middle text-center"><spring:message code="common.price"/></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -89,7 +89,7 @@
 							</td>
 							<td class="align-middle text-center">${cart.itemName}</td>
 							<td class="align-middle text-center">${cart.itemQuantity}</td>
-							<td class="align-middle text-center">${cart.itemPrice}</td>
+							<td class="align-middle text-center">₩${cart.itemPrice}</td>
 							<td class="align-middle text-center">
 								<a href="removeFromCart?username=${cart.username}&itemNo=${cart.itemNo}" class="text-decoration-none">
 									<i class="fa-sharp fa-regular fa-rectangle-xmark"></i>
@@ -99,7 +99,7 @@
 					</c:forEach>
 						<tr>
 							<td colspan="5" class="p-3 align-middle text-end pe-5">
-								<b>Total price:</b> ${totalPrice}
+								<b><spring:message code="orderHistory.totalPrice"/> : ₩${totalPrice} </b>
 							</td>
 						</tr>
 				</c:otherwise>
@@ -107,8 +107,8 @@
 		</table>
 	</form>	
 	<div class="d-flex flex-row justify-content-end align-items-center">
-		<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnReturnToCart">Return to my cart</button>
-		<button class="btn btn-success btn-outline-secondary text-light m-2" id="btnProceedCheckout"><b>Proceed checkout</b></button>
+		<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnReturnToCart"><spring:message code="cart.returnToCart"/></button>
+		<button class="btn btn-success btn-outline-secondary text-light m-2" id="btnProceedCheckout"><b><spring:message code="cart.checkOut"/></b></button>
 	</div>
 	<section>
 	</section>

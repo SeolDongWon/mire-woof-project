@@ -51,8 +51,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
-	<!-- subMenu Area -->
-	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
+
 	<main class="pt-2">
 		<div class="mt-3 w-75 m-auto">
 			<h3 class="text-center"><spring:message code="service.listTitle"/></h3>

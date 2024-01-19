@@ -3,6 +3,7 @@ package com.woof.service;
 import java.util.List;
 
 import com.woof.domain.Item;
+import com.woof.domain.PageRequest;
 
 public interface ItemService {
 	
@@ -20,7 +21,9 @@ public interface ItemService {
 	
 	public String getItemSubPic(Integer itemId) throws Exception;
 	
-	public List<Item> searchItemType(Item item) throws Exception;
+	public List<Item> searchItemType(PageRequest pageRequest) throws Exception;
 	
-	public List<Item> searchItemKeyword(Item item) throws Exception;
+	public List<Item> searchItemName(PageRequest pageRequest) throws Exception;
+	
+	public List<Item> listItemType(Item item) throws Exception;
 }
