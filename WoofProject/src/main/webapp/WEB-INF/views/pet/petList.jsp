@@ -33,33 +33,38 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-	
+
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
-	
-			<a href="insertPet" style="float: right; text-decoration: none;">새로등록</a><br>
-	
+
+		<a href="insertPet" style="float: right; text-decoration: none;">새로등록</a><br>
+
 		<section style="display: flex; flex-wrap: wrap; gap: 6rem;">
 			<c:forEach var="pet" items="${petList}">
-				<div class="card" style="width: 21rem;" >
+				<div class="card" style="width: 21rem;">
 					<a href="getPet?petNo=${pet.petNo}"><img
 						src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top"
 						alt="..."></a>
 					<div class="card-body" align="center">
 						<h5 class="card-title">펫 정보</h5>
 						<hr>
-						<a href="getPet?petNo=${pet.petNo}" style="text-decoration: none; color: black;">이름:${pet.petName} | 나이:${pet.petAge} | 견종:${pet.petType}</a>
+						<a href="getPet?petNo=${pet.petNo}"
+							style="text-decoration: none; color: black;">이름:${pet.petName}
+							| 나이:${pet.petAge}(개월) | 견종:${pet.petType}</a>
 					</div>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<a href="modifyPet?petNo=${pet.petNo}">수정</a> 
-					<a href="deletePet?petNo=${pet.petNo}"onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+						<a href="modifyPet?petNo=${pet.petNo}">수정</a>
+						<a href="deletePet?petNo=${pet.petNo}"
+							onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
 					</sec:authorize>
 				</div>
 			</c:forEach>
-
 		</section>
-
+		<hr>
+		<!-- 페이지번호 삽입 예정 -->
 	</main>
+
+
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

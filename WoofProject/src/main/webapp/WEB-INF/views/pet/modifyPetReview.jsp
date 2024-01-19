@@ -87,7 +87,7 @@ table {
 	</main>
 	<div align="center">
 		<button type="submit" id="btnModify">Modify</button>
-		<button type="submit" id="btnList">List</button>
+		<button type="button" id="btnList">List</button>
 	</div>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -76,7 +76,7 @@ textarea {
 						</p>
 						<div>
 							<button type="submit" id="btnRegister">Register</button>
-							<button type="submit" id="btnList">List</button>
+							<button type="button" id="btnList">List</button>
 						</div>
 					</div>
 				</div>

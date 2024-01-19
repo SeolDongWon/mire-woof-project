@@ -98,6 +98,13 @@
 .card-img-top {
     height: 150px; /* Adjust as needed */
 }
+
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
 </style>
 
 </head>
@@ -144,14 +151,15 @@
 		
 		<section style="display: flex; flex-wrap: wrap; gap: 3rem;">
 			<c:forEach var="review" items="${reviewList}">
-				<div class="card" style="width: 16rem; " >
+				<div class="card" style="width: 16rem; height: auto;" >
 					<a href="getReview?reviewNo=${review.reviewNo}"><img
 						src="getReviewPic?reviewNo=${review.reviewNo}" class="card-img-top"
 						alt="..."></a>
 					<div class="card-body" align="center">
 						<p class="card-title">${review.reviewTitle}</p>
 						<br>
-						<p class="hashtag" style="font-size: 10px">${review.reviewDesc}</p>
+						<%-- <p class="hashtag" style="font-size: 10px">${review.reviewDesc}</p> --%>
+						<button style="border-radius: 5px;"><a href="getReview?reviewNo=${review.reviewNo}" style="font-size: 12px; border: none;">더 보기</button>
 					</div>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<a href="modifyReview?reviewNo=${review.reviewNo}">수정</a> 

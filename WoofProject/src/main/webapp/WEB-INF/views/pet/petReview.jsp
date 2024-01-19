@@ -52,8 +52,8 @@ a {
 				</thead>
 				<tbody>
 					<tr>
-						<td ><img src="getReviewPic?reviewNo=${review.reviewNo}"width="50%" height="100%"></td>
-						<td class="hashtag" style="position: absolute; bottom: 250px;">${review.reviewDesc}</td>
+						<td ><img src="getReviewPic?reviewNo=${review.reviewNo}" width="100%" height="auto">
+						${review.reviewDesc}</td>
 					</tr>
 				</tbody>
 			</table>

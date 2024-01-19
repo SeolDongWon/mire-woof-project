@@ -58,7 +58,7 @@ a {
 						<div>
 							애칭:${pet.petName}<br> 나이: ${pet.petAge}<br> (견종:${pet.petType},
 							성별:${pet.petGender})<br> 소개: ${pet.petDesc}<br> 입양유무: ${pet.petStatus}<br> 등록일: <fmt:formatDate pattern="yyyy-MM-dd" value="${pet.petRegDate}"/><br><br>
-							<button><a href="/pet/getPetList">리스트</a></button>
+							<button style="border-radius: 5px;"><a href="/pet/getPetList" >리스트</a></button>
 						</div></td>
 				</tr>
 			</table>

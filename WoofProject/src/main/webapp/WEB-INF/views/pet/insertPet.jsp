@@ -58,7 +58,7 @@
 							<form:form modelAttribute="pet" action="insertPet" method="post"
 								enctype="multipart/form-data">
 								<br>
-				이름<form:input path="petName" />
+				애칭<form:input path="petName" />
 								<br>
 				나이<form:input path="petAge" />
 								<br>
@@ -81,7 +81,7 @@
 						</p>
 						<div>
 							<button type="submit" id="btnRegister">Register</button>
-							<button type="submit" id="btnList">List</button>
+							<button type="button" id="btnList">List</button>
 						</div>
 					</div>
 				</div>
