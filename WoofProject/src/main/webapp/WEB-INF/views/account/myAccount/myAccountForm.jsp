@@ -74,15 +74,16 @@
 					</tr>
 
 				</table>
+			<div class="d-flex justify-content-around" style="width: 750px;">
+				<a href="/account/deleteAccountForm" class="btn  m-2" style="background: rgb(246, 220, 216); border: none; "><spring:message code="account.deleteAccount"/></a>
+				<a href="/account/modifyAccountForm" class="btn  m-2" style="background: rgb(246, 220, 216); border: none; "><spring:message code="account.modifyAccount"/></a>
+			</div>
 			</div>
 		</div>
 
-		<div class="d-flex justify-content-end">
-			<div class="d-flex justify-content-around">
-				<a href="/account/deleteAccountForm" class="btn btn-danger m-2"><spring:message code="account.deleteAccount"/></a>
-				<a href="/account/modifyAccountForm" class="btn btn-primary m-2"><spring:message code="account.modifyAccount"/></a>
-			</div>
-		</div>
+		
+			
+		
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

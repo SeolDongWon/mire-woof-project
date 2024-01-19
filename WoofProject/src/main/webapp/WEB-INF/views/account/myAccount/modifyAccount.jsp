@@ -46,7 +46,7 @@
 		
 		<div class="d-flex  justify-content-center">
 
-		<form action="/account/modifyAccount" method="post">
+		<form action="/account/modifyAccount" method="post"  name="joinform" onsubmit="doSubmit(); return false;">
 			<div class="container mt-3" style="width: 500px">
 				<table class="table table-borderless">
 
@@ -69,7 +69,7 @@
 						<th>
 							<div class="input-group mb-3">
 								<input name="password" class="form-control"
-									placeholder="password" value="" />
+									placeholder="password" value="" placeholder="5~13자리 영문,숫자, 특수문자만 가능"  onblur="pwCheck()"/>
 
 							</div>
 						</th>
@@ -94,7 +94,7 @@
 						<td><spring:message code="common.address"/></td>
 						<th>
 							<div class="d-flex  justify-content-center">
-								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address" value="${account.address1}">
+								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address1" value="${account.address1}">
 					            <input type="button" class="btn-light btn-outline-secondary text-dark m-2" onclick="sample6_execDaumPostcode()" value="<spring:message code="common.findZipcode"/>" style="border: none; background-color: rgb(255, 255, 255);">
 					        </div>
 					           <input type="text" size="45px" id="sample6_address" placeholder="주소" class="form-control" name="address2" value="${account.address2}">
@@ -107,9 +107,7 @@
 						<td colspan='2'>
 						<div class="d-flex justify-content-end">
 							<button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" style="border: none; margin-right: 50px;"><spring:message code="account.modifyAccount"/></button> 
-								<sec:authorize access="hasRole('ROLE_ADMIN')">
-									<form:button type="submit" id="btnList">목록</form:button>
-							</sec:authorize>
+								
 							</div>
 						</td>
 					</tr>

@@ -89,7 +89,7 @@ public class AccountController {
 		log.info("===========loginFail");
 		
 		
-		model.addAttribute("error", "아이디 또는 비밀번호가 잘 못 되었습니다. ");
+		model.addAttribute("error", "xo");
 			
 	
 			
