@@ -48,7 +48,7 @@
 			<nav class="dropdown-menu">
 				<ul class=" nav nav-justified"style="left: -900px;">
 					<li class="navMenu nav-item">
-						<a href="/service/getFAQList" class="nav-link text-black"><spring:message code="mainMenu.FAQ"/></a></li>
+						<a href="/service/getFAQList" class="nav-link text-black"><spring:message code="common.FAQ"/></a></li>
 					<li class="navMenu nav-item">
 						<a href="/service/getServiceList" class="nav-link text-black"><spring:message code="mainMenu.contactUs"/></a></li>
 				</ul>
