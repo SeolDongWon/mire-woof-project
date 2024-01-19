@@ -8,18 +8,35 @@
 		#{reviewNo}
 	</select>
 
-	<select id="getReviewList" resultType="com.woof.domain.Review">
+	 <!-- <select id="getReviewList" resultType="com.woof.domain.Review">
 		SELECT * FROM review ORDER
 		BY
 		reviewNo
+	</select>  -->
+	
+	<select id="getReviewList" resultType="com.woof.domain.Review">
+		SELECT * 
+		FROM
+			(SELECT  ROWNUM AS rnum, reviewNo, reviewTitle, reviewDesc, reviewRegDate , reviewModDate 
+			FROM (select * from review WHERE reviewTitle LIKE '%'||#{keywordTitle}||'%' AND reviewDesc LIKE '%'||#{keywordDesc}||'%' order by reviewNo desc) 
+			ORDER BY reviewNo asc)
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY reviewNo DESC
 	</select>
+	
+	<select id="countReviewList" resultType="int">
+		SELECT count(reviewNo)
+		FROM review
+		WHERE reviewTitle LIKE '%'||#{keywordTitle}||'%'
+		AND reviewDesc LIKE '%'||#{keywordDesc}||'%'
+	</select>
+	
 
 	<insert id="insertPetReview">
 		INSERT INTO review
-		(reviewNo,userName,itemNo,petNo,reviewTitle,reviewDesc,reviewRegDate,reviewPic)
+		(reviewNo,userName,reviewTitle,reviewDesc,reviewRegDate,reviewPic)
 		VALUES
 		(reviewNo_seq.nextVal,
-		#{userName},#{itemNo},#{petNo},#{reviewTitle},#{reviewDesc},SYSDATE,#{reviewPic})
+		#{userName},#{reviewTitle},#{reviewDesc},SYSDATE,#{reviewPic})
 	</insert>
 
 	<update id="modifyReview">

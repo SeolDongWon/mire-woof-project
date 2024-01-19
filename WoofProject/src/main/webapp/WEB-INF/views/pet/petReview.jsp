@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -46,19 +46,18 @@ a {
 				<thead>
 					<tr>
 						<td class="title">${review.reviewTitle}</td>
-						<td class="user-id" align="right">${review.userName} |
-						${review.reviewRegDate}</td>
-						
+						<td class="user-id">${review.userName}</td> 
+						<td align="center" width="100px"><fmt:formatDate  pattern="yyyy-MM-dd" value="${review.reviewRegDate}"/></td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td ><img src="getReviewPic?reviewNo=${review.reviewNo}"width="50%" height="100%"></td>
-						<td class="hashtag" style="position: absolute; bottom: 300px;">${review.reviewDesc}</td>
+						<td class="hashtag" style="position: absolute; bottom: 250px;">${review.reviewDesc}</td>
 					</tr>
 				</tbody>
 			</table>
-			<button style="background-color: white;"><a href="/review/getReviewList">리스트</a></button>
+			<a href="/review/getReviewList" class="btn btn-light text-dark m-2"><spring:message code="common.list"/></a>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -106,10 +106,10 @@
 					<td>
 						<select class="form-control" name="itemType" id="itemType">
 							<option value=""><spring:message code="item.itemTypePH"/></option>
-							<option value="clothing"><spring:message code="common.itemType1"/></option>
-							<option value="toy"><spring:message code="common.itemType2"/></option>
-							<option value="food"><spring:message code="common.itemType3"/></option>
-							<option value="accessory"><spring:message code="common.itemType4"/></option>
+							<option value="Clothing"><spring:message code="common.itemType1"/></option>
+							<option value="Toy"><spring:message code="common.itemType2"/></option>
+							<option value="Food"><spring:message code="common.itemType3"/></option>
+							<option value="Accessory"><spring:message code="common.itemType4"/></option>
 						</select>
 					</td>
 				</tr>
@@ -138,7 +138,7 @@
 		</form:form>
 		 <div class="d-flex justify-content-end">
 	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnGetItemList"><spring:message code="item.viewItemList"/></button>
-	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnInsertItem"><spring:message code="item.registerItem"/></button>
+	        <button class="btn btn-success m-2" type="submit" id="btnInsertItem"><spring:message code="item.registerItem"/></button>
     	</div>
 		
 		<!-- unused variables -->

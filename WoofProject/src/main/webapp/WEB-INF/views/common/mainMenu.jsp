@@ -33,13 +33,13 @@
 					<li class="navMenu nav-item">
 						<a href="/item/itemList"class="nav-link text-black"><spring:message code="mainMenu.searchShop"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/item/itemList"class="nav-link text-black"><spring:message code="mainMenu.itemType1"/></a></li>
+						<a href="/item/listItemType?itemType=Toy"class="nav-link text-black"><spring:message code="mainMenu.itemType1"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/item/itemList"class="nav-link text-black"><spring:message code="mainMenu.itemType2"/></a></li>
+						<a href="/item/listItemType?itemType=Clothing"class="nav-link text-black"><spring:message code="mainMenu.itemType2"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/item/itemList"class="nav-link text-black"><spring:message code="mainMenu.itemType3"/></a></li>
+						<a href="/item/listItemType?itemType=Food"class="nav-link text-black"><spring:message code="mainMenu.itemType3"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/item/itemList"class="nav-link text-black"><spring:message code="mainMenu.itemType4"/></a></li>
+						<a href="/item/listItemType?itemType=Accessory"class="nav-link text-black"><spring:message code="mainMenu.itemType4"/></a></li>
 				</ul>
 			</nav></li>
 

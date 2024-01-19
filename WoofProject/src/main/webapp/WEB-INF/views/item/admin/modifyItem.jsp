@@ -57,14 +57,17 @@
             self.location = "/item/itemList";
         });
         
+        $("#btnInsertItem").on("click", function() {
+        	self.location = "/item/admin/insertItem"
+        });
     });
     
     function confirmClose(itemStatus) {
     	if(itemStatus === 'CLOSED') {
-    		alert("The item is already closed");
+    		alert("<spring:message code='item.alert.alreadyClosed'/>");
     		return false;
     	}
-        if (confirm("Are you sure you want to close this item?")) {
+        if (confirm("<spring:message code='item.alert.confirmClose'/>")) {
         	return true;
         } 
         return false;
@@ -72,10 +75,10 @@
     
     function confirmOpen(itemStatus) {
     	if(itemStatus === 'OPEN') {
-    		alert("The item is already open");
+    		alert("<spring:message code='item.alert.alreadyOpen'/>");
     		return false;
     	}
-        if (confirm("Are you sure you want to open this item?")) {
+        if (confirm("<spring:message code='item.alert.confirmOpen'/>")) {
         	return true;
         } 
         return false;
@@ -83,37 +86,37 @@
     
 	function checkValues() {
 		if(document.getElementById("itemName").value == "") {
-	        alert("Please enter an item name");
+	        alert("<spring:message code='item.alert.enterName'/>");
 	        document.getElementById("itemName").focus();
 	        return;
 		}
 		if(document.getElementById("itemPrice").value <= "0") {
-			alert("Please enter a price");
+			alert("<spring:message code='item.alert.enterPrice'/>");
 	        document.getElementById("itemPrice").focus();
 	        return;
 		}
 		if(document.getElementById("itemStock").value <= "0") {
-			alert("Please enter the item stock");
+			alert("<spring:message code='item.alert.enterStock'/>");
 	        document.getElementById("itemStock").focus();
 	        return;
 		}
 		if(document.getElementById("itemType").value == "") {
-			alert("Please select the item category")
+			alert("<spring:message code='item.alert.enterType'/>")
 	        document.getElementById("itemType").focus();
 	        return;
 		}
 		if(document.getElementById("itemMainPic").value == "") {
-			alert("Please select a main picture")
+			alert("<spring:message code='item.alert.enterMainPic'/>")
 	        document.getElementById("itemMainPic").focus();
 	        return;
 		}
 		if(document.getElementById("itemSubPic").value == "") {
-			alert("Please select a secondary picture")
+			alert("<spring:message code='item.alert.enterSubPic'/>")
 	        document.getElementById("itemSubPic").focus();
 	        return;
 		}
 		if(document.getElementById("itemDesc").value == "") {
-			alert("Please select an item description")
+			alert("<spring:message code='item.alert.enterDescription'/>")
 	        document.getElementById("itemDesc").focus();
 	        return;
 		}
@@ -152,6 +155,7 @@
 		<div id="modifyFormContainer"></div>
 		
 		 <div class="d-flex justify-content-end">
+	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnInsertItem"><spring:message code="item.insertItem"/></button>
 	        <button class="btn btn-light btn-outline-secondary text-dark m-2" type="submit" id="btnGetItemList"><spring:message code="item.viewItemList"/></button>
     	</div>
 	</main>
