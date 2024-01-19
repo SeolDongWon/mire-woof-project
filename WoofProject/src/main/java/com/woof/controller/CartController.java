@@ -75,11 +75,11 @@ public class CartController {
 	}
 
 	@PostMapping("/removeChecked")
-	public ResponseEntity<String> removeChecked(@RequestBody Map<String, Object> requestData) throws Exception {
+	public ResponseEntity<String> removeChecked(@RequestBody Map<String, Object> requestData, Principal principal) throws Exception {
 		log.info("/removeChecked POST requestBody: " + requestData.toString());
 		
 		List<String> selectedItems = (List<String>) requestData.get("selectedItems");
-		String username = (String) requestData.get("username");
+		String username = principal.getName();
 		
 		log.info("/removeChecked POST selectedItems: " + selectedItems.toString() + ", username: " + username);
 		cartService.removeChecked(selectedItems, username);
@@ -87,11 +87,11 @@ public class CartController {
 	}
 
 	@PostMapping("/removeFromCart")
-	public ResponseEntity<String> removeFromCart(@RequestBody Map<String, Object> requestData) throws Exception {
+	public ResponseEntity<String> removeFromCart(@RequestBody Map<String, Object> requestData, Principal principal) throws Exception {
 		log.info("/removeFromCart POST requestBody: " + requestData.toString());
 		
 		String itemNo = (String) requestData.get("itemNo");
-		String username = (String) requestData.get("username");
+		String username = principal.getName();
 		
 		log.info("/removeFromCart POST itemNo: " + itemNo + ", username: " + username);
 		cartService.removeFromCart(itemNo, username);
@@ -104,12 +104,12 @@ public class CartController {
 //	}
 	
 	@PostMapping("/modifyQuantity")
-	public ResponseEntity<String> modifyQuantity(@RequestBody Map<String, Object> requestData) throws Exception {
+	public ResponseEntity<String> modifyQuantity(@RequestBody Map<String, Object> requestData, Principal principal) throws Exception {
 		log.info("/modifyQuantity: requestData: " + requestData.toString());
 		
 		Cart cart = new Cart();
 		cart.setItemNo(Integer.parseInt(requestData.get("itemNo").toString()));
-		cart.setUsername(requestData.get("username").toString());
+		cart.setUsername(principal.getName());
 		cart.setNewQuantity(Integer.parseInt(requestData.get("newQuantity").toString()));
 		cartService.modifyQuantity(cart);
 		

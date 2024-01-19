@@ -42,7 +42,7 @@
           <div class="col-3">
             <p class="fs-6 mb-2"><spring:message code="common.cs"/></p>
             <ul class="navbar-nav fs-6 fw-light">
-              <li class="nav-item"><a href="/service/getFAQList" class="nav-link link-secondary p-1"><spring:message code="footer.FAQ"/></a></li>
+              <li class="nav-item"><a href="/service/getFAQList" class="nav-link link-secondary p-1"><spring:message code="common.FAQ"/></a></li>
               <li class="nav-item"><a href="/service/getServiceList" class="nav-link link-secondary p-1"><spring:message code="footer.contactUs"/></a></li>
             </ul>
           </div>

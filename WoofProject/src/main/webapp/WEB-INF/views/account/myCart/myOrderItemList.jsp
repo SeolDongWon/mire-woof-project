@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -42,7 +42,7 @@
                 <thead class="t-head">
                     <tr>
                         <td class="align-middle text-center p-3">
-                            <h5><b>Detailed Order History</b></h5>
+                            <h5><b><spring:message code="orderHistory.detailedOrderHistory"/></b></h5>
                         </td>
                     </tr>
                 </thead>
@@ -64,14 +64,14 @@
                             <h5 class="card-title text-center"><b>${orderItem.itemName}</b></h5>
                             <div class="row p-2">
 						        <div class="col-md-6">
-						            <p class="card-text"><b>Item Quantity:</b></p>
-						            <p class="card-text"><b>Item Price:</b></p>
-						            <p class="card-text"><b>Total Price:</b></p>
+						            <p class="card-text"><b><spring:message code="common.quantity"/></b></p>
+						            <p class="card-text"><b><spring:message code="common.price"/></b></p>
+						            <p class="card-text"><b><spring:message code="orderHistory.totalItemPrice"/></b></p>
 						        </div>
 						        <div class="col-md-6 text-end">
 						            <p class="card-text">${orderItem.itemQuantity}</p>
-						            <p class="card-text">${orderItem.itemPrice}</p>
-						            <p class="card-text">${itemTotalPrice}</p>
+						            <p class="card-text">₩${orderItem.itemPrice}</p>
+						            <p class="card-text">₩${itemTotalPrice}</p>
 						        </div>
 						    </div>
                         </div>
@@ -80,10 +80,10 @@
             </c:forEach>
         <div class="row p-2">
         	<div class="col align-center">
-        		<a href="/orderHistory/getOrderHistoryList" class="btn btn-light btn-outline-secondary text-dark m-2">Return to Order History</a>
+        		<a href="/orderHistory/getOrderHistoryList" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="orderHistory.returnToOrderHistory"/></a>
         	</div>
         	<div class="col align-center text-end">
-        		<b>Total price: ${totalPrice}</b>
+        		<b><spring:message code="orderHistory.totalPrice"/> : ₩${totalPrice}</b>
         	</div>
         </div>
         </div>

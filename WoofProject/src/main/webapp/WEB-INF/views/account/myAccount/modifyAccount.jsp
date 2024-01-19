@@ -50,7 +50,6 @@
 			<div class="container mt-3" style="width: 500px">
 				<table class="table table-borderless">
 
-
 					<tr>
 						<td colspan='2'><h2><spring:message code="account.modifyAccount"/></h2></td>
 					</tr>
@@ -69,7 +68,7 @@
 						<th>
 							<div class="input-group mb-3">
 								<input name="password" class="form-control"
-									placeholder="password" value="" placeholder="5~13자리 영문,숫자, 특수문자만 가능"  onblur="pwCheck()"/>
+									value="" placeholder="<spring:message code="signup.passwordPH"/>"  onblur="pwCheck()"/>
 
 							</div>
 						</th>
@@ -78,7 +77,7 @@
 						<td><spring:message code="common.name"/></td>
 						<th>
 							<div class="input-group mb-3">
-								<input name="name" class="form-control" placeholder="name" value="${account.name}" />
+								<input name="name" class="form-control" placeholder="<spring:message code="signup.namePH"/>" value="${account.name}" />
 							</div>
 						</th>
 					</tr>
@@ -86,7 +85,7 @@
 						<td><spring:message code="common.phone"/></td>
 						<th>
 							<div class="input-group mb-3">
-								<input name="tel" class="form-control" placeholder="tel" value="${account.tel}" />
+								<input name="tel" class="form-control" placeholder="<spring:message code="signup.phonePH"/>" value="${account.tel}" />
 							</div>
 						</th>
 					</tr>
@@ -94,12 +93,12 @@
 						<td><spring:message code="common.address"/></td>
 						<th>
 							<div class="d-flex  justify-content-center">
-								<input type="text" id="sample6_postcode" placeholder="우편번호" class="form-control" name="address1" value="${account.address1}">
+								<input type="text" id="sample6_postcode" placeholder="<spring:message code="signup.address1PH"/>" class="form-control" name="address1" value="${account.address1}">
 					            <input type="button" class="btn-light btn-outline-secondary text-dark m-2" onclick="sample6_execDaumPostcode()" value="<spring:message code="common.findZipcode"/>" style="border: none; background-color: rgb(255, 255, 255);">
 					        </div>
-					           <input type="text" size="45px" id="sample6_address" placeholder="주소" class="form-control" name="address2" value="${account.address2}">
-					           <input type="text" id="sample6_detailAddress" placeholder="상세주소" class="form-control" name="address3" value="${account.address3}">
-					           <input type="text" id="sample6_extraAddress" placeholder="참고항목" class="form-control" name="address4" value="${account.address4}">
+					           <input type="text" size="45px" id="sample6_address" placeholder="<spring:message code="signup.address2PH"/>" class="form-control" name="address2" value="${account.address2}">
+					           <input type="text" id="sample6_detailAddress" placeholder="<spring:message code="signup.address3PH"/>" class="form-control" name="address3" value="${account.address3}">
+					           <input type="text" id="sample6_extraAddress" placeholder="<spring:message code="signup.address4PH"/>" class="form-control" name="address4" value="${account.address4}">
 						</th>
 					</tr>
 

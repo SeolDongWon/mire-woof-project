@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -34,15 +34,15 @@
 
 	<main class="pt-2 w-75 m-auto">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-		<h3 class="text-center">NOTICE</h3>
+		<h3 class="text-center"><spring:message code="announcement.notice"/></h3>
 		<table class="table border border-1" style="table-layout: fixed;">
 			<thead>
 				<tr>
-					<th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th>
-					<th class="bg-dark-subtle text-center" style="width: 100px;">제목</th>
-					<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
-					<th class="bg-dark-subtle text-center" style="width: 50px;">수정일</th>
-					<th class="bg-dark-subtle text-center" style="width: 50px;">조회수</th>
+					<th class="bg-dark-subtle text-center" style="width: 20px;"><spring:message code="common.no"/></th>
+					<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.title"/></th>
+					<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.date"/></th>
+					<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.modDate"/></th>
+					<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.views"/></th>
 				</tr>
 			</thead>
 			<tbody id="noticeListSpan">
@@ -56,8 +56,7 @@
 					<td class=" text-center" style="width: 50px;">${notice.noticeViewCount}</td>
 				</tr>
 				<tr>
-					<td colspan="5" rowspan="5"><textarea
-							class="form-control-plaintext " rows="5" readonly="readonly">${notice.noticeDesc}</textarea>
+					<td colspan="5" rowspan="5"><textarea class="form-control-plaintext " rows="5" readonly="readonly">${notice.noticeDesc}</textarea>
 					</td>
 				</tr>
 			</tbody>
@@ -65,13 +64,13 @@
 
 			<button>
 				<a href="/notice/modifyNoticeForm/${notice.noticeNo}"
-					class="list-group-item list-group-item-action border-0 text-truncate">${notice.noticeNo}수정</a>
+					class="list-group-item list-group-item-action border-0 text-truncate">${notice.noticeNo} <spring:message code="common.modify"/></a>
 			</button>
 			<form:form modelAttribute="notice" action="/notice/deleteNotice">
 				<form:input path="noticeNo" class="form-control" readonly="true"
 					type="hidden" />
 				<form:button>
-					<span>${notice.noticeNo}삭제</span>
+					<span>${notice.noticeNo} <spring:message code="common.delete"/></span>
 				</form:button>
 			</form:form>
 	</main>

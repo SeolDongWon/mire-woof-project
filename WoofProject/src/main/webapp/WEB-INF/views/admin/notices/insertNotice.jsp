@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -54,16 +54,15 @@
 	<main class="pt-2">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<div class="mt-3 w-75 m-auto">
-	<h1>INSERT NOTICE</h1>
-			NOTICE 
+	<h1><spring:message code="announcement.admin.write"/></h1> 
 			<form:form modelAttribute="notice" action="/notice/insertNotice" method="post">
-				noticeTitle : <form:input path="noticeTitle" class="form-control"/><br>
-				noticeDesc : <form:textarea path="noticeDesc"  class="form-control" rows="5" id="comment"/><br>
+				<spring:message code="common.title"/> <form:input path="noticeTitle" class="form-control"/><br>
+				<spring:message code="common.description"/> <form:textarea path="noticeDesc"  class="form-control" rows="5" id="comment"/><br>
 				
 			</form:form>
 			<div>
-				<button type="submit" id="btnRegister"class="btn btn-outline-secondary">Register</button>
-				<button type="submit" id="btnList"class="btn btn-outline-secondary">List</button>
+				<button type="submit" id="btnRegister"class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="common.submit"/></button>
+				<button type="submit" id="btnList"class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="common.list"/></button>
 			</div>
 		</div>
 	</main>
