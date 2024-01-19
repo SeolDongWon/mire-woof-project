@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -39,7 +39,7 @@
                 <thead class="t-head">
                     <tr>
                         <td class="align-middle text-center p-3">
-                            <h5><b>My Order History</b></h5>
+                            <h5><b><spring:message code="orderHistory.myOrderHistory"/></b></h5>
                         </td>
                     </tr>
                 </thead>
@@ -51,7 +51,7 @@
                     <div class="col">
                         <div class="card">
                             <div class="card-body text-center">
-                                <p class="card-text">You have not made any orders</p>
+                                <p class="card-text"><spring:message code="orderHistory.emptyOrderHistory"/></p>
                             </div>
                         </div>
                     </div>
@@ -68,11 +68,11 @@
 		                                    </h5>
 	                                    </div>
 	                                    <div class="col text-end">
-                                    		<a href="/orderItem/getOrderItemList?orderHistoryNo=${orderHistory.orderHistoryNo}" class="btn btn-sm btn-light text-dark m-2"><b>Order details</b></a>
+                                    		<a href="/orderItem/getOrderItemList?orderHistoryNo=${orderHistory.orderHistoryNo}" class="btn btn-sm btn-light text-dark m-2"><b><spring:message code="orderHistory.orderDetails"/></b></a>
                                     	</div>
                                     </div>
-                                    <p class="card-text">Total price: ${orderHistory.totalPrice}</p>
-                                    <p class="card-text">Delivery address: ${orderHistory.address}</p>
+                                    <p class="card-text"><spring:message code="orderHistory.totalPrice"/> : ${orderHistory.totalPrice}</p>
+                                    <p class="card-text"><spring:message code="orderHistory.deliveryAddress"/> : ${orderHistory.address}</p>
                                 </div>
                             </div>
                         </div>

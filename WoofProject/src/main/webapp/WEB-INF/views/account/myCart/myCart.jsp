@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -29,24 +29,18 @@
 			event.preventDefault();
 			
 			var selectedItems = getSelectedItems();
-			var username = '${pageContext.request.userPrincipal.principal.account.name}';
 			console.log("selectedItems: ", selectedItems);
-			console.log("username: ", username);
-			
 			var requestData = {
 				selectedItems: selectedItems,
-			    username: username
 			};
 			
 			if(selectedItems.length > 0) {
 				$("#selectedItemsInput").val(selectedItems);
 				
 				var action = $(event.originalEvent.submitter).attr('id') === 'btnCheckout' ? 'getOrder' : 'removeChecked';
-			
 				this.action = action;
 				
 				console.log("action: ", action);
-				
 				if(action === 'removeChecked') {
 					$.ajax({
 					    type: "POST",
@@ -66,9 +60,8 @@
 				this.submit();
 				}
 			} else {
-				alert("Please select at least one item");
+				alert("<spring:message code='cart.alert.noneSelected'/>");
 			}
-			
 		});
 		
 		function getSelectedItems() {
@@ -123,7 +116,7 @@
 			if(currentQuantity > 1){ 
 				modifyQuantity(itemNo, currentQuantity-1, selectedElement);
 			} else {
-				alert("Quantity cannot go below 1");
+				alert("<spring:message code='cart.alert.minQuantity'/>");
 			}
 		});
 		
@@ -136,16 +129,14 @@
 			if(currentQuantity < 10){ 
 				modifyQuantity(itemNo, currentQuantity+1, selectedElement);
 			} else {
-				alert("Please contact us to order more than 10 items");
+				alert("<spring:message code='cart.alert.maxQuantity'/>");
 			}
 		});
 		
 		function modifyQuantity(itemNo, newQuantity, selectedElement) {
-			var username = '${pageContext.request.userPrincipal.principal.account.name}';
 			
 			var requestData = {
 				itemNo: itemNo,
-				username: username,
 				newQuantity: newQuantity
 			};
 			console.log("requestData: ", requestData);
@@ -189,17 +180,17 @@
 							<i class="fa-solid fa-check-double text-primary"></i>
 						</button>
 					</th>
-					<th class="align-middle text-center">Main picture</th>
-					<th class="align-middle text-center">Item name</th>
-					<th class="align-middle text-center">Quantity</th>
-					<th class="align-middle text-center">Price</th>
+					<th class="align-middle text-center"></th>
+					<th class="align-middle text-center"><spring:message code="item.itemName"/></th>
+					<th class="align-middle text-center"><spring:message code="common.quantity"/></th>
+					<th class="align-middle text-center"><spring:message code="common.price"/></th>
 					<th></th>
 				</tr>
 			</thead>
 			<c:choose>
 				<c:when test="${empty cartList}">
 					<tr>
-						<td colspan="5" style="text-align:center">There are no items in your cart</td>
+						<td colspan="5" style="text-align:center"><spring:message code="cart.emptyCart"/></td>
 					</tr>
 				</c:when>
 				<c:otherwise>
@@ -223,7 +214,7 @@
 									<i class="fa-solid fa-caret-right text-primary"></i>
 								</button>	
 							</td>
-							<td class="align-middle text-center">${cart.itemPrice}</td>
+							<td class="align-middle text-center">₩${cart.itemPrice}</td>
 							<td class="align-middle text-center">
 								<button type="button" class="remove-from-cart-btn text-decoration-none border-0 bg-transparent" data-username="${cart.username}" data-itemNo="${cart.itemNo}">
 									<i class="fa-sharp fa-regular fa-rectangle-xmark text-danger"></i>
@@ -238,8 +229,8 @@
 		<input type="hidden" id="selectedItemsInput" name="selectedItems" value="">
 		
 		<div class="d-flex flex-row justify-content-end align-items-center">
-			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnRemoveSelected" type="submit">Remove selected items</button>
-			<button class="btn btn-light btn-outline-secondary text-dark m-2" id="btnCheckout" type="submit">Check out</button>
+			<button class="btn btn-danger m-2" id="btnRemoveSelected" type="submit"><spring:message code="cart.removeSelectedItems"/></button>
+			<button class="btn btn-primary m-2" id="btnCheckout" type="submit"><spring:message code="cart.checkOut"/></button>
 		</div>
 	</form>	
 	

@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -30,14 +30,14 @@
 		
 		
 		$("#btnModify").on("click", function() {
-			  var check = confirm('등록할까요');
+			  var check = confirm("<spring:message code='common.alert.confirmSubmit'/>");
 			  
 			  if (check) {
 				  formObj.attr("action", "/service/modifyService");
 					formObj.submit();
 			   }
 			   else {
-			      alert('등록 취소');
+			      alert("'<spring:message code='common.alert.cancelled'/>'");
 			   }
 		});
 		
@@ -57,14 +57,14 @@
 	<main class="pt-2">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<div class="mt-3 w-75 m-auto">
-	<h4>modifyService</h4>
+	<h4><spring:message code="service.modifyService"/></h4>
 			<form id="serviceForm" method="post">
-				username : <input name="username" class="form-control" value="${service.username}" readonly="true"/> 
-				serviceDesc : <textarea name="serviceDesc"  class="form-control" rows="5">${service.serviceDesc}</textarea>
+				<spring:message code="common.username"/> : <input name="username" class="form-control" value="${service.username}" readonly="true"/> 
+				<spring:message code="common.description"/> : <textarea name="serviceDesc"  class="form-control" rows="5">${service.serviceDesc}</textarea>
 			</form>
 			<div>
-				<button type="submit" id="btnModify">modify</button>
-				<button type="submit" id="btnList">List</button>
+				<button type="submit" id="btnModify"><spring:message code="common.modify"/></button>
+				<button type="submit" id="btnList"><spring:message code="common.list"/></button>
 			</div>
 		</div>
 	</main>
