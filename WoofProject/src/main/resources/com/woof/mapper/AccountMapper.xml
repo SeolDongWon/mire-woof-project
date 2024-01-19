@@ -119,40 +119,13 @@
 		SELECT count(*) FROM account
 	</select>
 
-	<!-- 유저 영구 탈퇴 -->
-	<delete id="remove">
-
-		DELETE FROM orderItem
-		WHERE orderHistoryNo IN (SELECT orderHistoryNo FROM orderHistory WHERE
-		username = #{username})
-
-
-		DELETE FROM cart
+	<!-- 관리자가 유저정지 및 해제 -->
+	<update id="restoreAccount" parameterType="Account">
+		UPDATE account SET
+		status = CASE
+		WHEN status = 'active' THEN 'deactivated'
+		WHEN status = 'deactivated' THEN 'active'
+		END
 		WHERE username = #{username}
-
-		DELETE FROM service
-		WHERE username = #{username}
-
-
-		DELETE FROM notice
-		WHERE noticeNo IN (SELECT noticeNo FROM notice WHERE username =
-		#{username})
-
-
-		DELETE FROM review
-		WHERE username = #{username}
-
-
-		DELETE FROM reply
-		WHERE username = #{username}
-
-
-		DELETE FROM account_auth
-		WHERE username = #{username}
-
-
-		DELETE FROM account
-		WHERE username = #{username}
-
-	</delete>
+	</update>
 </mapper>

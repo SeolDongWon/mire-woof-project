@@ -17,7 +17,7 @@ public interface AccountMapper {
 	// 내정보
 	public Account getAccount(Account account) throws Exception;
 	// Account들의 모든정보 리스트
-	public List<Account> getAccountList() throws Exception;
+	public List<Account> getAccountList(Account account) throws Exception;
 	//정보 수정
 	public void modifyAccount(Account account) throws Exception;
 	//계정 탈퇴
@@ -30,8 +30,8 @@ public interface AccountMapper {
 	//사용자 아이디를 가진 회원 정보를 조회
 	public Account readByUsername(String username);
 	
-	//유저 영구삭제
-	public void remove(Account username);
+	//유저 정지 및 해제
+	public void restoreAccount(Account username);
 
 	public String getAddress(String username);
 }

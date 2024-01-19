@@ -17,30 +17,11 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<script>
-	/* $(document).ready(function() {
-		var formObj = $("#account");
-		console.log(formObj);
-		$("#btnRemove").on("click", function() {
-			formObj.attr("action", "remove");
-			formObj.submit();
-		});
-		
-	}); */
-function accountdelete(form) {
-	
-	var check = confirm("삭젵네스트");
-	if(check){
-		form.action='/account/remove';
-		form.submit();
-	}else{
-		
-	}
-	
-	
-}	
-	
-</script>
+
+ 
+
+
+
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
@@ -67,13 +48,14 @@ function accountdelete(form) {
 				<thead>
 					<tr>
 						<!-- <th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th> -->
-						<th class="text-center" style="width: 70px;">아이디</th>
+						
+						<th class="text-center" style="width: 120px;">아이디</th>
 						<th class="text-center" style="width: 70px;">성명</th>
 						<th class="text-center" style="width: 120px;">전화번호</th>
-						<th class="text-center">주소</th>
+						<th class="text-center" style="width: 300px;">주소</th>
 						<th class="text-center" style="width: 100px;">작성일</th>
 						<th class="text-center" style="width: 80px;">탈퇴여부</th>
-						<th class="text-center" style="width: 100px;">삭제 여/부</th>
+						<th class="text-center" style="width: 100px;">계정 여/부</th>
 					</tr>
 				</thead>
 
@@ -88,16 +70,20 @@ function accountdelete(form) {
 						<c:otherwise>
 							<c:forEach items="${list}" var="account">
 								<tr>
-								<form method="post" name="acconutdelete" >
-									<td align="center" name="username">${account.username}</a></td>
-									<td align="center">${account.name}</td>
+								<form method="post" action="/account/accountStatusSwitch" >
+								<td align="center">
+								<input type="text" name="username" value="${account.username}"  style="width: 120px; border: none;" readonly="readonly"/>
+								</td>
+				
+								
+									<td align="center" style="max-width: 70px; word-wrap: break-word;">${account.name}</td>
 									<td align="center">${account.tel}</td>
-									<td align="left">${account.address}</td>
+									<td align="left"  style="max-width: 300px; word-wrap: break-word;">${account.address}</td>
 									<td align="center"><fmt:formatDate
 											value="${account.regDate}" pattern="yy-MM-dd HH:mm" /></td>
 									<td align="center">${account.status}</td>
 									<td align="center">
-										<button id="btnRemove" onclick="accountdelete(this.form)">삭제</button>
+										<button class="form-control" style="background: rgb(246, 220, 216); border: none;" >switch</button>
 									</td>
 									</form>
 								</tr>
