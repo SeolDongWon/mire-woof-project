@@ -3,13 +3,14 @@
 <mapper namespace="com.woof.mapper.ReplyMapper">
 
 	<insert id="insertReply">
-		INSERT INTO reply(replyNo,username,reply)
-		VALUES(replyNo_seq.NEXTVAL,#{username},#{reply})
+		INSERT INTO reply(replyNo,username,reply,itemNo)
+		VALUES(replyNo_seq.NEXTVAL,#{username},#{reply},#{itemNo})
 	</insert>
 
 	<select id="countReplyList">
-		SELECT count(replyNo)
+		SELECT count(replyNo) 
 		FROM reply
+		WHERE itemNo=#{itemNo}
 	</select>
 
 	<select id="getReplyList" resultType="Reply">
@@ -17,10 +18,16 @@
 		FROM
 		(SELECT ROWNUM AS rnum, replyNo, username, petNo, reviewNo,
 		reply, replyRegDate, replyModDate, itemNo
-		FROM (SELECT * FROM reply ORDER BY replyNo DESC)
+		FROM (SELECT * FROM reply WHERE itemNo=#{itemNo} ORDER BY replyNo DESC)
 		ORDER BY replyNo ASC)
 		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and
 		#{sizePerPage}*#{page} ORDER BY replyNo DESC
 	</select>
+	
+	<delete id="deleteReply">
+		DELETE 
+		FROM reply 
+		WHERE replyNo=#{replyNo}
+	</delete>
 
 </mapper>

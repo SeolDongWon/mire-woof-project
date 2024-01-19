@@ -5,12 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,7 +32,7 @@ public class ServiceController {
 
 	// 글쓰기 화면
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	@RequestMapping(value = "/insertServiceForm")
+	@GetMapping("/insertServiceForm")
 	public String insertServiceForm(Account account, Principal principal, Model model) throws Exception {
 		log.info("insertServiceForm");
 		account.setUsername(principal.getName());
@@ -43,7 +43,7 @@ public class ServiceController {
 
 	// 글 등록
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
-	@RequestMapping(value = "/insertService")
+	@PostMapping("/insertService")
 	public String insertService(Service service) throws Exception {
 		log.info("insertService");
 		log.info("service : " + service.toString());
@@ -60,7 +60,7 @@ public class ServiceController {
 
 	// 답변 화면
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/responseServiceForm")
+	@PostMapping("/responseServiceForm")
 	public String responseServiceForm(Service service, Model model) throws Exception {
 		log.info("responseServiceForm");
 		log.info("responseServiceForm : " + service.toString());
@@ -71,7 +71,7 @@ public class ServiceController {
 
 	// 답변 등록
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/respnoseService")
+	@PostMapping("/respnoseService")
 	public String respnoseService(Service service) throws Exception {
 		log.info("respnoseService");
 		log.info("respnoseService : " + service.toString());
@@ -81,7 +81,7 @@ public class ServiceController {
 
 	// 삭제
 	@PreAuthorize("hasAnyRole('ROLE_MEMBER','ROLE_ADMIN')")
-	@RequestMapping(value = "/deleteService")
+	@PostMapping("/deleteService")
 	public String deleteService(@AuthenticationPrincipal UserDetails userDetails, Service service, Principal principal,RedirectAttributes rttr) throws Exception {
 		log.info(service.toString());
 		
@@ -99,7 +99,8 @@ public class ServiceController {
 	    String msg=null;
 	    if(!principal.getName().equals(service.getUsername())){
 	    	msg="작성자가 아니면 삭제할 수 없어요";
-	    }else if(service.getResponse()!=null){
+	    }else if(service.getResponse()!=""){
+	    	log.info("getResponse"+service.getResponse());
 	    	msg="답변이 달린 글은 삭제할 수 없어요";
     	}else {
     		serviceService.deleteService(service);	    		
@@ -111,7 +112,7 @@ public class ServiceController {
 	}
 
 	// 문의 리스트
-	@RequestMapping(value = "/getServiceList")
+	@GetMapping("/getServiceList")
 	public String getServiceList(Model model, PageRequest pageRequest, Pagination pagination, Principal principal,
 			Account account) throws Exception {
 		log.info("getServiceList");
@@ -151,7 +152,7 @@ public class ServiceController {
 		return "service/serviceList";
 	}
 
-	@RequestMapping(value = "/getFAQList")
+	@GetMapping("/getFAQList")
 	public String getFAQList(Service service) {
 		return "service/FAQ";
 	}

@@ -57,11 +57,11 @@ public class ReplyController {
 		replyService.insertReply(reply);
 
 		// 샘플작성
-//		String desc = reply.getReply();
-//		for (int i = 0; i < 30; i++) {
-//			reply.setReply(desc + i);
-//			replyService.insertReply(reply);
-//		}
+		String desc = reply.getReply();
+		for (int i = 0; i < 30; i++) {
+			reply.setReply(desc + i);
+			replyService.insertReply(reply);
+		}
 		
 		return "redirect:/reply/getReplyList";
 	}
@@ -110,8 +110,8 @@ public class ReplyController {
 	@PutMapping(value = "/getReplyPage")
 	public ResponseEntity<List> getReplyPage(@RequestBody PageRequest pageRequest, Pagination pagination) throws Exception {
 		log.info("getReplyPage");
-        
-       
+		log.info("pageRequest1 : "+pageRequest.toString());
+		
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(replyService.countReplyList(pageRequest));
 		log.info("pagination3 : "+pagination.toString());
@@ -120,6 +120,13 @@ public class ReplyController {
 		pageList.add(pagination);
 		
 		ResponseEntity<List> entity = new ResponseEntity<List>(pageList, HttpStatus.OK);
+		return entity;
+	}
+	
+	@PutMapping("/deleteReply")
+	public ResponseEntity<List> deleteReply(@RequestBody Reply reply) throws Exception {
+		replyService.deleteReply(reply);
+		ResponseEntity<List> entity = null;
 		return entity;
 	}
 

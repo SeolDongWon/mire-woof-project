@@ -6,28 +6,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>mire woof</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- css common Area 헤더 푸터에 쓸 css 경로-->
-<%@ include file="/WEB-INF/views/common/style.jsp"%>
-<!-- script common Area 헤더 푸터에 쓸 script 경로-->
-<%@ include file="/WEB-INF/views/common/script.jsp"%>
-<!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
-<%-- <%@ include file="" %> --%>
-<!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
-<%-- <%@ include file="" %> --%>
+
 <script type="text/javascript">
 	var currUsername = '${pageContext.request.userPrincipal.principal.account.username}';
+	var itemno = '${item.itemNo}';
 	
 	$(document).ready(function() {
 		replyList('1');
@@ -44,6 +26,7 @@
 	function RegisterBtn() {
 		replyRegister();
 		replyList('1');
+		pagination('1');
 	}
 	
 
@@ -87,7 +70,8 @@
 	
 	function pagination(idx){
 		var pageRequest = {
-				page : idx
+				page : idx,
+				itemNo : itemno
 		};
 		/* alert("pageRequest : "+pageRequest.page); */
 		$.ajax({
@@ -118,7 +102,8 @@
 	
 	function replyList(idx){
 		var pageRequest = {
-				page : idx
+				page : idx,
+				itemNo : itemno
 		};
 		
 		$.ajax({
@@ -163,7 +148,8 @@
 	function replyRegister(){
 		var reply = {
 				username : $("#username").val(),
-				reply : $("#reply").val()
+				reply : $("#reply").val(),
+				itemNo : itemno
 		};
 		
 		$.ajax({
@@ -179,27 +165,22 @@
 	}
 	
 </script>
-</head>
-<body>
-	<!-- Header Area -->
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
-	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-	<main class="pt-2">
-		<div class="mt-3 w-75 m-auto">
-	<h4>	reply</h4>
 
+		<div class="mt-3 w-75 m-auto">
+		
+			<h4>reply</h4>
+
+			<sec:authorize access="isAuthenticated()">
 			<form id="serviceForm" action="/reply/insertReply" method="post"
 				class="w-75">
-				<input id="username" name="username" class="form-control"value="${account.username}" readonly="true" /> 
+				<input id="username" name="username" class="form-control"value="<sec:authentication property="principal.username"/>" readonly="true" /> 
 				<span>serviceDesc :</span>
 				<button type="submit">Register</button>
 				<textarea id="reply" name="reply" class="form-control" rows="5"></textarea>
 			</form>
 				<button id="RegisterBtn"onclick="RegisterBtn()">RegisterBtnAjax</button>
 			
-			<div></div>
+			</sec:authorize>
 			<table class="table" style="table-layout: fixed;">
 
 				<thead>
@@ -222,8 +203,4 @@
 			</div>
 			
 		</div>
-	</main>
-	<!-- Footer Area -->
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-</body>
-</html>
+

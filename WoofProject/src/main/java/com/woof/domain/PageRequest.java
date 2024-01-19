@@ -3,17 +3,31 @@ package com.woof.domain;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
 public class PageRequest {
-	
+
 	private int postNo;
 
 	private String condition; // 검색 분야 ex 제목 내용 /condition
 	private String keyword; // 검색 키워드 / keyword
 	private String keywordTitle; // 제목이 검색대상인 키워드 / titleKeyword
 	private String keywordDesc; // 내용이 검색대상인 키워드 / descKeyword
+	// 현재페이지
+	private int page;
+	// 화면하단에 출력할 페이지사이즈
+	private int sizePerPage;
+	
+	//
+	private int itemNo;
 	
 	
+
+	public int getItemNo() {
+		return itemNo;
+	}
+
+	public void setItemNo(int itemNo) {
+		this.itemNo = itemNo;
+	}
 
 	public int getPostNo() {
 		return postNo;
@@ -54,11 +68,6 @@ public class PageRequest {
 	public void setKeywordDesc(String keywordDesc) {
 		this.keywordDesc = keywordDesc;
 	}
-
-	// 현재페이지
-	private int page;
-	// 화면하단에 출력할 페이지사이즈
-	private int sizePerPage;
 
 	public PageRequest() {
 		this.page = 1;
@@ -109,5 +118,4 @@ public class PageRequest {
 				+ "]";
 	}
 
-	
 }

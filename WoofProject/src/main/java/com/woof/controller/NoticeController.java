@@ -9,10 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.woof.domain.Notice;
 import com.woof.domain.PageRequest;
@@ -32,7 +30,7 @@ public class NoticeController {
 	@Value("${kakaomap.appkey}")
 	private String kakaoMapAppkey;
 
-	@GetMapping(value = "/getNotice")
+	@GetMapping("/getNotice")
 	public String getNotice(Notice notice, Model model) throws Exception {
 		log.info("getNotice");
 		noticeService.addNoticeViewCount(notice);
@@ -40,7 +38,7 @@ public class NoticeController {
 		return "about/notice";
 	}
 
-	@GetMapping(value = "/getNoticeList")
+	@GetMapping("/getNoticeList")
 	public String getNoticeList(Model model, PageRequest pageRequest,Pagination pagination) throws Exception {
 		log.info("getNoticeList");
 		
@@ -87,14 +85,14 @@ public class NoticeController {
 
 	//공지사항 작성화면
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/insertNoticeForm")
+	@GetMapping("/insertNoticeForm")
 	public String insertNoticeForm(Notice notice) throws Exception {
 		return "admin/notices/insertNotice";
 	}
 	
 	//공지사항 작성
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping(value = "/insertNotice")
+	@PostMapping("/insertNotice")
 	public String insertNotice(Notice notice) throws Exception {
 		log.info("insertNotice");
 
@@ -115,7 +113,7 @@ public class NoticeController {
 	
 	//공지사항 수정화면
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/modifyNoticeForm", method = RequestMethod.POST)
+	@PostMapping("/modifyNoticeForm")
 	public String modifyNoticeForm(Notice notice, Model model) throws Exception {
 		model.addAttribute(noticeService.getNotice(notice));
 		return "admin/notices/modifyNotice";
@@ -123,7 +121,7 @@ public class NoticeController {
 	
 	//공지사항 수정
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping(value = "/modifyNotice")
+	@PostMapping("/modifyNotice")
 	public String modifyNotice(Notice notice) throws Exception {
 		log.info("modifyNotice");
 
@@ -134,21 +132,21 @@ public class NoticeController {
 	
 	//공지사항 삭제
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/deleteNotice")
+	@PostMapping("/deleteNotice")
 	public String deleteNotice(Notice notice) throws Exception {
 		noticeService.deleteNotice(notice);
 		return "redirect:/notice/getNoticeList";
 	}
 	
 	//시설소개
-	@RequestMapping(value = "/getAbout")
+	@GetMapping("/getAbout")
 	public String getAbout(Model model, Search search) throws Exception {
 		log.info("getAbout");
 		return "about/about";
 	}
 	
 	//오시는길
-	@RequestMapping(value = "/getLocation")
+	@GetMapping("/getLocation")
 	public String getLocation(Model model, Search search) throws Exception {
 		log.info("getAbout");
 		model.addAttribute("kakaoMapAppkey", kakaoMapAppkey);

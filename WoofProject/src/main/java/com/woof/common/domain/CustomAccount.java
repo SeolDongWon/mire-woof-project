@@ -20,7 +20,6 @@ public class CustomAccount extends User {
 
 	public CustomAccount(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
-		
 	}
 
 	public CustomAccount(Account account) {
