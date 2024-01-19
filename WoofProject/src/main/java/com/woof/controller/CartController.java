@@ -30,7 +30,8 @@ public class CartController {
 	private CartService cartService;
 	
 	@PostMapping("/addToCart")
-	public String addToCart(@ModelAttribute("item") Item item, @RequestParam("itemQuantity") int itemQuantity, @RequestParam("username") String username, Model model) throws Exception {
+	public String addToCart(@ModelAttribute("item") Item item, @RequestParam("itemQuantity") int itemQuantity, Principal principal, Model model) throws Exception {
+		String username = principal.getName();
 		log.info("/addToCart POST: " + item + ", itemQuantity: " + itemQuantity + ", username: " + username);
 		String itemNo = String.valueOf(item.getItemNo()); 
 		cartService.addToCart(item, username, itemQuantity);
@@ -50,7 +51,8 @@ public class CartController {
 	}
 		
 	@PostMapping("/getOrder")
-	public String getOrder(@RequestParam("selectedItems") List<String> selectedItems, @RequestParam("username") String username, Cart cart, Model model) throws Exception {
+	public String getOrder(@RequestParam("selectedItems") List<String> selectedItems, Principal principal, Cart cart, Model model) throws Exception {
+		String username = principal.getName();
 		log.info("/getOrder POST selectedItems: " + selectedItems.toString() + ", username: " + username);
 		List<Cart> cartList = cartService.getOrder(selectedItems, username);
 		int totalPrice = calculateTotalPrice(cartList);
