@@ -47,27 +47,27 @@
 							<td colspan='2'><h2><spring:message code="common.login"/></h2></td>
 						</tr>
 						<tr>
-							<th><spring:message code="common.username"/></th>
-							<th>
+							<td><spring:message code="common.username"/></td>
+							<td>
 								<div class="input-group mb-3">
 									<input type="text" name="username" class="form-control" value="" />
 								</div>
-							</th>
+							</td>
 						</tr>
 						<tr>
 							<td><spring:message code="common.password"/></td>
-							<th>
+							<td>
 								<div class="input-group mb-3">
 									<input type="password" name="password" class="form-control" value="" />
 								</div>
-							</th>
+							</td>
 						</tr>
 						<tr>
 							<td><input type="checkbox" name="remember-me">
 							<spring:message code="login.rememberMe"/>
 							</td>
 							<td>
-								<c:if test="error == 'xo'">
+								<c:if test="${error} == 'xo'">
 								<spring:message code="login.error"/>
 								</c:if>
 							</td>

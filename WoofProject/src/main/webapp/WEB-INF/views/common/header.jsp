@@ -47,7 +47,7 @@
 						<li class="nav-item "><a href="#" class="nav-link text-black"><spring:message code="header.admin.manageNotices"/></a></li>
 						<li class="nav-item "><a href="#" class="nav-link text-black"><spring:message code="header.admin.managePets"/></a></li>
 						<li class="nav-item "><a href="/item/admin/modifyItem" class="nav-link text-black"><spring:message code="header.admin.manageItems"/></a></li>
-						<li class="nav-item "><a href="#" class="nav-link text-black"><spring:message code="header.admin.manageAccounts"/></a></li>
+						<li class="nav-item "><a href="/account/accountList" class="nav-link text-black"><spring:message code="header.admin.manageAccounts"/></a></li>
 						<li class="nav-item "><a href="/account/logout"
 							class="nav-link text-black"><spring:message code="header.logout"/></a></li>
 					</sec:authorize>

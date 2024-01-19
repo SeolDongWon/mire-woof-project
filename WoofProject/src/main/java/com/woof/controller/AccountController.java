@@ -239,4 +239,15 @@ public class AccountController {
 		return "homewoof";
 	}
 
+	
+	//관리자의 유저관리 (accountList)
+	@RequestMapping(value = "/accountList", method = RequestMethod.GET)
+	public String accountListForm(Account account, Model model) throws Exception {
+		log.info("**ADMIN** : accountList");
+		
+		
+		return "account/admin/accountList";
+	}
+
+	
 }
