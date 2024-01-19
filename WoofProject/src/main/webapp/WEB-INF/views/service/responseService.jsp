@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -41,25 +41,25 @@
 	<main class="pt-2">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 		<div class="mt-3 w-75 m-auto">
-			<h4>Response service</h4>
+			<h4><spring:message code="service.respondToInquiry"/></h4>
 			<form:form modelAttribute="service" action="/service/respnoseService"
 				method="post">
-				serviceNo : <form:input path="serviceNo" class="form-control"
+				<spring:message code="service.no"/> : <form:input path="serviceNo" class="form-control"
 					readonly="true" />
-				username : <form:input path="username" class="form-control"
+				<spring:message code="common.username"/> : <form:input path="username" class="form-control"
 					readonly="true" />
 
 				<%--  <form:input path="itemNo" class="form-control"/>	<br> 
 				 <form:input path="petNo" class="form-control" />	<br> --%>
-				serviceDesc : <form:textarea path="serviceDesc" class="form-control"
+				<spring:message code="common.description"/> : <form:textarea path="serviceDesc" class="form-control"
 					rows="5" readonly="true" />
 			
-				response : <form:textarea path="response" class="form-control"
+				<spring:message code="service.reply"/> : <form:textarea path="response" class="form-control"
 					rows="5" />
 
-				<button type="submit" id="btnRegister">Register</button>
+				<button type="submit" id="btnRegister"><spring:message code="common.submit"/></button>
 			</form:form>
-			<a href="/service/getServiceList"><button>List</button></a>
+			<a href="/service/getServiceList"><button><spring:message code="common.list"/></button></a>
 		</div>
 	</main>
 	<!-- Footer Area -->

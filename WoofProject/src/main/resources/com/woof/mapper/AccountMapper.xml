@@ -9,10 +9,10 @@
 		<result property="name" column="name" />
 		<result property="tel" column="tel" />
 		<result property="address" column="address" />
-		<result property="address" column="address1" />
-		<result property="address" column="address2" />
-		<result property="address" column="address3" />
-		<result property="address" column="address4" />
+		<result property="address1" column="address1" />
+		<result property="address2" column="address2" />
+		<result property="address3" column="address3" />
+		<result property="address4" column="address4" />
 		<result property="status" column="status" />
 		<result property="regDate" column="regDate" />
 		<collection property="authList" resultMap="authMap">
@@ -84,10 +84,15 @@
 	<!-- 정보 수정 -->
 	<update id="modifyAccount" parameterType="Account">
 		UPDATE account
-		SET password=#{password},
+		SET 
+		password=#{password},
 		name=#{name},
 		tel=#{tel},
-		address=#{address}
+		address=#{address},
+		address1=#{address1},
+		address2=#{address2},
+		address3=#{address3},
+		address4=#{address4}
 		WHERE
 		username=#{username}
 	</update>

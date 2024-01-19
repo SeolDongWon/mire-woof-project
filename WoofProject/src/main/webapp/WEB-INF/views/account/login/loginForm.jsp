@@ -35,12 +35,7 @@
 	<!-- subMenu Area -->
 	<main>
 		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-		<h2>
-			<c:out value="${error}" />
-		</h2>
-		<h2>
-			<c:out value="${logout}" />
-		</h2>
+		
 
 		<form method="post" action="/login">
 
@@ -70,6 +65,11 @@
 						<tr>
 							<td><input type="checkbox" name="remember-me">
 							<spring:message code="login.rememberMe"/>
+							</td>
+							<td>
+								<c:if test="error == 'xo'">
+								<spring:message code="login.error"/>
+								</c:if>
 							</td>
 						</tr>
 						<tr>

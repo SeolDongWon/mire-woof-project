@@ -162,7 +162,7 @@
 		<div class="mt-3 w-75 m-auto">
 			<h3 class="text-center"><spring:message code="common.announcement"/></h3>
 			<sec:authorize access="hasRole('ROLE_ADMIN')">
-				<a href="/notice/insertNoticeForm" class="btn btn-light btn-outline-secondary text-dark float-end m-2"><spring:message code="announcement.admin.write"/></a>
+				<a href="/notice/insertNoticeForm" class="btn btn-light btn-outline-secondary text-dark float-end m-2"><spring:message code="announcement.admin.writeNotice"/></a>
 			</sec:authorize>
 			<table class="table table-striped table-hover shadow-sm" style="table-layout: fixed;">
 

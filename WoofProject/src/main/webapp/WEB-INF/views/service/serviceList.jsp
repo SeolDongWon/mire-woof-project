@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -35,7 +35,7 @@
 						 form.action = '/service/responseServiceForm';  // 수정 액션 주소
 						break;
 					case 'delete':
-						var check = confirm("정말로 삭제?");
+						var check = confirm("<spring:message code='common.alert.confirmDelete'/>");
 			      if(check){
 			    	  form.action = '/service/deleteService';
 			      }
@@ -54,13 +54,13 @@
 
 	<main class="pt-2">
 		<div class="mt-3 w-75 m-auto">
-			<h3 class="text-center">service LIST</h3>
+			<h3 class="text-center"><spring:message code="service.listTitle"/></h3>
 			<sec:authorize access="isAuthenticated()">
 			<a href="/service/insertServiceForm"
-				class="btn btn-outline-dark float-end m-1">글쓰기</a>
+				class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message code="service.writeService"/></a>
 			</sec:authorize>
 						<a href="/reply/getReplyList"
-				class="btn btn-outline-dark float-end m-1">리플</a>
+				class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message code="service.reply"/></a>
 			
 			
 			
@@ -69,9 +69,9 @@
 				<thead>
 					<tr>
 						<!-- <th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th> -->
-						<th class="bg-dark-subtle text-center" style="width: 20px;">작성자</th>
-						<th class="bg-dark-subtle text-center" style="width: 100px;">내용</th>
-						<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
+						<th class="bg-dark-subtle text-center" style="width: 30px;"><spring:message code="common.author"/></th>
+						<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.content"/></th>
+						<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.date"/></th>
 						<th class="border-0" style="width: 20px;"></th>
 					</tr>
 				</thead>
@@ -91,13 +91,11 @@
 								<fmt:formatDate	pattern="yyyy-MM-dd HH:mm" value="${service.serviceRegDate}" /></td>
 							<td align="center" class="border-0">
 								<sec:authorize access="hasRole('ROLE_ADMIN')">
-									<button class="btn btn-outline-dark p-0"										onclick="serviceAction('modify', this.form)">답변</button>
-									<button class="btn btn-outline-dark p-0"										onclick="serviceAction('delete', this.form)">삭제</button>
+									<button class="btn btn-primary p-0" onclick="serviceAction('modify', this.form)"><spring:message code="service.reply"/></button>
+									<button class="btn btn-danger p-0" onclick="serviceAction('delete', this.form)"><spring:message code="common.delete"/></button>
 								</sec:authorize> <sec:authorize access="hasRole('ROLE_MEMBER')">
 									<c:if test="${service.username==account.username}">
-										<div class="d-flex">
-											<button class="btn btn-outline-dark p-0"										onclick="serviceAction('delete', this.form)">삭제</button>
-										</div>
+										<button class="btn btn-danger p-0" onclick="serviceAction('delete', this.form)"><spring:message code="common.delete"/></button>
 									</c:if>
 								</sec:authorize></td>
 						</tr>
@@ -105,7 +103,7 @@
 						<c:if test="${null!=service.response}">
 							<tr>
 								<!-- <td class="bg-secondary-subtle" align="right"><span>ㄴ</span></td> -->
-								<td class="bg-secondary-subtle" name="username" align="center">ㄴ답변</td>
+								<td class="bg-secondary-subtle" name="username" align="center"><spring:message code="service.reply"/></td>
 								<td class="bg-secondary-subtle" align="left">${service.response}</td>
 								<td class="bg-secondary-subtle" align="center"><fmt:formatDate
 										pattern="yyyy-MM-dd HH:mm" value="${service.responseRegDate}" /></td>
