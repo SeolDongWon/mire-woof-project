@@ -39,9 +39,6 @@ public class SecurityConfig {
 		// 토큰 비활성화
 		http.csrf().disable();
 
-		// 인가설정
-//		http.authorizeHttpRequests().requestMatchers("/board/**").authenticated().requestMatchers("/manager/**")
-//				.hasRole("MANAGER").requestMatchers("/admin/**").hasRole("ADMIN").anyRequest().permitAll();
 
 		// 가입한 회원이 인가받지 않은 페이지에 접근하면 403 에러메세지를 /accessError로 대체한다 로그를 남김
 		http.exceptionHandling().accessDeniedHandler(createAccessDeniedHandler());
@@ -49,7 +46,11 @@ public class SecurityConfig {
 		// 로그인설정
 		http.formLogin()
 		.loginPage("/login")
+		.failureUrl("/account/loginFail")
 		.successHandler(createAuthenticationSuccessHandler());
+		
+		//로그인 실패
+		
 		
 		// 로그아웃을 하면 자동 로그인에 사용하는 쿠키도 삭제한다
 		http.logout()
@@ -73,6 +74,11 @@ public class SecurityConfig {
 	
 
 
+
+
+
+
+
 	private PersistentTokenRepository createJDBCRepository() {
 		JdbcTokenRepositoryImpl repo = new JdbcTokenRepositoryImpl();
 		repo.setDataSource(dataSource);
@@ -84,6 +90,8 @@ public class SecurityConfig {
 		auth.userDetailsService(createUserDetailsService())
 		.passwordEncoder(createPasswordEncoder());
 		}
+	
+
 	
 	@Bean
 	public PasswordEncoder createPasswordEncoder() {

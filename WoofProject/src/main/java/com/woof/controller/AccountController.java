@@ -53,11 +53,12 @@ public class AccountController {
 		// 비밀번호 암호화
 		String inputPassword = account.getPassword();
 		account.setPassword(passwordEncoder.encode(inputPassword));
-		log.info(account.toString());
+		log.info("======== 전 =========account.toString()"+account.toString());
 		
 		String address = account.getAddress1() +" "+account.getAddress2() +" "+ account.getAddress3() +" "+ account.getAddress4();
 		account.setAddress(address);
 		
+		log.info("======== 후 =========account.toString()"+account.toString());
 		service.registerAccount(account);
 		rttr.addFlashAttribute("username", account.getUsername());
  
@@ -74,10 +75,24 @@ public class AccountController {
 		log.info("logout: " + logout);
 		if (error != null) {
 			model.addAttribute("error", "로그인 에러!!!");
+			log.info("error: 로그인 에러!!!");
 		}
 		if (logout != null) {
 			model.addAttribute("logout", "로그아웃!!!");
+			log.info("logout: 로그아웃!!");
 		}
+		return "account/login/loginForm";
+	}
+	// 로그인 실패
+	@RequestMapping(value = "/loginFail", method = RequestMethod.GET)
+	public String loginFail(String error, String logout, Model model) {
+		log.info("===========loginFail");
+		
+		
+		model.addAttribute("error", "xo");
+			
+	
+			
 		return "account/login/loginForm";
 	}
 
@@ -124,13 +139,22 @@ public class AccountController {
 	@RequestMapping(value = "/modifyAccount", method = RequestMethod.POST)
 	public String modifyAccount(@Validated Account account, Model model) throws Exception {
 		log.info("modifyAccount : POST");
+		
+		
 		// 비밀번호 암호화
 		String inputPassword = account.getPassword();
 		account.setPassword(passwordEncoder.encode(inputPassword));
+		
 
-		log.info("modifyAccount account : " + account.toString());
+		String address = account.getAddress1() +" "+account.getAddress2() +" "+ account.getAddress3() +" "+ account.getAddress4();
+		account.setAddress(address);
+	
+		
 		service.modifyAccount(account);
+		
+		log.info("======= modifyAccount account : " + account.toString());
 		model.addAttribute(service.getAccount(account));
+		
 		return "account/myAccount/myAccountForm";
 	}
 
