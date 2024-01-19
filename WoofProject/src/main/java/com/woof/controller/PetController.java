@@ -14,6 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -110,6 +111,7 @@ public class PetController {
 		return savedName;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modifyPet")
 	public String modifyPet(Pet pet , Model model) throws Exception{
 		log.info("/modifyPet GET");
@@ -119,7 +121,7 @@ public class PetController {
 		log.info("model add attribute ");
 		return "pet/modifyPet";
 	}
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modifyPet")
 	public String modify(Pet pet, Model model)throws Exception{
 		log.info("/modifyPet POST");
@@ -140,7 +142,7 @@ public class PetController {
 		return "redirect:/pet/petList";
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping(value = "/deletePet")
 	public String deletePet(Pet pet, Model model) throws Exception{
 		this.service.deletePet(pet);

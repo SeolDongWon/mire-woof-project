@@ -50,8 +50,10 @@
 						<hr>
 						<a href="getPet?petNo=${pet.petNo}" style="text-decoration: none; color: black;">이름:${pet.petName}/나이:${pet.petAge}/견종:${pet.petType}</a>
 					</div>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
 					<a href="modifyPet?petNo=${pet.petNo}">수정</a> 
 					<a href="deletePet?petNo=${pet.petNo}"onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
+					</sec:authorize>
 				</div>
 			</c:forEach>
 
