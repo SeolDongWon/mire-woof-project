@@ -70,6 +70,7 @@
 	}
 	
 	function deleteReply(replyNo){
+		
 		var reply = {
 				replyNo : replyNo
 		};

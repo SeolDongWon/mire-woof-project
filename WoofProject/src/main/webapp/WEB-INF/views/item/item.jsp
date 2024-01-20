@@ -93,7 +93,7 @@
 			<img src="getItemSubPic?itemNo=${item.itemNo}" width="1000" height="3000">
 		</div>
 	</div>
-		<%@ include file="/replyInclude.jsp"%>
+		<%@ include file="/itemReviewInclude.jsp"%>
 
 	</main>
 <!-- Footer Area -->

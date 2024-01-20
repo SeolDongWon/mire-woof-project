@@ -27,7 +27,30 @@
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
 <script type="text/javascript">
+	function showThumbnail(input) {
+	    var fileInput = input;
+	    var file = fileInput.files[0];
+	    var fileReader = new FileReader();
 	
+	    fileReader.onload = function(event) {
+	        var thumbnail = document.getElementById('thumbnail');
+	        thumbnail.src = event.target.result;
+	        thumbnail.style.display = 'block';
+	    };
+	    fileReader.readAsDataURL(file);
+	}
+	
+	$(document).ready(function() {
+		var formObj = $("#review");
+		$("#btnRegister").on("click", function() {
+			formObj.attr("action", "/review/insertPetReview");
+			formObj.attr("method", "post");
+			formObj.submit();
+		});
+		$("#btnList").on("click", function() {
+			self.location = "/review/getReviewList";
+		});
+	});
 </script>
 </head>
 <body>
@@ -39,17 +62,35 @@
 	<main class="pt-2">
 		<div class="mt-3 w-75 m-auto">
 			<h4>insertItemReviewForm</h4>
-
-			<form id="reviewForm" action="/reply/insertReview" method="post">
-				<input id="username" name="username" class="form-control"	value="${account.username}" readonly="true" /> 
-				<span>serviceDesc:</span>
-				<button type="submit">Register</button>
-				<textarea id="reply" name="reply" class="form-control" rows="5"></textarea>
-			</form>
-			<button id="RegisterBtn" onclick="RegisterBtn()">RegisterBtnAjax</button>
-
-			<div></div>
-
+			
+			<form id="review" action="insertPetReview" method="post" enctype="multipart/form-data">
+                    <div class="form-group m-2">
+                        <label><spring:message code="common.author"/></label>
+                        <input name="userName" readonly="true" class="form-control" value="${account.username}"/>
+                    </div>
+                    <div class="form-group m-2">
+                        <label>상품명</label>
+                        <input type="text" name="itemName"  class="form-control" value="${review.itemName}"placeholder="itemName" readonly="readonly"/>
+                        <input type="text" name="itemNo" class="form-control" value="${review.itemNo}" placeholder="itemNo" readonly="readonly"/>
+                    </div>
+                    <div class="form-group m-2">
+                        <label><spring:message code="common.title"/></label>
+                        <input name="reviewTitle" class="form-control" />
+                    </div>
+                    <div class="form-group m-2">
+                        <label><spring:message code="common.description"/></label>
+                        <textarea name="reviewDesc" class="form-control" rows="4"></textarea>
+                    </div>
+                    <div class="form-group m-2">
+                        <label><spring:message code="common.picture"/></label>
+                        <input type="file" name="pictures" name="reviewPic" onchange="showThumbnail(this)"/>
+                        <img id="thumbnail" alt="thumbnail" style="width:200px; height: 200px;display: none;">
+                    </div>
+                    <div class="form-group d-flex justify-content-center m-2">
+                        <button type="submit" class="btn btn-primary m-2" id="btnRegister"><spring:message code="common.submit"/></button>
+                        <button type="button" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list"/></button>
+                    </div>
+                </form>
 		</div>
 	</main>
 	<!-- Footer Area -->

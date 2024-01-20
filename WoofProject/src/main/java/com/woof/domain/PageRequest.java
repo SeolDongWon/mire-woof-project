@@ -15,11 +15,21 @@ public class PageRequest {
 	private int page;
 	// 화면하단에 출력할 페이지사이즈
 	private int sizePerPage;
+	private int reviewNo;
+	
 	
 	//
 	private int itemNo;
 	
 	
+
+	public int getReviewNo() {
+		return reviewNo;
+	}
+
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
+	}
 
 	public int getItemNo() {
 		return itemNo;

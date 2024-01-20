@@ -26,6 +26,10 @@ public class ReviewServiceImpl implements ReviewService {
 	public List<Review> getReviewList(PageRequest pageRequest) throws Exception {
 		return mapper.getReviewList(pageRequest);
 	}
+	@Override
+	public List<Review> getItemReviewList(PageRequest pageRequest) throws Exception {
+		return mapper.getItemReviewList(pageRequest);
+	}
 
 	@Override
 	public void insertPetReview(Review review) throws Exception {
@@ -59,6 +63,11 @@ public class ReviewServiceImpl implements ReviewService {
 	public int countReviewList(PageRequest pageRequest) {
 		
 		return mapper.countReviewList(pageRequest);
+	}
+	@Override
+	public int countItemReviewList(PageRequest pageRequest) {
+		
+		return mapper.countItemReviewList(pageRequest);
 	}
 
 }

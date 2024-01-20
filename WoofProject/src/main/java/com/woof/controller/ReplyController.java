@@ -9,15 +9,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.woof.domain.Account;
-import com.woof.domain.Item;
 import com.woof.domain.PageRequest;
 import com.woof.domain.Pagination;
 import com.woof.domain.Reply;
+import com.woof.domain.Review;
 import com.woof.service.ReplyService;
 
 import lombok.extern.java.Log;
@@ -29,7 +31,7 @@ public class ReplyController {
 	@Autowired
 	private ReplyService replyService;
 
-	@RequestMapping(value = "/getReplyList")
+	@GetMapping("/getReplyList")
 	public String getReplyList(Model model, PageRequest pageRequest, Pagination pagination, Principal principal,
 			Account account) throws Exception {
 		log.info("getServiceList");
@@ -50,8 +52,8 @@ public class ReplyController {
 		return "reply/replyList";
 	}
 
-	@RequestMapping(value = "/insertReplyForm")
-	public String insertReplyForm(Model model, Principal principal, Account account, Item item) throws Exception {
+	@GetMapping("/insertReplyForm")
+	public String insertReplyForm(Model model, Principal principal, Account account, Review review) throws Exception {
 		log.info("insertReplyForm");
 
 		if (null != principal) {
@@ -63,25 +65,25 @@ public class ReplyController {
 		return "reply/insertReply";
 	}
 
-	@RequestMapping(value = "/insertReply")
-	public String insertReply(Reply reply) throws Exception {
+//	@PostMapping("/insertReply")
+//	public String insertReply(Reply reply) throws Exception {
+//		log.info("insertReply");
+//		log.info("reply : " + reply.toString());
+//		replyService.insertReply(reply);
+//
+//		// 샘플작성
+//		String desc = reply.getReply();
+//		for (int i = 0; i < 30; i++) {
+//			reply.setReply(desc + i);
+//			replyService.insertReply(reply);
+//		}
+//
+//		return "redirect:/reply/getReplyList";
+//	}
+
+	@PutMapping("/insertReply")
+	public ResponseEntity<List> insertReply(@RequestBody Reply reply, PageRequest pageRequest) throws Exception {
 		log.info("insertReply");
-		log.info("reply : " + reply.toString());
-		replyService.insertReply(reply);
-
-		// 샘플작성
-		String desc = reply.getReply();
-		for (int i = 0; i < 30; i++) {
-			reply.setReply(desc + i);
-			replyService.insertReply(reply);
-		}
-
-		return "redirect:/reply/getReplyList";
-	}
-
-	@PutMapping(value = "/getReplyRegist")
-	public ResponseEntity<List> getReplyRegist(@RequestBody Reply reply, PageRequest pageRequest) throws Exception {
-		log.info("getReplyRegist");
 		log.info("reply : " + reply.toString());
 
 		if (reply.getReply() != null && !reply.getReply().equals("")) {
@@ -98,7 +100,7 @@ public class ReplyController {
 		return entity;
 	}
 
-	@PutMapping(value = "/getReplyList")
+	@PutMapping("/getReplyList")
 	public ResponseEntity<List> getReplyList(@RequestBody PageRequest pageRequest, Pagination pagination)
 			throws Exception {
 		log.info("getReplyList");
@@ -118,7 +120,7 @@ public class ReplyController {
 		return entity;
 	}
 
-	@PutMapping(value = "/getReplyPage")
+	@PutMapping("/getReplyPage")
 	public ResponseEntity<List> getReplyPage(@RequestBody PageRequest pageRequest, Pagination pagination)
 			throws Exception {
 		log.info("getReplyPage");
@@ -144,38 +146,33 @@ public class ReplyController {
 
 	// ======================================임시 리뷰
 	// 컨트롤러==========================================
-	@RequestMapping(value = "/insertItemReviewForm")
-	public String insertItemReviewForm(Model model, Principal principal, Account account) throws Exception {
-		log.info("insertItemReviewForm");
-		if (null != principal) {
-			account.setUsername(principal.getName());
-			log.info(principal.getName());
-			model.addAttribute(account);
-		}
 
-		return "reply/insertItemReview";
-	}
-
-	@RequestMapping(value = "/getItemReviewList")
-	public String getitemReviewList(Model model, PageRequest pageRequest, Pagination pagination, Principal principal,
-			Account account) throws Exception {
-		log.info("getitemReviewList");
-
+//	@RequestMapping("/getItemReviewList")
+//	public String getitemReviewList(Model model, PageRequest pageRequest, Pagination pagination, Principal principal,
+//			Account account) throws Exception {
+//		log.info("getitemReviewList");
 //
-//		pagination.setPageRequest(pageRequest);
-//		pagination.setTotalCount(replyService.countReplyList(pageRequest));
-//		model.addAttribute("pagination", pagination);
-//		
-//		List<Reply> replyList = replyService.getReplyList(pageRequest);
-//		model.addAttribute("replyList", replyList);
-//		
+//		return "reply/itemReviewList";
+//	}
+	
+//	@RequestMapping("/insertItemReviewForm")
+//	public String insertItemReviewForm(Model model, Principal principal, Account account) throws Exception {
+//		log.info("insertItemReviewForm");
 //		if (null != principal) {
 //			account.setUsername(principal.getName());
 //			log.info(principal.getName());
 //			model.addAttribute(account);
 //		}
-
-		return "reply/itemReviewList";
-	}
+//
+//		return "reply/insertItemReview";
+//	}
+	
+//	@PostMapping("/insertItemReview")
+//	public String insertItemReview() {
+//		log.info("insertItemReview");
+//		
+//		
+//		return "redirect:/reply/getItemReviewList";
+//	}
 
 }

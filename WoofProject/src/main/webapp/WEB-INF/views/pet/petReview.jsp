@@ -57,6 +57,7 @@ a {
 					</tr>
 				</tbody>
 			</table>
+			<%@ include file="/replyInclude.jsp"%>
 			<a href="/review/getReviewList" class="btn btn-light text-dark m-2"><spring:message code="common.list"/></a>
 	</main>
 <!-- Footer Area -->

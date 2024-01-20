@@ -73,6 +73,11 @@
 						    </div>
                         </div>
                     </div>
+                    <form action="/review/insertItemReviewForm" method="post">
+	                    <input type="hidden" name="itemNo" value="${orderItem.itemNo}" readonly="readonly">
+	                    <input type="hidden" name="itemName" value="${orderItem.itemName}" readonly="readonly">
+                			<button class="btn btn-light btn-outline-secondary text-dark m-2 float-end">상품평작성하기</button>
+                    </form>
                 </div>
             </c:forEach>
         <div class="row p-2">

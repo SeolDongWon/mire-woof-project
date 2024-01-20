@@ -6,28 +6,10 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>mire woof</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- css common Area 헤더 푸터에 쓸 css 경로-->
-<%@ include file="/WEB-INF/views/common/style.jsp"%>
-<!-- script common Area 헤더 푸터에 쓸 script 경로-->
-<%@ include file="/WEB-INF/views/common/script.jsp"%>
-<!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
-<%-- <%@ include file="" %> --%>
-<!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
-<%-- <%@ include file="" %> --%>
+
 <script type="text/javascript">
 	var currUsername = '${pageContext.request.userPrincipal.principal.account.username}';
+	var itemno = '${item.itemNo}';
 	
 	$(document).ready(function() {
 		reviewList('1');
@@ -46,14 +28,17 @@
 		var check = confirm("정말로 삭제?");
 		if (check) {
 			deleteReview(reviewNo);
-			replyList('1');
+			reviewList('1');
 		}
 	}
 	
 	function pageBtn(){
 		 var idx = event.target.value;
-	   replyList(idx);
+		 reviewList(idx);
 	   pagination(idx);
+	   if(idx!=0){
+	   window.location.href = "#firstReview";		   
+	   }
 	}
 	
 	function deleteReview(reviewNo){
@@ -74,7 +59,8 @@
 	
 	function pagination(idx){
 		var pageRequest = {
-				page : idx
+				page : idx,
+				itemNo : itemno
 		};
 		$.ajax({
 					type : "put",
@@ -104,7 +90,8 @@
 	
 	 function reviewList(idx){
 		var pageRequest = {
-				page : idx
+				page : idx,
+				itemNo : itemno
 		};
 		
 		$.ajax({
@@ -121,7 +108,7 @@
 						for (var i = 0; i < result.length; i++) {
 							parsedDate = new Date(result[i].reviewRegDate);
 							formattedDate = parsedDate.toLocaleString({ timeZone: 'UTC' });
-							reviewList += '<br><form method="post">';
+							reviewList += '<br><form">';
 							reviewList += '<input type="hidden" name="reviewNo" value="'+result[i].reviewNo+'"readonly="readonly"> ';
 							reviewList += '  <div class="w-100">';
 							reviewList += ' <div>';
@@ -139,6 +126,7 @@
 							reviewList += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
 							reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()">삭제</button>';
 							reviewList += '</sec:authorize>';
+							/* alert("currUsername : "+currUsername+" result[i].userName) : "+result[i].userName); */
 							if(currUsername==result[i].userName){
 								reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()">삭제</button>';
 							}
@@ -161,25 +149,10 @@
             resize: none; /* 크기 조절을 막음 (선택사항) */
         }
     </style>
-</head>
-<body>
-	<!-- Header Area -->
-	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-	<!-- Menu Area -->
-	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
-	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-	<main class="pt-2">
+
 		<div class="mt-3 w-75 m-auto">
-	<h4>getItemReviewList</h4>
-	<a href="/reply/insertItemReviewForm"
-				class="btn btn-light btn-outline-secondary text-dark m-2 float-end">Reivew상품평작성하기</a>
-				<div id="reviewListSpan">
-				</div>
-			<div id="pageListSpan" class="d-flex">
-			</div>
+			<h4 id="firstReview" class="bg-success-subtle">상품평보기</h4>
+	
+			<div id="reviewListSpan"></div>
+			<div id="pageListSpan" class="d-flex" style="margin-top: 5px"></div>
 		</div>
-	</main>
-	<!-- Footer Area -->
-	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
-</body>
-</html>

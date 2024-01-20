@@ -9,7 +9,8 @@
 
 <script type="text/javascript">
 	var currUsername = '${pageContext.request.userPrincipal.principal.account.username}';
-	var itemno = '${item.itemNo}';
+	var reviewNo = '${review.reviewNo}';
+	/* alert("currUsername "+currUsername+" reviewNo "+reviewNo); */
 	
 	$(document).ready(function() {
 		replyList('1');
@@ -18,7 +19,7 @@
 	});
 	
 	function registerBtn() {
-		replyRegister();
+		replyRegist();
 		replyList('1');
 		pagination('1');
 	}
@@ -60,9 +61,10 @@
 	}
 	
 	function pagination(idx){
+		
 		var pageRequest = {
 				page : idx,
-				itemNo : itemno
+				reviewNo : reviewNo
 		};
 		/* alert("pageRequest : "+pageRequest.page); */
 		$.ajax({
@@ -94,7 +96,7 @@
 	function replyList(idx){
 		var pageRequest = {
 				page : idx,
-				itemNo : itemno
+				reviewNo : reviewNo
 		};
 		
 		$.ajax({
@@ -136,16 +138,16 @@
 	}
 	
 	
-	function replyRegister(){
+	function replyRegist(){
 		var reply = {
 				username : $("#username").val(),
 				reply : $("#reply").val(),
-				itemNo : itemno
+				reviewNo : reviewNo
 		};
 		
 		$.ajax({
 				type : "put",
-				url : "/reply/getReplyRegist",
+				url : "/reply/insertReply",
 				data : JSON.stringify(reply),
 				contentType : "application/json; charset=UTF-8",
 				success : 
@@ -166,7 +168,6 @@
 				class="w-75">
 				<input id="username" name="username" class="form-control"value="<sec:authentication property="principal.username"/>" readonly="true" /> 
 				<span>serviceDesc :</span>
-				<button type="submit">Register</button>
 				<textarea id="reply" name="reply" class="form-control" rows="5"></textarea>
 			</form>
 				<button id="RegisterBtn"onclick="registerBtn()">RegisterBtnAjax</button>

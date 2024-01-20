@@ -12,12 +12,14 @@ public interface ReviewService {
 	void insertPetReview(Review review) throws Exception;
 
 	public List<Review> getReviewList(PageRequest pageRequest) throws Exception;
+	public List<Review> getItemReviewList(PageRequest pageRequest) throws Exception;
 
 	public void modifyReview(Review review) throws Exception;
 
 	void deleteReview(Review review)throws Exception;
 	
 	int countReviewList(PageRequest pageRequest);
+	int countItemReviewList(PageRequest pageRequest);
 	
 	public List<Review> getMainReviewList() throws Exception;
 	

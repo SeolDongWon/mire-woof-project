@@ -17,6 +17,7 @@ public class Review {
 	private int reviewNo;
 	private String userName;
 	private int itemNo;
+	private String itemName;
 	private int petNo;
 	private String reviewTitle;
 	private String reviewDesc;
