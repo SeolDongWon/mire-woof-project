@@ -29,7 +29,6 @@
 	$(document).ready(function() {
 		var formObj = $("#serviceForm");
 		
-		
 		$("#btnRegister").on("click", function() {
 			  var check = confirm("<spring:message code='common.alert.confirmSubmit'/>");
 			  
@@ -46,6 +45,21 @@
 		});
 		
 	});
+	
+     $(document).ready(function() {
+         var selectedServiceType = $("#serviceType");
+         var orderNoContainer = $("#orderNoContainer");
+
+         selectedServiceType.on("change", function() {
+             var selectedValue = selectedServiceType.val();
+
+             if (selectedValue === "Purchases") {
+            	 orderNoContainer.show();
+             } else {
+            	 orderNoContainer.hide();
+             }
+         });
+     });
 </script>
 </head>
 <body>
@@ -59,8 +73,35 @@
 	<div class="mt-3 w-75 m-auto">
 	<h4><spring:message code="service.writeService"/></h4>
 			<form id="serviceForm" action="/service/insertService" method="post">
-				<spring:message code="common.username"/> : <input name="username" class="form-control" value="${account.username}" readonly="true"/> 
-				<spring:message code="common.description"/> : <textarea name="serviceDesc"  class="form-control" rows="5"></textarea>
+				<div class="d-flex row align-items-center justify-content-start m-2">
+					<div class="m-2">
+						<spring:message code="common.username"/>
+						<input name="username" class="form-control" value="${account.username}" readonly="true"/> 
+					</div>
+					<div class="m-2">
+						<spring:message code="service.selectType"/>
+						<select class="form-control" name="serviceType" id="serviceType">
+							<option value="Other"><spring:message code="service.serviceType2"/></option>
+							<option value="Purchases"><spring:message code="service.serviceType1"/></option>
+						</select>
+					</div>
+					
+					<div class="m-2" id="orderNoContainer" style="display: none;">
+                        <spring:message code="service.orderNo"/>
+                        <select name="orderNo" class="form-control" id="orderNo">
+					        <c:forEach var="orderHistory" items="${orderHistoryList}">
+					            <option value="${orderHistory.orderHistoryNo}">
+					                ${orderHistory.orderHistoryNo}
+					            </option>
+					        </c:forEach>
+                        </select>
+                    </div>
+					
+					<div class="m-2">	
+						<spring:message code="common.description"/>
+						<textarea name="serviceDesc"  class="form-control" rows="5"></textarea>
+					</div>
+				</div>
 			</form>
 			<div>
 				<button type="submit" id="btnRegister" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="common.submit"/></button>

@@ -19,7 +19,7 @@
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
-<%@ include file="/WEB-INF/views/common/script.jsp"%>
+</script>
 <!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
@@ -34,7 +34,7 @@
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/cart/addToCart">
+	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/cart/addToCart" onsubmit="alert('Item added');">
 		<input type="hidden" name="itemNo" value="${item.itemNo}"/>
 		<input type="hidden" name="itemName" value="${item.itemName}"/>
 		<input type="hidden" name="itemType" value="${item.itemType}"/>
@@ -78,7 +78,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" class="align-middle text-center">
-								<button type="submit" class="add-to-cart-btn btn btn-primary btn-outline-secondary text-white m-2">
+								<button type="submit" class="btn btn-primary btn-outline-secondary text-white m-2">
 									<spring:message code="item.addToCart"/>
 								</button>
 							</td>

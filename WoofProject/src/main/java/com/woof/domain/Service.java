@@ -19,4 +19,6 @@ public class Service {
 	private Date serviceRegDate;
 	private Date responseRegDate;
 	
+	private String serviceType;
+	private int orderNo;
 }

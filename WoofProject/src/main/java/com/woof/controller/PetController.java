@@ -34,13 +34,14 @@ import lombok.extern.java.Log;
 @Controller
 @RequestMapping("/pet")
 public class PetController {
+	
 	@Autowired
 	private PetService service;
 	
 	@Value("${upload.path}")
 	private String uploadPath;
 	
-	@GetMapping(value="/getPet")
+	@GetMapping("/getPet")
 	public String getPet(Pet pet,Model model)  throws Exception{
 		Pet pet_ = service.getPet(pet);
 		model.addAttribute("pet", pet_);
@@ -66,20 +67,20 @@ public class PetController {
 		List<Pet> petList = service.getPetList();
 		model.addAttribute("petList", petList);
 	}
-	
-	@GetMapping(value="/insertPet")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/insertPet")
 	public String insertPetForm(Pet pet)  throws Exception{
 		return "pet/insertPet";
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/pet/insertPet")
 	public void insertPet(Model model) throws Exception{
 		log.info("/pet/insertPet GET");
 		model.addAttribute(new Pet());
 	}
 
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/insertPet")
 	public String insertPet(Pet pet) throws Exception{
 		log.info("/insertPet POST");
@@ -143,23 +144,19 @@ public class PetController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping(value = "/deletePet")
+	@GetMapping("/deletePet")
 	public String deletePet(Pet pet, Model model) throws Exception{
 		this.service.deletePet(pet);
 		return "redirect:/pet/getPetList";
 	}
-	
 
-	@RequestMapping(value="/searchPetType")
-	public String searchPetType(Pet pet)  throws Exception{
+	@RequestMapping("/searchPetType")
+	public void searchPetType(Pet pet)  throws Exception{
 		service.searchPetType(pet);
-		return "searchPetType";
 	}
 	
 //----------------------------사진 업로드----------------------------------
 
-	
-	
 	@ResponseBody
 	@GetMapping("/getPetMainPic")
 	public ResponseEntity<byte[]> getPetMainPic(Integer petNo) throws Exception {
@@ -209,7 +206,6 @@ public class PetController {
 		}
 		return entity;
 	}
-	
 	
 	private MediaType getMediaType(String formatName) {
 		log.info("getMediaType()");

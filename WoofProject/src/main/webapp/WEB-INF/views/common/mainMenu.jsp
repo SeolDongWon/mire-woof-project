@@ -33,9 +33,9 @@
 					<li class="navMenu nav-item">
 						<a href="/item/itemList"class="nav-link text-black"><spring:message code="mainMenu.searchShop"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/item/listItemType?itemType=Toy"class="nav-link text-black"><spring:message code="mainMenu.itemType1"/></a></li>
+						<a href="/item/listItemType?itemType=Clothing"class="nav-link text-black"><spring:message code="mainMenu.itemType1"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/item/listItemType?itemType=Clothing"class="nav-link text-black"><spring:message code="mainMenu.itemType2"/></a></li>
+						<a href="/item/listItemType?itemType=Toy"class="nav-link text-black"><spring:message code="mainMenu.itemType2"/></a></li>
 					<li class="navMenu nav-item">
 						<a href="/item/listItemType?itemType=Food"class="nav-link text-black"><spring:message code="mainMenu.itemType3"/></a></li>
 					<li class="navMenu nav-item">
@@ -50,7 +50,7 @@
 					<li class="navMenu nav-item">
 						<a href="/service/getFAQList" class="nav-link text-black"><spring:message code="common.FAQ"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/service/getServiceList" class="nav-link text-black"><spring:message code="mainMenu.contactUs"/></a></li>
+						<a href="/service/getServiceList" class="nav-link text-black"><spring:message code="mainMenu.inquiries"/></a></li>
 				</ul>
 			</nav></li>
 			

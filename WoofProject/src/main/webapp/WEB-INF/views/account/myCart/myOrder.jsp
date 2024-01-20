@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -61,6 +61,17 @@
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
+	 <div class="table-responsive">
+        <table class="table table-sm table-smaller">
+            <thead class="t-head">
+                <tr>
+                    <td class="align-middle text-center p-3">
+                        <h5><b><spring:message code="cart.myOrder"/></b></h5>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
 	<form id="cartForm">
 		<input type="hidden" name="totalPrice" value="${totalPrice}"/>
 		<table class="table">
@@ -76,7 +87,7 @@
 			<c:choose>
 				<c:when test="${empty cartList}">
 					<tr>
-						<td colspan="5" style="text-align:center">There are no items in your cart</td>
+						<td colspan="5" style="text-align:center"><spring:message code="cart.emptyCart"/></td>
 					</tr>
 				</c:when>
 				<c:otherwise>
