@@ -29,9 +29,9 @@ public class AccountServiceImpl implements AccountService {
 
 	//Account들의 모든정보 리스트
 	@Override
-	public List<Account> getAccountList() throws Exception {
+	public List<Account> getAccountList(Account account) throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.getAccountList();
+		return mapper.getAccountList(account);
 	}
 
 	//계정 등록 처리
@@ -91,11 +91,11 @@ public class AccountServiceImpl implements AccountService {
 	public String getAddress(String username) {
 		return mapper.getAddress(username);
 	}
-
+	//관리자가 유저정지 및 해제
 	@Override
-	public void remove(Account username) throws Exception {
-		mapper.remove(username);
-		
+	public Account restoreAccount(Account account) throws Exception {
+	    mapper.restoreAccount(account);
+	    return getAccount(account);
 	}
 
 }

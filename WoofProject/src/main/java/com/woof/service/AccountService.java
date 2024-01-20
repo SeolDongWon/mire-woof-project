@@ -9,7 +9,7 @@ public interface AccountService {
 	//상세페이지
 	public Account getAccount(Account account) throws Exception;
 	//목록페이지(admin)
-	public List<Account> getAccountList() throws Exception;
+	public List<Account> getAccountList(Account account) throws Exception;
 	// 등록 처리
 	public void registerAccount(Account account) throws Exception;
 	//수정처리
@@ -22,8 +22,8 @@ public interface AccountService {
 	public void setupAdmin(Account account) throws Exception;;
 	// 최초 관리자 생성을 위한 데이터를 등록
 	public int countAll() throws Exception;;
-	//관리자가 유저 영구 탈퇴
-	public void remove(Account username) throws Exception;
+	//관리자가 유저정지 및 해제
+	public Account restoreAccount(Account account) throws Exception;
 	
 	public String getAddress(String username);
 }

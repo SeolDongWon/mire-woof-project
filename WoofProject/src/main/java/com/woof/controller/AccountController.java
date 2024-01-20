@@ -243,21 +243,27 @@ public class AccountController {
 	public String accountListForm(Account account, Model model) throws Exception {
 		log.info("**ADMIN** : accountList");
 
-		log.info("**List" + service.getAccountList());
+		log.info("**List" + service.getAccountList(account));
 
-		model.addAttribute("list", service.getAccountList());
+		model.addAttribute("list", service.getAccountList(account));
 
 		return "account/admin/accountList";
 	}
 
-	// 계정 삭제 처리
-	@RequestMapping(value = "/remove", method = RequestMethod.POST)
-	public String remove(Account account, RedirectAttributes rttr) throws Exception {
-		log.info("/remove");
-		log.info(account.toString());
-		service.remove(account);
-		rttr.addFlashAttribute("msg", "SUCCESS");
-		return "account/admin/accountList";
+	
+	// 관리자가 유저 정지 및 해제
+	@RequestMapping(value = "/accountStatusSwitch", method = RequestMethod.POST)
+	public String accountStatusSwitch(Account account, Model model, Principal principal) throws Exception {
+	    log.info("*** accountStatusSwitch : POST");
+	    log.info("...account.toString() : " + account.toString());
+	 
+	    service.restoreAccount(account);
+
+	    
+	    model.addAttribute("list", service.getAccountList(account));
+
+	    // 계정 목록을 다시 로딩하도록 redirect
+	    return "account/admin/accountList";
 	}
 
 }
