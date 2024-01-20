@@ -11,6 +11,8 @@ public class PageRequest {
 	private String keyword; // 검색 키워드 / keyword
 	private String keywordTitle; // 제목이 검색대상인 키워드 / titleKeyword
 	private String keywordDesc; // 내용이 검색대상인 키워드 / descKeyword
+
+	
 	// 현재페이지
 	private int page;
 	// 화면하단에 출력할 페이지사이즈

@@ -46,8 +46,8 @@ public class SecurityConfig {
 		// 로그인설정
 		http.formLogin()
 		.loginPage("/login")
-		.failureUrl("/account/loginFail")
-		.successHandler(createAuthenticationSuccessHandler());
+		.successHandler(createAuthenticationSuccessHandler())
+		.failureUrl("/account/loginFail");
 		
 		//로그인 실패
 		

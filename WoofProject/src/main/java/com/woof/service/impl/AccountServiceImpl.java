@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woof.domain.Account;
 import com.woof.domain.AccountAuth;
+import com.woof.domain.PageRequest;
 import com.woof.mapper.AccountMapper;
 import com.woof.service.AccountService;
 
@@ -65,12 +66,7 @@ public class AccountServiceImpl implements AccountService {
 		
 	}
 
-	//admin이 개인계정을 찾기
-	@Override
-	public Account searchAccount(Account searchKeyword) throws Exception {
-		return mapper.searchAccount(searchKeyword);
-	}
-	
+
 	// 최초 관리자를 생성한다.
 	@Transactional
 	@Override
@@ -87,15 +83,23 @@ public class AccountServiceImpl implements AccountService {
 		return mapper.countAll();
 	}
 
-	@Override
-	public String getAddress(String username) {
-		return mapper.getAddress(username);
-	}
 	//관리자가 유저정지 및 해제
 	@Override
 	public Account restoreAccount(Account account) throws Exception {
 	    mapper.restoreAccount(account);
 	    return getAccount(account);
 	}
+	//아이디 중복체크
+	@Override
+	public boolean checkusername(Account account) {
+		return mapper.checkusername(account);
+	}
+	//로그인 확인
+	@Override
+	public Account readByUsername(String username) {
+		return readByUsername(username);
+	}
+
+
 
 }

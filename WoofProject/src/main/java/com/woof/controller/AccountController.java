@@ -1,8 +1,11 @@
 package com.woof.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -12,11 +15,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.woof.domain.Account;
+import com.woof.domain.PageRequest;
+import com.woof.domain.Pagination;
 import com.woof.service.AccountService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +37,6 @@ import lombok.extern.java.Log;
 @Log
 @Controller
 @RequestMapping("/account")
-//@MapperScan(basePackages = "com.woof.mapper")
 public class AccountController {
 
 	@Autowired
@@ -38,11 +47,23 @@ public class AccountController {
 	private String username;
 
 	// 계정 등록 페이지
-	@RequestMapping(value = "/createAccount", method = RequestMethod.GET)
+	@GetMapping(value = "/createAccount")
 	public String createAccountForm(Account account, Model model) throws Exception {
 		log.info("createAccountForm");
 
 		return "account/login/createAccount";
+	}
+	
+	@PutMapping(value = "/accountCheck")
+	public ResponseEntity<String> accountCheck(@RequestBody Account account, Model model) throws Exception {
+		log.info("++++ accountCheck ++++");
+		
+		if(service.checkusername(account)) {
+			
+			return ResponseEntity.ok("Username already exists");
+		}else {
+			  return ResponseEntity.ok("Username available");
+		}
 	}
 
 	// 계정 등록 처리
@@ -240,15 +261,25 @@ public class AccountController {
 
 	// 관리자의 유저관리 (accountList)
 	@GetMapping(value = "/accountList")
-	public String accountListForm(Account account, Model model) throws Exception {
+	public String accountListForm(Account account, Model model, PageRequest pageRequest) throws Exception {
 		log.info("**ADMIN** : accountList");
 
+
+		if(pageRequest.getKeyword()!=null) {
+			account.setUsername(pageRequest.getKeyword());			
+		}
+		if(account.getUsername() == null) {
+			account.setUsername("");
+		}
+
+		
 		log.info("**List" + service.getAccountList(account));
 
 		model.addAttribute("list", service.getAccountList(account));
 
 		return "account/admin/accountList";
 	}
+
 
 	
 	// 관리자가 유저 정지 및 해제
@@ -266,4 +297,11 @@ public class AccountController {
 	    return "account/admin/accountList";
 	}
 
+	
+	
+	
+	
+	
+	
+	
 }
