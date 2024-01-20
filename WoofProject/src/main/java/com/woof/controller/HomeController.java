@@ -1,12 +1,9 @@
 package com.woof.controller;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,23 +37,23 @@ public class HomeController {
 	private ReviewService reviewService;
 	
 	@GetMapping("/")
-	public String home(Locale locale, Model model,Account account) throws Exception {
+	public String home(Locale locale, Model model, Account account) throws Exception {
 
 		List<Item> itemList = itemService.getItemList();
 		model.addAttribute("itemList", itemList);
-		log.info("itemList : "+itemList.toString());
+		log.info("itemList : " + itemList.toString());
 		
 		List<Pet> petList = petService.getMainPetList();
 		model.addAttribute("petList", petList);
-		log.info("petList : "+petList.toString());
+		log.info("petList : " + petList.toString());
 		
 		List<Notice> noticeList = noticeService.getMainNoticeList();
 		model.addAttribute("noticeList", noticeList);
-		log.info("noticeList : "+noticeList.toString());
+		log.info("noticeList : " + noticeList.toString());
 		
 		List<Review> reviewList = reviewService.getMainReviewList();
 		model.addAttribute("reviewList", reviewList);
-		log.info("PetReviewList : "+reviewList.toString());
+		log.info("PetReviewList : " + reviewList.toString());
 		
 		return "homewoof";
 	}

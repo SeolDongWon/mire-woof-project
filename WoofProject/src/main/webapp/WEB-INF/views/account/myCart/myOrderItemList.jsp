@@ -77,7 +77,13 @@
             </c:forEach>
         <div class="row p-2">
         	<div class="col align-center">
-        		<a href="/orderHistory/getOrderHistoryList" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="orderHistory.returnToOrderHistory"/></a>
+        		<sec:authorize access="hasRole('ROLE_MEMBER')">
+        			<a href="/orderHistory/getOrderHistoryList" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="orderHistory.returnToOrderHistory"/></a>
+				</sec:authorize>
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+        			<a href="/orderHistory/getOrderHistory?orderHistoryNo=${orderNo}" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="orderHistory.viewOrderHistory"/></a>
+        			<a href="/service/getServiceList" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="orderHistory.returnToService"/></a>
+				</sec:authorize>	
         	</div>
         	<div class="col align-center text-end">
         		<b><spring:message code="orderHistory.totalPrice"/> : ₩${totalPrice}</b>

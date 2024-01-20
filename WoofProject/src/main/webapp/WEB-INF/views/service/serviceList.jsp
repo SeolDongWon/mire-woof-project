@@ -31,16 +31,16 @@
 	
 	function serviceAction(actionType, form) {
         switch (actionType) {
-					case 'modify':
-						 form.action = '/service/responseServiceForm';  // 수정 액션 주소
-						break;
-					case 'delete':
-						var check = confirm("<spring:message code='common.alert.confirmDelete'/>");
-			      if(check){
-			    	  form.action = '/service/deleteService';
-			      }
-						break;
-				}
+			case 'modify':
+				form.action = '/service/responseServiceForm';  // 수정 액션 주소
+				break;
+			case 'delete':
+				var check = confirm("<spring:message code='common.alert.confirmDelete'/>");
+	      	if(check){
+	    	  form.action = '/service/deleteService';
+	      	}
+				break;
+			}
         form.submit();
     }
 </script>
@@ -54,56 +54,76 @@
 
 	<main class="pt-2">
 		<div class="mt-3 w-75 m-auto">
-			<h3 class="text-center"><spring:message code="service.listTitle"/></h3>
+			<h3 class="text-center">
+				<spring:message code="service.listTitle" />
+			</h3>
 			<sec:authorize access="isAuthenticated()">
-			<a href="/service/insertServiceForm"
-				class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message code="service.writeService"/></a>
+				<a href="/service/insertServiceForm"
+					class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message	code="service.writeService" /></a>
 			</sec:authorize>
-						<a href="/reply/getReplyList"
-				class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message code="service.reply"/></a>
-			
-			
-			
+			<a href="/reply/getReplyList"
+				class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message code="service.reply" /></a>
+
 			<table class="table" style="table-layout: fixed;">
 
 				<thead>
 					<tr>
 						<!-- <th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th> -->
-						<th class="bg-dark-subtle text-center" style="width: 30px;"><spring:message code="common.author"/></th>
-						<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.content"/></th>
-						<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.date"/></th>
+						<th class="bg-dark-subtle text-center" style="width: 30px;"><spring:message code="common.author" /></th>
+						<th class="bg-dark-subtle text-center" style="width: 30px;"><spring:message	code="service.type" /></th>
+						<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message	code="service.orderNo" /></th>
+						</sec:authorize>
+						<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.content" /></th>
+						<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message	code="common.date" /></th>
 						<th class="border-0" style="width: 20px;"></th>
 					</tr>
 				</thead>
 
 				<tbody>
-
 					<c:forEach items="${serviceList}" var="service">
 						<form method="post">
-							<input type="hidden" name="serviceNo" value="${service.serviceNo}" readonly="readonly"> 
-							<input type="hidden" name="username" value="${service.username}"readonly="readonly"> 
-							<input type="hidden"name="serviceDesc" value="${service.serviceDesc}"readonly="readonly">
-							<input type="hidden"name="response" value="${service.response}"readonly="readonly">
 						<tr>
 							<td name="username" align="center">${service.username}</td>
+							<td name="serviceType">${service.serviceType}</td>
+							<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<td name="orderHistoryNo" align="center">
+									<c:if test="${service.serviceType ne 'Other'}">
+          						  		<a href="${pageContext.request.contextPath}/orderHistory/getOrderHistory?orderHistoryNo=${service.orderNo}" class="btn btn-light btn-outline-secondary">${service.orderNo}</a>
+        							</c:if>
+								</td>
+							</sec:authorize>
 							<td name="serviceDesc" align="left" class="text-break">${service.serviceDesc}</td>
-							<td align="center">
-								<fmt:formatDate	pattern="yyyy-MM-dd HH:mm" value="${service.serviceRegDate}" /></td>
-							<td align="center" class="border-0">
-								<sec:authorize access="hasRole('ROLE_ADMIN')">
-									<button class="btn btn-primary p-0" onclick="serviceAction('modify', this.form)"><spring:message code="service.reply"/></button>
-									<button class="btn btn-danger p-0" onclick="serviceAction('delete', this.form)"><spring:message code="common.delete"/></button>
+							<td align="center"><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${service.serviceRegDate}" /></td>
+							<td align="center" class="border-0"><sec:authorize access="hasRole('ROLE_ADMIN')">
+									<button class="btn btn-primary p-0"	onclick="serviceAction('modify', this.form)">
+										<spring:message code="service.reply" />
+									</button>
+									<button class="btn btn-danger p-0" onclick="serviceAction('delete', this.form)">
+										<spring:message code="common.delete" />
+									</button>
 								</sec:authorize> <sec:authorize access="hasRole('ROLE_MEMBER')">
 									<c:if test="${service.username==account.username}">
-										<button class="btn btn-danger p-0" onclick="serviceAction('delete', this.form)"><spring:message code="common.delete"/></button>
+										<button class="btn btn-danger p-0" onclick="serviceAction('delete', this.form)">
+											<spring:message code="common.delete" />
+										</button>
 									</c:if>
 								</sec:authorize></td>
 						</tr>
+						
+						<input type="hidden" name="serviceNo" value="${service.serviceNo}"> 
+						<input type="hidden" name="username" value="${service.username}"> 
+						<input type="hidden" name="serviceDesc" value="${service.serviceDesc}">
+						<input type="hidden" name="response" value="${service.response}">
+						<input type="hidden" name="serviceType" value="${service.serviceType}"> 
+						<input type="hidden" name="orderHistoryNo" value="${service.orderNo}">
+						
 						</form>
 						<c:if test="${null!=service.response}">
 							<tr>
 								<!-- <td class="bg-secondary-subtle" align="right"><span>ㄴ</span></td> -->
-								<td class="bg-secondary-subtle" name="username" align="center"><spring:message code="service.reply"/></td>
+								<td class="bg-secondary-subtle" name="username" align="center"><spring:message
+										code="service.reply" /></td>
 								<td class="bg-secondary-subtle" align="left">${service.response}</td>
 								<td class="bg-secondary-subtle" align="center"><fmt:formatDate
 										pattern="yyyy-MM-dd HH:mm" value="${service.responseRegDate}" /></td>

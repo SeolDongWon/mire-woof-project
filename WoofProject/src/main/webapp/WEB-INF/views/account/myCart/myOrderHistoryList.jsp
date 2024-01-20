@@ -71,7 +71,8 @@
                                     		<a href="/orderItem/getOrderItemList?orderHistoryNo=${orderHistory.orderHistoryNo}" class="btn btn-sm btn-light text-dark m-2"><b><spring:message code="orderHistory.orderDetails"/></b></a>
                                     	</div>
                                     </div>
-                                    <p class="card-text"><spring:message code="orderHistory.totalPrice"/> : ${orderHistory.totalPrice}</p>
+                                    <p class="card-text"><spring:message code="orderHistory.orderHistoryNo"/> : ${orderHistory.orderHistoryNo}</p>
+                                    <p class="card-text"><spring:message code="orderHistory.totalPrice"/> : ₩${orderHistory.totalPrice}</p>
                                     <p class="card-text"><spring:message code="orderHistory.deliveryAddress"/> : ${orderHistory.address}</p>
                                 </div>
                             </div>

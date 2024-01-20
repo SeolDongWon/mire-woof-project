@@ -165,7 +165,7 @@
 		<div class="row">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				<a href="/review/insertPetReviewForm"
-					class="btn btn-light text-dark me-md-2" role="button" id="write-article"><spring:message code="pet.insertReview"/></a>
+					class="btn btn-light btn-outline-secondary text-dark me-md-2" role="button" id="write-article"><spring:message code="pet.insertReview"/></a>
 			</div>
 		</div>
 		

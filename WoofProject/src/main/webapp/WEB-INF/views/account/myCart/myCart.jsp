@@ -168,9 +168,20 @@
 <!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
-	<main>
+<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
+	<div class="table-responsive">
+        <table class="table table-sm table-smaller">
+            <thead class="t-head">
+                <tr>
+                    <td class="align-middle text-center p-3">
+                        <h5><b><spring:message code="cart.myCart"/></b></h5>
+                    </td>
+                </tr>
+            </thead>
+        </table>
+    </div>
 	<form id="cartForm" action="#" method="post">
 		<table class="table">
 			<thead class="t-head">
@@ -229,12 +240,12 @@
 		<input type="hidden" id="selectedItemsInput" name="selectedItems" value="">
 		
 		<div class="d-flex flex-row justify-content-end align-items-center">
+			<a href="${pageContext.request.contextPath}/orderHistory/getOrderHistoryList" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="cart.viewOrderHistory"/></a>
 			<button class="btn btn-danger m-2" id="btnRemoveSelected" type="submit"><spring:message code="cart.removeSelectedItems"/></button>
 			<button class="btn btn-primary m-2" id="btnCheckout" type="submit"><spring:message code="cart.checkOut"/></button>
 		</div>
 	</form>	
-	
-	</main>
+</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>

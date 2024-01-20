@@ -22,10 +22,12 @@ public class OrderItemController {
 	@Autowired
 	private OrderItemService orderItemService;
 	
+	// ADMIN and USER function - get details of items in an orderHistory
 	@GetMapping("/getOrderItemList")
 	public String getOrderItemList(@RequestParam("orderHistoryNo") int orderHistoryNo, Model model) throws Exception {
 		log.info("/getOrderItemList GET orderHistoryNo: " + orderHistoryNo);
 		List<OrderItem> orderItemList = orderItemService.getOrderItemList(orderHistoryNo);
+		model.addAttribute("orderNo", orderHistoryNo);
 		model.addAttribute("orderItemList", orderItemList);
 		return "account/myCart/myOrderItemList";
 	}

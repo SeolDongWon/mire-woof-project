@@ -60,7 +60,7 @@
 				</div>
 			</c:forEach>
 		</section>
-		<a href="insertPet" class="btn btn-light text-dark m-6" style="float: right; text-decoration: none;"><spring:message
+		<a href="insertPet" class="btn btn-light btn-outline-secondary text-dark m-6" style="float: right; text-decoration: none;"><spring:message
 				code="pet.insert" /></a><br>
 	</main>
 	<!-- Footer Area -->
