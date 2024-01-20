@@ -50,9 +50,10 @@
 		WHERE
 		acc.username = #{username}
 	</select>
-	<!-- Account들의 모든정보 리스트 -->
+	<!-- Account들의 모든정보 리스트 username 찾기-->
 	<select id="getAccountList" resultType="Account">
 		SELECT * FROM account
+		WHERE username LIKE '%' || #{username} || '%'
 		ORDER BY regDate DESC
 	</select>
 	<!-- 계정 등록 처리 -->
@@ -109,11 +110,7 @@
 	</update>
 
 
-	<!-- admin이 개인계정을 찾기 -->
-	<select id="searchAccount" resultType="Account">
-		SELECT * FROM account
-		WHERE username LIKE '%' || #{searchKeyword} || '%'
-	</select>
+
 	<!-- 회원 테이블의 데이터 건수 조회 -->
 	<select id="countAll" resultType="int">
 		SELECT count(*) FROM account
@@ -128,4 +125,8 @@
 		END
 		WHERE username = #{username}
 	</update>
+	<!-- 아이디중복체크 -->
+	<select id="checkusername" parameterType="Account">
+	SELECT count(*) FROM account WHERE username = #{username}
+	</select>
 </mapper>

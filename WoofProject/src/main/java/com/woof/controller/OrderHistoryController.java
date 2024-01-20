@@ -56,10 +56,9 @@ public class OrderHistoryController {
 	}
 	
 	@PostMapping("/addToOrderHistory")
-	public String addToOrderHistory(@RequestParam("itemNo") List<String> itemNoList, OrderHistory orderHistory, Principal principal) throws Exception {
+	public String addToOrderHistory(@RequestParam("itemNo") List<String> itemNoList, OrderHistory orderHistory, Principal principal, Account account) throws Exception {
 		log.info("/addToOrderHistory POST: " + orderHistory.toString());
 		String username = principal.getName();
-		Account account = new Account();
 		account.setUsername(username);
 		orderHistory.setUsername(username);
 		log.info("account: " + account.toString());

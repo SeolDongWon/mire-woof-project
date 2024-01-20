@@ -18,7 +18,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
- 
+
 
 
 
@@ -41,14 +41,28 @@
 	<!-- subMenu Area -->
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
-		<h3 class="mb-2">User관리</h3>
+		
 		<div class="d-flex  justify-content-center">
 
-			<table class="table" style="table-layout: fixed;">
+			<table class="table">
 				<thead>
 					<tr>
+						<td colspan="7">
+						    <nav class="navbar navbar-light ">
+						      <div class="container-fluid">
+						       <h3>User관리</h3>
+						       
+						        <form id="pageRequest" class="d-flex" action="/account/accountList" method="get">
+						          <input class="form-control me-2 "  placeholder="username"  id="keyword" name="keyword" type="text" value="" >
+						          <button class="btn btn-outline-light  text-dark" type="submit">Search</button>
+						        </form>
+						      </div>
+						    </nav>
+						  </td>
+					</tr>
+					<tr>
 						<!-- <th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th> -->
-						
+
 						<th class="text-center" style="width: 120px;">아이디</th>
 						<th class="text-center" style="width: 70px;">성명</th>
 						<th class="text-center" style="width: 120px;">전화번호</th>
@@ -70,21 +84,21 @@
 						<c:otherwise>
 							<c:forEach items="${list}" var="account">
 								<tr>
-								<form method="post" action="/account/accountStatusSwitch" >
-								<td align="center">
-								<input type="text" name="username" value="${account.username}"  style="width: 120px; border: none;" readonly="readonly"/>
-								</td>
-				
-								
-									<td align="center" style="max-width: 70px; word-wrap: break-word;">${account.name}</td>
-									<td align="center">${account.tel}</td>
-									<td align="left"  style="max-width: 300px; word-wrap: break-word;">${account.address}</td>
-									<td align="center"><fmt:formatDate
-											value="${account.regDate}" pattern="yy-MM-dd HH:mm" /></td>
-									<td align="center">${account.status}</td>
-									<td align="center">
-										<button class="form-control" style="background: rgb(246, 220, 216); border: none;" >switch</button>
-									</td>
+									<form method="post" action="/account/accountStatusSwitch">
+										<td align="center" >
+										<input  type="text" name="username" value="${account.username}"
+											style="width: 120px; border: none;" readonly="readonly" />
+											</td>
+										<td align="center" style="max-width: 70px; word-wrap: break-word;">${account.name}</td>
+										<td align="center">${account.tel}</td>
+										<td align="left" style="max-width: 300px; word-wrap: break-word;">${account.address}</td>
+										<td align="center"><fmt:formatDate
+												value="${account.regDate}" pattern="yy-MM-dd HH:mm" /></td>
+										<td align="center">${account.status}</td>
+										<td align="center">
+											<button class="form-control"
+												style="background: rgb(246, 220, 216); border: none;">switch</button>
+										</td>
 									</form>
 								</tr>
 							</c:forEach>
@@ -95,25 +109,11 @@
 
 			</table>
 		</div>
-		<div class="d-flex">
-			<ul class="pagination m-auto">
-				<c:if test="${pagination.prev}">
-					<li class="page-item"><a class="page-link"
-						href="/service/getServiceList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Previous</a></li>
-				</c:if>
 
-				<c:forEach begin="${pagination.startPage }"
-					end="${pagination.endPage }" var="idx">
-					<li class="page-item"><a class="page-link"
-						href="/service/getServiceList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
-				</c:forEach>
+		
 
-				<c:if test="${pagination.next && pagination.endPage > 0}">
-					<li class="page-item"><a class="page-link"
-						href="/service/getServiceList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
-				</c:if>
-			</ul>
-		</div>
+
+
 
 
 	</main>
