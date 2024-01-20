@@ -51,7 +51,7 @@
         </div>
       </div>
       <div id="sidebar" class="position-fixed bottom-50 end-0 mb-3 me-3 text-center rounded-4"
-        style="background-color: rgb(246,220,216,0.7); z-index: 2;">
+        style="background-color: rgb(246,220,216,0.7); z-index: 1000;">
         <a href="#top" class="btn border-0">▲</a><br>
         <a href="" class="btn border-0"><spring:message code="side.menu1"/></a><br>
         <a href="" class="btn border-0"><spring:message code="side.menu2"/></a><br>

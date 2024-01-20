@@ -61,6 +61,8 @@
 			</sec:authorize>
 						<a href="/reply/getReplyList"
 				class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message code="service.reply"/></a>
+				<a href="/reply/getItemReviewList"
+				class="btn btn-light btn-outline-secondary text-dark m-2 float-end">Reivew상품평</a>
 			
 			
 			

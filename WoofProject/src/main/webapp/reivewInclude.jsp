@@ -15,18 +15,27 @@
 		replyList('1');
 		pagination('1');
 
+		/* $("#RegisterBtn").on("click", function() {
+			replyRegister();
+			replyList('1');
+		}); */
+	  
+		
 	});
 	
-	function registerBtn() {
+	function RegisterBtn() {
 		replyRegister();
 		replyList('1');
 		pagination('1');
 	}
 	
+
 	function modifyBtn() {
 		var replyNo = event.target.value;
 		alert(replyNo);
+		
 	}
+	
 	
 	function deleteBtn(){
 		var replyNo = event.target.value;
@@ -156,27 +165,21 @@
 	}
 	
 </script>
-
 		<div class="mt-3 w-75 m-auto">
-		
 			<h4>reply</h4>
-
 			<sec:authorize access="isAuthenticated()">
-			<form id="serviceForm" action="/reply/insertReply" method="post"
-				class="w-75">
+			<form id="serviceForm" action="/reply/insertReply" method="post" class="w-75">
 				<input id="username" name="username" class="form-control"value="<sec:authentication property="principal.username"/>" readonly="true" /> 
 				<span>serviceDesc :</span>
 				<button type="submit">Register</button>
 				<textarea id="reply" name="reply" class="form-control" rows="5"></textarea>
 			</form>
-				<button id="RegisterBtn"onclick="registerBtn()">RegisterBtnAjax</button>
-			
+				<button id="RegisterBtn"onclick="RegisterBtn()">RegisterBtnAjax</button>
 			</sec:authorize>
 			<table class="table" style="table-layout: fixed;">
 
 				<thead>
 					<tr>
-						<!-- <th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th> -->
 						<th class="bg-dark-subtle text-center" style="width: 20px;">작성자</th>
 						<th class="bg-dark-subtle text-center" style="width: 100px;">내용</th>
 						<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
