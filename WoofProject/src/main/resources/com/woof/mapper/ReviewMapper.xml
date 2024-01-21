@@ -18,9 +18,8 @@
 		SELECT * 
 		FROM
 			(SELECT  ROWNUM AS rnum, reviewNo, reviewTitle, reviewDesc, reviewRegDate , reviewModDate 
-			FROM (select * from review WHERE reviewTitle LIKE '%'||#{keywordTitle}||'%' AND reviewDesc LIKE '%'||#{keywordDesc}||'%' AND itemNo=0 order by reviewNo desc) 
-			ORDER BY reviewNo asc)
-		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY reviewNo DESC
+			FROM (select * from review WHERE reviewTitle LIKE '%'||#{keywordTitle}||'%' AND reviewDesc LIKE '%'||#{keywordDesc}||'%' AND itemNo=0 order by reviewNo desc))
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-#{sizePerPage}+1 and #{sizePerPage}*#{page}
 	</select>
 	
 	<select id="countReviewList" resultType="int">
@@ -47,10 +46,10 @@
 
 	<insert id="insertPetReview">
 		INSERT INTO review
-		(reviewNo,userName,reviewTitle,reviewDesc,reviewRegDate,reviewPic,itemNo,itemName)
+		(reviewNo,userName,reviewTitle,reviewDesc,reviewPic,itemNo,itemName)
 		VALUES
 		(reviewNo_seq.nextVal,
-		#{userName},#{reviewTitle},#{reviewDesc},SYSDATE,#{reviewPic},#{itemNo},#{itemName})
+		#{userName},#{reviewTitle},#{reviewDesc},#{reviewPic},#{itemNo},#{itemName})
 	</insert>
 
 	<update id="modifyReview">

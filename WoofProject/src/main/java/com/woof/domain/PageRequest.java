@@ -23,6 +23,11 @@ public class PageRequest {
 	//
 	private int itemNo;
 	
+	public PageRequest() {
+		this.page = 1;
+		this.sizePerPage = 10;
+	}
+	
 	
 
 	public int getReviewNo() {
@@ -81,10 +86,7 @@ public class PageRequest {
 		this.keywordDesc = keywordDesc;
 	}
 
-	public PageRequest() {
-		this.page = 1;
-		this.sizePerPage = 10;
-	}
+	
 
 	public void setPage(int page) {
 		if (page <= 0) {

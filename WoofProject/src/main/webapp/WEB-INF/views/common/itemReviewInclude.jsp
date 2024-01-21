@@ -148,11 +148,10 @@
         .auto-height-textarea {
             resize: none; /* 크기 조절을 막음 (선택사항) */
         }
-    </style>
+</style>
 
 		<div class="mt-3 w-75 m-auto">
 			<h4 id="firstReview" class="bg-success-subtle">상품평보기</h4>
-	
 			<div id="reviewListSpan"></div>
 			<div id="pageListSpan" class="d-flex" style="margin-top: 5px"></div>
 		</div>

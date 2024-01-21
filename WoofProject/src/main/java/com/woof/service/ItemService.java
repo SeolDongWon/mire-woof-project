@@ -9,7 +9,9 @@ public interface ItemService {
 	
 	public Item getItem(int itemNo) throws Exception;
 
-	public List<Item> getItemList() throws Exception;
+	/* public List<Item> getItemList() throws Exception; */
+	public List<Item> getItemList(PageRequest pageRequest) throws Exception;
+	public List<Item> getMainItemList() throws Exception;
 	
 	public void insertItem(Item item) throws Exception;
 	
@@ -26,4 +28,6 @@ public interface ItemService {
 	public List<Item> searchItemName(PageRequest pageRequest) throws Exception;
 	
 	public List<Item> listItemType(Item item) throws Exception;
+	
+	public int countItemList(PageRequest pageRequest) throws Exception;
 }

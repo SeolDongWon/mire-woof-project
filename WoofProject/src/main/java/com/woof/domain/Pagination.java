@@ -19,6 +19,10 @@ public class Pagination {
 
 	
 
+	public void setDisplayPageNum(int displayPageNum) {
+		this.displayPageNum = displayPageNum;
+	}
+
 	public void setPageRequest(PageRequest pageRequest) {
 		this.pageRequest = pageRequest;
 	}

@@ -32,24 +32,48 @@
 	<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 	<!-- subMenu Area -->
-	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
-
 	<main class="pt-2">
 		<!-- ================================================Content Area======================================================== -->
+			<div class="row p-0 m-0 mb-3">
+			<div class="col-2"></div>
+				<div class="col-8 d-flex justify-content-center">
+					<form id="pageRequest" class="d-flex w-50" action="/pet/getPetList" method="get">
+						<input class="form-control me-2"  placeholder="keyword"  id="keyword" name="keyword" type="text" value="" >
+						<button class="btn btn-outline-light  text-dark" type="submit" style="background-color: rgb(246, 220, 216)">Search</button>
+					</form>
+				</div>
+				<div class="col-2 float-end">
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<a href="insertPet"
+								class="btn btn-light btn-outline-secondary text-dark"> <spring:message	code="pet.insert" /></a>
+					</sec:authorize>
+				</div>				
+			</div>
 		<section style="display: flex; flex-wrap: wrap; gap: 6rem;">
 			<c:forEach var="pet" items="${petList}">
 				<div class="card" style="width: 21rem;">
-					<a href="getPet?petNo=${pet.petNo}"><img
-						src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top"
-						alt="Pet"></a>
+					<a href="getPet?petNo=${pet.petNo}">
+					<img src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top"	alt="Pet"></a>
 					<div class="card-body" align="center">
 						<h5 class="card-title">${pet.petName}</h5>
 						<hr>
-						<a href="getPet?petNo=${pet.petNo}"
-							style="text-decoration: none; color: black;"><spring:message
-								code="pet.age" /> : ${pet.petAge} | <spring:message
-								code="pet.breed" /> : ${pet.petType}</a>
+						<a href="getPet?petNo=${pet.petNo}"	style="text-decoration: none; color: black;">
+							<spring:message	code="pet.age" /> : ${pet.petAge} <br> 
+							<spring:message	code="pet.breed" /> : ${pet.petType}
+						</a>
 					</div>
+					<c:choose>
+						<c:when test="${pet.petStatus=='OPEN'}">
+						<div class="text-center"
+							style="color: black; background-color: rgb(246, 220, 216)">분양
+							신청가능</div>
+						</c:when>
+						<c:otherwise>
+						<div class="text-center"
+							style="color: red; background-color: rgb(246, 220, 216)">분양
+							진행중</div>
+						</c:otherwise>
+					</c:choose>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
 						<a href="modifyPet?petNo=${pet.petNo}" class="btn btn-primary m-2"><spring:message
 								code="common.modify" /></a>
@@ -60,8 +84,26 @@
 				</div>
 			</c:forEach>
 		</section>
-		<a href="insertPet" class="btn btn-light btn-outline-secondary text-dark m-6" style="float: right; text-decoration: none;"><spring:message
-				code="pet.insert" /></a><br>
+		<br>
+		<div class="d-flex">
+			<ul class="pagination m-auto">
+				<c:if test="${pagination.prev}">
+					<li class="page-item"><a class="page-link"
+						href="/pet/getPetList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&keyword=${pageRequest.keyword}">Previous</a></li>
+				</c:if>
+
+				<c:forEach begin="${pagination.startPage }"
+					end="${pagination.endPage }" var="idx">
+					<li class="page-item"><a class="page-link"
+						href="/pet/getPetList${pagination.makeQuery(idx)}&keyword=${pageRequest.keyword}">${idx}</a></li>
+				</c:forEach>
+
+				<c:if test="${pagination.next && pagination.endPage > 0}">
+					<li class="page-item"><a class="page-link"
+						href="/pet/getPetList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&keyword=${pageRequest.keyword}">Next</a></li>
+				</c:if>
+			</ul>
+		</div>
 	</main>
 	<!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

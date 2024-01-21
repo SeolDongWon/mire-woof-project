@@ -82,7 +82,13 @@ public class AccountController {
 		account.setAddress(address);
 
 		log.info("======== 후 =========account.toString()" + account.toString());
+		
+/////////////////////////////////////////////////////////////////샘플 반복생성
+		String id = account.getUsername();
+		for(int i=0;i<101;i++) {
+		account.setUsername(id+i);
 		service.registerAccount(account);
+		}
 		rttr.addFlashAttribute("username", account.getUsername());
 
 		return "redirect:/account/login";
@@ -227,11 +233,15 @@ public class AccountController {
 
 	// 최초 관리자를 생성하는 화면.
 	@RequestMapping(value = "/setup", method = RequestMethod.GET)
-	public String setupAdminForm(Account account, Model model) throws Exception {
-		log.info("****setupAdminForm : " + service.countAll());
+	public String setupAdminForm(Account account, Model model,PageRequest pageRequest) throws Exception {
+
+		if(null==pageRequest.getKeyword()) {
+			pageRequest.setKeyword("");
+		}
+		log.info("****setupAdminForm : " + service.countAll(pageRequest));
 
 		// 회원 테이블 데이터 건수를 확인하여 최초 관리자 등록 페이지를 표시한다.
-		if (service.countAll() == 0) {
+		if (service.countAll(pageRequest) == 0) {
 			return "account/login/setup";
 		}
 		// 회원 테이블에 데이터가 존재하면 최초 관리자를 생성할 수 없으므로 실패 페이지로 이동한다.
@@ -241,13 +251,16 @@ public class AccountController {
 
 	// 회원 테이블에 데이터가 없으면 최초 관리자를 생성
 	@RequestMapping(value = "/setup", method = RequestMethod.POST)
-	public String setupAdmin(Account account, RedirectAttributes rttr, Model model) throws Exception {
+	public String setupAdmin(Account account, RedirectAttributes rttr, Model model,PageRequest pageRequest) throws Exception {
+		if(null==pageRequest.getKeyword()) {
+			pageRequest.setKeyword("");
+		}
 
 		String address = account.getAddress1() + " " + account.getAddress2() + " " + account.getAddress3() + " "
 				+ account.getAddress4();
 		account.setAddress(address);
 		// 회원 테이블 데이터 건수를 확인하여 빈 테이블이면 최초 관리자를 생성
-		if (service.countAll() == 0) {
+		if (service.countAll(pageRequest) == 0) {
 			String inputPassword = account.getPassword();
 			account.setPassword(passwordEncoder.encode(inputPassword));
 			service.setupAdmin(account);
@@ -261,21 +274,38 @@ public class AccountController {
 
 	// 관리자의 유저관리 (accountList)
 	@GetMapping(value = "/accountList")
-	public String accountListForm(Account account, Model model, PageRequest pageRequest) throws Exception {
+	public String accountListForm(Account account, Model model, PageRequest pageRequest,Pagination pagination) throws Exception {
 		log.info("**ADMIN** : accountList");
 
 
-		if(pageRequest.getKeyword()!=null) {
-			account.setUsername(pageRequest.getKeyword());			
-		}
-		if(account.getUsername() == null) {
-			account.setUsername("");
-		}
-
 		
-		log.info("**List" + service.getAccountList(account));
+		if(null==pageRequest.getKeyword()) {
+			pageRequest.setKeyword("");
+		}
+		
+		
+		pagination.setPageRequest(pageRequest);
+//		log.info("getPetList().size() : "+service.getPetList().size());
+		pagination.setTotalCount(service.countAll(pageRequest));
+//		log.info("pagination : "+pagination.toString());
+		model.addAttribute("pagination", pagination);
+		
+		
+		
+		log.info("**List" + service.getAccountList(pageRequest));
 
-		model.addAttribute("list", service.getAccountList(account));
+		model.addAttribute("list", service.getAccountList(pageRequest));
+		
+//		if(pageRequest.getKeyword()!=null) {
+//			account.setUsername(pageRequest.getKeyword());			
+//			model.addAttribute("list", service.checkusername(account));
+//		}else {
+//		}
+//		if(account.getUsername() == null) {
+//			account.setUsername("");
+//		}
+		
+		
 
 		return "account/admin/accountList";
 	}
@@ -284,14 +314,21 @@ public class AccountController {
 	
 	// 관리자가 유저 정지 및 해제
 	@RequestMapping(value = "/accountStatusSwitch", method = RequestMethod.POST)
-	public String accountStatusSwitch(Account account, Model model, Principal principal) throws Exception {
+	public String accountStatusSwitch(Account account, Model model, Principal principal, PageRequest pageRequest) throws Exception {
 	    log.info("*** accountStatusSwitch : POST");
 	    log.info("...account.toString() : " + account.toString());
 	 
 	    service.restoreAccount(account);
 
-	    
-	    model.addAttribute("list", service.getAccountList(account));
+
+		if(null==pageRequest.getKeyword()) {
+			pageRequest.setKeyword("");
+		}
+		pageRequest.setKeyword(account.getUsername());
+		
+		
+		
+		model.addAttribute("list", service.getAccountList(pageRequest));
 
 	    // 계정 목록을 다시 로딩하도록 redirect
 	    return "account/admin/accountList";

@@ -25,130 +25,7 @@
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
 <script type="text/javascript">
-	/* 	$(document).ready(function() {
-	 ajaxPut();
-
-	 $("#ajaxPutBtn").on("click", function() {
-	 alert("putBtn");
-	 ajaxPut();
-	 });
-	 });
-
-	 function ajaxPut() {
-	 let pageRequest = {
-	 condition : $("#condition").val(),
-	 keyword : $("#keyword").val(),
-	 sizePerPage : $("#sizePerPage").val(),
-	 page : $("#page").val()
 	
-	 };
-
-	 alert(pageRequest.condition+" "+pageRequest.keyword+" "+pageRequest.sizePerPage+" "+pageRequest.page);
-	
-	 $.ajax({
-	 type : "put",
-	 url : "/notice/getNoticeListAjaxPut",
-	 data : JSON.stringify(pageRequest),
-	 contentType : "application/json; charset=UTF-8",
-
-	 success : function(result) {
-	 console.log("result.length : " + result.length);
-	 let noticeList = "";
-
-	 if (result.length != 0) {
-
-	 for (var i = 0; i < result.length; i++) {
-	 noticeList += '<tr style="font-size: 12px;">';
-	 noticeList += '<td class=" text-center p-1" style="width: 50px;">';
-	 noticeList += result[i].noticeNo + '</td>';
-	 noticeList += '<td class="text-truncate p-1">';
-	 noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
-					noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
-	 noticeList += result[i].noticeTitle
-	 + '</a></td>';
-	 noticeList += '<td class=" text-center p-1" style="width: 130px;">'
-	 noticeList += result[i].noticeRegDate + '</td>';
-	 noticeList += '</tr>';
-
-	 }
-	 } else {
-	 alert("검색결과 없음");
-	 }
-
-	 $("#noticeListSpan").html(noticeList);
-
-	 if (pageRequest.keyword != "") {
-	 let url = "?condition=" + pageRequest.condition
-	 + "&keyword=" + pageRequest.keyword;
-	 if (typeof (history.pushState) != "undefined") {
-	 history.pushState(null, null, url);
-	 }
-	 }
-	 }
-	 });
-	 } */
-	/* 	$(document).ready(function() {
-	ajaxPut();
-
-	$("#ajaxPutBtn").on("click", function() {
-	alert("putBtn");
-	ajaxPut();
-	});
-	});
-
-	function ajaxPut() {
-	let pageRequest = {
-	condition : $("#condition").val(),
-	keyword : $("#keyword").val(),
-	sizePerPage : $("#sizePerPage").val(),
-	page : $("#page").val()
-	
-	};
-
-	alert(pageRequest.condition+" "+pageRequest.keyword+" "+pageRequest.sizePerPage+" "+pageRequest.page);
-	
-	$.ajax({
-	type : "put",
-	url : "/notice/getNoticeListAjaxPut",
-	data : JSON.stringify(pageRequest),
-	contentType : "application/json; charset=UTF-8",
-
-	success : function(result) {
-	console.log("result.length : " + result.length);
-	let noticeList = "";
-
-	if (result.length != 0) {
-
-	for (var i = 0; i < result.length; i++) {
-	noticeList += '<tr style="font-size: 12px;">';
-	noticeList += '<td class=" text-center p-1" style="width: 50px;">';
-	noticeList += result[i].noticeNo + '</td>';
-	noticeList += '<td class="text-truncate p-1">';
-	noticeList += '<a	href="/notice/getNotice/'+result[i].noticeNo+'"';
-					noticeList += 'class="list-group-item list-group-item-action border-0 text-truncate">';
-	noticeList += result[i].noticeTitle
-	+ '</a></td>';
-	noticeList += '<td class=" text-center p-1" style="width: 130px;">'
-	noticeList += result[i].noticeRegDate + '</td>';
-	noticeList += '</tr>';
-
-	}
-	} else {
-	alert("검색결과 없음");
-	}
-
-	$("#noticeListSpan").html(noticeList);
-
-	if (pageRequest.keyword != "") {
-	let url = "?condition=" + pageRequest.condition
-	+ "&keyword=" + pageRequest.keyword;
-	if (typeof (history.pushState) != "undefined") {
-	history.pushState(null, null, url);
-	}
-	}
-	}
-	});
-	} */
 </script>
 </head>
 <body>
@@ -213,7 +90,7 @@
 							href="/notice/getNoticeList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
 					</c:forEach>
 					<c:if test="${pagination.next && pagination.endPage > 0}">
-						<li class="page-item"><a class="page-link text-decoration-none text-dark"
+						<li class="page-item"><a class="page-link"
 							href="/notice/getNoticeList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">Next</a></li>
 					</c:if>
 				</ul>

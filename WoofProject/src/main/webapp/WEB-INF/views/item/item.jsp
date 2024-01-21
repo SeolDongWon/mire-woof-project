@@ -64,6 +64,10 @@
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.itemRegDate}" /></td>
 						</tr>
 						<tr>
+							<td><spring:message code="common.price"/>수량</td>
+							<td>${item.itemStock}</td>
+						</tr>
+						<tr>
 							<td><spring:message code="item.selectQuantity"/></td>
 							<td>
 							 <select id="itemQuantity" name="itemQuantity">
@@ -90,11 +94,10 @@
 	</form:form><hr>
 	<div class="container-lg d-flex align-items-center">
 		<div class="m-3 mx-auto">
-			<img src="getItemSubPic?itemNo=${item.itemNo}" width="1000" height="3000">
+			<img src="getItemSubPic?itemNo=${item.itemNo}" width="1000">
 		</div>
 	</div>
-		<%@ include file="/itemReviewInclude.jsp"%>
-
+		<%@ include file="/WEB-INF/views/common/itemReviewInclude.jsp"%>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

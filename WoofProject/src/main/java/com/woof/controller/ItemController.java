@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.woof.domain.Item;
 import com.woof.domain.PageRequest;
+import com.woof.domain.Pagination;
 import com.woof.service.ItemService;
 
 import lombok.extern.java.Log;
@@ -51,13 +52,13 @@ public class ItemController {
 		return "item/item";
 	}
 	
-	// ALL function - retrieve list of items
-	@GetMapping("/itemList")
-	public void getItemList(Model model) throws Exception {
-		List<Item> itemList = itemService.getItemList();
-		log.info("/itemList GET: " + itemList.toString());
-		model.addAttribute("itemList", itemList);
-	}
+//	// ALL function - retrieve list of items
+//	@GetMapping("/itemList")
+//	public void getItemList(Model model) throws Exception {
+//		List<Item> itemList = itemService.getItemList();
+//		log.info("/itemList GET: " + itemList.toString());
+//		model.addAttribute("itemList", itemList);
+//	}
 	
 	// ADMIN function - create a new item (view)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -84,7 +85,13 @@ public class ItemController {
 			}
 		}
 		// create Item in DB
-		itemService.insertItem(item);
+///////////////////////////////////////////////////////////////////////////////////////////		
+		String name = item.getItemName();
+		for(int i=0;i<30;i++) {
+			item.setItemName(name+i);
+			itemService.insertItem(item);
+		}
+		
 		return "redirect:/item/itemList";
 	}
 	
@@ -101,8 +108,19 @@ public class ItemController {
 	// ADMIN function - modify item details (view)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modifyItem")
-	public String modifyItemGet(Model model) throws Exception {
-		List<Item> itemList = itemService.getItemList();
+	public String modifyItemGet(Item item, Model model,PageRequest pageRequest) throws Exception {
+		
+		if(null==item.getItemType()) {
+			item.setItemType("");
+		}
+		pageRequest.setKeywordTitle(item.getItemType());
+		
+		if(null==pageRequest.getKeyword()) {
+			pageRequest.setKeyword("");
+		}
+		pageRequest.setKeywordDesc(pageRequest.getKeyword());
+		
+		List<Item> itemList = itemService.getItemList(pageRequest);
 		model.addAttribute(itemList);
 		log.info("/modifyItem GET itemList: " + itemList.toString());
 		return "item/admin/modifyItem";
@@ -240,4 +258,47 @@ public class ItemController {
 		model.addAttribute(itemList);
 		return "item/itemList";
 	}
+	
+		
+		// ALL function - retrieve list of items
+		@GetMapping("/itemList")
+		public void getItemList(Item item, Model model,PageRequest pageRequest,Pagination pagination) throws Exception {
+			log.info("getItemType : "+item.getItemType());
+			
+			if(null==item.getItemType()) {
+				item.setItemType("");
+			}
+			pageRequest.setKeywordTitle(item.getItemType());
+			
+			if(null==pageRequest.getKeyword()) {
+				pageRequest.setKeyword("");
+			}
+			pageRequest.setKeywordDesc(pageRequest.getKeyword());
+			
+			
+			
+//			List<Item> itemList = new ArrayList<Item>();
+//			String condition = pageRequest.getCondition();
+//			
+//			log.info("/searchByKeyword POST condition: " + condition);
+//			switch(condition) {
+//				case "itemName": itemList = itemService.searchItemName(pageRequest); break;
+//				case "itemType": itemList = itemService.searchItemType(pageRequest); break;
+//			}
+//			log.info("/searchByKeyword POST itemList: " + itemList.toString());
+//			model.addAttribute(itemList);
+//			
+			
+			
+			log.info("setKeywordTitle : "+pageRequest.getKeywordTitle());
+			pagination.setPageRequest(pageRequest);
+			pagination.setTotalCount(itemService.countItemList(pageRequest));
+			log.info("pagination : "+pagination.toString());
+			model.addAttribute("pagination", pagination);
+			List<Item> itemList = itemService.getItemList(pageRequest);
+			log.info("/itemList GET: " + itemList.toString());
+			model.addAttribute("itemList", itemList);
+		}
+		
+
 }

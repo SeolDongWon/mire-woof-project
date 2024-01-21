@@ -21,9 +21,17 @@ public class ItemServiceImpl implements ItemService {
 		return mapper.getItem(itemNo);
 	}
 
+//	@Override
+//	public List<Item> getItemList() throws Exception {
+//		return mapper.getItemList();
+//	}
 	@Override
-	public List<Item> getItemList() throws Exception {
-		return mapper.getItemList();
+	public List<Item> getItemList(PageRequest pageRequest) throws Exception {
+		return mapper.getItemList(pageRequest);
+	}
+	@Override
+	public List<Item> getMainItemList() throws Exception {
+		return mapper.getMainItemList();
 	}
 
 	@Override
@@ -64,5 +72,10 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<Item> listItemType(Item item) throws Exception {
 		return mapper.listItemType(item);
+	}
+
+	@Override
+	public int countItemList(PageRequest pageRequest) throws Exception {
+		return mapper.countItemList(pageRequest);
 	}
 }

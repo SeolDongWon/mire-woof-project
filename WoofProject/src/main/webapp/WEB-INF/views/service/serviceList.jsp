@@ -61,9 +61,9 @@
 				<a href="/service/insertServiceForm"
 					class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message	code="service.writeService" /></a>
 			</sec:authorize>
-			<a href="/reply/getReplyList"
+			<%-- <a href="/reply/getReplyList"
 				class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message code="service.reply" /></a>
-
+ --%>
 			<table class="table" style="table-layout: fixed;">
 
 				<thead>
@@ -120,10 +120,14 @@
 						
 						</form>
 						<c:if test="${null!=service.response}">
-							<tr>
+							<tr >
 								<!-- <td class="bg-secondary-subtle" align="right"><span>ㄴ</span></td> -->
 								<td class="bg-secondary-subtle" name="username" align="center"><spring:message
 										code="service.reply" /></td>
+								<td class="bg-secondary-subtle"></td>
+								<sec:authorize access="hasRole('ROLE_ADMIN')">
+								<td class="bg-secondary-subtle"></td>
+								</sec:authorize>
 								<td class="bg-secondary-subtle" align="left">${service.response}</td>
 								<td class="bg-secondary-subtle" align="center"><fmt:formatDate
 										pattern="yyyy-MM-dd HH:mm" value="${service.responseRegDate}" /></td>

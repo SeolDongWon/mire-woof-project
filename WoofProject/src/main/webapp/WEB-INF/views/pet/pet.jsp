@@ -52,7 +52,12 @@ a {
 	<main class="pt-2">
 		<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 		<div align="center">
-
+			<div class="text-end">
+				<a href="/pet/getPetList"
+					class="btn btn-light btn-outline-secondary text-dark"> <spring:message
+						code="common.list" />
+				</a>
+			</div>
 			<table style="width: 80em;">
 				<tr>
 					<td><img src="getPetMainPic?petNo=${pet.petNo}" width="500"
@@ -91,12 +96,7 @@ a {
 									</tr>
 								</tbody>
 							</table>
-							<div class="mt-4">
-								<a href="/pet/getPetList"
-									class="btn btn-light btn-outline-secondary text-dark"> <spring:message
-										code="common.list" />
-								</a>
-							</div>
+
 						</div></td>
 				</tr>
 			</table>
@@ -113,7 +113,12 @@ a {
 				</tr>
 
 			</table>
-
+			<div class="text-end">
+				<a href="/pet/getPetList"
+					class="btn btn-light btn-outline-secondary text-dark"> <spring:message
+						code="common.list" />
+				</a>
+			</div>
 		</div>
 	</main>
 	<!-- Footer Area -->

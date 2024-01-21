@@ -25,7 +25,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.woof.domain.PageRequest;
+import com.woof.domain.Pagination;
 import com.woof.domain.Pet;
+import com.woof.domain.Review;
 import com.woof.service.PetService;
 
 import lombok.extern.java.Log;
@@ -54,17 +57,27 @@ public class PetController {
 		service.getPet(pet);
 	}
 	
-	@RequestMapping(value="/getPetList")
-	public String getPetList(Pet pet,Model model)  throws Exception{
-		List<Pet> petList = service.getPetList();
+	@GetMapping("/getPetList")
+	public String getPetList(Pet pet,Model model,PageRequest pageRequest,Pagination pagination)  throws Exception{
+		if(null==pageRequest.getKeyword()) {
+			pageRequest.setKeyword("");
+		}
+		
+		pageRequest.setSizePerPage(9);
+		pagination.setPageRequest(pageRequest);
+//		log.info("getPetList().size() : "+service.getPetList().size());
+		pagination.setTotalCount(service.countPetList(pageRequest));
+		log.info("pagination : "+pagination.toString());
+		model.addAttribute("pagination", pagination);
+		List<Pet> petList = service.getPetList(pageRequest);
 		model.addAttribute("petList", petList);
 		return "pet/petList";
 	}
 
 	@GetMapping("/petList")
-	public void getPetList(Model model) throws Exception{
+	public void getPetList(Model model,PageRequest pageRequest) throws Exception{
 		log.info("/petList GET");
-		List<Pet> petList = service.getPetList();
+		List<Pet> petList = service.getPetList(pageRequest);
 		model.addAttribute("petList", petList);
 	}
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -87,9 +100,9 @@ public class PetController {
 		List<MultipartFile> pictures = pet.getPictures();
 		for(int i = 0 ; i < pictures.size() ; i++) {
 			MultipartFile file = pictures.get(i);
-			log.info("originalName" + file.getOriginalFilename());
-			log.info("size:" + file.getSize());
-			log.info("contentType:" + file.getContentType());
+//			log.info("originalName" + file.getOriginalFilename());
+//			log.info("size:" + file.getSize());
+//			log.info("contentType:" + file.getContentType());
 			String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 			if(i == 0) {
 				pet.setPetMainPic(savedName);
@@ -97,9 +110,17 @@ public class PetController {
 				pet.setPetSubPic(savedName);
 			}
 		}
-		log.info(pet.toString());
-		service.insertPet(pet);
-		return "redirect:/pet/petList";
+//		log.info(pet.toString());
+		
+		
+		String petname = pet.getPetName();
+		for(int i=0;i<100;i++) {
+			pet.setPetName(petname+i);
+			service.insertPet(pet);			
+		}
+		
+		
+		return "redirect:/pet/getPetList";
 	}
 	
 	
@@ -117,9 +138,9 @@ public class PetController {
 	public String modifyPet(Pet pet , Model model) throws Exception{
 		log.info("/modifyPet GET");
 		Pet petModify = this.service.getPet(pet);
-		log.info(petModify.toString());
+//		log.info(petModify.toString());
 		model.addAttribute(petModify);
-		log.info("model add attribute ");
+//		log.info("model add attribute ");
 		return "pet/modifyPet";
 	}
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -140,7 +161,7 @@ public class PetController {
 		}
 		this.service.modifyPet(pet);
 		model.addAttribute("수정이 완료되었습니다.");
-		return "redirect:/pet/petList";
+		return "redirect:/pet/getPetList";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -163,7 +184,7 @@ public class PetController {
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		String fileName = service.getPetMainPic(petNo);
-		log.info(fileName);
+//		log.info(fileName);
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mType = getMediaType(formatName);
@@ -208,7 +229,7 @@ public class PetController {
 	}
 	
 	private MediaType getMediaType(String formatName) {
-		log.info("getMediaType()");
+//		log.info("getMediaType()");
 		if (formatName != null) {
 			if (formatName.equals("JPG")) {
 				return MediaType.IMAGE_JPEG;

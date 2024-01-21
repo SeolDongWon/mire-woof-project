@@ -18,10 +18,9 @@
 		FROM
 		(SELECT ROWNUM AS rnum, replyNo, username, petNo, reviewNo,
 		reply, replyRegDate, replyModDate
-		FROM (SELECT * FROM reply WHERE reviewNo=#{reviewNo} ORDER BY replyNo DESC)
-		ORDER BY replyNo ASC)
+		FROM (SELECT * FROM reply WHERE reviewNo=#{reviewNo} ORDER BY replyNo DESC))
 		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and
-		#{sizePerPage}*#{page} ORDER BY replyNo DESC
+		#{sizePerPage}*#{page}
 	</select>
 	
 	<delete id="deleteReply">

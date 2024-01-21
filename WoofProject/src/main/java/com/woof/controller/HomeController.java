@@ -39,7 +39,7 @@ public class HomeController {
 	@GetMapping("/")
 	public String home(Locale locale, Model model, Account account) throws Exception {
 
-		List<Item> itemList = itemService.getItemList();
+		List<Item> itemList = itemService.getMainItemList();
 		model.addAttribute("itemList", itemList);
 		log.info("itemList : " + itemList.toString());
 		

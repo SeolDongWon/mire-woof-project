@@ -51,7 +51,12 @@ public class ReviewController {
 	private String uploadPath;
 
 	@GetMapping("/getReview")
-	public String getPet(Review review, Model model) throws Exception {
+	public String getPet(Review review, Model model, Principal principal, Account account) throws Exception {
+		if (null != principal) {
+			account.setUsername(principal.getName());
+			log.info(principal.getName());
+			model.addAttribute(account);
+		}
 		Review review_ = service.getReview(review);
 		model.addAttribute("review", review_);
 		return "pet/petReview";
@@ -76,6 +81,9 @@ public class ReviewController {
 	public String getReviewList(Model model,PageRequest pageRequest,Pagination pagination) throws Exception{
 		log.info("getReviewList");
 		
+//		pagination.setDisplayPageNum(5);
+		pageRequest.setSizePerPage(8);
+		
 		if(pageRequest.getCondition() == null) {
 			pageRequest.setCondition("TITLE");
 		}
@@ -96,6 +104,8 @@ public class ReviewController {
 			break;
 		}
 		}
+		pageRequest.setSizePerPage(8);
+		log.info(pageRequest.toString());
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(service.countReviewList(pageRequest));
 		model.addAttribute("pagination", pagination);
@@ -123,6 +133,9 @@ public class ReviewController {
 	@PostMapping("/insertPetReview")
 	public String insertReview(Review review) throws Exception {
 		log.info("/insert POST");
+		if(null==review.getItemName()) {
+			review.setItemName("");
+		}
 		List<MultipartFile> pictures = review.getPictures();
 		for (int i = 0; i < pictures.size(); i++) {
 			MultipartFile file = pictures.get(i);
@@ -159,7 +172,7 @@ public class ReviewController {
 		FileCopyUtils.copy(fileData, target);
 		return savedName;
 	}
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
 	@GetMapping("/modifyReview")
 	public String modifyReivew(Review reivew, Model model) throws Exception {
 		log.info("/modifyPetReview GET");
@@ -169,7 +182,7 @@ public class ReviewController {
 		log.info("model add attribute");
 		return "pet/modifyPetReview";
 	}
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
 	@PostMapping("/modifyReview")
 	public String modify(Review review,Model model)throws Exception{
 		log.info("/modifyReview POST");
@@ -187,7 +200,7 @@ public class ReviewController {
 		model.addAttribute("수정이 완료 되었습니다.");
 		return "redirect:/review/getReviewList";
 	}
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
 	@GetMapping(value = "/deleteReview")
 	public String deleteReview(Review review,Model model) throws Exception{
 		this.service.deleteReview(review);

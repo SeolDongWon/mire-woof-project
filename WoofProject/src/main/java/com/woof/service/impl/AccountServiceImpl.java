@@ -29,10 +29,16 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	//Account들의 모든정보 리스트
+//	@Override
+//	public List<Account> getAccountList(Account account) throws Exception {
+//		// TODO Auto-generated method stub
+//		return mapper.getAccountList(account);
+//	}
+	//Account들의 모든정보 리스트
 	@Override
-	public List<Account> getAccountList(Account account) throws Exception {
+	public List<Account> getAccountList(PageRequest pageRequest) throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.getAccountList(account);
+		return mapper.getAccountList(pageRequest);
 	}
 
 	//계정 등록 처리
@@ -79,8 +85,8 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public int countAll() throws Exception {
-		return mapper.countAll();
+	public int countAll(PageRequest pageRequest) throws Exception {
+		return mapper.countAll(pageRequest);
 	}
 
 	//관리자가 유저정지 및 해제

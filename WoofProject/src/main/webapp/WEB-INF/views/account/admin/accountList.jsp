@@ -108,8 +108,27 @@
 				</tbody>
 
 			</table>
+			
 		</div>
+<div class="d-flex">
+			<ul class="pagination m-auto">
+				<c:if test="${pagination.prev}">
+					<li class="page-item"><a class="page-link"
+						href="/account/accountList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&keyword=${pageRequest.keyword}">Previous</a></li>
+				</c:if>
 
+				<c:forEach begin="${pagination.startPage }"
+					end="${pagination.endPage }" var="idx">
+					<li class="page-item"><a class="page-link"
+						href="/account/accountList${pagination.makeQuery(idx)}&keyword=${pageRequest.keyword}">${idx}</a></li>
+				</c:forEach>
+
+				<c:if test="${pagination.next && pagination.endPage > 0}">
+					<li class="page-item"><a class="page-link"
+						href="/account/accountList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&keyword=${pageRequest.keyword}">Next</a></li>
+				</c:if>
+			</ul>
+		</div>
 		
 
 

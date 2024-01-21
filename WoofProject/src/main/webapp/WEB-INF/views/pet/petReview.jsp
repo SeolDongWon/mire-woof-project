@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +32,10 @@ a {
   color: black;
 }
 </style>
+<script type="text/javascript">
+	var currUsername = '${pageContext.request.userPrincipal.principal.account.username}';
+	console.log(currUsername);
+</script>
 </head>
 <body>
 <!-- Header Area -->
@@ -37,27 +43,44 @@ a {
 <!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
-<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
+
 
 	<main class="pt-2">
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
-	<hr>
-	<table class="table" id="article-table">
-				<thead>
+	<div class="w-75 m-auto ">
+		<table class="table border">
 					<tr>
-						<td class="title">${review.reviewTitle}</td>
+						<td colspan="2" class="title">${review.reviewTitle}</td>
+					</tr>
+					<tr>
 						<td class="user-id">${review.userName}</td> 
-						<td align="center" width="100px"><fmt:formatDate  pattern="yyyy-MM-dd" value="${review.reviewRegDate}"/></td>
+						<td class="text-end "><fmt:formatDate pattern="yyyy-MM-dd" value="${review.reviewRegDate}"/></td>
 					</tr>
-				</thead>
-				<tbody>
 					<tr>
-						<td ><img src="getReviewPic?reviewNo=${review.reviewNo}"width="50%" height="100%"></td>
-						<td class="hashtag" style="position: absolute; bottom: 250px;">${review.reviewDesc}</td>
+						<td colspan="2" ><img src="getReviewPic?reviewNo=${review.reviewNo}"width="50%" height="100%"></td>
 					</tr>
-				</tbody>
+					<tr>
+						<td colspan="2">${review.reviewDesc}</td>
+					</tr>
 			</table>
-			<a href="/review/getReviewList" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="common.list"/></a>
+			<div class="row p-0 m-0">
+				<div class="col-6">
+					<sec:authorize access="hasRole('ROLE_MEMBER')">
+						<c:if test="${review.userName==account.username}">
+							<a href="modifyReview?reviewNo=${review.reviewNo}" class="btn btn-primary m-2"><spring:message code="common.modify"/></a>
+							<a href="deleteReview?reviewNo=${review.reviewNo}" class="btn btn-danger m-2" onclick="return confirm('정말 삭제하시겠습니까?')"><spring:message code="common.delete"/></a> 	
+						</c:if>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ROLE_ADMIN')">
+						<a href="deleteReview?reviewNo=${review.reviewNo}" class="btn btn-danger m-2" onclick="return confirm('정말 삭제하시겠습니까?')"><spring:message code="common.delete"/></a>
+					</sec:authorize>
+				</div>
+				<div class="col-6 text-end">
+					<a href="/review/getReviewList" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="common.list"/></a>
+				</div>
+			</div>
+			<%@ include file="/WEB-INF/views/common/replyInclude.jsp"%>
+			</div>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

@@ -11,9 +11,8 @@
 		SELECT * 
 		FROM
 			(SELECT  ROWNUM AS rnum, noticeno, noticetitle, noticedesc, noticeregdate, noticemoddate, noticeviewcount
-			FROM (select * from notice WHERE noticetitle LIKE '%'||#{keywordTitle}||'%' AND noticedesc LIKE '%'||#{keywordDesc}||'%' order by noticeno desc) 
-			ORDER BY noticeno asc)
-		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY noticeno DESC
+			FROM (select * from notice WHERE noticetitle LIKE '%'||#{keywordTitle}||'%' AND noticedesc LIKE '%'||#{keywordDesc}||'%' order by noticeno desc))
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 	</select>
 	
 	<select id="countNoticeList" resultType="int">

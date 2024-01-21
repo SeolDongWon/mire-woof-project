@@ -52,9 +52,19 @@
 	</select>
 	<!-- Account들의 모든정보 리스트 username 찾기-->
 	<select id="getAccountList" resultType="Account">
-		SELECT * FROM account
+		<!-- SELECT * FROM account
 		WHERE username LIKE '%' || #{username} || '%'
-		ORDER BY regDate DESC
+		ORDER BY regDate DESC -->
+		
+		SELECT * 
+		FROM
+			(SELECT  ROWNUM AS rnum, username,name,tel,address,status,regdate
+			FROM (
+				SELECT * 
+				FROM account
+				WHERE username LIKE '%' || #{keyword} || '%'
+				ORDER BY regdate DESC))
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 	</select>
 	<!-- 계정 등록 처리 -->
 	<insert id="registerAccount">
@@ -113,7 +123,9 @@
 
 	<!-- 회원 테이블의 데이터 건수 조회 -->
 	<select id="countAll" resultType="int">
-		SELECT count(*) FROM account
+		SELECT count(*) 
+		FROM account
+		WHERE username LIKE '%' || #{keyword} || '%'
 	</select>
 
 	<!-- 관리자가 유저정지 및 해제 -->
