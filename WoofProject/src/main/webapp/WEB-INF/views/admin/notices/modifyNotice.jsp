@@ -27,11 +27,20 @@
 <script>
 	$(document).ready(function() {
 		var formObj = $("#notice");
+		
+		
+		
 		$("#btnRegister").on("click", function() {
+			 var noticeTitle = document.getElementById('noticeTitle').value;
+			 var noticeDesc = document.getElementById('noticeDesc').value;
+			
 			formObj.attr("action", "/notice/modifyNotice");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
+		
+		
+		
 		$("#btnList").on("click", function() {
 			self.location = "/notice/getNoticeList";
 		});

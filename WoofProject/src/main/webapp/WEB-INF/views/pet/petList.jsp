@@ -49,6 +49,8 @@
 					</sec:authorize>
 				</div>				
 			</div>
+		${pet.petStatus}
+		${authList}
 		<section style="display: flex; flex-wrap: wrap; gap: 6rem;">
 			<c:forEach var="pet" items="${petList}">
 				<c:if test="${pet.petStatus=='OPEN' || authList=='[ROLE_ADMIN]'}">

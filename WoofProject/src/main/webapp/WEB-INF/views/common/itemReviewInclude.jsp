@@ -111,10 +111,10 @@
 							reviewList += '<br><form">';
 							reviewList += '<input type="hidden" name="reviewNo" value="'+result[i].reviewNo+'"readonly="readonly"> ';
 							reviewList += '  <div class="w-100">';
-							reviewList += ' <div>';
-							reviewList += '  <span>'+result[i].userName+'</span>';
-							reviewList += '   <span>'+formattedDate+'</span>';
-							reviewList += '   <span>'+result[i].itemName+'</span>';
+							reviewList += ' <div class="row p-0 m-0">';
+							reviewList += '  <span class="col-3">'+result[i].username+'</span>';
+							reviewList += '   <span class="col-3">'+formattedDate+'</span>';
+							reviewList += '   <span class="col-3">'+result[i].itemName+'</span>';
 							reviewList += '  </div>';
 							reviewList += '  <div>';
 							reviewList += '  <img src="/review/getReviewPic?reviewNo='+result[i].reviewNo+'" style="height:100px">';
@@ -127,7 +127,7 @@
 							reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()">삭제</button>';
 							reviewList += '</sec:authorize>';
 							/* alert("currUsername : "+currUsername+" result[i].userName) : "+result[i].userName); */
-							if(currUsername==result[i].userName){
+							if(currUsername==result[i].username){
 								reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()">삭제</button>';
 							}
 							reviewList += ' </div>';

@@ -43,12 +43,29 @@
 	$(document).ready(function() {
 		var formObj = $("#review");
 		$("#btnRegister").on("click", function() {
-			formObj.attr("action", "/review/insertReview");
-			formObj.attr("method", "post");
-			formObj.submit();
+			var check = confirm('등록할까요');
+			
+			 var reviewTitle = document.getElementById('reviewTitle').value;
+			 var reviewDesc = document.getElementById('reviewDesc').value;
+			 var pictures = document.getElementById('pictures').value;
+			  
+			 
+			 if (reviewTitle.trim() === '') {
+				    alert("<spring:message code='common.alert.cancelled'/>");
+			    document.getElementById('reviewTitle').placeholder = 'reviewTitle Description cannot be empty.';
+			  } else if(reviewDesc.trim() === ''){
+			    document.getElementById('reviewDesc').placeholder = 'reviewDesc Description cannot be empty.';
+			  } else if(pictures.trim() === ''){
+				  alert("사진필수");
+			  }else if(check){
+					formObj.attr("action", "/review/insertReview");
+					formObj.attr("method", "post");
+					formObj.submit();
+			  }		
 		});
+		
 		$("#btnList").on("click", function() {
-			self.location = "/review/getReviewList";
+			self.location = "/orderHistory/getOrderHistoryList";
 		});
 	});
 </script>
@@ -66,7 +83,7 @@
 			<form id="review" action="insertPetReview" method="post" enctype="multipart/form-data">
                     <div class="form-group m-2">
                         <label><spring:message code="common.author"/></label>
-                        <input name="userName" readonly="true" class="form-control" value="${account.username}"/>
+                        <input name="username" readonly="true" class="form-control" value="${account.username}"/>
                     </div>
                     <div class="form-group m-2">
                         <label>상품명</label>
@@ -75,22 +92,22 @@
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.title"/></label>
-                        <input name="reviewTitle" class="form-control" required="required"/>
+                        <input id="reviewTitle" name="reviewTitle" class="form-control"/>
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.description"/></label>
-                        <textarea name="reviewDesc" class="form-control" rows="4"></textarea>
+                        <textarea id="reviewDesc" name="reviewDesc" class="form-control" rows="4"></textarea>
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.picture"/></label>
-                        <input type="file" name="pictures" name="reviewPic" onchange="showThumbnail(this)"/>
+                        <input id="pictures" type="file" name="pictures" name="reviewPic" onchange="showThumbnail(this)"/>
                         <img id="thumbnail" alt="thumbnail" style="width:200px; height: 200px;display: none;">
                     </div>
+                </form>
                     <div class="form-group d-flex justify-content-center m-2">
                         <button type="submit" class="btn btn-primary m-2" id="btnRegister"><spring:message code="common.submit"/></button>
                         <button type="button" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list"/></button>
                     </div>
-                </form>
 		</div>
 	</main>
 	<!-- Footer Area -->
