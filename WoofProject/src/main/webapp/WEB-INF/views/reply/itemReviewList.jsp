@@ -30,35 +30,22 @@
 	var currUsername = '${pageContext.request.userPrincipal.principal.account.username}';
 	
 	$(document).ready(function() {
-		replyList('1');
+		reviewList('1');
 		pagination('1');
-
-		/* $("#RegisterBtn").on("click", function() {
-			replyRegister();
-			replyList('1');
-		}); */
-	  
-		
 	});
-	
-	function RegisterBtn() {
-		replyRegister();
-		replyList('1');
-	}
-	
 
 	function modifyBtn() {
-		var replyNo = event.target.value;
-		alert(replyNo);
+		var reviewNo = event.target.value;
+		alert(reviewNo);
 		
 	}
 	
 	
 	function deleteBtn(){
-		var replyNo = event.target.value;
+		var reviewNo = event.target.value;
 		var check = confirm("정말로 삭제?");
 		if (check) {
-			deleteReply(replyNo);
+			deleteReview(reviewNo);
 			replyList('1');
 		}
 	}
@@ -69,16 +56,15 @@
 	   pagination(idx);
 	}
 	
-	function deleteReply(replyNo){
-		
-		var reply = {
-				replyNo : replyNo
+	function deleteReview(reviewNo){
+		var review = {
+				reviewNo : reviewNo
 		};
 		
 		$.ajax({
 					type : "put",
-					url : "/reply/deleteReply",
-					data : JSON.stringify(reply),
+					url : "/review/deleteReviewAjax",
+					data : JSON.stringify(review),
 					contentType : "application/json; charset=UTF-8",
 					success : 
 						function(result) {
@@ -90,10 +76,9 @@
 		var pageRequest = {
 				page : idx
 		};
-		/* alert("pageRequest : "+pageRequest.page); */
 		$.ajax({
 					type : "put",
-					url : "/reply/getReplyPage",
+					url : "/review/getItemReviewPagination",
 					data : JSON.stringify(pageRequest),
 					contentType : "application/json; charset=UTF-8",
 					success : 
@@ -117,69 +102,65 @@
 			});
 		}
 	
-	function replyList(idx){
+	 function reviewList(idx){
 		var pageRequest = {
 				page : idx
 		};
 		
 		$.ajax({
 				type : "put",
-				url : "/reply/getReplyList",
+				url : "/review/getItemReviewList",
 				data : JSON.stringify(pageRequest),
 				contentType : "application/json; charset=UTF-8",
 				
 				success : 
 					function(result) {
-					 	let replyList = ""
+						let reviewList = ""
 						var parsedDate = null;
 						var formattedDate = null; 
-						 for (var i = 0; i < result.length; i++) {
-							parsedDate = new Date(result[i].replyRegDate);
+						for (var i = 0; i < result.length; i++) {
+							parsedDate = new Date(result[i].reviewRegDate);
 							formattedDate = parsedDate.toLocaleString({ timeZone: 'UTC' });
-							replyList += '<form method="post">';
-							replyList += '<input type="hidden" name="replyNo" value="'+result[i].replyNo+'"readonly="readonly"> ';
-							replyList += '<input type="hidden"name="username" value="'+result[i].username+'" readonly="readonly">';
-							replyList += '<input type="hidden" name="reply" value="'+result[i].reply+'"readonly="readonly"><tr>';
-							replyList += '<td name="username" align="center">'+result[i].username+'</td>';
-							replyList += '<td name="reply" align="left" class="text-break">'+result[i].reply+'</td><td align="center">';
-							replyList += '<span>'+formattedDate+'</span>';
-							replyList += '<td align="center" class="border-0">';
-							replyList += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
-							replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()">삭제</button>';
-							replyList += '</sec:authorize>';
-							replyList += '<div class="d-flex">';
-							if(currUsername==result[i].username){
-								//수정은 미완성
-								//replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="modifyBtn()">수정</button>';
-								replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()">삭제</button>';
+							reviewList += '<br><form method="post">';
+							reviewList += '<input type="hidden" name="reviewNo" value="'+result[i].reviewNo+'"readonly="readonly"> ';
+							reviewList += '  <div class="w-100">';
+							reviewList += ' <div>';
+							reviewList += '  <span>'+result[i].userName+'</span>';
+							reviewList += '   <span>'+formattedDate+'</span>';
+							reviewList += '   <span>'+result[i].itemName+'</span>';
+							reviewList += '  </div>';
+							reviewList += '  <div>';
+							reviewList += '  <img src="/review/getReviewPic?reviewNo='+result[i].reviewNo+'" style="height:100px">';
+							reviewList += ' </div>';
+							reviewList += ' <div>';
+							reviewList += ' <p class="fs-4">'+result[i].reviewTitle+'</p>';
+							reviewList += ' <div class="d-flex">';
+							reviewList += ' <textarea class="form-control auto-height-textarea overflow-hidden" readonly="readonly">'+result[i].reviewDesc+'</textarea>';
+							reviewList += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
+							reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()">삭제</button>';
+							reviewList += '</sec:authorize>';
+							if(currUsername==result[i].userName){
+								reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()">삭제</button>';
 							}
-							replyList += '</td></tr></form>';
+							reviewList += ' </div>';
+							reviewList += ' </div>';
+							reviewList += '</div>';
+							reviewList += '<div align="center" class="border-0">';
+							reviewList += '<div class="d-flex">';
+							reviewList += '</div></div></form>';
 						}
-						 $("#replyListSpan").html(replyList); 
-					}
+						 $("#reviewListSpan").html(reviewList);  
+				}
 		});
-	}
-	
-	
-	function replyRegister(){
-		var reply = {
-				username : $("#username").val(),
-				reply : $("#reply").val()
-		};
-		
-		$.ajax({
-				type : "put",
-				url : "/reply/getReplyRegist",
-				data : JSON.stringify(reply),
-				contentType : "application/json; charset=UTF-8",
-				success : 
-					function(result) {
-					}
-		});
-		 document.getElementById('reply').value = '';
-	}
+	} 
 	
 </script>
+<style>
+        /* 텍스트 영역에 대한 스타일 */
+        .auto-height-textarea {
+            resize: none; /* 크기 조절을 막음 (선택사항) */
+        }
+    </style>
 </head>
 <body>
 	<!-- Header Area -->
@@ -189,39 +170,13 @@
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
 		<div class="mt-3 w-75 m-auto">
-	<h4>	reply</h4>
-
-			<form id="serviceForm" action="/reply/insertReply" method="post"
-				class="w-75">
-				<input id="username" name="username" class="form-control"value="${account.username}" readonly="true" /> 
-				<span>serviceDesc :</span>
-				<button type="submit">Register</button>
-				<textarea id="reply" name="reply" class="form-control" rows="5"></textarea>
-			</form>
-				<button id="RegisterBtn"onclick="RegisterBtn()">RegisterBtnAjax</button>
-			
-			<div></div>
-			<table class="table" style="table-layout: fixed;">
-
-				<thead>
-					<tr>
-						<!-- <th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th> -->
-						<th class="bg-dark-subtle text-center" style="width: 20px;">작성자</th>
-						<th class="bg-dark-subtle text-center" style="width: 100px;">내용</th>
-						<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
-						<th class="border-0" style="width: 20px;"></th>
-					</tr>
-				</thead>
-
-				<tbody id="replyListSpan">
-				</tbody>
-
-			</table>
-			
+	<h4>getItemReviewList</h4>
+	<a href="/reply/insertItemReviewForm"
+				class="btn btn-light btn-outline-secondary text-dark m-2 float-end">Reivew상품평작성하기</a>
+				<div id="reviewListSpan">
+				</div>
 			<div id="pageListSpan" class="d-flex">
-
 			</div>
-			
 		</div>
 	</main>
 	<!-- Footer Area -->

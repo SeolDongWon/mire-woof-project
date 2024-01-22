@@ -3,8 +3,8 @@
 <mapper namespace="com.woof.mapper.ServiceMapper">
 
 	<insert id="insertService">
-		INSERT INTO SERVICE (serviceNo, username, itemNo, petNo, serviceDesc)
-		VALUES(serviceno_seq.nextval, #{username}, #{itemNo} ,#{petNo} , #{serviceDesc})
+		INSERT INTO SERVICE (serviceNo, username, itemNo, petNo, serviceDesc, serviceType, orderNo)
+		VALUES(serviceno_seq.nextval, #{username}, #{itemNo} ,#{petNo} , #{serviceDesc}, #{serviceType}, #{orderNo})
 	</insert>
 	
 	<update id="responseService">
@@ -34,10 +34,9 @@
 	<select id="getServiceList"   resultType="Service">
 		SELECT * 
 		FROM
-			(SELECT  ROWNUM AS rnum, serviceNo, username, itemNo, petNo, serviceDesc, response, serviceRegDate,responseRegDate
-			FROM (select * from service WHERE serviceDesc LIKE '%'||#{keyword}||'%' order by serviceNo desc) 
-			ORDER BY serviceNo asc)
-		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY serviceNo DESC
+			(SELECT  ROWNUM AS rnum, serviceNo, username, itemNo, petNo, serviceDesc, response, serviceRegDate,responseRegDate, orderNo, serviceType
+			FROM (select * from service WHERE serviceDesc LIKE '%'||#{keyword}||'%' order by serviceNo desc))
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 	</select>
 	
 	

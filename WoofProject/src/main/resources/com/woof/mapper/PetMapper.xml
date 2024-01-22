@@ -8,8 +8,29 @@
 	</select>
 
 	<select id="getPetList" resultType="com.woof.domain.Pet">
-		SELECT * FROM pet ORDER BY
-		petNo
+		<!-- SELECT * 
+		FROM pet 
+		ORDER BY petNo DESC -->
+		SELECT * 
+		FROM
+			(SELECT  ROWNUM AS rnum, petNo, petName, petAge, petType,petStatus
+				FROM (SELECT * FROM pet WHERE petName LIKE '%'||#{keyword}||'%'	OR petType LIKE '%'||#{keyword}||'%' ORDER BY petno DESC))
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-#{sizePerPage}+1 and #{sizePerPage}*#{page}
+		
+		<!-- SELECT * 
+		FROM
+			(SELECT ROWNUM AS rnum 
+			FROM (SELECT * FROM pet ORDER BY petno DESC) 
+			ORDER BY petno asc)
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-#{sizePerPage}+1 and #{sizePerPage}*#{page}  ORDER BY petno DESC -->
+		
+	</select>
+	
+		<select id="countPetList" resultType="int">
+		SELECT count(petno)
+		FROM pet
+		WHERE petName LIKE '%'||#{keyword}||'%'
+		OR petType LIKE '%'||#{keyword}||'%'
 	</select>
 
 	<insert id="insertPet">
@@ -48,7 +69,7 @@
 	
 	<select id="getMainPetList" resultType="Pet">
 		<![CDATA[
-		SELECT * FROM(SELECT * FROM pet WHERE petStatus='분양가능' ORDER BY petno DESC) WHERE ROWNUM <= 4
+		SELECT * FROM(SELECT * FROM pet WHERE petStatus='OPEN' ORDER BY petno DESC) WHERE ROWNUM <= 4
 		]]>
 	</select>
 

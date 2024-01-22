@@ -94,14 +94,16 @@
                 <td><img src="getPetMainPic?petNo=${pet.petNo}" width="210" height="240" /></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="file" name="pictures" class="form-control-file" /></td>
+                <td colspan="2"><input type="file" name="pictures" class="form-control-file" />
+                <input type="hidden" name="petMainPic" value="${pet.petMainPic}" readonly="readonly"> </td>
             </tr>
             <tr>
                 <td><spring:message code="common.subPic" /></td>
                 <td><img src="getPetSubPic?petNo=${pet.petNo}" width="210" height="240" /></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="file" name="pictures" class="form-control-file" /></td>
+                <td colspan="2"><input type="file" name="pictures" class="form-control-file" />
+                <input type="hidden" name="petSubPic" value="${pet.petSubPic}" readonly="readonly"></td>
             </tr>
         </table>
     </form:form>

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,17 +29,19 @@ public class CartController {
 
 	@Autowired
 	private CartService cartService;
-	
+
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/addToCart")
-	public String addToCart(@ModelAttribute("item") Item item, @RequestParam("itemQuantity") int itemQuantity, Principal principal, Model model) throws Exception {
+	public String addToCart(@RequestParam("itemQuantity") int itemQuantity, Item item, Principal principal, Model model) throws Exception {
 		String username = principal.getName();
 		log.info("/addToCart POST: " + item + ", itemQuantity: " + itemQuantity + ", username: " + username);
 		String itemNo = String.valueOf(item.getItemNo()); 
 		cartService.addToCart(item, username, itemQuantity);
 		cartService.deleteDuplicateRows(itemNo, username);
-		return "redirect:/item/itemList";
+		return "redirect:/cart/myCart";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@GetMapping("/myCart")
 	public String getCart(Principal principal, Model model) throws Exception {
 		String username = principal.getName();
@@ -49,7 +52,8 @@ public class CartController {
 		model.addAttribute("cartList", cartList);
 		return "account/myCart/myCart";
 	}
-		
+	
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@PostMapping("/getOrder")
 	public String getOrder(@RequestParam("selectedItems") List<String> selectedItems, Principal principal, Cart cart, Model model) throws Exception {
 		String username = principal.getName();

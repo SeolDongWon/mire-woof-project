@@ -54,25 +54,24 @@
 			<div id="myCarousel" class="carousel slide" data-bs-ride="carousel"
 				style="height: 400px;">
 				<div class="carousel-inner h-100 text-center">
-					<!-- 회전목마 테이블을 만들어서 관리자가 맘대로 가능하게 -->
 					<div class="carousel-item active h-100">
 						<a href="#"> <img class="w-100 "
-							src="/resource/image/mainPage/iu1.jpg" alt="">
+							src="/resource/image/mainPage/IMG_0111.JPG" alt="">
 						</a>
 					</div>
 					<div class="carousel-item  h-100">
 						<a href="#"> <img class="w-100 "
-							src="/resource/image/mainPage/iu2.jpg" alt="">
+							src="/resource/image/mainPage/IMG_0112.JPG" alt="">
 						</a>
 					</div>
 					<div class="carousel-item h-100">
 						<a href="#"> <img class="w-100 "
-							src="/resource/image/mainPage/iu3.jpg" alt="">
+							src="/resource/image/mainPage/IMG_0113.JPG" alt="">
 						</a>
 					</div>
 					<div class="carousel-item  h-100">
 						<a href="#"> <img class="w-100 "
-							src="/resource/image/mainPage/iu4.jpg" alt="">
+							src="/resource/image/mainPage/IMG_0114.JPG" alt="">
 						</a>
 					</div>
 				</div>
@@ -168,11 +167,12 @@
 						<!-- 분양 테이블에서 4개 뽑아오기 -->
 						
 						<c:forEach items="${petList}" var="pet">
-							<div class="card col-6 p-1 rounded-5 h-50 ">
+							<div class="card col-6 p-1 rounded-5 h-50 p-0 m-0">
 								<a href="/pet/getPet?petNo=${pet.petNo}"
 									class="text-black link-underline link-underline-opacity-0 rounded-5 overflow-hidden ">
-									<img src="/pet/getPetMainPic?petNo=${pet.petNo}" alt=""
-									class="w-100">
+									<div class=" rounded-5  overflow-hidden " style="position: absolute; bottom: 0px">
+										<img src="/pet/getPetMainPic?petNo=${pet.petNo}" alt=""	class="w-100 rounded p-0 m-0">
+									</div>
 									<div class="card-body card-img-overlay"
 										style="text-shadow: 1px 1px white, -1px -1px white, -1px 1px white, 1px -1px white;">
 										<span class="card-title fs-2 fw-bold">${pet.petName}</span><br>

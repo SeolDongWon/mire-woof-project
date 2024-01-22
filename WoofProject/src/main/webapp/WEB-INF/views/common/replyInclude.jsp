@@ -9,33 +9,25 @@
 
 <script type="text/javascript">
 	var currUsername = '${pageContext.request.userPrincipal.principal.account.username}';
-	var itemno = '${item.itemNo}';
+	var reviewNo = '${review.reviewNo}';
+	/* alert("currUsername "+currUsername+" reviewNo "+reviewNo); */
 	
 	$(document).ready(function() {
 		replyList('1');
 		pagination('1');
 
-		/* $("#RegisterBtn").on("click", function() {
-			replyRegister();
-			replyList('1');
-		}); */
-	  
-		
 	});
 	
-	function RegisterBtn() {
-		replyRegister();
+	function registerBtn() {
+		replyRegist();
 		replyList('1');
 		pagination('1');
 	}
 	
-
 	function modifyBtn() {
 		var replyNo = event.target.value;
 		alert(replyNo);
-		
 	}
-	
 	
 	function deleteBtn(){
 		var replyNo = event.target.value;
@@ -69,9 +61,10 @@
 	}
 	
 	function pagination(idx){
+		
 		var pageRequest = {
 				page : idx,
-				itemNo : itemno
+				reviewNo : reviewNo
 		};
 		/* alert("pageRequest : "+pageRequest.page); */
 		$.ajax({
@@ -103,7 +96,7 @@
 	function replyList(idx){
 		var pageRequest = {
 				page : idx,
-				itemNo : itemno
+				reviewNo : reviewNo
 		};
 		
 		$.ajax({
@@ -126,8 +119,8 @@
 							replyList += '<input type="hidden" name="reply" value="'+result[i].reply+'"readonly="readonly"><tr>';
 							replyList += '<td name="username" align="center">'+result[i].username+'</td>';
 							replyList += '<td name="reply" align="left" class="text-break">'+result[i].reply+'</td><td align="center">';
-							replyList += '<span>'+formattedDate+'</span>';
-							replyList += '<td align="center" class="border-0">';
+							replyList += '<span style="font-size:13px">'+formattedDate+'</span>';
+							replyList += '<td align="center" class="">';
 							replyList += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
 							replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()">삭제</button>';
 							replyList += '</sec:authorize>';
@@ -145,16 +138,16 @@
 	}
 	
 	
-	function replyRegister(){
+	function replyRegist(){
 		var reply = {
 				username : $("#username").val(),
 				reply : $("#reply").val(),
-				itemNo : itemno
+				reviewNo : reviewNo
 		};
 		
 		$.ajax({
 				type : "put",
-				url : "/reply/getReplyRegist",
+				url : "/reply/insertReply",
 				data : JSON.stringify(reply),
 				contentType : "application/json; charset=UTF-8",
 				success : 
@@ -166,30 +159,31 @@
 	
 </script>
 
-		<div class="mt-3 w-75 m-auto">
+		<div class="mt-3">
 		
-			<h4>reply</h4>
+			<h4 class="bg-success-subtle">댓글</h4>
 
 			<sec:authorize access="isAuthenticated()">
-			<form id="serviceForm" action="/reply/insertReply" method="post"
-				class="w-75">
-				<input id="username" name="username" class="form-control"value="<sec:authentication property="principal.username"/>" readonly="true" /> 
-				<span>serviceDesc :</span>
-				<button type="submit">Register</button>
-				<textarea id="reply" name="reply" class="form-control" rows="5"></textarea>
-			</form>
-				<button id="RegisterBtn"onclick="RegisterBtn()">RegisterBtnAjax</button>
-			
+				<div class="row p-0 m-0">
+					<form id="serviceForm" action="/reply/insertReply" method="post" class="col-10 d-flex">
+						<input type="hidden" id="username" name="username" class="form-control"value="<sec:authentication property="principal.username"/>" readonly="true"/>
+						<div class="me-2">
+						<sec:authentication property="principal.username"/> 
+						</div>
+						<textarea id="reply" name="reply" class="form-control" rows="5" placeholder="serviceDesc"></textarea>
+					</form>
+					<button class="col-2 m-auto" id="RegisterBtn"onclick="registerBtn()">replyRegist</button>
+				</div>
 			</sec:authorize>
-			<table class="table" style="table-layout: fixed;">
+			<table class="table table-striped m-auto" style="table-layout: fixed;">
 
 				<thead>
 					<tr>
 						<!-- <th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th> -->
-						<th class="bg-dark-subtle text-center" style="width: 20px;">작성자</th>
-						<th class="bg-dark-subtle text-center" style="width: 100px;">내용</th>
-						<th class="bg-dark-subtle text-center" style="width: 50px;">작성일</th>
-						<th class="border-0" style="width: 20px;"></th>
+						<th class="border-0 " style="width: 100px;"></th>
+						<th class="border-0 " style="width: auto;"></th>
+						<th class="border-0" style="width: 200px; "></th>
+						<th class="border-0" style="width: 50px;"></th>
 					</tr>
 				</thead>
 
@@ -199,7 +193,6 @@
 			</table>
 			
 			<div id="pageListSpan" class="d-flex">
-
 			</div>
 			
 		</div>

@@ -19,7 +19,7 @@
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
-<%@ include file="/WEB-INF/views/common/script.jsp"%>
+</script>
 <!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
@@ -34,7 +34,7 @@
 	<main>
 <!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/cart/addToCart">
+	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/cart/addToCart" onsubmit="alert('Item added');">
 		<input type="hidden" name="itemNo" value="${item.itemNo}"/>
 		<input type="hidden" name="itemName" value="${item.itemName}"/>
 		<input type="hidden" name="itemType" value="${item.itemType}"/>
@@ -64,6 +64,10 @@
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.itemRegDate}" /></td>
 						</tr>
 						<tr>
+							<td><spring:message code="common.price"/>수량</td>
+							<td>${item.itemStock}</td>
+						</tr>
+						<tr>
 							<td><spring:message code="item.selectQuantity"/></td>
 							<td>
 							 <select id="itemQuantity" name="itemQuantity">
@@ -78,7 +82,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" class="align-middle text-center">
-								<button type="submit" class="add-to-cart-btn btn btn-primary btn-outline-secondary text-white m-2">
+								<button type="submit" class="btn btn-primary btn-outline-secondary text-white m-2">
 									<spring:message code="item.addToCart"/>
 								</button>
 							</td>
@@ -90,11 +94,10 @@
 	</form:form><hr>
 	<div class="container-lg d-flex align-items-center">
 		<div class="m-3 mx-auto">
-			<img src="getItemSubPic?itemNo=${item.itemNo}" width="1000" height="3000">
+			<img src="getItemSubPic?itemNo=${item.itemNo}" width="1000">
 		</div>
 	</div>
-		<%@ include file="/replyInclude.jsp"%>
-
+		<%@ include file="/WEB-INF/views/common/itemReviewInclude.jsp"%>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

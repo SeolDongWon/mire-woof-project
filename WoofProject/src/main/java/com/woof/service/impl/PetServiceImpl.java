@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.woof.domain.PageRequest;
 import com.woof.domain.Pet;
 import com.woof.mapper.PetMapper;
 import com.woof.service.PetService;
@@ -19,8 +20,8 @@ public class PetServiceImpl implements PetService {
 		return mapper.getPet(pet) ;
 	}
 
-	public List<Pet> getPetList()  throws Exception{
-		return mapper.getPetList();
+	public List<Pet> getPetList(PageRequest pageRequest)  throws Exception{
+		return mapper.getPetList(pageRequest);
 	}
 
 	@Override
@@ -57,6 +58,11 @@ public class PetServiceImpl implements PetService {
 	@Override
 	public List<Pet> getMainPetList() throws Exception {
 		return mapper.getMainPetList();
+	}
+
+	@Override
+	public int countPetList(PageRequest pageRequest) throws Exception {
+		return mapper.countPetList(pageRequest);
 	}
 
 }

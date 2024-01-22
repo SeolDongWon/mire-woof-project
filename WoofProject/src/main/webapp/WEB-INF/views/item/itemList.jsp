@@ -32,15 +32,16 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 <!-- subMenu Area -->
 <main>
-<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 <!-- ================================================Content Area======================================================== -->
-	<div class="pt-3 mb-2">
-		<form action="/item/searchByKeyword" method="post">
+	<h3 class="text-center">${item.itemType}</h3>	
+	<div class="pt-3 mb-2 w-50 m-auto">
+		<form action="/item/itemList" method="get">
 	        <div class="input-group">
-	            <select name="condition" class="form-select w-20">
+	           <%--  <select name="condition" class="form-select w-20">
 		            <option value="itemName" selected><spring:message code="item.searchCondition1"/></option>
 		            <option value="itemType"><spring:message code="item.searchCondition2"/></option>
-	            </select>
+	            </select> --%>
+	            <input type="hidden" name="itemType" readonly="readonly" value="${item.itemType}">
 	            <input type="text" name="keyword" class="form-control w-75" placeholder="<spring:message code="common.enterKeyword"/>">
 	            <button class="btn btn-outline-secondary text-dark" type="submit"><spring:message code="common.search"/></button>
 	        </div>
@@ -68,7 +69,7 @@
 							<td class="align-middle text-center">
 								<a href="getItem?itemNo=${item.itemNo}"><img src="getItemMainPic?itemNo=${item.itemNo}" alt="Item Main Picture" width="175" height="175"></a>
 							</td>
-							<td class="align-middle text-center">${item.itemName}</td>
+							<td class="align-middle text-center"><a href="getItem?itemNo=${item.itemNo}" style="text-decoration: none;color: black">${item.itemName}</a></td>
 							<td class="align-middle text-center">${item.itemType}</td>
 							<td class="align-middle text-center">₩${item.itemPrice}</td>
 						</tr>
@@ -77,6 +78,25 @@
 			</c:otherwise>
 		</c:choose>
 	</table>
+	<div class="d-flex">
+			<ul class="pagination m-auto">
+				<c:if test="${pagination.prev}">
+					<li class="page-item"><a class="page-link"
+						href="/item/itemList?page=${pagination.startPage - 1}&PageNum=${pageRequest.sizePerPage}&itemType=${item.itemType}&keyword=${pageRequest.keyword}">Previous</a></li>
+				</c:if>
+
+				<c:forEach begin="${pagination.startPage }"
+					end="${pagination.endPage }" var="idx">
+					<li class="page-item"><a class="page-link"
+						href="/item/itemList${pagination.makeQuery(idx)}&itemType=${item.itemType}&keyword=${pageRequest.keyword}">${idx}</a></li>
+				</c:forEach>
+
+				<c:if test="${pagination.next && pagination.endPage > 0}">
+					<li class="page-item"><a class="page-link"
+						href="/item/itemList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&itemType=${item.itemType}&keyword=${pageRequest.keyword}">Next</a></li>
+				</c:if>
+			</ul>
+		</div>
 	<sec:authorize access="hasRole('ROLE_ADMIN')">
 		<div class="text-end">
 			<a href="/item/admin/insertItem" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="item.insertItem"/></a>

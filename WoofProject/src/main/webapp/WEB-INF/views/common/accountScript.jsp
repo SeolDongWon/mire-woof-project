@@ -1,7 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<<script>
+<script>
+
+function checkUsernameBtn(){
+	let InputUsername = $("#username").val();
+	
+	var account = {
+			username : InputUsername
+	};
+	
+	if(InputUsername.trim() !== ""){
+		$.ajax({
+			type: "put",
+			url: "/account/accountCheck",
+			data : JSON.stringify(account),
+            contentType : "application/json; charset=UTF-8",
+
+			success: function(result) {
+				
+				 if(result === "Username already exists"){
+					$("#usernameMessage").text("중복된 아이디 입니다").css("color","red");
+				}else {
+					$("#usernameMessage").text("사용 가능한 아이디 입니다").css("color","green");
+				} 
+		}
+});
+	}
+}
+
 
 
 function doSubmit() {
@@ -10,14 +37,22 @@ function doSubmit() {
 
 
 	let flag = true;
-	let accountArray = [idCheck(), pwCheck(), nameCheck(), telCheck()]
+	let accountArray = [idCheck(), pwCheck(), nameCheck(), telCheck(), addressCheck1(), addressCheck2(), addressCheck3()]
 
 	for (let i = 0; i < accountArray.length; i++) {
 		if (!accountArray[i]) {
 			flag = false;
 		}
 	}
+	
+	
+	if ($("#usernameMessage").text() === "중복된 아이디 입니다" && $("#usernameMessage").css("color") === "rgb(255, 0, 0)") {
+		flag = false;
+	 
+	}
 
+	
+	
 	if (flag) {
 		let check = "회원가입 정보가 다음과 같은지 확인하세요!\n\n"
 			+ "이름: " + frm.name.value + "\n"
@@ -30,7 +65,7 @@ function doSubmit() {
 			frm.submit();
 		}
 	}else{
-		alert("password 꼭 써주세요");
+		alert("중복 확인해주시고 작성이 다 되었는지 확인해주요.");
 	}
 }
 
@@ -56,6 +91,44 @@ function pwCheck() {
 		let regName = /^[a-zA-Z0-9-_/,.]{5,13}$/;
 		if (!regName.test(frm.password.value)) {
 			alert("비밀번호 : 5~13자리 영문,숫자, 특수문자만 가능");
+			return false;
+		} else {
+			return true;
+		}
+	}
+}
+
+
+	function addressCheck1() {
+	let frm = document.joinform;
+	if (frm.sample6_postcode.value) {
+		let regName = /^[a-zA-Zㄱ-힣0-9]{2,200}$/;
+		if (!regName.test(frm.name.value)) {
+			alert("주소를 꼭 작성해주세요");
+			return false;
+		} else {
+			return true;
+		}
+	}
+}
+	function addressCheck2() {
+	let frm = document.joinform;
+	if (frm.sample6_address.value) {
+		let regName = /^[a-zA-Zㄱ-힣0-9]{2,200}$/;
+		if (!regName.test(frm.name.value)) {
+			alert("주소를 꼭 작성해주세요");
+			return false;
+		} else {
+			return true;
+		}
+	}
+}
+	function addressCheck3() {
+	let frm = document.joinform;
+	if (frm.sample6_detailAddress.value) {
+		let regName = /^[a-zA-Zㄱ-힣0-9]{2,200}$/;
+		if (!regName.test(frm.name.value)) {
+			alert("주소를 꼭 작성해주세요");
 			return false;
 		} else {
 			return true;

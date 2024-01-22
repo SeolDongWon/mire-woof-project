@@ -16,8 +16,8 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
 	private OrderHistoryMapper mapper;
 	
 	@Override
-	public OrderHistory getOrderHistory(String username, OrderHistory orderHistory) throws Exception {
-		return mapper.getOrderHistory(username, orderHistory);
+	public OrderHistory getOrderHistory(String orderHistoryNo) throws Exception {
+		return mapper.getOrderHistory(orderHistoryNo);
 	}
 	
 	@Override

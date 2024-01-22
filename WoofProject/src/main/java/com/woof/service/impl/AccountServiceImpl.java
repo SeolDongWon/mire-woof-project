@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woof.domain.Account;
 import com.woof.domain.AccountAuth;
+import com.woof.domain.PageRequest;
 import com.woof.mapper.AccountMapper;
 import com.woof.service.AccountService;
 
@@ -28,10 +29,16 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	//Account들의 모든정보 리스트
+//	@Override
+//	public List<Account> getAccountList(Account account) throws Exception {
+//		// TODO Auto-generated method stub
+//		return mapper.getAccountList(account);
+//	}
+	//Account들의 모든정보 리스트
 	@Override
-	public List<Account> getAccountList() throws Exception {
+	public List<Account> getAccountList(PageRequest pageRequest) throws Exception {
 		// TODO Auto-generated method stub
-		return mapper.getAccountList();
+		return mapper.getAccountList(pageRequest);
 	}
 
 	//계정 등록 처리
@@ -65,12 +72,7 @@ public class AccountServiceImpl implements AccountService {
 		
 	}
 
-	//admin이 개인계정을 찾기
-	@Override
-	public Account searchAccount(Account searchKeyword) throws Exception {
-		return mapper.searchAccount(searchKeyword);
-	}
-	
+
 	// 최초 관리자를 생성한다.
 	@Transactional
 	@Override
@@ -83,19 +85,27 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public int countAll() throws Exception {
-		return mapper.countAll();
+	public int countAll(PageRequest pageRequest) throws Exception {
+		return mapper.countAll(pageRequest);
 	}
 
+	//관리자가 유저정지 및 해제
 	@Override
-	public String getAddress(String username) {
-		return mapper.getAddress(username);
+	public Account restoreAccount(Account account) throws Exception {
+	    mapper.restoreAccount(account);
+	    return getAccount(account);
+	}
+	//아이디 중복체크
+	@Override
+	public boolean checkusername(Account account) {
+		return mapper.checkusername(account);
+	}
+	//로그인 확인
+	@Override
+	public Account readByUsername(String username) {
+		return readByUsername(username);
 	}
 
-	@Override
-	public void remove(Account username) throws Exception {
-		mapper.remove(username);
-		
-	}
+
 
 }

@@ -12,12 +12,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.woof.domain.Account;
+import com.woof.domain.OrderHistory;
 import com.woof.domain.PageRequest;
 import com.woof.domain.Pagination;
 import com.woof.domain.Service;
+import com.woof.service.OrderHistoryService;
 import com.woof.service.ServiceService;
 
 import lombok.extern.java.Log;
@@ -29,7 +32,10 @@ public class ServiceController {
 
 	@Autowired
 	private ServiceService serviceService;
-
+	
+	@Autowired
+	private OrderHistoryService orderHistoryService;
+	
 	// 글쓰기 화면
 	@PreAuthorize("hasRole('ROLE_MEMBER')")
 	@GetMapping("/insertServiceForm")
@@ -38,6 +44,9 @@ public class ServiceController {
 		account.setUsername(principal.getName());
 		log.info(principal.getName());
 		model.addAttribute(account);
+		// for dropdown selection of user's orderHistory numbers to made into a button for admin
+		List<OrderHistory> orderHistoryList = orderHistoryService.getOrderHistoryList(principal.getName());
+		model.addAttribute("orderHistoryList", orderHistoryList);
 		return "service/insertService";
 	}
 
@@ -113,8 +122,7 @@ public class ServiceController {
 
 	// 문의 리스트
 	@GetMapping("/getServiceList")
-	public String getServiceList(Model model, PageRequest pageRequest, Pagination pagination, Principal principal,
-			Account account) throws Exception {
+	public String getServiceList(Model model, PageRequest pageRequest, Pagination pagination, Principal principal, Account account) throws Exception {
 		log.info("getServiceList");
 
 		if (pageRequest.getCondition() == null) {
@@ -143,6 +151,8 @@ public class ServiceController {
 		model.addAttribute("pagination", pagination);
 		List<Service> serviceList = serviceService.getServiceList(pageRequest);
 		model.addAttribute("serviceList", serviceList);
+		log.info("serviceList: " + serviceList);
+		
 		if (null != principal) {
 			account.setUsername(principal.getName());
 			log.info(principal.getName());

@@ -98,13 +98,6 @@
 .card-img-top {
     height: 150px; /* Adjust as needed */
 }
-
-
-a {
-  text-decoration: none;
-  color: black;
-}
-
 </style>
 
 </head>
@@ -148,34 +141,37 @@ a {
 				</tbody>
 			</table>
 		</div> --%>
+		<div class="row mb-3">
+		<sec:authorize access="hasRole('ROLE_MEMBER')">
+			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+				<a href="/review/insertPetReviewForm"
+					class="btn btn-light btn-outline-secondary text-dark me-md-2" role="button" id="write-article"><spring:message code="pet.insertReview"/></a>
+			</div>
+			</sec:authorize>
+		</div>
 		
 		<section style="display: flex; flex-wrap: wrap; gap: 3rem;">
 			<c:forEach var="review" items="${reviewList}">
-				<div class="card" style="width: 16rem; height: auto;" >
-					<a href="getReview?reviewNo=${review.reviewNo}"><img
+				<div class="card" style="width: 16rem; " >
+					<a href="getReview?reviewNo=${review.reviewNo}" style="text-decoration: none; color: black"><img
 						src="getReviewPic?reviewNo=${review.reviewNo}" class="card-img-top"
-						alt="..."></a>
+						alt="...">
 					<div class="card-body" align="center">
-						<p class="card-title">${review.reviewTitle}</p>
-						<br>
-						<%-- <p class="hashtag" style="font-size: 10px">${review.reviewDesc}</p> --%>
-						<button style="border-radius: 5px;"><a href="getReview?reviewNo=${review.reviewNo}" style="font-size: 12px; border: none;">더 보기</button>
+						<span class="card-title">${review.reviewTitle}</span>
+						<br><br>
+						<div class="" style="font-size: 10px; height: 100px; overflow: hidden;">${review.reviewDesc}</div>
 					</div>
-					<sec:authorize access="hasRole('ROLE_ADMIN')">
-					<a href="modifyReview?reviewNo=${review.reviewNo}" class="btn btn-primary m-2"><spring:message code="common.modify"/></a> 
-					<a href="deleteReview?reviewNo=${review.reviewNo}" class="btn btn-danger m-2" onclick="return confirm('정말 삭제하시겠습니까?')"><spring:message code="common.delete"/></a>
-					</sec:authorize>
+					</a>
+					<%-- <sec:authorize access="hasRole('ROLE_ADMIN')">
+						<a href="/review/modifyReview?reviewNo=${review.reviewNo}" class="btn btn-primary m-2"><spring:message code="common.modify"/></a> 
+						<a href="/review/deleteReview?reviewNo=${review.reviewNo}" class="btn btn-danger m-2" onclick="return confirm('정말 삭제하시겠습니까?')"><spring:message code="common.delete"/></a>
+					</sec:authorize> --%>
 				</div>
 			</c:forEach>
 		</section>
 		<br>
 		
-		<div class="row">
-			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<a href="/review/insertPetReviewForm"
-					class="btn btn-light text-dark me-md-2" role="button" id="write-article"><spring:message code="pet.insertReview"/></a>
-			</div>
-		</div>
+
 		
 			<!-- 페이징-->
 			<div class="d-flex m-1">
@@ -190,7 +186,7 @@ a {
 							href="/review/getReviewList${pagination.makeQuery(idx)}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}">${idx}</a></li>
 					</c:forEach>
 					<c:if test="${pagination.next && pagination.endPage > 0}">
-						<li class="page-item"><a class="page-link text-decoration-none text-dark"
+						<li class="page-item"><a class="page-link"
 							href="/review/getReviewList?page=${pagination.endPage +1}&PageNum=${pageRequest.sizePerPage}&condition=${pageRequest.condition}&keyword=${pageRequest.keyword}"><spring:message code="common.next"/></a></li>
 					</c:if>
 				</ul>

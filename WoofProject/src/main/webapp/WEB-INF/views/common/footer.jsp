@@ -43,7 +43,7 @@
             <p class="fs-6 mb-2"><spring:message code="common.cs"/></p>
             <ul class="navbar-nav fs-6 fw-light">
               <li class="nav-item"><a href="/service/getFAQList" class="nav-link link-secondary p-1"><spring:message code="common.FAQ"/></a></li>
-              <li class="nav-item"><a href="/service/getServiceList" class="nav-link link-secondary p-1"><spring:message code="footer.contactUs"/></a></li>
+              <li class="nav-item"><a href="/service/getServiceList" class="nav-link link-secondary p-1"><spring:message code="footer.inquiries"/></a></li>
             </ul>
           </div>
         </div>
@@ -51,7 +51,7 @@
         </div>
       </div>
       <div id="sidebar" class="position-fixed bottom-50 end-0 mb-3 me-3 text-center rounded-4"
-        style="background-color: rgb(246,220,216,0.7); z-index: 2;">
+        style="background-color: rgb(246,220,216,0.7); z-index: 1000;">
         <a href="#top" class="btn border-0">▲</a><br>
         <a href="" class="btn border-0"><spring:message code="side.menu1"/></a><br>
         <a href="" class="btn border-0"><spring:message code="side.menu2"/></a><br>

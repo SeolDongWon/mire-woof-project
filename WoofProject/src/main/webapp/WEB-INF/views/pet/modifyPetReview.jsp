@@ -63,7 +63,7 @@ table {
             </tr>
             <tr>
                 <td><spring:message code="common.description" /></td>
-                <td><form:input path="reviewDesc" class="form-control" /></td>
+                <td><form:textarea cols="10" path="reviewDesc" class="form-control" /></td>
                 <td><font color="red"><form:errors path="reviewDesc" /></font></td>
             </tr>
             <tr>
@@ -75,7 +75,8 @@ table {
                 <td><img src="getReviewPic?reviewNo=${review.reviewNo}" width="210" height="240" /></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="file" name="pictures" class="form-control-file" /></td>
+                <td colspan="2"><input type="file" name="pictures" class="form-control-file" />
+                <form:input type="hidden" path="reviewPic" readonly="readonly"></form:input></td>
             </tr>
         </table>
     </form:form>

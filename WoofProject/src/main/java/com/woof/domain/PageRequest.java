@@ -11,15 +11,32 @@ public class PageRequest {
 	private String keyword; // 검색 키워드 / keyword
 	private String keywordTitle; // 제목이 검색대상인 키워드 / titleKeyword
 	private String keywordDesc; // 내용이 검색대상인 키워드 / descKeyword
+
+	
 	// 현재페이지
 	private int page;
 	// 화면하단에 출력할 페이지사이즈
 	private int sizePerPage;
+	private int reviewNo;
+	
 	
 	//
 	private int itemNo;
 	
+	public PageRequest() {
+		this.page = 1;
+		this.sizePerPage = 10;
+	}
 	
+	
+
+	public int getReviewNo() {
+		return reviewNo;
+	}
+
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
+	}
 
 	public int getItemNo() {
 		return itemNo;
@@ -69,10 +86,7 @@ public class PageRequest {
 		this.keywordDesc = keywordDesc;
 	}
 
-	public PageRequest() {
-		this.page = 1;
-		this.sizePerPage = 10;
-	}
+	
 
 	public void setPage(int page) {
 		if (page <= 0) {

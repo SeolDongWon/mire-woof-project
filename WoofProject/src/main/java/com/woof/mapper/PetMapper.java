@@ -2,6 +2,7 @@ package com.woof.mapper;
 
 import java.util.List;
 
+import com.woof.domain.PageRequest;
 import com.woof.domain.Pet;
 
 public interface PetMapper {
@@ -9,7 +10,7 @@ public interface PetMapper {
 	public Pet getPet(Pet pet) throws Exception;
 
 	// 팻 리스트 불러오기
-	public List<Pet> getPetList() throws Exception;
+	public List<Pet> getPetList(PageRequest pageRequest) throws Exception;
 
 	// 팻 추가
 	public void insertPet(Pet pet) throws Exception;
@@ -28,4 +29,6 @@ public interface PetMapper {
 	public String getPetSubPic(Integer petNo) throws Exception;
 
 	public List<Pet> getMainPetList() throws Exception;
+	
+	public int countPetList(PageRequest pageRequest) throws Exception;
 }

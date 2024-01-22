@@ -29,17 +29,29 @@
 		<li class="navMenu nav-item nav-underline "style="position: relative">
 		<a href=""class="nav-link text-black" data-bs-toggle="dropdown"aria-expanded="false"id="itemMenu" style="box-shadow: none;"><spring:message code="common.store"/></a>
 			<nav class="dropdown-menu">
-				<ul class=" nav nav-justified "style="left: -600px;">
+				<!-- <ul class=" nav nav-justified "style="left: -600px;">
 					<li class="navMenu nav-item">
 						<a href="/item/itemList"class="nav-link text-black"><spring:message code="mainMenu.searchShop"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/item/listItemType?itemType=Toy"class="nav-link text-black"><spring:message code="mainMenu.itemType1"/></a></li>
+						<a href="/item/listItemType?itemType=Clothing"class="nav-link text-black"><spring:message code="mainMenu.itemType1"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/item/listItemType?itemType=Clothing"class="nav-link text-black"><spring:message code="mainMenu.itemType2"/></a></li>
+						<a href="/item/listItemType?itemType=Toy"class="nav-link text-black"><spring:message code="mainMenu.itemType2"/></a></li>
 					<li class="navMenu nav-item">
 						<a href="/item/listItemType?itemType=Food"class="nav-link text-black"><spring:message code="mainMenu.itemType3"/></a></li>
 					<li class="navMenu nav-item">
 						<a href="/item/listItemType?itemType=Accessory"class="nav-link text-black"><spring:message code="mainMenu.itemType4"/></a></li>
+				</ul> -->
+				<ul class=" nav nav-justified "style="left: -600px;">
+					<li class="navMenu nav-item">
+						<a href="/item/itemList"class="nav-link text-black"><spring:message code="mainMenu.searchShop"/></a></li>
+					<li class="navMenu nav-item">
+						<a href="/item/itemList?itemType=Clothing"class="nav-link text-black"><spring:message code="mainMenu.itemType1"/></a></li>
+					<li class="navMenu nav-item">
+						<a href="/item/itemList?itemType=Toy"class="nav-link text-black"><spring:message code="mainMenu.itemType2"/></a></li>
+					<li class="navMenu nav-item">
+						<a href="/item/itemList?itemType=Food"class="nav-link text-black"><spring:message code="mainMenu.itemType3"/></a></li>
+					<li class="navMenu nav-item">
+						<a href="/item/itemList?itemType=Accessory"class="nav-link text-black"><spring:message code="mainMenu.itemType4"/></a></li>
 				</ul>
 			</nav></li>
 
@@ -50,7 +62,7 @@
 					<li class="navMenu nav-item">
 						<a href="/service/getFAQList" class="nav-link text-black"><spring:message code="common.FAQ"/></a></li>
 					<li class="navMenu nav-item">
-						<a href="/service/getServiceList" class="nav-link text-black"><spring:message code="mainMenu.contactUs"/></a></li>
+						<a href="/service/getServiceList" class="nav-link text-black"><spring:message code="mainMenu.inquiries"/></a></li>
 				</ul>
 			</nav></li>
 			

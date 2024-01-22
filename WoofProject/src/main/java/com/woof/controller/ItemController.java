@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.woof.domain.Item;
 import com.woof.domain.PageRequest;
+import com.woof.domain.Pagination;
 import com.woof.service.ItemService;
 
 import lombok.extern.java.Log;
@@ -42,6 +43,7 @@ public class ItemController {
 	@Value("${upload.path}")
 	private String uploadPath;
 	
+	// ALL function - retrieve item details
 	@GetMapping("/getItem")
 	public String getItem(@RequestParam("itemNo") int itemNo, Model model) throws Exception {
 		log.info("/getItem GET");
@@ -50,13 +52,15 @@ public class ItemController {
 		return "item/item";
 	}
 	
-	@GetMapping("/itemList")
-	public void getItemList(Model model) throws Exception {
-		List<Item> itemList = itemService.getItemList();
-		log.info("/itemList GET: " + itemList.toString());
-		model.addAttribute("itemList", itemList);
-	}
+//	// ALL function - retrieve list of items
+//	@GetMapping("/itemList")
+//	public void getItemList(Model model) throws Exception {
+//		List<Item> itemList = itemService.getItemList();
+//		log.info("/itemList GET: " + itemList.toString());
+//		model.addAttribute("itemList", itemList);
+//	}
 	
+	// ADMIN function - create a new item (view)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/admin/insertItem")
 	public void insertItemGet(Model model) throws Exception {
@@ -64,12 +68,14 @@ public class ItemController {
 		model.addAttribute(new Item());
 	}
 	
+	// ADMIN function - create a new item (business logic)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/admin/insertItem")
 	public String insertItem(Item item) throws Exception {
 		log.info("/admin/insertItem POST");
 		List<MultipartFile> pictures = item.getPictures();
 		for(int i = 0; i < pictures.size(); i++) {
+			// store path of uploaded photos into DB
 			MultipartFile file = pictures.get(i);
 				String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 				if(i == 0) {
@@ -78,10 +84,18 @@ public class ItemController {
 					item.setItemSubPic(savedName);
 			}
 		}
-		itemService.insertItem(item);
+		// create Item in DB
+///////////////////////////////////////////////////////////////////////////////////////////		
+		String name = item.getItemName();
+		for(int i=0;i<30;i++) {
+			item.setItemName(name+i);
+			itemService.insertItem(item);
+		}
+		
 		return "redirect:/item/itemList";
 	}
 	
+	// method to upload file into path designated in application.properties with a unique UUID
 	private String uploadFile(String originalName, byte[] fileData) throws Exception {
 		log.info("uploadFile()");
 		UUID uid = UUID.randomUUID();
@@ -91,15 +105,28 @@ public class ItemController {
 		return savedName;
 	}
 	
+	// ADMIN function - modify item details (view)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modifyItem")
-	public String modifyItemGet(Model model) throws Exception {
-		List<Item> itemList = itemService.getItemList();
+	public String modifyItemGet(Item item, Model model,PageRequest pageRequest) throws Exception {
+		
+		if(null==item.getItemType()) {
+			item.setItemType("");
+		}
+		pageRequest.setKeywordTitle(item.getItemType());
+		
+		if(null==pageRequest.getKeyword()) {
+			pageRequest.setKeyword("");
+		}
+		pageRequest.setKeywordDesc(pageRequest.getKeyword());
+		
+		List<Item> itemList = itemService.getItemList(pageRequest);
 		model.addAttribute(itemList);
 		log.info("/modifyItem GET itemList: " + itemList.toString());
 		return "item/admin/modifyItem";
 	}
 	
+	// ADMIN function - modify item details (business logic)
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@PostMapping("/modifyItem")
 	public String modifyItem(Item item) throws Exception {
@@ -120,7 +147,9 @@ public class ItemController {
 		itemService.modifyItem(item);
 		return "redirect:/item/itemList";
 	}
-	// NEED ITEMNO
+	
+	// ADMIN function - toggle status of item CLOSED <-> OPEN (filtered in view)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/toggleItemStatus")
 	public String toggleItemStatus(@RequestParam("itemNo") int itemNo) throws Exception {
 		log.info("/toggleItemStatus GET");
@@ -128,6 +157,7 @@ public class ItemController {
 		return "redirect:/item/itemList";
 	}
 	
+	// ALL function - retrieve main picture using path uploaded into designated storage folder
 	@ResponseBody
 	@GetMapping("/getItemMainPic")
 	public ResponseEntity<byte[]> getItemMainPic(Integer itemNo) throws Exception {
@@ -151,7 +181,8 @@ public class ItemController {
 		}
 		return responseEntity;
 	}
-
+	
+	// ALL function - retrieve sub picture using path uploaded into designated storage folder
 	@ResponseBody
 	@GetMapping("/getItemSubPic")
 	public ResponseEntity<byte[]> getItemSubPic(Integer itemNo) throws Exception {
@@ -176,6 +207,7 @@ public class ItemController {
 		return responseEntity;
 	}
 	
+	// method to retrieve type of media uploaded
 	private MediaType getMediaType(String formatName) {
 		if (formatName != null) {
 			if (formatName.equals("JPG")) {
@@ -191,6 +223,8 @@ public class ItemController {
 		return null;
 	}
 	
+	// ADMIN function - get modifyItemForm.jsp, separate from modifyItem.jsp (view)
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/getModifyItemForm")
 	public String getModifyItemForm(Item item, Model model) throws Exception {
 		log.info("/getModifyItemForm GET itemNo: " + item.getItemNo());
@@ -199,6 +233,7 @@ public class ItemController {
 		return "item/admin/modifyItemForm";
 	}
 	
+	// ALL function - search item by condition and keywords
 	@PostMapping("/searchByKeyword")
 	public String searchByKeyword(PageRequest pageRequest, Model model) throws Exception {
 		List<Item> itemList = new ArrayList<Item>();
@@ -214,6 +249,7 @@ public class ItemController {
 		return "item/itemList";
 	}
 	
+	// ALL function - filter items by type, used in main menu - sub menu
 	@GetMapping("/listItemType")
 	public String listItemType(Item item, Model model) throws Exception {
 		List<Item> itemList = new ArrayList<Item>();
@@ -222,4 +258,47 @@ public class ItemController {
 		model.addAttribute(itemList);
 		return "item/itemList";
 	}
+	
+		
+		// ALL function - retrieve list of items
+		@GetMapping("/itemList")
+		public void getItemList(Item item, Model model,PageRequest pageRequest,Pagination pagination) throws Exception {
+			log.info("getItemType : "+item.getItemType());
+			
+			if(null==item.getItemType()) {
+				item.setItemType("");
+			}
+			pageRequest.setKeywordTitle(item.getItemType());
+			
+			if(null==pageRequest.getKeyword()) {
+				pageRequest.setKeyword("");
+			}
+			pageRequest.setKeywordDesc(pageRequest.getKeyword());
+			
+			
+			
+//			List<Item> itemList = new ArrayList<Item>();
+//			String condition = pageRequest.getCondition();
+//			
+//			log.info("/searchByKeyword POST condition: " + condition);
+//			switch(condition) {
+//				case "itemName": itemList = itemService.searchItemName(pageRequest); break;
+//				case "itemType": itemList = itemService.searchItemType(pageRequest); break;
+//			}
+//			log.info("/searchByKeyword POST itemList: " + itemList.toString());
+//			model.addAttribute(itemList);
+//			
+			
+			
+			log.info("setKeywordTitle : "+pageRequest.getKeywordTitle());
+			pagination.setPageRequest(pageRequest);
+			pagination.setTotalCount(itemService.countItemList(pageRequest));
+			log.info("pagination : "+pagination.toString());
+			model.addAttribute("pagination", pagination);
+			List<Item> itemList = itemService.getItemList(pageRequest);
+			log.info("/itemList GET: " + itemList.toString());
+			model.addAttribute("itemList", itemList);
+		}
+		
+
 }

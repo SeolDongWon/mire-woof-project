@@ -60,7 +60,7 @@
 			<thead>
 				<tr>
 					<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.no"/></th>
-					<th class="bg-dark-subtle text-center" style="width: 200px;"><spring:message code="common.title"/></th>
+					<th class="bg-dark-subtle text-center" style="width: 300px;"><spring:message code="common.title"/></th>
 					<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.date"/></th>
 					<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.modDate"/></th>
 					<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message code="common.views"/></th>
@@ -77,8 +77,8 @@
 					<td class=" text-center" style="width: 50px;">${notice.noticeViewCount}</td>
 				</tr>
 				<tr>
-					<td colspan="5" rowspan="5"><textarea
-							class="form-control-plaintext " rows="5" readonly="readonly">${notice.noticeDesc}</textarea>
+					<td colspan="5" rowspan="5"><div
+							class="form-control-plaintext ">${notice.noticeDesc}</div>
 					</td>
 				</tr>
 			</tbody>

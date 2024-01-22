@@ -4,8 +4,30 @@
 	<select id="getItem" resultType="Item">
 		SELECT * FROM item WHERE itemNo= #{itemNo}
 	</select>
+		<select id="countItemList" resultType="int">
+		SELECT count(itemNo) FROM item 
+		WHERE itemType LIKE '%' || #{keywordTitle} || '%' AND 
+					(itemName LIKE '%' || #{keywordDesc} || '%' OR 
+					itemDesc LIKE '%' || #{keywordDesc} || '%')
+		ORDER BY itemNo DESC
+	</select>
 	<select id="getItemList" resultType="Item">
-		SELECT * FROM item ORDER BY itemRegDate DESC
+		<!-- SELECT * FROM item ORDER BY itemRegDate DESC -->
+		
+		SELECT * 
+		FROM
+			(SELECT  ROWNUM AS rnum, itemNo, itemName, itemPrice, itemStock, itemType, itemRegDate, itemMainPic, itemSubPic, itemDesc, itemStatus
+				FROM (
+				SELECT * FROM item 
+				WHERE itemType LIKE '%' || #{keywordTitle} || '%' AND 
+							(itemName LIKE '%' || #{keywordDesc} || '%' OR 
+							itemDesc LIKE '%' || #{keywordDesc} || '%' )
+				ORDER BY itemNo DESC
+				))
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-#{sizePerPage}+1 and #{sizePerPage}*#{page}
+	</select>
+	<select id="getMainItemList" resultType="Item">
+		SELECT * FROM item WHERE itemStatus = 'OPEN' ORDER BY itemRegDate DESC
 	</select>
 	<insert id="insertItem">
 		INSERT INTO item (itemNo, itemName, itemPrice, itemStock, itemType, itemRegDate, itemMainPic, itemSubPic, itemDesc, itemStatus) VALUES 
