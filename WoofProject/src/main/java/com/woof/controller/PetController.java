@@ -117,13 +117,13 @@ public class PetController {
 				pet.setPetSubPic(savedName);
 			}
 		}
-//		log.info(pet.toString());
+		log.info(pet.toString());
 
-//		String petname = pet.getPetName();
-//		for(int i=0;i<100;i++) {
-//			pet.setPetName(petname+i);
-//			service.insertPet(pet);			
-//		}
+		String petname = pet.getPetName();
+		for(int i=0;i<pet.getPetNo();i++) {
+			pet.setPetName(petname+i);
+			service.insertPet(pet);			
+		}
 		service.insertPet(pet);
 
 		return "redirect:/pet/getPetList";

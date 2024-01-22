@@ -55,13 +55,6 @@
 			document.getElementById("petType").focus();
 			return;
 		}
-		if (document.getElementById("petGender").checked === false &&
-			    document.getElementById("petGender").checked === false) {
-			    alert("성별을 선택해주세요");
-			    document.getElementById("petGender").focus(); 
-			    event.preventDefault(); 
-			    return;
-			}
 		if(document.getElementById("petDesc").value == ""){
 			alert("내용을 입력해주세요");
 			document.getElementById("petDesc").focus();

@@ -56,13 +56,7 @@
 			document.getElementById("petType").focus();
 			return;
 		}
-		if (document.getElementById("petGender").checked === false &&
-			    document.getElementById("petGender").checked === false) {
-			    alert("성별을 선택해주세요");
-			    document.getElementById("petGender").focus(); 
-			    event.preventDefault(); 
-			    return;
-			}
+		
 		if(document.getElementById("petDesc").value == ""){
 			alert("내용을 입력해주세요");
 			document.getElementById("petDesc").focus();
@@ -116,7 +110,7 @@
                         <label class="col-sm-3 col-form-label"><spring:message code="pet.gender"/></label>
                         <div class="col-sm-9 d-flex align-items-center">
                             <div class="form-check form-check-inline">
-                                <input type="radio" id="petGender" name="petGender"  value="M"  class="form-check-input">
+                                <input type="radio" id="petGender" name="petGender"  value="M" checked="checked" class="form-check-input">
                                 <label for="petGender" class="form-check-label"><spring:message code="pet.male"/></label>
                             </div>
                             <div class="form-check form-check-inline">

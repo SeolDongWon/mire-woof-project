@@ -153,7 +153,7 @@ public class ReviewController {
 		
 //////////////////////////////// 반복문 샘플 작성
 //		String title =review.getReviewTitle();
-//		for(int i=0;i<100;i++) {
+//		for(int i=0;i<30;i++) {
 //		review.setReviewTitle(title+i);
 //		service.insertReview(review);
 //		}
