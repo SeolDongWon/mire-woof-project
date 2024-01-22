@@ -27,9 +27,22 @@
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
 <script>
+$(document).ready(function() {
+	var formObj = $("#service");
+	
 	$("#btnRegister").on("click", function() {
-		formObj.submit();
+		var check = confirm('등록할까요');
+		 
+		 var response = document.getElementById('response').value;
+		 
+		 if (response.trim() === '') {
+			    alert("<spring:message code='common.alert.cancelled'/>");
+		    document.getElementById('response').placeholder = 'response Description cannot be empty.';
+		  } else if(check){
+				formObj.submit();
+		  }
 	});
+});
 </script>
 </head>
 <body>
@@ -54,11 +67,11 @@
 				<spring:message code="common.description"/> : <form:textarea path="serviceDesc" class="form-control"
 					rows="5" readonly="true" />
 			
-				<spring:message code="service.reply"/> : <form:textarea path="response" class="form-control"
+				<spring:message code="service.reply"/> : <form:textarea id="response" path="response" class="form-control"
 					rows="5" />
 
-				<button type="submit" id="btnRegister"><spring:message code="common.submit"/></button>
 			</form:form>
+				<button type="submit" id="btnRegister"><spring:message code="common.submit"/></button>
 			<a href="/service/getServiceList"><button><spring:message code="common.list"/></button></a>
 		</div>
 	</main>

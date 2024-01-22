@@ -64,7 +64,7 @@
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.itemRegDate}" /></td>
 						</tr>
 						<tr>
-							<td><spring:message code="common.price"/>수량</td>
+							<td><spring:message code="item.itemStock"/></td>
 							<td>${item.itemStock}</td>
 						</tr>
 						<tr>
@@ -81,10 +81,23 @@
 							<td colspan="2">${item.itemDesc}</td>
 						</tr>
 						<tr>
-							<td colspan="2" class="align-middle text-center">
-								<button type="submit" class="btn btn-primary btn-outline-secondary text-white m-2">
-									<spring:message code="item.addToCart"/>
-								</button>
+							<td colspan="3" class="align-middle text-center">
+								<div class=" row p-0 m-0">
+									<div class="col-4">
+									</div>
+									<div class="col-4">
+										<button type="submit" class="btn btn-primary btn-outline-secondary text-white m-2">
+											<spring:message code="item.addToCart"/>
+										</button>
+									</div>
+									<div class="col-4">
+									<sec:authorize access="hasRole('ROLE_ADMIN')">
+										<a href="/item/modifyItem?itemNo=${item.itemNo}"  class="btn btn-primary btn-outline-secondary text-white m-2">
+											<spring:message code="common.saveChanges"/>
+										</a>
+										</sec:authorize>
+									</div>	
+								</div>							
 							</td>
 						</tr>
 					</table>

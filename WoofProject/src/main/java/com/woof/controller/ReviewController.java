@@ -51,10 +51,10 @@ public class ReviewController {
 	private String uploadPath;
 
 	@GetMapping("/getReview")
-	public String getPet(Review review, Model model, Principal principal, Account account) throws Exception {
+	public String getReview(Review review, Model model, Principal principal, Account account) throws Exception {
 		if (null != principal) {
 			account.setUsername(principal.getName());
-			log.info(principal.getName());
+//			log.info(principal.getName());
 			model.addAttribute(account);
 		}
 		Review review_ = service.getReview(review);
@@ -63,7 +63,7 @@ public class ReviewController {
 	}
 
 	@PostMapping("/getReview")
-	public void insertForm(Review review, Model model) throws Exception {
+	public void getReview(Review review, Model model) throws Exception {
 		log.info("/getReview POST");
 		service.getReview(review);
 	}
@@ -116,47 +116,49 @@ public class ReviewController {
 	}
 	
 //	내정보
-	@GetMapping("/insertPetReviewForm")
+	@GetMapping("/insertReviewForm")
 	public String ReviewForm(Review review, Model model, Principal principal) throws Exception {
 		log.info("myAccountForm");
-		log.info("...principal.getName : " + principal.getName());
-		review.setUserName(principal.getName());
+//		log.info("...principal.getName : " + principal.getName());
+		review.setUsername(principal.getName());
 		return "pet/insertPetReview";
 	}
 
-	@GetMapping("/pet/insertPetReview")
+	@GetMapping("/pet/insertReview")
 	public void insertReview(Model model) throws Exception {
 		log.info("/pet/insertPetReview GET");
 		model.addAttribute(new Review());
 	}
 
-	@PostMapping("/insertPetReview")
+	@PostMapping("/insertReview")
 	public String insertReview(Review review) throws Exception {
-		log.info("/insert POST");
+		log.info("/insertReview POST");
+		log.info("/insertReview POST : "+review.toString());
 		if(null==review.getItemName()) {
 			review.setItemName("");
 		}
 		List<MultipartFile> pictures = review.getPictures();
 		for (int i = 0; i < pictures.size(); i++) {
 			MultipartFile file = pictures.get(i);
-			log.info("originalName" + file.getOriginalFilename());
-			log.info("size:" + file.getSize());
-			log.info("contentType:" + file.getContentType());
+//			log.info("originalName" + file.getOriginalFilename());
+//			log.info("size:" + file.getSize());
+//			log.info("contentType:" + file.getContentType());
 			String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
 			if (i == 0) {
 				review.setReviewPic(savedName);
 			}
 
 		}
-		log.info("review : "+review.toString());
+		log.info("reviewtoString : "+review.toString());
 		
-		// 반복문 샘플 작성
-		String title =review.getReviewTitle();
-		for(int i=0;i<100;i++) {
-		review.setReviewTitle(title+i);
-		service.insertPetReview(review);
-		}
+//////////////////////////////// 반복문 샘플 작성
+//		String title =review.getReviewTitle();
+//		for(int i=0;i<100;i++) {
+//		review.setReviewTitle(title+i);
+//		service.insertReview(review);
+//		}
 		
+		service.insertReview(review);
 		if(review.getItemNo()>0) {
 			 return "redirect:/orderHistory/getOrderHistoryList";
 		}
@@ -177,9 +179,9 @@ public class ReviewController {
 	public String modifyReivew(Review reivew, Model model) throws Exception {
 		log.info("/modifyPetReview GET");
 		Review reviewModify = this.service.getReview(reivew);
-		log.info(reviewModify.toString());
+//		log.info(reviewModify.toString());
 		model.addAttribute(reviewModify);
-		log.info("model add attribute");
+//		log.info("model add attribute");
 		return "pet/modifyPetReview";
 	}
 	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
@@ -217,7 +219,7 @@ public class ReviewController {
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		String fileName = service.getReviewPic(reviewNo);
-		log.info(fileName);
+//		log.info(fileName);
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mType = getMediaType(formatName);
@@ -237,7 +239,7 @@ public class ReviewController {
 	}
 	
 	private MediaType getMediaType(String formatName) {
-		log.info("getMediaType()");
+//		log.info("getMediaType()");
 		if (formatName != null) {
 			if (formatName.equals("JPG")) {
 				return MediaType.IMAGE_JPEG;
@@ -263,8 +265,8 @@ public class ReviewController {
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(service.countItemReviewList(pageRequest));
 
-		log.info("pagination3 : " + pagination.toString());
-		log.info("pageRequest3 : " + pageRequest.toString());
+//		log.info("pagination3 : " + pagination.toString());
+//		log.info("pageRequest3 : " + pageRequest.toString());
 
 		List<Review> reviewList = service.getItemReviewList(pageRequest);
 		ResponseEntity<List> entity = null;
@@ -309,7 +311,7 @@ public class ReviewController {
 			model.addAttribute(account);
 			model.addAttribute(review);
 		}
-		return "reply/insertItemReview";
+		return "item/insertItemReview";
 	}
 	
 	@PostMapping("/insertItemReview")

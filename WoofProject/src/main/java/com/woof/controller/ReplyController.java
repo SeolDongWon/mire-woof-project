@@ -108,8 +108,8 @@ public class ReplyController {
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(replyService.countReplyList(pageRequest));
 
-		log.info("pagination3 : " + pagination.toString());
-		log.info("pageRequest3 : " + pageRequest.toString());
+//		log.info("pagination3 : " + pagination.toString());
+//		log.info("pageRequest3 : " + pageRequest.toString());
 
 		List<Reply> replyList = replyService.getReplyList(pageRequest);
 		ResponseEntity<List> entity = null;
@@ -124,12 +124,12 @@ public class ReplyController {
 	public ResponseEntity<List> getReplyPage(@RequestBody PageRequest pageRequest, Pagination pagination)
 			throws Exception {
 		log.info("getReplyPage");
-		log.info("pageRequest1 : " + pageRequest.toString());
+//		log.info("pageRequest1 : " + pageRequest.toString());
 
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(replyService.countReplyList(pageRequest));
-		log.info("pagination3 : " + pagination.toString());
-		log.info("pageRequest3 : " + pageRequest.toString());
+//		log.info("pagination3 : " + pagination.toString());
+//		log.info("pageRequest3 : " + pageRequest.toString());
 		List<Pagination> pageList = new ArrayList<Pagination>();
 		pageList.add(pagination);
 

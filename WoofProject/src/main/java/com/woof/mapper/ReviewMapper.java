@@ -13,7 +13,7 @@ public interface ReviewMapper {
 	List<Review> getReviewList(PageRequest pageRequest) throws Exception;
 	List<Review> getItemReviewList(PageRequest pageRequest) throws Exception;
 
-	void insertPetReview(Review review) throws Exception;
+	void insertReview(Review review) throws Exception;
 
 	void modifyReview(Review review) throws Exception;
 

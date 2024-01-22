@@ -54,7 +54,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan='2'><span> * 꼭 작성해주세요. </span></td>
+						<td colspan='2'><span> *<spring:message code="account.signUp"/> </span></td>
 					</tr>
 					<tr>
 						<td style="width: 150px"><span style="color: red;">*</span> <spring:message
@@ -64,8 +64,8 @@
 								<input type="text" name="username" id="username"
 									class="form-control"
 									placeholder="<spring:message code="signup.usernamePH"/>"
-									onblur="idCheck()"> <input type="button"
-									onclick="checkUsernameBtn()" value="중복" />
+									onblur="idCheck()">
+									 <input type="button" class="btn btn-outline-light  text-dark" onclick="checkUsernameBtn()" value="중복확인" />
 							</div>
 						</th>
 					</tr>

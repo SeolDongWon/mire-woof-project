@@ -25,17 +25,54 @@
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <%-- <%@ include file="" %> --%>
 <script>
+$(document).ready(function() {
+	
+	$("#btnRegister").on("click", function() {
+		var formObj = $("#notice");
+		 var check = confirm('등록할까요');
+		 
+		 var noticeTitle = document.getElementById('noticeTitle').value;
+		 var noticeDesc = document.getElementById('noticeDesc').value;
+		  
+		 
+		 if (noticeTitle.trim() === '') {
+			    alert("<spring:message code='common.alert.cancelled'/>");
+		    document.getElementById('noticeTitle').placeholder = 'noticeTitle Description cannot be empty.';
+		  } else if(noticeDesc.trim() === ''){
+		    document.getElementById('noticeDesc').placeholder = 'noticeDesc Description cannot be empty.';
+		  }else if(check){
+			  formObj.attr("action", "/notice/modifyNotice");
+				formObj.attr("method", "post");
+				formObj.submit();
+		  }
+		 
+	});
+	
+	$("#btnList").on("click", function() {
+		self.location = "/notice/getNoticeList";
+	});
+});
+/* 
 	$(document).ready(function() {
 		var formObj = $("#notice");
+		
+		
+		
 		$("#btnRegister").on("click", function() {
+			 var noticeTitle = document.getElementById('noticeTitle').value;
+			 var noticeDesc = document.getElementById('noticeDesc').value;
+			
 			formObj.attr("action", "/notice/modifyNotice");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
+		
+		
+		
 		$("#btnList").on("click", function() {
 			self.location = "/notice/getNoticeList";
 		});
-	});
+	}); */
 </script>
 </head>
 <body>
@@ -51,8 +88,8 @@
 	<section>
 			<form:form modelAttribute="notice">
 			<spring:message code="announcement.noticeNo"/> : <form:input path="noticeNo" class="form-control" readonly="true"/>
-				<spring:message code="common.title"/> : <form:input path="noticeTitle" class="form-control"/><br>
-				<spring:message code="common.description"/> : <form:textarea path="noticeDesc"  class="form-control" rows="5" id="comment"/><br>
+				<spring:message code="common.title"/> : <form:input id="noticeTitle" path="noticeTitle" class="form-control"/><br>
+				<spring:message code="common.description"/> : <form:textarea id="noticeDesc" path="noticeDesc"  class="form-control" rows="5"/><br>
 				
 			</form:form>
 			<div>

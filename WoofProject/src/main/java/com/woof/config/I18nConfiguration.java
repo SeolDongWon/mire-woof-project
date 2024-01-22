@@ -10,15 +10,15 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 @Configuration
 public class I18nConfiguration {
 
-
 	@Bean
 	MessageSource messageSource() {
-	ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-	messageSource.setBasename("message.messageSource");
-	return messageSource; 
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("message.messageSource");
+		return messageSource; 
 	}
+	
 	@Bean
 	LocaleResolver localeResolver() {
-	return new SessionLocaleResolver(); 
+		return new SessionLocaleResolver(); 
 	}
 }

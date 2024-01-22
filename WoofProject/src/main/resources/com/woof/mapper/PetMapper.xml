@@ -52,7 +52,11 @@
 	</update>
 
 	<delete id="deletePet">
-		DELETE FROM pet WHERE petNo=#{petNo}
+		<!-- DELETE FROM pet WHERE petNo=#{petNo} -->
+		UPDATE pet 
+		SET petModDate=SYSDATE,
+		petStatus='ADOPTED'
+		WHERE petNo =	#{petNo}
 	</delete>
 
 	<select id="searchPetType" resultType="com.woof.domain.Pet">

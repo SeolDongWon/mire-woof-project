@@ -106,9 +106,32 @@ public class ItemController {
 	}
 	
 	// ADMIN function - modify item details (view)
+//	@PreAuthorize("hasRole('ROLE_ADMIN')")
+//	@GetMapping("/modifyItem")
+//	public String modifyItemGet(Item item, Model model,PageRequest pageRequest) throws Exception {
+//		
+//		if(null==item.getItemType()) {
+//			item.setItemType("");
+//		}
+//		pageRequest.setKeywordTitle(item.getItemType());
+//		
+//		if(null==pageRequest.getKeyword()) {
+//			pageRequest.setKeyword("");
+//		}
+//		pageRequest.setKeywordDesc(pageRequest.getKeyword());
+//		
+////		List<Item> itemList = itemService.getItemList(pageRequest);
+//		List<Item> itemList = itemService.getAllItemList();
+//		model.addAttribute(itemList);
+//		log.info("/modifyItem GET itemList: " + itemList.toString());
+//		return "item/admin/modifyItem";
+//	}
+
+	
+/////////////////////////////////////////////////////////////////////////
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modifyItem")
-	public String modifyItemGet(Item item, Model model,PageRequest pageRequest) throws Exception {
+	public String modifyItem(Item item, Model model,PageRequest pageRequest) throws Exception {
 		
 		if(null==item.getItemType()) {
 			item.setItemType("");
@@ -120,9 +143,9 @@ public class ItemController {
 		}
 		pageRequest.setKeywordDesc(pageRequest.getKeyword());
 		
-		List<Item> itemList = itemService.getItemList(pageRequest);
+		model.addAttribute(item);
+		List<Item> itemList = itemService.getAllItemList();
 		model.addAttribute(itemList);
-		log.info("/modifyItem GET itemList: " + itemList.toString());
 		return "item/admin/modifyItem";
 	}
 	

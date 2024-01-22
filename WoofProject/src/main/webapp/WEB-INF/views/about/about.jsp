@@ -37,27 +37,38 @@
 	<span>
 		<div class="mb-2">
 			<spring:message code="facility.intro"/>
+			
 		</div>
 	</span>
 	 <div id="carouselExampleIndicators" class="carousel slide">
       
       <div class="carousel-inner w-100 ">
         <div class="carousel-item active">
-          <img src="/resource/image/about/conference1.jpg" class="d-block w-100" alt="...">
+          <img src="/resource/image/about/about1.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="/resource/image/about/conference2.jpg" class="d-block w-100" alt="...">
+          <img src="/resource/image/about/about2.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-item">
-          <img src="/resource/image/about/office.jpg" class="d-block w-100" alt="...">
+          <img src="/resource/image/about/about3.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="/resource/image/about/about4.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="/resource/image/about/about5.jpg" class="d-block w-100" alt="...">
         </div>
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" aria-label="Slide 1" style="width: 100px;height: 100px;"class="active" aria-current="true" >
-            <img src="/resource/image/about/conference1.jpg" class="d-block w-100 " alt="..."></button>
+            <img src="/resource/image/about/about1.jpg" class="d-block w-100 " alt="..."></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" style="width: 100px;height: 100px;">
-            <img src="/resource/image/about/conference2.jpg" class="d-block w-100" alt="..."></button>
+            <img src="/resource/image/about/about2.jpg" class="d-block w-100" alt="..."></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3" style="width: 100px;height: 100px;">
-            <img src="/resource/image/about/office.jpg" class="d-block w-100" alt="..."></button>
+            <img src="/resource/image/about/about3.jpg" class="d-block w-100" alt="..."></button>
+             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4" style="width: 100px;height: 100px;">
+            <img src="/resource/image/about/about4.jpg" class="d-block w-100" alt="..."></button>
+             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5" style="width: 100px;height: 100px;">
+            <img src="/resource/image/about/about5.jpg" class="d-block w-100" alt="..."></button>
         </div>
       </div>
     </div>

@@ -144,7 +144,7 @@
 		<div class="row mb-3">
 		<sec:authorize access="hasRole('ROLE_MEMBER')">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<a href="/review/insertPetReviewForm"
+				<a href="/review/insertReviewForm"
 					class="btn btn-light btn-outline-secondary text-dark me-md-2" role="button" id="write-article"><spring:message code="pet.insertReview"/></a>
 			</div>
 			</sec:authorize>

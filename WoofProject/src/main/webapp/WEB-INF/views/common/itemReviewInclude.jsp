@@ -37,7 +37,7 @@
 		 reviewList(idx);
 	   pagination(idx);
 	   if(idx!=0){
-	   window.location.href = "#firstReview";		   
+	   window.location.href = "#reviewSection";		   
 	   }
 	}
 	
@@ -108,27 +108,27 @@
 						for (var i = 0; i < result.length; i++) {
 							parsedDate = new Date(result[i].reviewRegDate);
 							formattedDate = parsedDate.toLocaleString({ timeZone: 'UTC' });
-							reviewList += '<br><form">';
+							reviewList += '<br><form class="border border-2 p-3">';
 							reviewList += '<input type="hidden" name="reviewNo" value="'+result[i].reviewNo+'"readonly="readonly"> ';
-							reviewList += '  <div class="w-100">';
-							reviewList += ' <div>';
-							reviewList += '  <span>'+result[i].userName+'</span>';
-							reviewList += '   <span>'+formattedDate+'</span>';
-							reviewList += '   <span>'+result[i].itemName+'</span>';
-							reviewList += '  </div>';
-							reviewList += '  <div>';
-							reviewList += '  <img src="/review/getReviewPic?reviewNo='+result[i].reviewNo+'" style="height:100px">';
-							reviewList += ' </div>';
-							reviewList += ' <div>';
-							reviewList += ' <p class="fs-4">'+result[i].reviewTitle+'</p>';
-							reviewList += ' <div class="d-flex">';
-							reviewList += ' <textarea class="form-control auto-height-textarea overflow-hidden" readonly="readonly">'+result[i].reviewDesc+'</textarea>';
+							reviewList += '<div class="w-100">';
+							reviewList += '<div class="row p-0 m-0">';
+							reviewList += '<span class="col-3">'+result[i].username+'</span>';
+							reviewList += '<span class="col-3">'+formattedDate+'</span>';
+							reviewList += '<span class="col-3">'+result[i].itemName+'</span>';
+							reviewList += '</div>';
+							reviewList += '<div>';
+							reviewList += '<img src="/review/getReviewPic?reviewNo='+result[i].reviewNo+'" style="height:100px">';
+							reviewList += '</div>';
+							reviewList += '<div>';
+							reviewList += '<p class="fs-4">'+result[i].reviewTitle+'</p>';
+							reviewList += '<div class="d-flex">';
+							reviewList += '<div class="form-control auto-height-textarea overflow-hidden border-0" readonly="readonly">'+result[i].reviewDesc+'</div>';
 							reviewList += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
-							reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()">삭제</button>';
+							reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
 							reviewList += '</sec:authorize>';
 							/* alert("currUsername : "+currUsername+" result[i].userName) : "+result[i].userName); */
-							if(currUsername==result[i].userName){
-								reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()">삭제</button>';
+							if(currUsername==result[i].username){
+								reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
 							}
 							reviewList += ' </div>';
 							reviewList += ' </div>';
@@ -151,7 +151,7 @@
 </style>
 
 		<div class="mt-3 w-75 m-auto">
-			<h4 id="firstReview" class="bg-success-subtle">상품평보기</h4>
+			<h4 id="reviewSection" class="p-2"style="background-color: var(--bs-danger-bg-subtle)"><spring:message code="review.list"/></h4>
 			<div id="reviewListSpan"></div>
 			<div id="pageListSpan" class="d-flex" style="margin-top: 5px"></div>
 		</div>

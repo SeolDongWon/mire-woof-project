@@ -24,10 +24,35 @@
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
 <script>
+function modifyItem(itemNo) {
+	var selectedItemNo = itemNo
+	
+	if(selectedItemNo){
+		$.ajax({
+			url: "/item/getModifyItemForm",
+			type: "GET",
+			data: { itemNo : selectedItemNo },
+			success: function(response) {
+				$("#modifyFormContainer").html(response);
+			},
+			error: function(error) {
+				console.error("Error loading form: ", error);
+			}
+		});
+	} else {
+		$("#modifyFormContainer").empty();
+	}
+}
+
+
     $(document).ready(function() {
+    	
     	var formObj = $("#item");
     	
-    	$("#selectedItem").on("change", function() {
+    	var responseItemNo = document.getElementById('responseItemNo').value;
+    	modifyItem(responseItemNo);
+    	
+    	/* $("#selectedItem").on("change", function() {
     		var selectedItemNo = $(this).val();
     		
     		if(selectedItemNo){
@@ -45,7 +70,7 @@
     		} else {
     			$("#modifyFormContainer").empty();
     		}
-    	});
+    	}); */
         
     	$("#btnModifyItem").on("click", function() {
     	    if (checkValues()) {
@@ -133,6 +158,7 @@
 	<main>
 		<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
 		<!-- ================================================Content Area======================================================== -->
+		<input type="hidden" id="responseItemNo" value="${item.itemNo}" readonly="readonly">
 		<div class="table-responsive">
             <table class="table table-sm table-smaller">
             	<tr>

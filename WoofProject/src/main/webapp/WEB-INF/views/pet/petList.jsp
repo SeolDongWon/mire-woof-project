@@ -49,8 +49,11 @@
 					</sec:authorize>
 				</div>				
 			</div>
+		${pet.petStatus}
+		${authList}
 		<section style="display: flex; flex-wrap: wrap; gap: 6rem;">
 			<c:forEach var="pet" items="${petList}">
+				<c:if test="${pet.petStatus=='OPEN' || authList=='[ROLE_ADMIN]'}">
 				<div class="card" style="width: 21rem;">
 					<a href="getPet?petNo=${pet.petNo}">
 					<img src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top"	alt="Pet"></a>
@@ -65,13 +68,15 @@
 					<c:choose>
 						<c:when test="${pet.petStatus=='OPEN'}">
 						<div class="text-center"
-							style="color: black; background-color: rgb(246, 220, 216)">분양
-							신청가능</div>
+							style="color: black; background-color: rgb(246, 220, 216)"><spring:message	code="pet.adoptPossible" /></div>
 						</c:when>
+							<c:when test="${pet.petStatus=='CLOSED'}">
+						<div class="text-center"
+							style="color: red; background-color: rgb(246, 220, 216)"><spring:message	code="pet.adoptOngoing" /></div>
+							</c:when>
 						<c:otherwise>
 						<div class="text-center"
-							style="color: red; background-color: rgb(246, 220, 216)">분양
-							진행중</div>
+							style="color: red; background-color: black"><spring:message	code="pet.adoptComplete" /></div>
 						</c:otherwise>
 					</c:choose>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -82,6 +87,7 @@
 								code="common.delete" /></a>
 					</sec:authorize>
 				</div>
+				</c:if>
 			</c:forEach>
 		</section>
 		<br>

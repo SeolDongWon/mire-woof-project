@@ -122,13 +122,13 @@
 							replyList += '<span style="font-size:13px">'+formattedDate+'</span>';
 							replyList += '<td align="center" class="">';
 							replyList += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
-							replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()">삭제</button>';
+							replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
 							replyList += '</sec:authorize>';
 							replyList += '<div class="d-flex">';
 							if(currUsername==result[i].username){
 								//수정은 미완성
 								//replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="modifyBtn()">수정</button>';
-								replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()">삭제</button>';
+								replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
 							}
 							replyList += '</td></tr></form>';
 						}
@@ -161,7 +161,7 @@
 
 		<div class="mt-3">
 		
-			<h4 class="bg-success-subtle">댓글</h4>
+			<h4 class="p-2"style="background-color: var(--bs-danger-bg-subtle)"><spring:message code="reply.list"/></h4>
 
 			<sec:authorize access="isAuthenticated()">
 				<div class="row p-0 m-0">

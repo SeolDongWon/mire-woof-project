@@ -55,18 +55,18 @@
 				style="height: 400px;">
 				<div class="carousel-inner h-100 text-center">
 					<div class="carousel-item active h-100">
-						<a href="#"> <img class="w-100 "
+						<a href="https://open.kakao.com/o/gVH04oAf" target='_blank'> <img class="w-100 "
 							src="/resource/image/mainPage/IMG_0111.JPG" alt="">
 						</a>
 					</div>
 					<div class="carousel-item  h-100">
 						<a href="#"> <img class="w-100 "
-							src="/resource/image/mainPage/IMG_0112.JPG" alt="">
+							src="/resource/image/mainPage/IMG_0113.JPG" alt="">
 						</a>
 					</div>
 					<div class="carousel-item h-100">
-						<a href="#"> <img class="w-100 "
-							src="/resource/image/mainPage/IMG_0113.JPG" alt="">
+						<a href="https://open.kakao.com/o/gVH04oAf" target='_blank'> <img class="w-100 "
+							src="/resource/image/mainPage/IMG_0112.JPG" alt="">
 						</a>
 					</div>
 					<div class="carousel-item  h-100">

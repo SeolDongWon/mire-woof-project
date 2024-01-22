@@ -78,4 +78,9 @@ public class ItemServiceImpl implements ItemService {
 	public int countItemList(PageRequest pageRequest) throws Exception {
 		return mapper.countItemList(pageRequest);
 	}
+
+	@Override
+	public List<Item> getAllItemList() throws Exception {
+		return mapper.getAllItemList();
+	}
 }
