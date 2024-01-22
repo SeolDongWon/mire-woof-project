@@ -189,12 +189,12 @@
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
 		<div class="mt-3 w-75 m-auto">
-	<h4>	reply</h4>
+	<h4><spring:messsage code="reply.reply"/></h4>
 
 			<form id="serviceForm" action="/reply/insertReply" method="post"
 				class="w-75">
-				<input id="username" name="username" class="form-control"value="${account.username}" readonly="true" /> 
-				<span>serviceDesc :</span>
+				<input id="username" name="username" class="form-control"value="${account.username}" readonly="readonly" /> 
+				<span><spring:message code="common.description"/><spring:message code="common.submit"/></span>
 				<button type="submit">Register</button>
 				<textarea id="reply" name="reply" class="form-control" rows="5"></textarea>
 			</form>

@@ -117,10 +117,10 @@ public class ReviewController {
 	
 //	내정보
 	@GetMapping("/insertPetReviewForm")
-	public String ReviewForm(Review review, Model model, Principal principal) throws Exception {
+	public String insertReviewForm(Review review, Model model, Principal principal) throws Exception {
 		log.info("myAccountForm");
 		log.info("...principal.getName : " + principal.getName());
-		review.setUserName(principal.getName());
+		review.setUsername(principal.getName());
 		return "pet/insertPetReview";
 	}
 

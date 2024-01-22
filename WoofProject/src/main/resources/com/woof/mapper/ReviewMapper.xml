@@ -38,7 +38,7 @@
 	<select id="getItemReviewList" resultType="com.woof.domain.Review">
 		SELECT * 
 		FROM
-			(SELECT  ROWNUM AS rnum,userName, reviewNo, reviewTitle, reviewDesc, reviewRegDate , reviewModDate 
+			(SELECT  ROWNUM AS rnum,username, reviewNo, reviewTitle, reviewDesc, reviewRegDate , reviewModDate 
 			FROM (select * from review WHERE itemNo=#{itemNo} order by reviewNo desc) 
 			ORDER BY reviewNo asc)
 		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY reviewNo DESC
@@ -46,10 +46,10 @@
 
 	<insert id="insertPetReview">
 		INSERT INTO review
-		(reviewNo,userName,reviewTitle,reviewDesc,reviewPic,itemNo,itemName)
+		(reviewNo,username,reviewTitle,reviewDesc,reviewPic,itemNo,itemName)
 		VALUES
 		(reviewNo_seq.nextVal,
-		#{userName},#{reviewTitle},#{reviewDesc},#{reviewPic},#{itemNo},#{itemName})
+		#{username},#{reviewTitle},#{reviewDesc},#{reviewPic},#{itemNo},#{itemName})
 	</insert>
 
 	<update id="modifyReview">
