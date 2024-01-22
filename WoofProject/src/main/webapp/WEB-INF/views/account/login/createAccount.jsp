@@ -19,16 +19,15 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 내집 주소링크 -->
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<!-- Script -->
-<%@ include file="/WEB-INF/views/account/login/accountScript.jsp"%>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
 <!-- script common Area 헤더 푸터에 쓸 script 경로-->
-<%@ include file="/WEB-INF/views/common/script.jsp"%>
+<%@ include file="/WEB-INF/views/account/login/accountScript.jsp"%>
+
+
 <!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
 <%-- <%@ include file="" %> --%>
 <!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->

@@ -153,7 +153,7 @@
 		if (frm.name.value) {
 			let regName = /^[a-zA-Zㄱ-힣]{2,13}$/;
 			if (!regName.test(frm.name.value)) {
-				alert("<spring:message code='signup.namePH'/>);
+				alert("<spring:message code='signup.namePH'/>");
 				return false;
 			} else {
 				return true;

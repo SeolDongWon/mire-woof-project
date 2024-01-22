@@ -37,7 +37,8 @@
 
 
 <!-- 내집 주소링크 -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- Script -->
 <%@ include file="/WEB-INF/views/account/login/accountScript.jsp"%>
 
@@ -58,67 +59,95 @@
 	<%-- <%@ include file="/WEB-INF/views/common/mainMenu.jsp"%> --%>
 	<!-- subMenu Area -->
 	<main>
-	
-	
-	
-	<form  action="/account/setup" method="post" name="joinform" onsubmit="doSubmit(); return false;">
+
+
+
+		<form action="/account/setup" method="post" name="joinform"
+			onsubmit="doSubmit(); return false;">
 			<div class="container mt-3" style="width: 750px;">
 				<table class="table table-borderless" style="margin-top: 100px;">
 					<tr>
-						<td colspan='2'><h2><spring:message code="setup.register"/></h2></td>
+						<td colspan='2'><h2>
+								<spring:message code="setup.register" />
+							</h2></td>
 					</tr>
 					<tr>
-						<th style="width: 150px"><spring:message code="common.username"/></th>
+						<th style="width: 150px"><spring:message
+								code="common.username" /></th>
 						<th>
 							<div class="input-group mb-3">
-								<input type="text" name="username" id="username" class="form-control" placeholder="<spring:message code="signup.usernamePH"/>"  onblur="idCheck()">
+								<input type="text" name="username" id="username"
+									class="form-control"
+									placeholder="<spring:message code="signup.usernamePH"/>"
+									onblur="idCheck()"> <input type="button"
+									class="btn btn-light text-dark" onclick="checkUsernameBtn()"
+									value="<spring:message code='signup.check'/>" />
 							</div>
 						</th>
 					</tr>
 
 					<tr>
-						<td><spring:message code="common.password"/></td>
+						<td><spring:message code="common.password" /></td>
 						<th>
 							<div class="input-group mb-3">
-								<input type="password" name="password" id="password" class="form-control" placeholder="<spring:message code="signup.passwordPH"/>"  onblur="pwCheck()">
+								<input type="password" name="password" id="password"
+									class="form-control"
+									placeholder="<spring:message code="signup.passwordPH"/>"
+									onblur="pwCheck()">
 
 							</div>
 						</th>
 					</tr>
 					<tr>
-						<td><spring:message code="common.name"/></td>
+						<td><spring:message code="common.name" /></td>
 						<th>
 							<div class="input-group mb-3">
-								<input type="text" name="name" id="name" class="form-control" placeholder="<spring:message code="signup.namePH"/>"  onblur="nameCheck()">
+								<input type="text" name="name" id="name" class="form-control"
+									placeholder="<spring:message code="signup.namePH"/>"
+									onblur="nameCheck()">
 							</div>
 						</th>
 					</tr>
 					<tr>
-						<td><spring:message code="common.phone"/></td>
+						<td><spring:message code="common.phone" /></td>
 						<th>
 							<div class="input-group mb-3">
-								<input type="text" name="tel" id="tel" class="form-control" placeholder="<spring:message code="signup.phonePH"/>"  onblur="telCheck()">
+								<input type="text" name="tel" id="tel" class="form-control"
+									placeholder="<spring:message code="signup.phonePH"/>"
+									onblur="telCheck()">
 							</div>
 						</th>
 					</tr>
 					<tr>
-						<td><spring:message code="common.address"/></td>
+						<td><spring:message code="common.address" /></td>
 						<th>
 							<div class="d-flex  justify-content-center">
-								<input type="text" id="sample6_postcode" placeholder="<spring:message code="signup.address1PH"/>" class="form-control" name="address1">
-					            <input type="button" onclick="sample6_execDaumPostcode()" value="<spring:message code="common.findZipcode"/>" style="border: none; background-color: rgb(255, 255, 255);">
-					        </div>
-					           <input type="text" size="45px" id="sample6_address" placeholder="<spring:message code="signup.address2PH"/>" class="form-control" name="address2">
-					           <input type="text" id="sample6_detailAddress" placeholder="<spring:message code="signup.address3PH"/>" class="form-control" name="address3">
-					           <input type="text" id="sample6_extraAddress" placeholder="<spring:message code="signup.address4PH"/>" class="form-control" name="address4">
-					     </th>
+								<input type="text" id="sample6_postcode"
+									placeholder="<spring:message code="signup.address1PH"/>"
+									class="form-control" name="address1"> <input
+									type="button" onclick="sample6_execDaumPostcode()"
+									value="<spring:message code="common.findZipcode"/>"
+									style="border: none; background-color: rgb(255, 255, 255);">
+							</div> <input type="text" size="45px" id="sample6_address"
+							placeholder="<spring:message code="signup.address2PH"/>"
+							class="form-control" name="address2"> <input type="text"
+							id="sample6_detailAddress"
+							placeholder="<spring:message code="signup.address3PH"/>"
+							class="form-control" name="address3"> <input type="text"
+							id="sample6_extraAddress"
+							placeholder="<spring:message code="signup.address4PH"/>"
+							class="form-control" name="address4">
+						</th>
 					</tr>
-
+					<tr>
+						<td colspan='2'><span id="usernameMessage"></span></td>
+					</tr>
 					<tr>
 						<td colspan='2'>
-						<button type="submit"
-								class="form-control" style="background: rgb(246, 220, 216); border: none; "><spring:message code="setup.register"/></button>
-						
+							<button type="submit" class="form-control"
+								style="background: rgb(246, 220, 216); border: none;">
+								<spring:message code="setup.register" />
+							</button>
 					</tr>
 				</table>
 			</div>
