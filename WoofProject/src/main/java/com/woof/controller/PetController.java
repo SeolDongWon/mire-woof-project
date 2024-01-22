@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -58,7 +60,10 @@ public class PetController {
 	}
 	
 	@GetMapping("/getPetList")
-	public String getPetList(Pet pet,Model model,PageRequest pageRequest,Pagination pagination)  throws Exception{
+	public String getPetList(Pet pet,Model model,PageRequest pageRequest,Pagination pagination,@AuthenticationPrincipal UserDetails userDetails)  throws Exception{
+		String authList = userDetails.getAuthorities().toString();
+		model.addAttribute("authList",authList);
+		
 		if(null==pageRequest.getKeyword()) {
 			pageRequest.setKeyword("");
 		}
@@ -71,6 +76,7 @@ public class PetController {
 		model.addAttribute("pagination", pagination);
 		List<Pet> petList = service.getPetList(pageRequest);
 		model.addAttribute("petList", petList);
+		
 		return "pet/petList";
 	}
 
@@ -112,7 +118,7 @@ public class PetController {
 		}
 //		log.info(pet.toString());
 		
-		
+//////////////////////////////////////////////////////////		
 		String petname = pet.getPetName();
 		for(int i=0;i<100;i++) {
 			pet.setPetName(petname+i);

@@ -32,6 +32,9 @@
 							</a>
 						</li>
 						<li class="nav-item">
+							<a href="/cart/myCart" class="nav-link text-black">장바구니</a>
+						</li>
+						<li class="nav-item">
 							<a href="/account/myAccount" class="nav-link text-black"><spring:message code="header.profile"/></a>
 		
 							</li>

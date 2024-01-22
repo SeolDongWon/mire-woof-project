@@ -85,6 +85,7 @@
 							<c:forEach items="${list}" var="account">
 								<tr>
 									<form method="post" action="/account/accountStatusSwitch">
+										<input type="hidden" name="keyword" value="${pageRequest.keyword}" readonly="readonly">
 										<td align="center" >
 										<input  type="text" name="username" value="${account.username}"
 											style="width: 120px; border: none;" readonly="readonly" />

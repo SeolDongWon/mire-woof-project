@@ -289,6 +289,7 @@ public class AccountController {
 		pagination.setTotalCount(service.countAll(pageRequest));
 //		log.info("pagination : "+pagination.toString());
 		model.addAttribute("pagination", pagination);
+		model.addAttribute(pageRequest);
 		
 		
 		
@@ -314,24 +315,20 @@ public class AccountController {
 	
 	// 관리자가 유저 정지 및 해제
 	@RequestMapping(value = "/accountStatusSwitch", method = RequestMethod.POST)
-	public String accountStatusSwitch(Account account, Model model, Principal principal, PageRequest pageRequest) throws Exception {
+	public String accountStatusSwitch(Account account, Model model, Principal principal, PageRequest pageRequest,RedirectAttributes redirectAttributes) throws Exception {
 	    log.info("*** accountStatusSwitch : POST");
 	    log.info("...account.toString() : " + account.toString());
 	 
 	    service.restoreAccount(account);
 
-
 		if(null==pageRequest.getKeyword()) {
 			pageRequest.setKeyword("");
 		}
-		pageRequest.setKeyword(account.getUsername());
 		
-		
-		
-		model.addAttribute("list", service.getAccountList(pageRequest));
+		redirectAttributes.addAttribute("keyword",pageRequest.getKeyword());
 
 	    // 계정 목록을 다시 로딩하도록 redirect
-	    return "account/admin/accountList";
+	    return "redirect:/account/accountList";
 	}
 
 	

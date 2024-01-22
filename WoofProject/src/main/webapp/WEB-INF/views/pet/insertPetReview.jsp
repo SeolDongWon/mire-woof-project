@@ -28,7 +28,7 @@
 	$(document).ready(function() {
 		var formObj = $("#review");
 		$("#btnRegister").on("click", function() {
-			formObj.attr("action", "/review/insertPetReview");
+			formObj.attr("action", "/review/insertReview");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});

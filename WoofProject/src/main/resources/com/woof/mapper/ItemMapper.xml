@@ -60,4 +60,7 @@
 	<select id="listItemType" resultType="Item">
 		SELECT * FROM item WHERE itemType = #{itemType} ORDER BY itemNo
 	</select>
+	<select id="getAllItemList" resultType="Item">
+		SELECT * FROM item ORDER BY itemNo DESC
+	</select>
 </mapper>
