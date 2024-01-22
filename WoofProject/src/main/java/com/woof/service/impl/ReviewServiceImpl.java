@@ -32,8 +32,8 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public void insertPetReview(Review review) throws Exception {
-		mapper.insertPetReview(review);
+	public void insertReview(Review review) throws Exception {
+		mapper.insertReview(review);
 
 	}
 

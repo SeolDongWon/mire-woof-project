@@ -132,7 +132,8 @@ public class ReviewController {
 
 	@PostMapping("/insertReview")
 	public String insertReview(Review review) throws Exception {
-		log.info("/insert POST");
+		log.info("/insertReview POST");
+		log.info("/insertReview POST : "+review.toString());
 		if(null==review.getItemName()) {
 			review.setItemName("");
 		}
@@ -148,15 +149,16 @@ public class ReviewController {
 			}
 
 		}
-		log.info("review : "+review.toString());
+		log.info("reviewtoString : "+review.toString());
 		
 //////////////////////////////// 반복문 샘플 작성
-		String title =review.getReviewTitle();
-		for(int i=0;i<100;i++) {
-		review.setReviewTitle(title+i);
-		service.insertPetReview(review);
-		}
+//		String title =review.getReviewTitle();
+//		for(int i=0;i<100;i++) {
+//		review.setReviewTitle(title+i);
+//		service.insertReview(review);
+//		}
 		
+		service.insertReview(review);
 		if(review.getItemNo()>0) {
 			 return "redirect:/orderHistory/getOrderHistoryList";
 		}
@@ -217,7 +219,7 @@ public class ReviewController {
 		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
 		String fileName = service.getReviewPic(reviewNo);
-		log.info(fileName);
+//		log.info(fileName);
 		try {
 			String formatName = fileName.substring(fileName.lastIndexOf(".") + 1);
 			MediaType mType = getMediaType(formatName);
@@ -237,7 +239,7 @@ public class ReviewController {
 	}
 	
 	private MediaType getMediaType(String formatName) {
-		log.info("getMediaType()");
+//		log.info("getMediaType()");
 		if (formatName != null) {
 			if (formatName.equals("JPG")) {
 				return MediaType.IMAGE_JPEG;
@@ -309,7 +311,7 @@ public class ReviewController {
 			model.addAttribute(account);
 			model.addAttribute(review);
 		}
-		return "reply/insertItemReview";
+		return "item/insertItemReview";
 	}
 	
 	@PostMapping("/insertItemReview")
