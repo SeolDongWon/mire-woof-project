@@ -53,7 +53,7 @@ a {
 						<td colspan="2" class="title">${review.reviewTitle}</td>
 					</tr>
 					<tr>
-						<td class="user-id">${review.userName}</td> 
+						<td class="user-id">${review.username}</td> 
 						<td class="text-end "><fmt:formatDate pattern="yyyy-MM-dd" value="${review.reviewRegDate}"/></td>
 					</tr>
 					<tr>
@@ -66,13 +66,13 @@ a {
 			<div class="row p-0 m-0">
 				<div class="col-6">
 					<sec:authorize access="hasRole('ROLE_MEMBER')">
-						<c:if test="${review.userName==account.username}">
+						<c:if test="${review.username==account.username}">
 							<a href="modifyReview?reviewNo=${review.reviewNo}" class="btn btn-primary m-2"><spring:message code="common.modify"/></a>
-							<a href="deleteReview?reviewNo=${review.reviewNo}" class="btn btn-danger m-2" onclick="return confirm('정말 삭제하시겠습니까?')"><spring:message code="common.delete"/></a> 	
+							<a href="deleteReview?reviewNo=${review.reviewNo}" class="btn btn-danger m-2"><spring:message code="common.delete"/></a> 	
 						</c:if>
 					</sec:authorize>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
-						<a href="deleteReview?reviewNo=${review.reviewNo}" class="btn btn-danger m-2" onclick="return confirm('정말 삭제하시겠습니까?')"><spring:message code="common.delete"/></a>
+						<a href="deleteReview?reviewNo=${review.reviewNo}" class="btn btn-danger m-2"><spring:message code="common.delete"/></a>
 					</sec:authorize>
 				</div>
 				<div class="col-6 text-end">
