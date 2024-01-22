@@ -76,7 +76,7 @@
 						</sec:authorize>
 						<th class="bg-dark-subtle text-center" style="width: 100px;"><spring:message code="common.content" /></th>
 						<th class="bg-dark-subtle text-center" style="width: 50px;"><spring:message	code="common.date" /></th>
-						<th class="border-0" style="width: 20px;"></th>
+						<th class="border-0" style="width: 30px;"></th>
 					</tr>
 				</thead>
 

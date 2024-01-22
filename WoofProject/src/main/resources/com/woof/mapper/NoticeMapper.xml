@@ -35,8 +35,9 @@
 
 	<update id="modifyNotice">
 		UPDATE notice
-		SET noticetitle=
-		#{noticeTitle},noticedesc=#{noticeDesc}
+		SET noticetitle=		#{noticeTitle},
+				noticedesc=#{noticeDesc},
+				noticemoddate = sysdate
 		WHERE noticeno= #{noticeNo}
 	</update>
 

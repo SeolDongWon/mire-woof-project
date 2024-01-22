@@ -121,14 +121,14 @@
 							replyList += '<td name="reply" align="left" class="text-break">'+result[i].reply+'</td><td align="center">';
 							replyList += '<span style="font-size:13px">'+formattedDate+'</span>';
 							replyList += '<td align="center" class="">';
+							replyList += '<div class="d-flex" style="width:40px">';
 							replyList += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
-							replyList += '<button class="btn button-outline-secondary p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
+							replyList += '<button class="btn btn-light button-outline-secondary p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
 							replyList += '</sec:authorize>';
-							replyList += '<div class="d-flex">';
 							if(currUsername==result[i].username){
 								//수정은 미완성
 								//replyList += '<button class="btn btn-outline-dark p-0" value="'+result[i].replyNo+'" onclick="modifyBtn()">수정</button>';
-								replyList += '<button class="btn btn-light button-outline-secondary p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()"><spring:message code="common.modify"/></button>';
+								replyList += '<button class="btn btn-light button-outline-secondary p-0" value="'+result[i].replyNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
 							}
 							replyList += '</td></tr></form>';
 						}
