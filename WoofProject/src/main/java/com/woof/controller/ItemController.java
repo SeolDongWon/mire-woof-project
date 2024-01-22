@@ -85,12 +85,13 @@ public class ItemController {
 			}
 		}
 		// create Item in DB
+		itemService.insertItem(item);
 ///////////////////////////////////////////////////////////////////////////////////////////		
-		String name = item.getItemName();
-		for(int i=0;i<30;i++) {
-			item.setItemName(name+i);
-			itemService.insertItem(item);
-		}
+//		String name = item.getItemName();
+//		for(int i=0;i<30;i++) {
+//			item.setItemName(name+i);
+//			itemService.insertItem(item);
+//		}
 		
 		return "redirect:/item/itemList";
 	}

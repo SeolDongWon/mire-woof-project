@@ -98,15 +98,15 @@ public class NoticeController {
 
 		noticeService.insertNotice(notice);
 
-		// 샘플작성
-		String title = notice.getNoticeTitle();
-		String desc = notice.getNoticeDesc();
-		for (int i = 0; i < 30; i++) {
-			notice.setNoticeTitle(title + i);
-			notice.setNoticeDesc(desc + i);
-			noticeService.insertNotice(notice);
-		}
-		//샘플작성
+//		// 샘플작성
+//		String title = notice.getNoticeTitle();
+//		String desc = notice.getNoticeDesc();
+//		for (int i = 0; i < 30; i++) {
+//			notice.setNoticeTitle(title + i);
+//			notice.setNoticeDesc(desc + i);
+//			noticeService.insertNotice(notice);
+//		}
+//		//샘플작성
 
 		return "redirect:/notice/getNoticeList";
 	}
