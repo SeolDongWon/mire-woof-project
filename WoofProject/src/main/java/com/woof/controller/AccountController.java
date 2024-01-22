@@ -54,6 +54,7 @@ public class AccountController {
 		return "account/login/createAccount";
 	}
 	
+	//아이디 체크
 	@PutMapping(value = "/accountCheck")
 	public ResponseEntity<String> accountCheck(@RequestBody Account account, Model model) throws Exception {
 		log.info("++++ accountCheck ++++");
@@ -84,11 +85,12 @@ public class AccountController {
 		log.info("======== 후 =========account.toString()" + account.toString());
 		
 /////////////////////////////////////////////////////////////////샘플 반복생성
-		String id = account.getUsername();
-		for(int i=0;i<101;i++) {
-		account.setUsername(id+i);
+//		String id = account.getUsername();
+//		for(int i=0;i<101;i++) {
+//		account.setUsername(id+i);
+//		service.registerAccount(account);
+//		}
 		service.registerAccount(account);
-		}
 		rttr.addFlashAttribute("username", account.getUsername());
 
 		return "redirect:/account/login";
