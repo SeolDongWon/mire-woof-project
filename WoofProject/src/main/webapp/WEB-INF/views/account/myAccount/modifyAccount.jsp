@@ -22,7 +22,7 @@
 <!-- 내집 주소링크 -->
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- Script -->
-<%@ include file="/WEB-INF/views/common/accountScript.jsp"%>
+<%@ include file="/WEB-INF/views/account/login/accountScript.jsp"%>
 
 
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->

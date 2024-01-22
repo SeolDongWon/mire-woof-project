@@ -33,10 +33,10 @@
           <div class="col-3">
             <p class="fs-6 mb-2"><spring:message code="common.store"/></p>
             <ul class="navbar-nav fs-6 fw-light">
-              <li class="nav-item"><a href="/item/listItemType?itemType=Clothing" class="nav-link link-secondary p-1"><spring:message code="common.itemType1"/></a></li>
-              <li class="nav-item"><a href="/item/listItemType?itemType=Toy" class="nav-link link-secondary p-1"><spring:message code="common.itemType2"/></a></li>
-              <li class="nav-item"><a href="/item/listItemType?itemType=Food" class="nav-link link-secondary p-1"><spring:message code="common.itemType3"/></a></li>
-              <li class="nav-item"><a href="/item/listItemType?itemType=Accessory" class="nav-link link-secondary p-1"><spring:message code="common.itemType4"/></a></li>
+              <li class="nav-item"><a href="/item/itemList?itemType=Clothing" class="nav-link link-secondary p-1"><spring:message code="common.itemType1"/></a></li>
+              <li class="nav-item"><a href="/item/itemList?itemType=Toy" class="nav-link link-secondary p-1"><spring:message code="common.itemType2"/></a></li>
+              <li class="nav-item"><a href="/item/itemList?itemType=Food" class="nav-link link-secondary p-1"><spring:message code="common.itemType3"/></a></li>
+              <li class="nav-item"><a href="/item/itemList?itemType=Accessory" class="nav-link link-secondary p-1"><spring:message code="common.itemType4"/></a></li>
             </ul>
           </div>
           <div class="col-3">

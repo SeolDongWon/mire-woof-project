@@ -40,6 +40,17 @@ a {
 	text-decoration: none;
 	color: black;
 }
+
+.rounded-textarea {
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	padding: 5px;
+	width: 100%;
+	height: auto;
+	overflow-y: scroll;
+	height: 100px; /* Adjust as needed */
+	width: 300px; /* Adjust as needed */
+}
 </style>
 </head>
 <body>
@@ -81,10 +92,7 @@ a {
 										<th scope="row"><spring:message code="pet.gender" /></th>
 										<td>${pet.petGender}</td>
 									</tr>
-									<tr>
-										<th scope="row"><spring:message code="common.description" /></th>
-										<td>${pet.petDesc}</td>
-									</tr>
+
 									<tr>
 										<th scope="row"><spring:message code="pet.petStatus" /></th>
 										<td>${pet.petStatus}</td>
@@ -94,9 +102,17 @@ a {
 										<td><fmt:formatDate pattern="yyyy-MM-dd"
 												value="${pet.petRegDate}" /></td>
 									</tr>
+
+
 								</tbody>
 							</table>
-
+							<table>
+								<tr align="left">
+									<th scope="row"><spring:message code="common.description" /></th>
+									<td><div id="petDescEdit" rows="5"
+											cols="40" disabled class="rounded-textarea">${pet.petDesc}</div></td>
+								</tr>
+							</table>
 						</div></td>
 				</tr>
 			</table>
@@ -107,6 +123,7 @@ a {
 			</h3>
 			<hr>
 			<table>
+
 				<tr>
 					<td class="align-middle text-center"><img
 						src="getPetSubPic?petNo=${pet.petNo}" width="1200" height="100%"></td>

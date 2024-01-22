@@ -114,7 +114,7 @@
 			<img src="getItemSubPic?itemNo=${item.itemNo}" width="1000">
 		</div>
 	</div>
-		<%@ include file="/WEB-INF/views/common/itemReviewInclude.jsp"%>
+		<%@ include file="/WEB-INF/views/item/itemReviewInclude.jsp"%>
 	</main>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

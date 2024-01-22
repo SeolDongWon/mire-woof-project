@@ -52,7 +52,7 @@ function modifyItem(itemNo) {
     	var responseItemNo = document.getElementById('responseItemNo').value;
     	modifyItem(responseItemNo);
     	
-    	/* $("#selectedItem").on("change", function() {
+    	 $("#selectedItem").on("change", function() {
     		var selectedItemNo = $(this).val();
     		
     		if(selectedItemNo){
@@ -70,7 +70,7 @@ function modifyItem(itemNo) {
     		} else {
     			$("#modifyFormContainer").empty();
     		}
-    	}); */
+    	}); 
         
     	$("#btnModifyItem").on("click", function() {
     	    if (checkValues()) {

@@ -37,9 +37,9 @@
 			<div class="row p-0 m-0 mb-3">
 			<div class="col-2"></div>
 				<div class="col-8 d-flex justify-content-center">
-					<form id="pageRequest" class="d-flex w-50" action="/pet/getPetList" method="get">
-						<input class="form-control me-2"  placeholder="<spring:message code="common.enterKeyword"/>"  id="keyword" name="keyword" type="text" value="" >
-						<button class="btn btn-outline-light  text-dark" type="submit" style="background-color: rgb(246, 220, 216)">Search</button>
+					<form id="pageRequest" class="d-flex w-75" action="/pet/getPetList" method="get">
+						<input class="form-control me-2 w-75"  placeholder="<spring:message code="common.enterKeyword"/>"  id="keyword" name="keyword" type="text" value="" >
+						<button class="btn btn-outline-light text-dark w-25" type="submit" style="background-color: rgb(246, 220, 216)"><spring:message code="common.search"/></button>
 					</form>
 				</div>
 				<div class="col-2 float-end">
@@ -53,7 +53,6 @@
 		${authList}
 		<section style="display: flex; flex-wrap: wrap; gap: 6rem;">
 			<c:forEach var="pet" items="${petList}">
-				<c:if test="${pet.petStatus=='OPEN' || authList=='[ROLE_ADMIN]'}">
 				<div class="card" style="width: 21rem;">
 					<a href="getPet?petNo=${pet.petNo}">
 					<img src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top"	alt="Pet"></a>
@@ -87,7 +86,6 @@
 								code="common.delete" /></a>
 					</sec:authorize>
 				</div>
-				</c:if>
 			</c:forEach>
 		</section>
 		<br>

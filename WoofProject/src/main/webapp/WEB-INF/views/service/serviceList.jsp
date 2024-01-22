@@ -57,7 +57,7 @@
 			<h3 class="text-center">
 				<spring:message code="service.listTitle" />
 			</h3>
-			<sec:authorize access="isAuthenticated()">
+			<sec:authorize access="hasRole('ROLE_MEMBER')">
 				<a href="/service/insertServiceForm"
 					class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message	code="service.writeService" /></a>
 			</sec:authorize>
@@ -140,7 +140,12 @@
 				</tbody>
 
 			</table>
-
+			<div class="d-flex">
+				<form name="pageRequest" action="/service/getServiceList" method="get" class="m-auto d-flex align-content-center">
+					<input type="text" name="keyword" placeholder="<spring:message code="common.enterKeyword"/>"/>
+					<button type="submit" class="btn btn-light btn-outline-secondary text-dark"><spring:message code="common.search"/></button>
+				</form>
+			</div>
 			<div class="d-flex">
 				<ul class="pagination m-auto">
 					<c:if test="${pagination.prev}">
