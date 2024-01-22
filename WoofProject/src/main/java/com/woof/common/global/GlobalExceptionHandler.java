@@ -1,5 +1,6 @@
 package com.woof.common.global;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,8 @@ public class GlobalExceptionHandler {
 	@Autowired
 	private MessageSource messageSource;
 	
-	@ExceptionHandler(Exception.class)
+	// for Exception class errors
+	@ExceptionHandler({Exception.class, RuntimeException.class, IOException.class})
 	public String handleException(Exception e, Model model) {
 		log.info("ExceptionHandler: " + e.toString());
 		String errorMessage = messageSource.getMessage("error.general", null, LocaleContextHolder.getLocale());
@@ -27,6 +29,7 @@ public class GlobalExceptionHandler {
 		return "error/error";
 	}
 	
+	// for SQL errors
 	@ExceptionHandler(SQLException.class)
 	public String handleSQLException(SQLException e, Model model) {
 		log.info("SQLExceptionHandler: " + e.toString());

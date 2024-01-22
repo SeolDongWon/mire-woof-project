@@ -63,10 +63,12 @@
 							<td><spring:message code="item.date"/></td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.itemRegDate}" /></td>
 						</tr>
-						<tr>
-							<td><spring:message code="item.itemStock"/></td>
-							<td>${item.itemStock}</td>
-						</tr>
+						<sec:authorize access="hasRole('ROLE_Admin')">
+							<tr>
+								<td><spring:message code="item.itemStock"/></td>
+								<td>${item.itemStock}</td>
+							</tr>
+						</sec:authorize>
 						<tr>
 							<td><spring:message code="item.selectQuantity"/></td>
 							<td>
@@ -85,19 +87,21 @@
 								<div class=" row p-0 m-0">
 									<div class="col-4">
 									</div>
+									<sec:authorize access="hasRole('ROLE_MEMBER')">
 									<div class="col-4">
 										<button type="submit" class="btn btn-primary btn-outline-secondary text-white m-2">
 											<spring:message code="item.addToCart"/>
 										</button>
 									</div>
-									<div class="col-4">
+									</sec:authorize>
 									<sec:authorize access="hasRole('ROLE_ADMIN')">
+									<div class="col-4">
 										<a href="/item/modifyItem?itemNo=${item.itemNo}"  class="btn btn-primary btn-outline-secondary text-white m-2">
-											<spring:message code="common.saveChanges"/>
+											<spring:message code="common.modify"/>
 										</a>
-										</sec:authorize>
-									</div>	
-								</div>							
+									</div>							
+									</sec:authorize>
+								</div>	
 							</td>
 						</tr>
 					</table>

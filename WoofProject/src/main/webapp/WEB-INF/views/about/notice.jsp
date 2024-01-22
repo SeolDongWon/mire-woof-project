@@ -29,13 +29,13 @@
 		var formObj = $("#noticeActionForm");
 
 		$("#btnDelete").on("click", function() {
-			var check = confirm('삭제할까요');
+			var check = confirm('<spring:message code="common.alert.confirmDelete"/>');
 
 			if (check) {
 				formObj.attr("action", "/notice/deleteNotice");
 				formObj.submit();
 			} else {
-				alert('삭제 취소');
+				alert('<spring:message code="common.alert.cancelled"/>');
 			}
 		});
 
