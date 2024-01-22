@@ -31,15 +31,13 @@
 		
 		$("#btnRegister").on("click", function() {
 			  var check = confirm("<spring:message code='common.alert.confirmSubmit'/>");
-
 			  var serviceDescValue = document.getElementById('serviceDesc').value;
 
-			    // serviceDesc 값이 공백인 경우 에러 메시지를 표시하고 제출을 막음
 			  if (serviceDescValue.trim() === '') {
 				    alert("<spring:message code='common.alert.cancelled'/>");
 			    document.getElementById('serviceDesc').placeholder = 'Service Description cannot be empty.';
 			  } else if(check){
-			    document.getElementById('serviceDesc').placeholder = ''; // 에러 메시지를 초기화
+			    document.getElementById('serviceDesc').placeholder = ''; 
 					formObj.submit();
 			  }
 			  	  

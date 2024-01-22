@@ -57,7 +57,7 @@
 			<h3 class="text-center">
 				<spring:message code="service.listTitle" />
 			</h3>
-			<sec:authorize access="isAuthenticated()">
+			<sec:authorize access="hasRole('ROLE_MEMBER')">
 				<a href="/service/insertServiceForm"
 					class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message	code="service.writeService" /></a>
 			</sec:authorize>

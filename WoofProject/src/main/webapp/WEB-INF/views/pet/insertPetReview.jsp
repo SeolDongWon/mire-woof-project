@@ -91,7 +91,7 @@ textarea {
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.author"/></label>
-                        <form:input path="userName" readonly="true" class="form-control" />
+                        <form:input path="username" readonly="true" class="form-control" />
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.picture"/></label>

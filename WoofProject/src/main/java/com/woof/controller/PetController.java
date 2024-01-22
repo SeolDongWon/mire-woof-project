@@ -57,10 +57,12 @@ public class PetController {
 	}
 
 	@GetMapping("/getPetList")
-	public String getPetList(Pet pet, Model model, PageRequest pageRequest, Pagination pagination,
-			@AuthenticationPrincipal UserDetails userDetails) throws Exception {
-		String authList = userDetails.getAuthorities().toString();
-		model.addAttribute("authList", authList);
+	public String getPetList(Pet pet, Model model, PageRequest pageRequest, Pagination pagination, @AuthenticationPrincipal UserDetails userDetails) throws Exception {
+
+		if(null!=userDetails) {
+			String authList = userDetails.getAuthorities().toString();
+			model.addAttribute("authList", authList);
+		};
 
 		if (null == pageRequest.getKeyword()) {
 			pageRequest.setKeyword("");
