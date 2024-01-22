@@ -54,7 +54,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan='2'><span> * 꼭 작성해주세요. </span></td>
+						<td colspan='2'><span> *<spring:message code="account.signUp"/> </span></td>
 					</tr>
 					<tr>
 						<td style="width: 150px"><span style="color: red;">*</span> <spring:message
