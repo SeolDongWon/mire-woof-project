@@ -28,14 +28,35 @@
 	$(document).ready(function() {
 		var formObj = $("#review");
 		$("#btnRegister").on("click", function() {
+			if(notEntered()){
 			formObj.attr("action", "/review/insertPetReview");
 			formObj.attr("method", "post");
 			formObj.submit();
+				
+			}
 		});
 		$("#btnList").on("click", function() {
 			self.location = "/review/getReviewList";
 		});
 	});
+	function notEntered() {
+		if(document.getElementById("reviewTitle").value == "") {
+	        alert("제목을 입력해주세요");
+	        document.getElementById("reviewTitle").focus();
+	        return;
+		}
+		if(document.getElementById("reviewDesc").value == "") {
+	        alert("내용을 입력해주세요");
+	        document.getElementById("reviewDesc").focus();
+	        return;
+		}
+		if(document.getElementById("pictures").value == ""){
+			alert("사진을 선택해주세요");
+			document.getElementById("pictures").focus();
+			return;
+		}
+		return true;
+	}
 </script>
 <style>
 
@@ -62,11 +83,11 @@ textarea {
                 <form:form modelAttribute="review" action="insertPetReview" method="post" enctype="multipart/form-data">
                     <div class="form-group m-2">
                         <label><spring:message code="common.title"/></label>
-                        <form:input path="reviewTitle" class="form-control" />
+                        <form:input path="reviewTitle" id="reviewTitle" name="reviewTitle" class="form-control" />
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.description"/></label>
-                        <form:textarea path="reviewDesc" class="form-control" rows="4"></form:textarea>
+                        <form:textarea path="reviewDesc" id="reviewTitle" name="reviewTitle" class="form-control" rows="4"></form:textarea>
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.author"/></label>
@@ -74,13 +95,13 @@ textarea {
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.picture"/></label>
-                        <input type="file" name="pictures" path="reviewPic" />
+                        <input type="file" name="pictures" id="pictures" path="reviewPic" />
                     </div>
+                </form:form>
                     <div class="form-group d-flex justify-content-center m-2">
                         <button type="submit" class="btn btn-primary m-2" id="btnRegister"><spring:message code="common.submit"/></button>
                         <button type="button" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list"/></button>
                     </div>
-                </form:form>
             </div>
         </div>
     </section>

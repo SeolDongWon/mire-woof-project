@@ -163,7 +163,7 @@
 					<div class="ps-1 pb-2 m-0">
 						<b><spring:message code="common.pet" /></b>
 					</div>
-					<div class="row p-0 m-0" style="height: 600px;">
+					<div class="row p-0 m-0" style="height: 680px;">
 						<!-- 분양 테이블에서 4개 뽑아오기 -->
 						
 						<c:forEach items="${petList}" var="pet">
@@ -186,7 +186,7 @@
 					</div>
 					<hr>
 
-					<div class="mt-3">
+					<div class="mt-3" >
 						<p class="text-center fs-5 mt-3">
 							<b><spring:message code="common.announcement" /></b>
 						</p>
