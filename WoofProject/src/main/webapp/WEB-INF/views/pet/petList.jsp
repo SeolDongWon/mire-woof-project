@@ -68,17 +68,15 @@
 					<c:choose>
 						<c:when test="${pet.petStatus=='OPEN'}">
 						<div class="text-center"
-							style="color: black; background-color: rgb(246, 220, 216)">분양
-							신청가능</div>
+							style="color: black; background-color: rgb(246, 220, 216)"><spring:message	code="pet.adoptPossible" /></div>
 						</c:when>
 							<c:when test="${pet.petStatus=='CLOSED'}">
 						<div class="text-center"
-							style="color: red; background-color: rgb(246, 220, 216)">분양
-							진행중</div>
+							style="color: red; background-color: rgb(246, 220, 216)"><spring:message	code="pet.adoptOngoing" /></div>
 							</c:when>
 						<c:otherwise>
 						<div class="text-center"
-							style="color: red; background-color: black">분양 완료</div>
+							style="color: red; background-color: black"><spring:message	code="pet.adoptComplete" /></div>
 						</c:otherwise>
 					</c:choose>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
