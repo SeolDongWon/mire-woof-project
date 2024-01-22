@@ -37,9 +37,9 @@
 			<div class="row p-0 m-0 mb-3">
 			<div class="col-2"></div>
 				<div class="col-8 d-flex justify-content-center">
-					<form id="pageRequest" class="d-flex w-50" action="/pet/getPetList" method="get">
-						<input class="form-control me-2"  placeholder="keyword"  id="keyword" name="keyword" type="text" value="" >
-						<button class="btn btn-outline-light  text-dark" type="submit" style="background-color: rgb(246, 220, 216)">Search</button>
+					<form id="pageRequest" class="d-flex w-75" action="/pet/getPetList" method="get">
+						<input class="form-control me-2 w-75"  placeholder="<spring:message code="common.enterKeyword"/>"  id="keyword" name="keyword" type="text" value="" >
+						<button class="btn btn-outline-light text-dark w-25" type="submit" style="background-color: rgb(246, 220, 216)"><spring:message code="common.search"/></button>
 					</form>
 				</div>
 				<div class="col-2 float-end">

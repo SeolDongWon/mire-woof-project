@@ -10,7 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>mire woof</title>
+<title>Mire Woof</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -43,7 +43,7 @@
 	$(document).ready(function() {
 		var formObj = $("#review");
 		$("#btnRegister").on("click", function() {
-			var check = confirm('등록할까요');
+			var check = confirm('<spring:message code='common.alert.confirmSubmit'/>');
 			
 			 var reviewTitle = document.getElementById('reviewTitle').value;
 			 var reviewDesc = document.getElementById('reviewDesc').value;
@@ -52,11 +52,11 @@
 			 
 			 if (reviewTitle.trim() === '') {
 				    alert("<spring:message code='common.alert.cancelled'/>");
-			    document.getElementById('reviewTitle').placeholder = 'reviewTitle Description cannot be empty.';
+			    document.getElementById('reviewTitle').placeholder = '<spring:message code='reply.alert.enterTitle'/>';
 			  } else if(reviewDesc.trim() === ''){
-			    document.getElementById('reviewDesc').placeholder = 'reviewDesc Description cannot be empty.';
+			    document.getElementById('reviewDesc').placeholder = '<spring:message code='reply.alert.enterDescription'/>';
 			  } else if(pictures.trim() === ''){
-				  alert("사진필수");
+				  alert("<spring:message code='reply.alert.enterPic'/>");
 			  }else if(check){
 					formObj.attr("action", "/review/insertReview");
 					formObj.attr("method", "post");
@@ -78,17 +78,17 @@
 	<!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<main class="pt-2">
 		<div class="mt-3 w-75 m-auto">
-			<h4>insertItemReviewForm</h4>
+			<h4><spring:message code="reply.addReview"/></h4>
 			
 			<form id="review" action="insertPetReview" method="post" enctype="multipart/form-data">
                     <div class="form-group m-2">
                         <label><spring:message code="common.author"/></label>
-                        <input name="username" readonly="true" class="form-control" value="${account.username}"/>
+                        <input name="username" readonly="readonly" class="form-control" value="${account.username}"/>
                     </div>
                     <div class="form-group m-2">
-                        <label>상품명</label>
-                        <input type="text" name="itemName" class="form-control" value="${review.itemName}"placeholder="itemName" readonly="readonly"/>
-                        <input type="text" name="itemNo" class="form-control" value="${review.itemNo}" placeholder="itemNo" readonly="readonly"/>
+                        <label><spring:message code="item.itemName"/></label>
+                        <input type="text" name="itemName" class="form-control" value="${review.itemName}" readonly="readonly"/>
+                        <input type="text" name="itemNo" class="form-control" value="${review.itemNo}" readonly="readonly"/>
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.title"/></label>

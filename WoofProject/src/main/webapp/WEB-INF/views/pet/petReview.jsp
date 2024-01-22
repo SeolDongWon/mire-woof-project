@@ -79,7 +79,7 @@ a {
 					<a href="/review/getReviewList" class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="common.list"/></a>
 				</div>
 			</div>
-			<%@ include file="/WEB-INF/views/common/replyInclude.jsp"%>
+			<%@ include file="/WEB-INF/views/reply/replyInclude.jsp"%>
 			</div>
 	</main>
 <!-- Footer Area -->

@@ -27,7 +27,7 @@
 	
 	function deleteBtn(){
 		var reviewNo = event.target.value;
-		var check = confirm("정말로 삭제?");
+		var check = confirm("<spring:message code="common.alert.confirmDelete"/>");
 		if (check) {
 			deleteReview(reviewNo);
 			reviewList('1');
