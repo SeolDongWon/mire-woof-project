@@ -26,7 +26,9 @@
 <%-- <%@ include file="" %> --%>
 <script>
 	$(document).ready(function() {
+		
 		var formObj = $("#review");
+		
 		$("#btnRegister").on("click", function() {
 			if(notEntered()){
 			formObj.attr("action", "/review/insertReview");
@@ -35,10 +37,12 @@
 				
 			}
 		});
+		
 		$("#btnList").on("click", function() {
 			self.location = "/review/getReviewList";
 		});
 	});
+	
 	function notEntered() {
 		if(document.getElementById("reviewTitle").value == "") {
 	        alert("제목을 입력해주세요");
@@ -57,6 +61,7 @@
 		}
 		return true;
 	}
+	
 </script>
 <style>
 

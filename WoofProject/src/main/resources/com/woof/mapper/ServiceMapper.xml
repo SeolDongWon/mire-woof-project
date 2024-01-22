@@ -23,6 +23,7 @@
 	<select id="countServiceList">
 		SELECT count(serviceNo)
 		FROM service 
+		WHERE serviceDesc LIKE '%'||#{keyword}||'%'
 	</select>
 	
 	<select id="getService"  resultType="Service">

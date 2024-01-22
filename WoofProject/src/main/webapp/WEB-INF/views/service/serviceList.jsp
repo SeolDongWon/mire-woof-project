@@ -140,7 +140,12 @@
 				</tbody>
 
 			</table>
-
+			<div class="d-flex">
+				<form name="pageRequest" action="/service/getServiceList" method="get" class="m-auto d-flex align-content-center">
+					<input type="text" name="keyword" placeholder="<spring:message code="common.enterKeyword"/>"/>
+					<button type="submit" class="btn btn-light btn-outline-secondary text-dark"><spring:message code="common.search"/></button>
+				</form>
+			</div>
 			<div class="d-flex">
 				<ul class="pagination m-auto">
 					<c:if test="${pagination.prev}">
