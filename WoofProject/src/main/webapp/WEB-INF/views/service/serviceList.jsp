@@ -64,7 +64,7 @@
 			<%-- <a href="/reply/getReplyList"
 				class="btn btn-light btn-outline-secondary text-dark m-2 float-end"><spring:message code="service.reply" /></a>
  --%>
-			<table class="table" style="table-layout: fixed;">
+			<table class="table" style="table-layout: fixed;background-color: rgb(246, 220, 216)">
 
 				<thead>
 					<tr>
@@ -146,7 +146,7 @@
 					<button type="submit" class="btn btn-light btn-outline-secondary text-dark"><spring:message code="common.search"/></button>
 				</form>
 			</div>
-			<div class="d-flex">
+			<div class="d-flex m-1">
 				<ul class="pagination m-auto">
 					<c:if test="${pagination.prev}">
 						<li class="page-item"><a class="page-link"

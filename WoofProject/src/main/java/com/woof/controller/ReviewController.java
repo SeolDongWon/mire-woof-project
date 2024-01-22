@@ -152,11 +152,11 @@ public class ReviewController {
 		log.info("reviewtoString : "+review.toString());
 		
 //////////////////////////////// 반복문 샘플 작성
-//		String title =review.getReviewTitle();
-//		for(int i=0;i<100;i++) {
-//		review.setReviewTitle(title+i);
-//		service.insertReview(review);
-//		}
+		String title =review.getReviewTitle();
+		for(int i=0;i<100;i++) {
+		review.setReviewTitle(title+i);
+		service.insertReview(review);
+		}
 		
 		service.insertReview(review);
 		if(review.getItemNo()>0) {
@@ -266,14 +266,16 @@ public class ReviewController {
 		pagination.setTotalCount(service.countItemReviewList(pageRequest));
 
 //		log.info("pagination3 : " + pagination.toString());
-//		log.info("pageRequest3 : " + pageRequest.toString());
+		log.info("pageRequest3 : " + pageRequest.toString());
 
 		List<Review> reviewList = service.getItemReviewList(pageRequest);
+		
 		ResponseEntity<List> entity = null;
 		if (reviewList.size() != 0) {
 			entity = new ResponseEntity<List>(reviewList, HttpStatus.OK);
-			log.info("reviewList : " + reviewList.toString());
+//			log.info("reviewList : " + reviewList.toString());
 		}
+		
 		return entity;
 	}
 	
@@ -296,8 +298,9 @@ public class ReviewController {
 	
 	@PutMapping("/deleteReviewAjax")
 	public ResponseEntity<List> deleteReviewAjax(@RequestBody Review review) throws Exception {
+		log.info("deleteReviewAjax");
 		service.deleteReview(review);
-		ResponseEntity<List> entity = null;
+		ResponseEntity<List> entity =null;
 		return entity;
 	}
 	
