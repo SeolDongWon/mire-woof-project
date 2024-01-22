@@ -51,6 +51,7 @@
 			</div>
 		<section style="display: flex; flex-wrap: wrap; gap: 6rem;">
 			<c:forEach var="pet" items="${petList}">
+				<c:if test="${pet.petStatus=='OPEN' || authList=='[ROLE_ADMIN]'}">
 				<div class="card" style="width: 21rem;">
 					<a href="getPet?petNo=${pet.petNo}">
 					<img src="getPetMainPic?petNo=${pet.petNo}" class="card-img-top"	alt="Pet"></a>
@@ -68,10 +69,14 @@
 							style="color: black; background-color: rgb(246, 220, 216)">분양
 							신청가능</div>
 						</c:when>
-						<c:otherwise>
+							<c:when test="${pet.petStatus=='CLOSED'}">
 						<div class="text-center"
 							style="color: red; background-color: rgb(246, 220, 216)">분양
 							진행중</div>
+							</c:when>
+						<c:otherwise>
+						<div class="text-center"
+							style="color: red; background-color: black">분양 완료</div>
 						</c:otherwise>
 					</c:choose>
 					<sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -82,6 +87,7 @@
 								code="common.delete" /></a>
 					</sec:authorize>
 				</div>
+				</c:if>
 			</c:forEach>
 		</section>
 		<br>

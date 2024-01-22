@@ -21,4 +21,5 @@ public interface ServiceService {
 	public int countServiceList(PageRequest pageRequest) throws Exception;
 	
 	public List<Service> getServiceList(PageRequest pageRequest) throws Exception;
+	
 }

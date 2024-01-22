@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.woof.domain.Item;
 import com.woof.domain.PageRequest;
+import com.woof.domain.Service;
 
 public interface ItemMapper {
 	
@@ -30,4 +31,6 @@ public interface ItemMapper {
 	public List<Item> listItemType(Item item) throws Exception;
 	
 	public int countItemList(PageRequest pageRequest) throws Exception;
+	
+	public List<Item> getAllItemList() throws Exception;
 }

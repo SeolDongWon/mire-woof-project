@@ -42,7 +42,7 @@ public class ServiceController {
 	public String insertServiceForm(Account account, Principal principal, Model model) throws Exception {
 		log.info("insertServiceForm");
 		account.setUsername(principal.getName());
-		log.info(principal.getName());
+//		log.info(principal.getName());
 		model.addAttribute(account);
 		// for dropdown selection of user's orderHistory numbers to made into a button for admin
 		List<OrderHistory> orderHistoryList = orderHistoryService.getOrderHistoryList(principal.getName());
@@ -55,7 +55,7 @@ public class ServiceController {
 	@PostMapping("/insertService")
 	public String insertService(Service service) throws Exception {
 		log.info("insertService");
-		log.info("service : " + service.toString());
+//		log.info("service : " + service.toString());
 		serviceService.insertService(service);
 
 		// 샘플작성
@@ -72,7 +72,7 @@ public class ServiceController {
 	@PostMapping("/responseServiceForm")
 	public String responseServiceForm(Service service, Model model) throws Exception {
 		log.info("responseServiceForm");
-		log.info("responseServiceForm : " + service.toString());
+//		log.info("responseServiceForm : " + service.toString());
 //		model.addAttribute(serviceService.getService(service));
 		model.addAttribute("service",service);
 		return "service/responseService";
@@ -83,7 +83,7 @@ public class ServiceController {
 	@PostMapping("/respnoseService")
 	public String respnoseService(Service service) throws Exception {
 		log.info("respnoseService");
-		log.info("respnoseService : " + service.toString());
+//		log.info("respnoseService : " + service.toString());
 		serviceService.responseService(service);
 		return "redirect:/service/getServiceList";
 	}
@@ -95,7 +95,7 @@ public class ServiceController {
 		log.info(service.toString());
 		
 	    String authList = userDetails.getAuthorities().toString();
-	    log.info("userDetails : "+userDetails.toString());
+//	    log.info("userDetails : "+userDetails.toString());
 	    
 //	    Service serviceB = serviceService.getService(service);
 	    
@@ -109,13 +109,13 @@ public class ServiceController {
 	    if(!principal.getName().equals(service.getUsername())){
 	    	msg="작성자가 아니면 삭제할 수 없어요";
 	    }else if(service.getResponse()!=""){
-	    	log.info("getResponse"+service.getResponse());
+//	    	log.info("getResponse"+service.getResponse());
 	    	msg="답변이 달린 글은 삭제할 수 없어요";
     	}else {
     		serviceService.deleteService(service);	    		
     	}
 	    
-	    log.info(msg);
+//	    log.info(msg);
 	    rttr.addFlashAttribute("msg", msg);
 		return "redirect:/service/getServiceList";
 	}
@@ -151,11 +151,11 @@ public class ServiceController {
 		model.addAttribute("pagination", pagination);
 		List<Service> serviceList = serviceService.getServiceList(pageRequest);
 		model.addAttribute("serviceList", serviceList);
-		log.info("serviceList: " + serviceList);
+//		log.info("serviceList: " + serviceList);
 		
 		if (null != principal) {
 			account.setUsername(principal.getName());
-			log.info(principal.getName());
+//			log.info(principal.getName());
 			model.addAttribute(account);
 		}
 		/* log.info("serviceList : "+serviceList.toString()); */

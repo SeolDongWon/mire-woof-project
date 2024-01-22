@@ -9,7 +9,7 @@ public interface ReviewService {
 
 	Review getReview(Review review) throws Exception;
 	
-	void insertPetReview(Review review) throws Exception;
+	void insertReview(Review review) throws Exception;
 
 	public List<Review> getReviewList(PageRequest pageRequest) throws Exception;
 	public List<Review> getItemReviewList(PageRequest pageRequest) throws Exception;

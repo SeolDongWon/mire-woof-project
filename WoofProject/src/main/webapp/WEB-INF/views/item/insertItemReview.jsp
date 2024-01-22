@@ -43,7 +43,7 @@
 	$(document).ready(function() {
 		var formObj = $("#review");
 		$("#btnRegister").on("click", function() {
-			formObj.attr("action", "/review/insertPetReview");
+			formObj.attr("action", "/review/insertReview");
 			formObj.attr("method", "post");
 			formObj.submit();
 		});
@@ -70,12 +70,12 @@
                     </div>
                     <div class="form-group m-2">
                         <label>상품명</label>
-                        <input type="text" name="itemName"  class="form-control" value="${review.itemName}"placeholder="itemName" readonly="readonly"/>
+                        <input type="text" name="itemName" class="form-control" value="${review.itemName}"placeholder="itemName" readonly="readonly"/>
                         <input type="text" name="itemNo" class="form-control" value="${review.itemNo}" placeholder="itemNo" readonly="readonly"/>
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.title"/></label>
-                        <input name="reviewTitle" class="form-control" />
+                        <input name="reviewTitle" class="form-control" required="required"/>
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.description"/></label>

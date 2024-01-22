@@ -44,7 +44,7 @@
 		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY reviewNo DESC
 	</select>
 
-	<insert id="insertPetReview">
+	<insert id="insertReview">
 		INSERT INTO review
 		(reviewNo,username,reviewTitle,reviewDesc,reviewPic,itemNo,itemName)
 		VALUES
