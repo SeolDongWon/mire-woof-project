@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <script>
+	//회원가입 아이디 중복체크
 	function checkUsernameBtn() {
 		let InputUsername = $("#username").val();
 
@@ -21,34 +22,46 @@
 					if (result === "Username already exists") {
 						$("#usernameMessage").text("중복된 아이디 입니다").css("color",
 								"red");
-						 $("#signupButton").prop("disabled", true);
+						$("#signupButton").prop("disabled", true);
 					} else {
 						$("#usernameMessage").text("사용 가능한 아이디 입니다").css(
 								"color", "green");
-						  $("#signupButton").prop("disabled", false);
+						$("#signupButton").prop("disabled", false);
 
 					}
-				
+
 				}
 			});
 		}
 	}
+	//본인 계정삭제
+	function deleteSubmit() {
+		let frm = document.deleteAccountForm;
 
+		let flag = true;
+		let accountArray = [ idCheck(), pwCheck() ]
+
+		for (let i = 0; i < accountArray.length; i++) {
+			if (!accountArray[i]) {
+				flag = false;
+			}
+
+		}
+	}
+	//전체 체크
 	function doSubmit() {
 		let frm = document.joinform;
 		let usernameMessage = $("#usernameMessage").text().trim();
-		
-		
-		 if (!usernameMessage) {
-		        // usernameMessage에 내용이 없으면(중복 확인이 되지 않았으면) 회원가입 실행하지 않음
-		        alert("아이디 중복체크를 해주세요");
-		        return;
-		    }
 
-		
+		if (!usernameMessage) {
+			// usernameMessage에 내용이 없으면(중복 확인이 되지 않았으면) 회원가입 실행하지 않음
+			alert("아이디 중복체크를 해주세요");
+			return;
+		}
+
 		let flag = true;
 		let accountArray = [ idCheck(), pwCheck(), nameCheck(), telCheck(),
-				addressCheck1(), addressCheck2(), addressCheck3()]
+				addressCheck1(), addressCheck2(), addressCheck3() ]
 
 		for (let i = 0; i < accountArray.length; i++) {
 			if (!accountArray[i]) {

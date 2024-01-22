@@ -50,16 +50,16 @@
         <div class="col-1">
         </div>
       </div>
-      <div id="sidebar" class="position-fixed bottom-50 end-0 mb-3 me-3 text-center rounded-4"
-        style="background-color: rgb(246,220,216,0.7); z-index: 1000; width: 160px;">
+      <div id="sidebar" class="position-fixed bottom-50 end-0 mb-3 me-3  text-center rounded-4"
+        style="background-color: rgb(246,220,216,0.7); z-index: 1000; width: 100px; ">
         <a href="#top" class="btn border-0">▲</a><br>
         <a href="/service/getServiceList" class="btn border-0">
         <spring:message code="mainMenu.inquiries"/>
         </a><br>
         <a href="https://open.kakao.com/o/gVH04oAf" target='_blank' class="btn border-0">
-       <img alt="kakao문의하러가기" src="/resource/image/sidebar/kakao.png" style="width: 100px;">
+       <img alt="kakao문의하러가기" src="/resource/image/sidebar/kakao.png" style="width: 70px;">
         </a><br>
-        <a href="/notice/getNoticeList" class="btn border-0"><spring:message code="mainMenu.announcement"/></a><br>
+        <a href="/notice/getNoticeList" class="btn border-0"><spring:message code="side.notices"/></a><br>
         <a href="#bottom" class="btn border-0">▼</a><br>
       </div>
     </footer>
