@@ -50,11 +50,14 @@
 						<td colspan="7">
 						    <nav class="navbar navbar-light ">
 						      <div class="container-fluid">
-						       <h3>User관리</h3>
+						       <h3>Account 관리</h3>
 						       
 						        <form id="pageRequest" class="d-flex" action="/account/accountList" method="get">
 						          <input class="form-control me-2 "  placeholder="username"  id="keyword" name="keyword" type="text" value="" >
-						          <button class="btn btn-outline-light  text-dark" type="submit">Search</button>
+						          <button class="btn btn-outline-light  text-dark" type="submit" style="background-color: rgb(246, 220, 216)">Search</button>
+						          <a href="/account/accountList" class="nav-link text-black" > 
+						          <input type="button" class="btn btn-outline-light  text-dark" value="All account" />
+						          </a>
 						        </form>
 						      </div>
 						    </nav>
@@ -63,13 +66,13 @@
 					<tr>
 						<!-- <th class="bg-dark-subtle text-center" style="width: 20px;">글번호</th> -->
 
-						<th class="text-center" style="width: 120px;">아이디</th>
-						<th class="text-center" style="width: 70px;">성명</th>
-						<th class="text-center" style="width: 120px;">전화번호</th>
-						<th class="text-center" style="width: 300px;">주소</th>
-						<th class="text-center" style="width: 100px;">작성일</th>
-						<th class="text-center" style="width: 80px;">탈퇴여부</th>
-						<th class="text-center" style="width: 100px;">계정 여/부</th>
+						<th class="text-center" style="width: 120px;"><spring:message code="common.username" /></th>
+						<th class="text-center" style="width: 70px;"><spring:message code="common.name" /></th>
+						<th class="text-center" style="width: 120px;"><spring:message code="common.phone" /></th>
+						<th class="text-center" style="width: 300px;"><spring:message code="common.address" /></th>
+						<th class="text-center" style="width: 100px;"><spring:message code="common.date" /></th>
+						<th class="text-center" style="width: 120px;"><spring:message code="account.ativation" /></th>
+						<th class="text-center" style="width: 150px;"><spring:message code="account.ativationAdmin" /></th>
 					</tr>
 				</thead>
 

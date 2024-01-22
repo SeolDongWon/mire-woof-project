@@ -64,7 +64,7 @@
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${item.itemRegDate}" /></td>
 						</tr>
 						<tr>
-							<td><spring:message code="common.price"/>수량</td>
+							<td><spring:message code="item.itemStock"/></td>
 							<td>${item.itemStock}</td>
 						</tr>
 						<tr>

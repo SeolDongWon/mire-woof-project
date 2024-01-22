@@ -27,17 +27,23 @@
 <script>
 	$(document).ready(function() {
 		var formObj = $("#notice");
+		
 		$("#btnRegister").on("click", function() {
-			/* formObj.attr("action", "/notice/insertNotice");
-			formObj.attr("method", "post"); */
 			 var check = confirm('등록할까요');
+			 
+			 var noticeTitle = document.getElementById('noticeTitle').value;
+			 var noticeDesc = document.getElementById('noticeDesc').value;
 			  
-			  if (check) {
-						formObj.submit();
-			   }
-			   else {
-			      alert('등록 취소');
-			   }
+			 
+			 if (noticeTitle.trim() === '') {
+				    alert("<spring:message code='common.alert.cancelled'/>");
+			    document.getElementById('noticeTitle').placeholder = 'noticeTitle Description cannot be empty.';
+			  } else if(noticeDesc.trim() === ''){
+			    document.getElementById('noticeDesc').placeholder = 'noticeDesc Description cannot be empty.';
+			  }else if(check){
+					formObj.submit();
+			  }
+			 
 		});
 		$("#btnList").on("click", function() {
 			self.location = "/notice/getNoticeList";
@@ -55,11 +61,11 @@
 <!-- ====================Content Area : <main> 과 </maim> 사이에 콘첸츠 작성 /======================================================== -->
 	<div class="mt-3 w-75 m-auto">
 	<h1><spring:message code="announcement.admin.writeNotice"/></h1> 
-			<form:form modelAttribute="notice" action="/notice/insertNotice" method="post">
-				<spring:message code="common.title"/> <form:input path="noticeTitle" class="form-control"/><br>
-				<spring:message code="common.description"/> <form:textarea path="noticeDesc"  class="form-control" rows="5" id="comment"/><br>
+			<form id="notice" action="/notice/insertNotice" method="post">
+				<spring:message code="common.title"/> <input name="noticeTitle" id="noticeTitle" class="form-control" /><br>
+				<spring:message code="common.description"/> <textarea name="noticeDesc" id="noticeDesc"  class="form-control" rows="5"></textarea><br>
 				
-			</form:form>
+			</form>
 			<div>
 				<button type="submit" id="btnRegister"class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="common.submit"/></button>
 				<button type="submit" id="btnList"class="btn btn-light btn-outline-secondary text-dark m-2"><spring:message code="common.list"/></button>

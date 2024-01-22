@@ -265,8 +265,8 @@ public class ReviewController {
 		pagination.setPageRequest(pageRequest);
 		pagination.setTotalCount(service.countItemReviewList(pageRequest));
 
-		log.info("pagination3 : " + pagination.toString());
-		log.info("pageRequest3 : " + pageRequest.toString());
+//		log.info("pagination3 : " + pagination.toString());
+//		log.info("pageRequest3 : " + pageRequest.toString());
 
 		List<Review> reviewList = service.getItemReviewList(pageRequest);
 		ResponseEntity<List> entity = null;

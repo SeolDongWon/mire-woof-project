@@ -18,6 +18,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<%@ include file="/WEB-INF/views/common/accountScript.jsp"%>
 
 
 
@@ -38,7 +39,8 @@
 	<!-- subMenu Area -->
 	<!-- 자기가 만든 페이지그룹에 해당하는 서브메뉴만 남길것 -->
 	<main class="pt-2">
-		<form:form action="/account/deleteAccount" modelAttribute="account">
+		<form:form action="/account/deleteAccount" modelAttribute="account" ame="deleteAccountForm"
+			onsubmit="deleteSubmit(); return false;">
 			<div class="d-flex justify-content-center">
 				<div class="container mt-3" style="width: 500px">
 					<table class="table table-borderless">
@@ -49,7 +51,7 @@
 							<td><spring:message code="common.username"/></th>
 							<td>
 								<div class="input-group mb-3">
-									<input name="username" class="form-control"
+									<input name="username" class="form-control" onblur="idCheck()"
 										placeholder="<spring:message code="common.username"/>" />
 								</div>
 							</th>
@@ -58,8 +60,8 @@
 							<td><spring:message code="common.password"/></td>
 							<td>
 								<div class="input-group mb-3">
-									<input name="password" class="form-control"
-										placeholder="<spring:message code="common.password"/>" />
+									<input name="password" class="form-control" onblur="pwCheck()"
+										placeholder="<spring:message code="common.password"/>" value="" />
 								</div>
 							</th>
 						</tr>
