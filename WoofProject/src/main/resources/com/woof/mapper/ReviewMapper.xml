@@ -38,10 +38,9 @@
 	<select id="getItemReviewList" resultType="com.woof.domain.Review">
 		SELECT * 
 		FROM
-			(SELECT  ROWNUM AS rnum, username, reviewNo, reviewTitle, reviewDesc, reviewRegDate , reviewModDate,itemName 
-			FROM (select * from review WHERE itemNo=#{itemNo} order by reviewNo desc) 
-			ORDER BY reviewNo asc)
-		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}  ORDER BY reviewNo DESC
+			(SELECT  ROWNUM AS rnum, username, reviewNo, reviewTitle, reviewDesc, reviewRegDate , reviewModDate, itemName, itemNo
+			FROM (SELECT * FROM review WHERE itemNo=#{itemNo} ORDER BY reviewNo DESC))
+		WHERE rnum BETWEEN #{sizePerPage}*#{page}-9 and #{sizePerPage}*#{page}
 	</select>
 
 	<insert id="insertReview">

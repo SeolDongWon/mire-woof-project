@@ -35,7 +35,7 @@
 
 			  if (serviceDescValue.trim() === '') {
 				    alert("<spring:message code='common.alert.cancelled'/>");
-			    document.getElementById('serviceDesc').placeholder = 'Service Description cannot be empty.';
+			    document.getElementById('serviceDesc').placeholder = '<spring:message code="common.alert.enterDescription"/>';
 			  } else if(check){
 			    document.getElementById('serviceDesc').placeholder = ''; 
 					formObj.submit();
@@ -102,7 +102,7 @@
 					
 					<div class="m-2">	
 						<spring:message code="common.description"/>
-						<textarea id="serviceDesc" name="serviceDesc"  class="form-control" rows="5" required="required" placeholder="serviceDesc"></textarea>
+						<textarea id="serviceDesc" name="serviceDesc"  class="form-control" rows="5" required="required" placeholder="<spring:message code="common.alert.enterDescription"/>"></textarea>
 					</div>
 				</div>
 			</form>

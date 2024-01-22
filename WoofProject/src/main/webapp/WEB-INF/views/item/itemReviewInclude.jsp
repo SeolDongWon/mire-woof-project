@@ -9,7 +9,9 @@
 
 <script type="text/javascript">
 	var currUsername = '${pageContext.request.userPrincipal.principal.account.username}';
-	var itemno = '${item.itemNo}';
+	var currItemNo = '${item.itemNo}';
+	
+	/* alert("currUsername : "+currUsername+" itemno: "+itemno); */
 	
 	$(document).ready(function() {
 		reviewList('1');
@@ -18,14 +20,14 @@
 
 	function modifyBtn() {
 		var reviewNo = event.target.value;
-		alert(reviewNo);
+		/* alert(reviewNo); */
 		
 	}
 	
 	
 	function deleteBtn(){
 		var reviewNo = event.target.value;
-		var check = confirm("정말로 삭제?");
+		var check = confirm("<spring:message code="common.alert.confirmDelete"/>");
 		if (check) {
 			deleteReview(reviewNo);
 			reviewList('1');
@@ -43,7 +45,8 @@
 	
 	function deleteReview(reviewNo){
 		var review = {
-				reviewNo : reviewNo
+				reviewNo : reviewNo,
+				itemNo : currItemNo
 		};
 		
 		$.ajax({
@@ -51,16 +54,15 @@
 					url : "/review/deleteReviewAjax",
 					data : JSON.stringify(review),
 					contentType : "application/json; charset=UTF-8",
-					success : 
-						function(result) {
-				}
+						success : 
+							function(result) {}
 		});
 	}
 	
 	function pagination(idx){
 		var pageRequest = {
 				page : idx,
-				itemNo : itemno
+				itemNo : currItemNo
 		};
 		$.ajax({
 					type : "put",
@@ -91,8 +93,10 @@
 	 function reviewList(idx){
 		var pageRequest = {
 				page : idx,
-				itemNo : itemno
+				itemNo : currItemNo
 		};
+		
+		/* alert(pageRequest.page + " "+ pageRequest.itemNo); */
 		
 		$.ajax({
 				type : "put",
@@ -107,6 +111,7 @@
 						var formattedDate = null; 
 						for (var i = 0; i < result.length; i++) {
 							parsedDate = new Date(result[i].reviewRegDate);
+							/* alert("itemNo : "+result[i].itemNo); */
 							formattedDate = parsedDate.toLocaleString({ timeZone: 'UTC' });
 							reviewList += '<br><form class="border border-2 p-3">';
 							reviewList += '<input type="hidden" name="reviewNo" value="'+result[i].reviewNo+'"readonly="readonly"> ';
@@ -124,11 +129,11 @@
 							reviewList += '<div class="d-flex">';
 							reviewList += '<div class="form-control auto-height-textarea overflow-hidden border-0" readonly="readonly">'+result[i].reviewDesc+'</div>';
 							reviewList += '<sec:authorize access="hasRole('ROLE_ADMIN')">';
-							reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
+							reviewList += '<button type="button" class="btn btn-outline-dark p-0 w-25" value="'+result[i].reviewNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
 							reviewList += '</sec:authorize>';
 							/* alert("currUsername : "+currUsername+" result[i].userName) : "+result[i].userName); */
 							if(currUsername==result[i].username){
-								reviewList += '<button class="btn btn-outline-dark p-0" value="'+result[i].reviewNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
+								reviewList += '<button type="button" class="btn btn-outline-dark p-0 w-25" value="'+result[i].reviewNo+'" onclick="deleteBtn()"><spring:message code="common.delete"/></button>';
 							}
 							reviewList += ' </div>';
 							reviewList += ' </div>';

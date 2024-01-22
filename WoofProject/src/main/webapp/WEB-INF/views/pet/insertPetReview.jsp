@@ -45,17 +45,17 @@
 	
 	function notEntered() {
 		if(document.getElementById("reviewTitle").value == "") {
-	        alert("제목을 입력해주세요");
+	        alert("<spring:message code='reply.alert.enterTitle'/>");
 	        document.getElementById("reviewTitle").focus();
 	        return;
 		}
 		if(document.getElementById("reviewDesc").value == "") {
-	        alert("내용을 입력해주세요");
+	        alert("<spring:message code='reply.alert.enterDescription'/>");
 	        document.getElementById("reviewDesc").focus();
 	        return;
 		}
 		if(document.getElementById("pictures").value == ""){
-			alert("사진을 선택해주세요");
+			alert("<spring:message code='reply.alert.enterPic'/>");
 			document.getElementById("pictures").focus();
 			return;
 		}

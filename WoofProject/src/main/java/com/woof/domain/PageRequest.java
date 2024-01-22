@@ -125,11 +125,15 @@ public class PageRequest {
 		return uriComponents.toUriString();
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "PageRequest [postNo=" + postNo + ", condition=" + condition + ", keyword=" + keyword + ", keywordTitle="
 				+ keywordTitle + ", keywordDesc=" + keywordDesc + ", page=" + page + ", sizePerPage=" + sizePerPage
-				+ "]";
+				+ ", reviewNo=" + reviewNo + ", itemNo=" + itemNo + "]";
 	}
+
+	
 
 }

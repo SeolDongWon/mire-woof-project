@@ -22,7 +22,7 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <!-- Script -->
-<%@ include file="/WEB-INF/views/common/accountScript.jsp"%>
+<%@ include file="/WEB-INF/views/account/login/accountScript.jsp"%>
 
 
 <!-- css common Area 헤더 푸터에 쓸 css 경로-->
@@ -54,7 +54,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan='2'><span> *<spring:message code="account.signUp"/> </span></td>
+						<td colspan='2'><span> * <spring:message code="account.signUp"/> </span></td>
 					</tr>
 					<tr>
 						<td style="width: 150px"><span style="color: red;">*</span> <spring:message
@@ -65,7 +65,7 @@
 									class="form-control"
 									placeholder="<spring:message code="signup.usernamePH"/>"
 									onblur="idCheck()">
-									 <input type="button" class="btn btn-outline-light  text-dark" onclick="checkUsernameBtn()" value="중복확인" />
+									 <input type="button" class="btn btn-light text-dark" onclick="checkUsernameBtn()" value="<spring:message code='signup.check'/>" />
 							</div>
 						</th>
 					</tr>
@@ -113,7 +113,7 @@
 									class="form-control" name="address1" onblur="addressCheck1()" readonly="readonly">
 									
 								<input type="button"
-									class="btn-light btn-outline-secondary text-dark m-2"
+									class="btn btn-light text-dark"
 									onclick="sample6_execDaumPostcode()"
 									value="<spring:message code="common.findZipcode"/>"
 									style="border: none; background-color: rgb(255, 255, 255);">
