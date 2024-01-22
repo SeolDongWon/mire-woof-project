@@ -26,19 +26,23 @@
 <%-- <%@ include file="" %> --%>
 <script>
 	$(document).ready(function() {
+		
 		var formObj = $("#review");
+		
 		$("#btnRegister").on("click", function() {
 			if(notEntered()){
-			formObj.attr("action", "/review/insertPetReview");
+			formObj.attr("action", "/review/insertReview");
 			formObj.attr("method", "post");
 			formObj.submit();
 				
 			}
 		});
+		
 		$("#btnList").on("click", function() {
 			self.location = "/review/getReviewList";
 		});
 	});
+	
 	function notEntered() {
 		if(document.getElementById("reviewTitle").value == "") {
 	        alert("제목을 입력해주세요");
@@ -57,6 +61,7 @@
 		}
 		return true;
 	}
+	
 </script>
 <style>
 
@@ -87,7 +92,7 @@ textarea {
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.description"/></label>
-                        <form:textarea path="reviewDesc" id="reviewTitle" name="reviewTitle" class="form-control" rows="4"></form:textarea>
+                        <form:textarea path="reviewDesc" id="reviewDesc" name="reviewDesc" class="form-control" rows="4"></form:textarea>
                     </div>
                     <div class="form-group m-2">
                         <label><spring:message code="common.author"/></label>
