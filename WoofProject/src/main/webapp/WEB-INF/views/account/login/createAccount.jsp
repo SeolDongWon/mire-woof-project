@@ -64,8 +64,8 @@
 								<input type="text" name="username" id="username"
 									class="form-control"
 									placeholder="<spring:message code="signup.usernamePH"/>"
-									onblur="idCheck()"> <input type="button"
-									onclick="checkUsernameBtn()" value="중복" />
+									onblur="idCheck()">
+									 <input type="button" class="btn btn-outline-light  text-dark" onclick="checkUsernameBtn()" value="중복확인" />
 							</div>
 						</th>
 					</tr>
