@@ -29,14 +29,34 @@
 	$(document).ready(function() {
 		var formObj = $("#review");
 		$("#btnModify").on("click", function() {
+			if(notEntered()){
 			formObj.attr("action", "/review/modifyReview");
 			formObj.attr("method", "post");
 			formObj.submit();
+			}
 		});
 		$("#btnList").on("click", function() {
 			self.location = "/review/getReviewList";
 		});
 	});
+	function notEntered() {
+		if(document.getElementById("reviewTitle").value == "") {
+	        alert("제목을 입력해주세요");
+	        document.getElementById("reviewTitle").focus();
+	        return;
+		}
+		if(document.getElementById("reviewDesc").value == "") {
+	        alert("내용을 입력해주세요");
+	        document.getElementById("reviewDesc").focus();
+	        return;
+		}
+		if(document.getElementById("pictures").value == ""){
+			alert("사진을 선택해주세요");
+			document.getElementById("pictures").focus();
+			return;
+		}
+		return true;
+	}
 </script>
 <style>
 table {
@@ -58,12 +78,12 @@ table {
         <table class="table" border="1">
             <tr>
                 <td><spring:message code="common.title" /></td>
-                <td><form:input path="reviewTitle" class="form-control" /></td>
+                <td><form:input path="reviewTitle" id="reviewTitle" name="reviewTitle" class="form-control" /></td>
                 <td><font color="red"><form:errors path="reviewTitle" /></font></td>
             </tr>
             <tr>
                 <td><spring:message code="common.description" /></td>
-                <td><form:textarea cols="10" path="reviewDesc" class="form-control" /></td>
+                <td><form:textarea cols="10" path="reviewDesc" id="reviewDesc" name="reviewDesc" class="form-control" /></td>
                 <td><font color="red"><form:errors path="reviewDesc" /></font></td>
             </tr>
             <tr>
@@ -76,14 +96,14 @@ table {
             </tr>
             <tr>
                 <td colspan="2"><input type="file" name="pictures" class="form-control-file" />
-                <form:input type="hidden" path="reviewPic" readonly="readonly"></form:input></td>
+                <form:input type="hidden" path="reviewPic" name="pictures"  id="pictures"  readonly="readonly"></form:input></td>
             </tr>
         </table>
     </form:form>
 </div>
 <div align="center">
     <button type="submit" class="btn btn-primary m-2" id="btnModify"><spring:message code="common.modify" /></button>
-    <button type="submit" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list" /></button>
+    <button type="button" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list" /></button>
 </div>
 <!-- Footer Area -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

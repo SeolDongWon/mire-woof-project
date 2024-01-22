@@ -28,14 +28,53 @@
 	$(document).ready(function() {
 		var formObj = $("#pet");
 		$("#btnModify").on("click", function() {
+			if(notEntered()){
 			formObj.attr("action", "/pet/modifyPet");
 			formObj.attr("method", "post");
 			formObj.submit();
+			}
 		});
 		$("#btnList").on("click", function() {
 			self.location = "/pet/getPetList";
 		});
 	});
+	
+	function notEntered() {
+		if(document.getElementById("petName").value == ""){
+			alert("이름을 입력하세요");
+			document.getElementById("petName").focus();
+			return;
+		}
+		if(document.getElementById("petAge").value == "0"){
+			alert("나이를 입력하세요");
+			document.getElementById("petAge").focus();
+			return;
+		}
+		if(document.getElementById("petType").value == ""){
+			alert("품종을 입력하세요");
+			document.getElementById("petType").focus();
+			return;
+		}
+		if (document.getElementById("petGender").checked === false &&
+			    document.getElementById("petGender").checked === false) {
+			    alert("성별을 선택해주세요");
+			    document.getElementById("petGender").focus(); 
+			    event.preventDefault(); 
+			    return;
+			}
+		if(document.getElementById("petDesc").value == ""){
+			alert("내용을 입력해주세요");
+			document.getElementById("petDesc").focus();
+			return;
+		}
+		if(document.getElementById("pictures").value == ""){
+			alert("사진을 선택해주세요");
+			document.getElementById("pictures").focus();
+			return;
+		}
+		return true;
+	}
+	
 </script>
 </head>
 <body>
@@ -53,27 +92,27 @@
         <table class="table" border="1px">
             <tr>
                 <td><spring:message code="common.name" /></td>
-                <td><form:input path="petName" class="form-control" /></td>
-                <td><font color="red"><form:errors path="petName" /></font></td>
+                <td><form:input path="petName" name="petName" id="petName" class="form-control" /></td>
+                <td><font color="red"><form:errors path="petName" name="petName" id="petName"/></font></td>
             </tr>
             <tr>
                 <td><spring:message code="pet.age" /></td>
-                <td><form:input path="petAge" class="form-control" /></td>
+                <td><form:input path="petAge" name="petAge" id="petAge" class="form-control" /></td>
                 <td><font color="red"><form:errors path="petAge" /></font></td>
             </tr>
             <tr>
                 <td><spring:message code="pet.breed" /></td>
-                <td><form:input path="petType" class="form-control" /></td>
+                <td><form:input path="petType" name="petType" id="petType" class="form-control" /></td>
                 <td><font color="red"><form:errors path="petType" /></font></td>
             </tr>
             <tr>
                 <td><spring:message code="pet.gender" /></td>
-                <td><form:input path="petGender" class="form-control" /></td>
+                <td><form:input path="petGender" name="petGender" id="petGender" class="form-control" /></td>
                 <td><font color="red"><form:errors path="petGender" /></font></td>
             </tr>
             <tr>
                 <td><spring:message code="common.description" /></td>
-                <td><form:textarea path="petDesc" class="form-control" /></td>
+                <td><form:textarea path="petDesc" name="petDesc" id="petDesc" class="form-control" /></td>
                 <td><font color="red"><form:errors path="petDesc" /></font></td>
             </tr>
             <tr>
@@ -94,7 +133,7 @@
                 <td><img src="getPetMainPic?petNo=${pet.petNo}" width="210" height="240" /></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="file" name="pictures" class="form-control-file" />
+                <td colspan="2"><input type="file" name="pictures" name="pictures" id="pictures" class="form-control-file" />
                 <input type="hidden" name="petMainPic" value="${pet.petMainPic}" readonly="readonly"> </td>
             </tr>
             <tr>
@@ -102,7 +141,7 @@
                 <td><img src="getPetSubPic?petNo=${pet.petNo}" width="210" height="240" /></td>
             </tr>
             <tr>
-                <td colspan="2"><input type="file" name="pictures" class="form-control-file" />
+                <td colspan="2"><input type="file" name="pictures" name="pictures" id="pictures" class="form-control-file" />
                 <input type="hidden" name="petSubPic" value="${pet.petSubPic}" readonly="readonly"></td>
             </tr>
         </table>
@@ -110,7 +149,7 @@
 	</div>
 	<div align="center">
 	    <button type="submit" class="btn btn-primary m-2" id="btnModify"><spring:message code="common.modify" /></button>
-	    <button type="submit" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list" /></button>
+	    <button type="button" class="btn btn-light btn-outline-secondary text-dark m-2" id="btnList"><spring:message code="common.list" /></button>
 	</div>
 </main>
 	<!-- Footer Area -->
