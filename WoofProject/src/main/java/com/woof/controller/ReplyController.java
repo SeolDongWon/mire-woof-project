@@ -84,12 +84,19 @@ public class ReplyController {
 	@PutMapping("/insertReply")
 	public ResponseEntity<List> insertReply(@RequestBody Reply reply, PageRequest pageRequest) throws Exception {
 		log.info("insertReply");
-		log.info("reply : " + reply.toString());
+//		log.info("reply : " + reply.toString());
 
 		if (reply.getReply() != null && !reply.getReply().equals("")) {
-			log.info("reply : " + reply.toString());
+//			log.info("reply : " + reply.toString());
 
 			replyService.insertReply(reply);
+			
+//////////////////샘플 작성			
+//			String desc = reply.getReply();
+//			for(int i=0;i<30;i++) {
+//				reply.setReply(desc+i);
+//				replyService.insertReply(reply);	
+//			}
 		}
 
 		List<Reply> replyList = replyService.getReplyList(pageRequest);

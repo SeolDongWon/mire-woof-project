@@ -29,7 +29,7 @@ $(document).ready(function() {
 	
 	$("#btnRegister").on("click", function() {
 		var formObj = $("#notice");
-		 var check = confirm('<spring:message code="common.alert.confirmDelete"/>');
+		 var check = confirm('<spring:message code="common.alert.confirmSubmit"/>');
 		 
 		 var noticeTitle = document.getElementById('noticeTitle').value;
 		 var noticeDesc = document.getElementById('noticeDesc').value;
