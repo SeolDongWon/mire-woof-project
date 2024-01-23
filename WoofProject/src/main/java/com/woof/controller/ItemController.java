@@ -85,12 +85,13 @@ public class ItemController {
 			}
 		}
 		// create Item in DB
+		itemService.insertItem(item);
 ///////////////////////////////////////////////////////////////////////////////////////////		
-		String name = item.getItemName();
-		for(int i=0;i<30;i++) {
-			item.setItemName(name+i);
-			itemService.insertItem(item);
-		}
+//		String name = item.getItemName();
+//		for(int i=0;i<30;i++) {
+//			item.setItemName(name+i);
+//			itemService.insertItem(item);
+//		}
 		
 		return "redirect:/item/itemList";
 	}
@@ -127,18 +128,16 @@ public class ItemController {
 //		return "item/admin/modifyItem";
 //	}
 
-	
-/////////////////////////////////////////////////////////////////////////
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modifyItem")
 	public String modifyItem(Item item, Model model,PageRequest pageRequest) throws Exception {
 		
-		if(null==item.getItemType()) {
+		if(item.getItemType()==null) {
 			item.setItemType("");
 		}
 		pageRequest.setKeywordTitle(item.getItemType());
 		
-		if(null==pageRequest.getKeyword()) {
+		if(pageRequest.getKeyword()==null) {
 			pageRequest.setKeyword("");
 		}
 		pageRequest.setKeywordDesc(pageRequest.getKeyword());

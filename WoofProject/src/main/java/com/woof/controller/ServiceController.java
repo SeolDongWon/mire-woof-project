@@ -59,11 +59,11 @@ public class ServiceController {
 		serviceService.insertService(service);
 
 		// 샘플작성
-		String desc = service.getServiceDesc();
-		for (int i = 0; i < 30; i++) {
-			service.setServiceDesc(desc + i);
-			serviceService.insertService(service);
-		}
+//		String desc = service.getServiceDesc();
+//		for (int i = 0; i < 30; i++) {
+//			service.setServiceDesc(desc + i);
+//			serviceService.insertService(service);
+//		}
 		return "redirect:/service/getServiceList";
 	}
 

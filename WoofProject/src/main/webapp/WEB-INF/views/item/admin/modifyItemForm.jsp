@@ -2,7 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<form:form modelAttribute="item" action="/item/modifyItem" method="post" enctype="multipart/form-data">
+<form:form modelAttribute="item" action="/item/modifyItem" method="post" enctype="multipart/form-data" onsubmit="return checkValues();">
     <table class="table mx-auto table-striped">
         <tr>
             <td class="w-50"><spring:message code="item.no"/></td>

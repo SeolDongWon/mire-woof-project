@@ -9,32 +9,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Mire Woof</title>
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<!-- css common Area 헤더 푸터에 쓸 css 경로-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
-<!-- script common Area 헤더 푸터에 쓸 script 경로-->
-</script>
-<!-- css local Area 각 개별페이지 css 경로는 여기다가 쓸 것-->
-<%-- <%@ include file="" %> --%>
-<!-- script local Area  각 개별페이지 script 경로는 여기다가 쓸 것 -->
-<%-- <%@ include file="" %> --%>
 </head>
 <body>
-<!-- Header Area -->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<!-- Menu Area -->
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
-<!-- subMenu Area -->
-	<main>
-<!-- 자기가 만든 페이지그룹에 해당하는 메뉴만 남길것 -->
-<!-- ================================================Content Area======================================================== -->
-	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/cart/addToCart" onsubmit="alert('Item added');">
+
+<main>
+	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/cart/addToCart">
 		<input type="hidden" name="itemNo" value="${item.itemNo}"/>
 		<input type="hidden" name="itemName" value="${item.itemName}"/>
 		<input type="hidden" name="itemType" value="${item.itemType}"/>
@@ -114,9 +99,9 @@
 			<img src="getItemSubPic?itemNo=${item.itemNo}" width="1000">
 		</div>
 	</div>
-		<%@ include file="/WEB-INF/views/item/itemReviewInclude.jsp"%>
-	</main>
-<!-- Footer Area -->
+	<%@ include file="/WEB-INF/views/item/itemReviewInclude.jsp"%>
+</main>
+
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 </body>
 </html>
