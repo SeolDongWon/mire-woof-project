@@ -59,7 +59,6 @@ public class OrderHistoryController {
 		log.info("/getOrderHistoryList GET");
 		String username = principal.getName();
 		List<OrderHistory> orderHistoryList = orderHistoryService.getOrderHistoryList(username);
-		log.info("/getOrderHistoryList GET orderHistoryList: " + orderHistoryList);
 		model.addAttribute("orderHistoryList", orderHistoryList);
 		return "account/myCart/myOrderHistoryList";
 	}
@@ -75,13 +74,9 @@ public class OrderHistoryController {
 		Account account = new Account();
 		account.setUsername(username);
 		orderHistory.setUsername(username);
-		log.info("account: " + account.toString());
 		account = accountService.getAccount(account);
-		log.info("account: " + account.toString());
 		String address = account.getAddress();
 		orderHistory.setAddress(address);
-		
-		log.info("/addToOrderHistory POST orderHistory: " + orderHistory.toString() + ", itemNoList: " + itemNoList.toString());
 		
 		// insert new orderHistory
 		orderHistoryService.addToOrderHistory(orderHistory);
@@ -103,7 +98,6 @@ public class OrderHistoryController {
 			orderItemList.add(orderItem);
 		}
 		
-		log.info("/addToOrderHistory POST orderItemList: " + orderItemList.toString());
 		// add orderItemList to database
 		orderItemService.addToOrderItem(orderItemList);
 		
