@@ -2,15 +2,21 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-
+ <script>
+    function changeLanguage(language) {
+        var langUrl = "/changeLanguage?language=" + language;
+        window.location.href = langUrl;
+        window.location.reload();
+    }
+</script>
 <div style="width: 1200px; margin: auto;">
 	<header>
 		<!-- 로그인에 따라 출력이 달라짐 -->
 		<div class="row d-flex m-3">
 			<div class="col-2 d-flex justify-content-start align-items-center">
 				<ul class="nav nav-underline">
-					<li class="nav-item"><a href="/changeLanguage?language=ko" class="nav-link text-decoration-none text-dark">한국어</a></li>
-					<li class="nav-item"><a href="/changeLanguage?language=en" class="nav-link text-decoration-none text-dark">ENGLISH</a></li>
+					<li class="nav-item"><a href="javascript:void(0);" onclick="changeLanguage('ko');" class="nav-link text-decoration-none text-dark">한국어</a></li>
+					<li class="nav-item"><a href="javascript:void(0);" onclick="changeLanguage('en');" class="nav-link text-decoration-none text-dark">ENGLISH</a></li>
 				</ul>
 			</div>
 			

@@ -7,9 +7,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Mire Woof</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <%@ include file="/WEB-INF/views/common/style.jsp"%>
 <%@ include file="/WEB-INF/views/common/script.jsp"%>
 
@@ -29,21 +31,23 @@
     });
     
 	function checkValues() {
+		var priceValue = document.getElementById("itemPrice").value;
+		
 		if(document.getElementById("itemName").value == "") {
 	        alert("<spring:message code='item.alert.enterName'/>");
 	        document.getElementById("itemName").focus();
 	        return;
 		}
-		if(document.getElementById("itemPrice").value <= "0") {
+		if(parseInt(priceValue) <= 0 || isNaN(priceValue)) {
 			alert("<spring:message code='item.alert.enterPrice'/>");
 	        document.getElementById("itemPrice").focus();
 	        return;
 		}
-		if(document.getElementById("itemStock").value <= "0") {
+		/* if(document.getElementById("itemStock").value <= "0") {
 			alert("<spring:message code='item.alert.enterStock'/>");
 	        document.getElementById("itemStock").focus();
 	        return;
-		}
+		} */
 		if(document.getElementById("itemType").value == "") {
 			alert("<spring:message code='item.alert.enterType'/>")
 	        document.getElementById("itemType").focus();
@@ -83,10 +87,10 @@
 					<td><spring:message code="common.price"/></td>
 					<td><form:input class="form-control" path="itemPrice" name="itemPrice" id="itemPrice"/></td>
 				</tr>
-				<tr>
+				<%-- <tr>
 					<td><spring:message code="item.itemStock"/></td>
 					<td><form:input class="form-control" path="itemStock" name="itemStock" id="itemStock"/></td>
-				</tr>
+				</tr> --%>
 				<tr>
 					<td><spring:message code="item.itemType"/></td>
 					<td>

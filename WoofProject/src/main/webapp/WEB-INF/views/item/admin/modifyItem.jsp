@@ -37,9 +37,12 @@ function modifyItem(itemNo) {
     $(document).ready(function() {
     	var formObj = $("#item");
     	
-    	var responseItemNo = document.getElementById('responseItemNo').value;
-    	modifyItem(responseItemNo);
-    	
+	    	var responseItemNo = document.getElementById('responseItemNo').value;
+	    	
+			if(responseItemNo!= 0) {
+		    	modifyItem(responseItemNo);
+    		}
+	    	
     	 $("#selectedItem").on("change", function() {
     		var selectedItemNo = $(this).val();
     		
@@ -59,12 +62,6 @@ function modifyItem(itemNo) {
     			$("#modifyFormContainer").empty();
     		}
     	}); 
-        
-    	$("#btnModifyItem").on("click", function() {
-    	    if (checkValues()) {
-    	        formObj.submit();
-    	    }
-    	});
 
         $("#btnGetItemList").on("click", function() {
             self.location = "/item/itemList";
@@ -98,40 +95,45 @@ function modifyItem(itemNo) {
     }
     
 	function checkValues() {
+		
+		var priceValue = document.getElementById("itemPrice").value;
+		/* var stockValue = document.getElementById("itemStock").value; */
+		console.log("Price value:", priceValue);
+		
 		if(document.getElementById("itemName").value == "") {
 	        alert("<spring:message code='item.alert.enterName'/>");
 	        document.getElementById("itemName").focus();
-	        return;
+	        return false;
 		}
-		if(document.getElementById("itemPrice").value <= "0") {
+		if(parseInt(priceValue) <= 0 || isNaN(priceValue)) {
 			alert("<spring:message code='item.alert.enterPrice'/>");
 	        document.getElementById("itemPrice").focus();
-	        return;
+	        return false;
 		}
-		if(document.getElementById("itemStock").value <= "0") {
+		/* if(parseInt(stockValue) <= 0 || isNaN(stockValue)) {
 			alert("<spring:message code='item.alert.enterStock'/>");
 	        document.getElementById("itemStock").focus();
 	        return;
-		}
+		} */
 		if(document.getElementById("itemType").value == "") {
 			alert("<spring:message code='item.alert.enterType'/>")
 	        document.getElementById("itemType").focus();
-	        return;
+	        return false;
 		}
 		if(document.getElementById("itemMainPic").value == "") {
 			alert("<spring:message code='item.alert.enterMainPic'/>")
 	        document.getElementById("itemMainPic").focus();
-	        return;
+	        return false;
 		}
 		if(document.getElementById("itemSubPic").value == "") {
 			alert("<spring:message code='item.alert.enterSubPic'/>")
 	        document.getElementById("itemSubPic").focus();
-	        return;
+	        return false;
 		}
 		if(document.getElementById("itemDesc").value == "") {
 			alert("<spring:message code='item.alert.enterDescription'/>")
 	        document.getElementById("itemDesc").focus();
-	        return;
+	        return false;
 		}
 		return true;
 	}

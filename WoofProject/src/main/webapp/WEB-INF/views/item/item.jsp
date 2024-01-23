@@ -19,7 +19,7 @@
 	<%@ include file="/WEB-INF/views/common/mainMenu.jsp"%>
 
 <main>
-	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/cart/addToCart" onsubmit="alert('Item added');">
+	<form:form modelAttribute="item" action="${pageContext.request.contextPath}/cart/addToCart">
 		<input type="hidden" name="itemNo" value="${item.itemNo}"/>
 		<input type="hidden" name="itemName" value="${item.itemName}"/>
 		<input type="hidden" name="itemType" value="${item.itemType}"/>

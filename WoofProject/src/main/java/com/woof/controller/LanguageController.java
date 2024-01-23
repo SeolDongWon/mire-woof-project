@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class LanguageController {
 
 	@GetMapping("/changeLanguage")
-	public String changeLanguage(HttpServletRequest request, HttpServletResponse response, String language) {
+	public void changeLanguage(HttpServletRequest request, HttpServletResponse response, String language) {
 		Locale locale = new Locale(language);
 		request.getSession().setAttribute("org.springframework.web.servlet.i18n.SessionLocaleResolver.LOCALE", locale);
 		
@@ -21,7 +21,5 @@ public class LanguageController {
 		localeResolver.setCookieMaxAge(60 * 60 * 24);
 		localeResolver.setCookieName("language");
         localeResolver.setLocale(request, response, locale);
-        
-        return "redirect:/";
 	}
 }

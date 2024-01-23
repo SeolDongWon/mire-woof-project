@@ -43,7 +43,7 @@
 		<c:choose>
 			<c:when test="${empty itemList}">
 				<tr>
-					<td colspan="4" style="text-align:center">There are no items</td>
+					<td colspan="4" style="text-align:center"><spring:message code="item.noItems"/></td>
 				</tr>
 			</c:when>
 			<c:otherwise>

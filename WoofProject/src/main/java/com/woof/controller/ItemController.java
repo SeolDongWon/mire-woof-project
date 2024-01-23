@@ -128,18 +128,16 @@ public class ItemController {
 //		return "item/admin/modifyItem";
 //	}
 
-	
-/////////////////////////////////////////////////////////////////////////
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/modifyItem")
 	public String modifyItem(Item item, Model model,PageRequest pageRequest) throws Exception {
 		
-		if(null==item.getItemType()) {
+		if(item.getItemType()==null) {
 			item.setItemType("");
 		}
 		pageRequest.setKeywordTitle(item.getItemType());
 		
-		if(null==pageRequest.getKeyword()) {
+		if(pageRequest.getKeyword()==null) {
 			pageRequest.setKeyword("");
 		}
 		pageRequest.setKeywordDesc(pageRequest.getKeyword());
