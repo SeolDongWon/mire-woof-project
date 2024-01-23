@@ -59,7 +59,7 @@ public class PetController {
 	@GetMapping("/getPetList")
 	public String getPetList(Pet pet, Model model, PageRequest pageRequest, Pagination pagination, @AuthenticationPrincipal UserDetails userDetails) throws Exception {
 		
-		//분양 신청 권한
+		// 분양 신청 권한 표시
 //		if(null!=userDetails) {
 //			String authList = userDetails.getAuthorities().toString();
 //			model.addAttribute("authList", authList);

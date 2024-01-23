@@ -60,11 +60,7 @@
 			document.getElementById("petDesc").focus();
 			return;
 		}
-		if(document.getElementById("pictures").value == ""){
-			alert("사진을 선택해주세요");
-			document.getElementById("pictures").focus();
-			return;
-		}
+		
 		return true;
 	}
 	
