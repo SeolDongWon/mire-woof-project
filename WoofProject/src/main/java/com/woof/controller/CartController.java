@@ -10,7 +10,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +47,6 @@ public class CartController {
 		log.info("/myCart GET: username: " + username);
 		// for test
 		List<Cart> cartList = cartService.getCart(username);
-		log.info("/myCart GET: cartList: " + cartList.toString());
 		model.addAttribute("cartList", cartList);
 		return "account/myCart/myCart";
 	}
@@ -62,9 +60,7 @@ public class CartController {
 		int totalPrice = calculateTotalPrice(cartList);
 		
 		model.addAttribute("cartList", cartList);
-		log.info("/getOrder cartList: " + cartList);
 		model.addAttribute("totalPrice", totalPrice);
-		log.info("/getOrder totalPrice: " + totalPrice);
 		return "account/myCart/myOrder";
 	}
 	
@@ -85,7 +81,6 @@ public class CartController {
 		List<String> selectedItems = (List<String>) requestData.get("selectedItems");
 		String username = principal.getName();
 		
-		log.info("/removeChecked POST selectedItems: " + selectedItems.toString() + ", username: " + username);
 		cartService.removeChecked(selectedItems, username);
 		return ResponseEntity.ok("Items removed successfully");
 	}
@@ -97,7 +92,6 @@ public class CartController {
 		String itemNo = (String) requestData.get("itemNo");
 		String username = principal.getName();
 		
-		log.info("/removeFromCart POST itemNo: " + itemNo + ", username: " + username);
 		cartService.removeFromCart(itemNo, username);
 		return ResponseEntity.ok("Item removed successfully");
 	}
