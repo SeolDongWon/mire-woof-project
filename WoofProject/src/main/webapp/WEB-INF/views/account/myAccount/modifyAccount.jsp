@@ -46,7 +46,7 @@
 		
 		<div class="d-flex  justify-content-center">
 
-		<form action="/account/modifyAccount" method="post"  name="joinform" onsubmit="doSubmit(); return false;">
+		<form action="/account/modifyAccount" method="post"  name="modifyform" onsubmit="modifySubmit(); return false;">
 			<div class="container mt-3" style="width: 500px">
 				<table class="table table-borderless">
 

@@ -48,6 +48,30 @@
 
 		}
 	}
+	//수정체크
+	function modifySubmit() {
+		let frm = document.modifyform;
+		
+		let flag = true;
+		let accountArray = [ idCheck(), pwCheck(), nameCheck(), telCheck(),
+				addressCheck1(), addressCheck2(), addressCheck3() ]
+
+		for (let i = 0; i < accountArray.length; i++) {
+			if (!accountArray[i]) {
+				flag = false;
+			}
+		}
+		if (flag) {
+			if (confirm("" + check)) {
+				frm.submit();
+			}
+		} else {
+			alert("<spring:message code='signup.checkInfo'/>");
+		}
+	}
+	
+	
+	
 	//전체 체크
 	function doSubmit() {
 		let frm = document.joinform;

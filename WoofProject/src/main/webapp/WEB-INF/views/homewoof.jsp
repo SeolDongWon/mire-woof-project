@@ -20,7 +20,7 @@
 <script>
 	let result = "${msg}";
 	if (result === "SUCCESS") {
-		alert("An account that already exists. Exit");
+		alert("관리자계정이 이미 있습니다.");
 	}
 	let result2 = "${msg2}";
 	if (result2 === "SUCCESS2") {
