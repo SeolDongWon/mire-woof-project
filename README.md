@@ -64,6 +64,9 @@
 - 유저가 작성한 문의사항에 관리자가 답변
 - https://github.com/SeolDongWon/mire-woof-project/assets/142363792/c531efa3-bb51-4eb0-9862-a63780969943
 
+- 다국어 변환 en <->kr
+- https://github.com/SeolDongWon/mire-woof-project/assets/142363792/8c4c1126-4485-4540-88da-a4cab41ab38d
+
 
 
 
