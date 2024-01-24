@@ -44,25 +44,25 @@
 영상시연
 ---
 - 관리자&유저 회원가입, 로그인, 내정보수정, 회원탈퇴
-https://github.com/SeolDongWon/mire-woof-project/assets/142363792/43a61654-965b-4e6c-bc52-dab4f9b955ca
+- https://github.com/SeolDongWon/mire-woof-project/assets/142363792/43a61654-965b-4e6c-bc52-dab4f9b955ca
 
 - 공지사항 기능
-https://github.com/SeolDongWon/mire-woof-project/assets/142363792/d4684774-ea90-4fce-acd5-04ed2b13afd7
+- https://github.com/SeolDongWon/mire-woof-project/assets/142363792/d4684774-ea90-4fce-acd5-04ed2b13afd7
 
 - 입양견 추가 수정 상태변경
-https://github.com/SeolDongWon/mire-woof-project/assets/142363792/319fb10d-0a2d-4047-99b8-aba59e89d20b
+- https://github.com/SeolDongWon/mire-woof-project/assets/142363792/319fb10d-0a2d-4047-99b8-aba59e89d20b
 
 - 상품 추가 수정 
-https://github.com/SeolDongWon/mire-woof-project/assets/142363792/65053555-515a-4c97-81ad-da77f758f2ba
+- https://github.com/SeolDongWon/mire-woof-project/assets/142363792/65053555-515a-4c97-81ad-da77f758f2ba
 
 - 관리자가 유저 상태 변경, 유저 로그인, 입양후기, 댓글 기능
-https://github.com/SeolDongWon/mire-woof-project/assets/142363792/d41b9870-e04f-4467-bd5c-df739be3444b
+- https://github.com/SeolDongWon/mire-woof-project/assets/142363792/d41b9870-e04f-4467-bd5c-df739be3444b
 
 - 장바구니에 상품 담기, 장바구니에 있는 상품 관리, 상품구매, 문의사항 작성하기
-https://github.com/SeolDongWon/mire-woof-project/assets/142363792/4bb049a1-e1cc-4487-8b51-35f0777c8a1e
+- https://github.com/SeolDongWon/mire-woof-project/assets/142363792/4bb049a1-e1cc-4487-8b51-35f0777c8a1e
 
 - 유저가 작성한 문의사항에 관리자가 답변
-https://github.com/SeolDongWon/mire-woof-project/assets/142363792/c531efa3-bb51-4eb0-9862-a63780969943
+- https://github.com/SeolDongWon/mire-woof-project/assets/142363792/c531efa3-bb51-4eb0-9862-a63780969943
 
 
 
