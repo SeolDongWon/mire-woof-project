@@ -23,7 +23,7 @@
  - 운영체제 : Windows 10
  - 개발언어 : Java 17, JavaScript, HTML5, CSS3
  - 웹기술 : JSP, Ajax, XML
- - 라이브러리, 프레임워크 : SpringFramework 5.3.9, MyBatis 3.0.3, Query 3.5.1, Lombok, JSTL
+ - 라이브러리, 프레임워크 : SpringFramework 5.3.9, MyBatis 3.0.3, JQuery 3.5.1, Lombok, JSTL
  - 보안 : Spring Security
  - 개발도구 : Spring Tool Suite 4.21.0.RELEASE, Visual Studio Code 1.85.2
  - 데이터베이스 : Oracle XE 21c
